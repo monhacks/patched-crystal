@@ -342,7 +342,7 @@ ParkBall: ; e8a2
 	and 1 << FRZ | SLP
 	ld c, 10
 	jr nz, .addstatus
-	; ld a, [EnemyMonStatus]
+	 ld a, [EnemyMonStatus]
 	and a
 	ld c, 5
 	jr nz, .addstatus
@@ -947,7 +947,7 @@ GLOBAL EvosAttacksPointers
 	push bc
 	ld a, BANK(EvosAttacks)
 	call GetFarByte
-	cp MOON_STONE_RED ; BURN_HEAL
+	cp MOON_STONE ; BURN_HEAL
 	pop bc
 	ret nz
 
@@ -1044,7 +1044,7 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .next ; for the intended effect, this should be “jr nz, .loop”
+	jr nz, .loop ; for the intended effect, this should be “jr nz, .loop”
 	sla b
 	jr c, .max
 
