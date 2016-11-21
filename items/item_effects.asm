@@ -367,7 +367,7 @@ ParkBall: ; e8a2
 	; Uncomment the line below to fix.
 
 	ld a, [BattleMonItem]
-;	ld b, a
+	ld b, a
 	callba GetItemHeldEffect
 	ld a, b
 	cp HELD_CATCH_CHANCE
@@ -1006,7 +1006,7 @@ LoveBallMultiplier:
 	pop de
 	cp d
 	pop bc
-	ret nz ; for the intended effect, this should be “ret z”
+	ret z ; for the intended effect, this should be “ret z”
 
 	sla b
 	jr c, .max
