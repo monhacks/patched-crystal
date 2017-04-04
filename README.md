@@ -3,7 +3,6 @@
 This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
 [**Changelog**](ReadMe.txt)
-[**Get the rom here**](Pokemon Patched Crystal.gbc)
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
