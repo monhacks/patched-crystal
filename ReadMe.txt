@@ -1,11 +1,16 @@
 Pokemon Patched Crystal Beta 0.1
 
-This hack aims to fix all the generation 2 bugs but still retain the original gameplay and features.
+This hack aims to fix the generation 2 bugs but still retain the original gameplay and features.
 
 This hack is .gbc ready, just load it on an emulator and play.
 
 
 Changelog
+
+~~0.2~~
+
+Love ball works as intended
+
 
 ~~0.1~~
 
