@@ -7,7 +7,6 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
-<<<<<<< HEAD
 ~~0.3~~
 
 Slight time system adjustment (This was done for the sake of a more broad use of all phases of a day from the players and to reflect better on the real world. Subject to change)
@@ -24,14 +23,9 @@ Morning: 06:00 - 12:59
 Day: 13:00 - 19:59
 Night: 20:00 - 05:59
 
-
-
-=======
->>>>>>> origin/master
 ~~0.2~~
 
 Love ball works as intended
-
 
 ~~0.1~~
 
