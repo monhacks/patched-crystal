@@ -3,7 +3,7 @@
 This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
 [**Changelog**](ReadMe.txt)
-[**Encounters and Evolutions**](Encounters and Evolutions.txt)
+[**Encounters and Evolutions**](Encounters&Evolutions.txt)
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
