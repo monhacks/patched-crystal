@@ -7,9 +7,41 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.4~~
+
+Dragon Fang increases the power of Dragon-type attacks as intented
+
+Some Evolutions were tweaked, you can also find this list in the "Encounters and Evolutions" text file.
+
+***These methods are subject to change***
+
+Haunter evolves into Gengar at level 40
+
+Machoke evolves into Machamp at level 35
+
+Graveler evolves into Golem at level 35
+
+Kadabra evolves into Alakazam at level 35
+
+Eevee evolves into Espeon by using a Sun Stone
+
+Eevee evolves into Umbreon by using a Moon Stone
+
+Seadra evolves into Kingdra at level 40
+
+Onix evolves into Steelix at level 35
+
+Scyther evolves into Scizor at level 25
+
+Slowpoke evolves into Slowking by using a Water Stone
+
+Poliwhirl evolves into Politoed at level 30
+
+Porygon evolves into Porygon2 at level 30
+
 ~~0.3~~
 
-Slight time system adjustment (This was done for the sake of a more broad use of all phases of a day from the players and to reflect better on the real world. Subject to change)
+Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the players and to reflect better on the real world. Subject to change.
 
 Previous:
 
