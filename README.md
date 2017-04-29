@@ -6,6 +6,8 @@ This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
 [**Encounters and Evolutions**](Encounters&Evolutions.txt)
 
+[**Wanna play? Get the rom now!**](Pokemon Patched Crystal.gbc)
+
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
 ## Other cool things not by me
