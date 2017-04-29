@@ -1,42 +1,55 @@
-Here's a list of encounters that are added and/or adjusted and how certain pokemon evolve now.
+This is list of encounters that are added and/or adjusted and how certain pokemon evolve now.
+
+NOTE: Some common encounters like rattata were replaced, keep in mind that you can still find all pokemon and in places you already know of
 
 
 ~~Encounters~~
 
-Vulpix can be found mostly during the day on:
-Route 36, 37, 7, 8
+Houndour can now be found on Johto rarely during the day and mostly during the night at:
+Route 36, 37 done
 
-Mankey can be found mostly during the day at:
-Route 42, 9
+Murkrow can now be found on Johto during the night at:
+Route 38 done
+
+Slugma can now be found on Johto during the day at:
+Burned Tower B1F done
+
+~~
+
+Vulpix can be found during the morning and day at:
+Route 36, 37, 7, 8 done
+
+Mankey can be found rarely during the morning and mostly during the day at:
+Route 42, 9 done
 
 Mareep can be found mostly during the morning and day at:
-Route 32, 42, 43
+Route 32, 42, 43 done
 
-Girafarig can be found mostly during the morning and day at:
-Route 43
+Girafarig can be found rarely during the morning and day at:
+Route 43 done
 
-Remoraid and Octillery can mostly be found at almost all bodies of water using both rods and SURF.
+Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms semi done
 
 Chikorita can be found only during morning at:
-Route 31
+Route 31 done
 
 Cyndaquil can be found only during the night at:
-Dark cave (Violet city entrance)
+Dark cave (Violet city entrance) done
 
 Totodile can be found only during the day at:
-Cherrygrove city (Water)
+Cherrygrove city (Water) done
 
 Bulbasaur can be found only during morning and night at:
-Ilex Forest
+Ilex Forest done
 
 Charmander can be found only during the night at:
-Burned Tower B1F
+Burned Tower B1F done
 
-Squirtle can be found at all times at:
-Whirl Islands B2F
+Squirtle can be found at all times (because im biased) at:
+Whirl Islands B2F done
 
 Omanyte and Kabuto can be found only during the night at:
-Whirl Islands in Lugia's Chamber
+Whirl Islands in Lugia's Chamber (not in the water) done
 
 
 ****ADD LEGENDARIES HERE*****
@@ -46,7 +59,7 @@ Whirl Islands in Lugia's Chamber
 
 ***These methods are subject to change***
 
-Haunter evolves into Gengar at level 40
+Haunter evolves into Gengar at level 35
 
 Machoke evolves into Machamp at level 35
 
@@ -69,3 +82,7 @@ Slowpoke evolves into Slowking by using a Water Stone
 Poliwhirl evolves into Politoed at level 30
 
 Porygon evolves into Porygon2 at level 30
+
+Golbat evolves into Crobat at level 35 Done for the sake of consistency
+
+Chansey evolves into Blissey at level 40 Done for the sake of consistency

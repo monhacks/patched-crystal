@@ -31,16 +31,16 @@ FishGroups: ; 92488
 .Ocean_Old: ; 92504
 	db  70 percent + 1, MAGIKARP,   10
 	db  85 percent + 1, MAGIKARP,   10
-	db 100 percent,     TENTACOOL,  10
+	db 100 percent,     REMORAID,   10 ;TENTACOOL
 .Ocean_Good: ; 9250d
 	db  35 percent,     MAGIKARP,   20
-	db  70 percent,     TENTACOOL,  20
+	db  70 percent,     REMORAID,   20 ;TENTACOOL
 	db  90 percent + 1, CHINCHOU,   20
 	db 100 percent,     0, 2
 .Ocean_Super: ; 92519
 	db  40 percent,     CHINCHOU,   40
 	db  70 percent,     0, 3
-	db  90 percent + 1, TENTACRUEL, 40
+	db  90 percent + 1, OCTILLERY,  40 ;TENTACRUEL
 	db 100 percent,     LANTURN,    40
 
 .Lake_Old: ; 92525
@@ -49,7 +49,7 @@ FishGroups: ; 92488
 	db 100 percent,     GOLDEEN,    10
 .Lake_Good: ; 9252e
 	db  35 percent,     MAGIKARP,   20
-	db  70 percent,     GOLDEEN,    20
+	db  70 percent,     REMORAID,   20 ;GOLDEEN
 	db  90 percent + 1, GOLDEEN,    20
 	db 100 percent,     0, 4
 .Lake_Super: ; 9253a

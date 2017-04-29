@@ -105,7 +105,7 @@
 	map OLIVINE_PORT
 	db 2 percent ; encounter rate
 	db 20, TENTACOOL
-	db 15, TENTACOOL
+	db 15, REMORAID ;TENTACOOL
 	db 20, TENTACRUEL
 
 	map ROUTE_30
@@ -141,12 +141,12 @@
 	map ROUTE_40
 	db 6 percent ; encounter rate
 	db 20, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACRUEL
+	db 15, REMORAID ;TENTACOOL
+	db 20, OCTILLERY ;TENTACRUEL
 
 	map ROUTE_41
 	db 6 percent ; encounter rate
-	db 20, TENTACOOL
+	db 20, OCTILLERY ;TENTACOOL
 	db 20, TENTACRUEL
 	db 20, MANTINE
 
@@ -175,16 +175,16 @@
 	db 5, MAGIKARP
 
 	map NEW_BARK_TOWN
-	db 6 percent ; encounter rate
+	db 6 percent ; encounter ratem
 	db 20, TENTACOOL
 	db 15, TENTACOOL
 	db 20, TENTACRUEL
 
 	map CHERRYGROVE_CITY
 	db 6 percent ; encounter rate
-	db 20, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACRUEL
+	db 20, REMORAID ;TENTACOOL
+	db 15, OCTILLERY ;TENTACOOL
+	db 20, TOTODILE ;TENTACRUEL
 
 	map VIOLET_CITY
 	db 2 percent ; encounter rate

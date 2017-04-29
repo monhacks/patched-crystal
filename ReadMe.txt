@@ -7,6 +7,59 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.5~~
+
+TMs are now infinite use
+
+Golbat evolves into Crobat at level 35 Done for the sake of consistency
+
+Chansey evolves into Blissey at level 40 Done for the sake of consistency
+
+Houndour can now be found on Johto rarely during the day and mostly during the night at:
+Route 36, 37
+
+Murkrow can now be found on Johto during the night at:
+Route 38
+
+Slugma can now be found on Johto during the day at:
+Burned Tower B1F
+
+Vulpix can be found during the morning and day at:
+Route 36, 37, 7, 8
+
+Mankey can be found rarely during the morning and mostly during the day at:
+Route 42, 9
+
+Mareep can be found mostly during the morning and day at:
+Route 32, 42, 43
+
+Girafarig can be found rarely during the morning and day at:
+Route 43
+
+Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms semi done
+
+Chikorita can be found only during morning at:
+Route 31
+
+Cyndaquil can be found only during the night at:
+Dark cave (Violet city entrance)
+
+Totodile can be found only during the day at:
+Cherrygrove city (Water)
+
+Bulbasaur can be found only during morning and night at:
+Ilex Forest
+
+Charmander can be found only during the night at:
+Burned Tower B1F
+
+Squirtle can be found at all times at:
+Whirl Islands B2F
+
+Omanyte and Kabuto can be found only during the night at:
+Whirl Islands in Lugia's Chamber (not in the water)
+
+
 ~~0.4~~
 
 Dragon Fang increases the power of Dragon-type attacks as intented

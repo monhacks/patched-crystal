@@ -312,8 +312,8 @@
 	db 14, KOFFING
 	db 16, KOFFING
 	db 15, ZUBAT
-	db 12, KOFFING
-	db 16, KOFFING
+	db 12, SLUGMA ;KOFFING
+	db 16, SLUGMA ;KOFFING
 	db 16, WEEZING
 	; nite
 	db 14, RATTATA
@@ -322,7 +322,7 @@
 	db 15, ZUBAT
 	db 12, KOFFING
 	db 16, KOFFING
-	db 16, WEEZING
+	db 16, CHARMANDER ;WEEZING
 
 	map NATIONAL_PARK
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -549,7 +549,7 @@
 	db 7, KAKUNA
 	db 7, PIDGEY
 	db 6, PARAS
-	db 6, PARAS
+	db 6, BULBASAUR ;PARAS
 	; day
 	db 5, CATERPIE
 	db 5, WEEDLE
@@ -565,7 +565,7 @@
 	db 7, PSYDUCK
 	db 7, HOOTHOOT
 	db 6, PARAS
-	db 6, PARAS
+	db 6, BULBASAUR ;PARAS
 
 	map MOUNT_MORTAR_1F_OUTSIDE
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -981,7 +981,7 @@
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; day
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -989,7 +989,7 @@
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; nite
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -997,7 +997,7 @@
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, GOLBAT
-	db 26, GOLBAT
+	db 26, SQUIRTLE ;GOLBAT
 
 	map WHIRL_ISLAND_LUGIA_CHAMBER
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -1023,8 +1023,8 @@
 	db 25, KRABBY
 	db 27, KRABBY
 	db 28, GOLBAT
-	db 27, GOLBAT
-	db 27, GOLBAT
+	db 27, KABUTO  ;GOLBAT
+	db 27, OMANYTE ;GOLBAT
 
 	map SILVER_CAVE_ROOM_1
 	db 6 percent, 6 percent, 6 percent ; encounter rates: morn/day/nite
@@ -1158,8 +1158,8 @@
 	db 2, GEODUDE
 	db 4, GEODUDE
 	db 2, ZUBAT
-	db 4, ZUBAT
-	db 4, DUNSPARCE
+	db 4, DUNSPARCE ;ZUBAT
+	db 4, CYNDAQUIL ;DUNSPARCE
 
 	map DARK_CAVE_BLACKTHORN_ENTRANCE
 	db 4 percent, 4 percent, 4 percent ; encounter rates: morn/day/nite
@@ -1252,7 +1252,7 @@
 	db 5, PIDGEY
 	db 4, WEEDLE
 	db 5, HOPPIP
-	db 5, HOPPIP
+	db 5, CHIKORITA ;HOPPIP
 	; day
 	db 4, PIDGEY
 	db 4, CATERPIE
@@ -1274,19 +1274,19 @@
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
 	db 4, EKANS
-	db 5, RATTATA
+	db 5, MAREEP ;RATTATA
 	db 7, BELLSPROUT
 	db 6, HOPPIP
-	db 7, PIDGEY
-	db 7, HOPPIP
+	db 7, MAREEP ;PIDGEY
+	db 7, MAREEP ;HOPPIP
 	db 7, HOPPIP
 	; day
 	db 4, EKANS
 	db 5, RATTATA
 	db 7, BELLSPROUT
-	db 6, HOPPIP
+	db 6, MAREEP ;HOPPIP
 	db 7, PIDGEY
-	db 7, HOPPIP
+	db 7, MAREEP ;HOPPIP
 	db 7, HOPPIP
 	; nite
 	db 4, WOOPER
@@ -1384,50 +1384,50 @@
 	db 4, LEDYBA
 	db 4, PIDGEY
 	db 5, BELLSPROUT
-	db 5, GROWLITHE
-	db 5, PIDGEY
+	db 5, VULPIX ;GROWLITHE
+	db 5, VULPIX ;PIDGEY
 	db 6, PIDGEY
 	db 6, PIDGEY
 	; day
 	db 4, PIDGEY
 	db 4, PIDGEY
 	db 5, BELLSPROUT
-	db 5, GROWLITHE
-	db 5, PIDGEY
+	db 5, VULPIX ;GROWLITHE
+	db 5, VULPIX ;PIDGEY
 	db 6, PIDGEY
-	db 6, PIDGEY
+	db 6, HOUNDOUR ;PIDGEY
 	; nite
 	db 4, SPINARAK
 	db 4, HOOTHOOT
 	db 5, BELLSPROUT
 	db 5, HOOTHOOT
-	db 5, HOOTHOOT
+	db 5, HOUNDOUR ;HOOTHOOT
 	db 5, GASTLY
-	db 5, GASTLY
+	db 5, HOUNDOUR ;GASTLY
 
 	map ROUTE_37
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
 	db 13, LEDYBA
-	db 14, GROWLITHE
+	db 14, VULPIX ;GROWLITHE
 	db 15, PIDGEY
-	db 16, GROWLITHE
+	db 16, VULPIX ;GROWLITHE
 	db 15, PIDGEOTTO
 	db 15, LEDIAN
 	db 15, LEDIAN
 	; day
 	db 13, PIDGEY
-	db 14, GROWLITHE
+	db 14, VULPIX ;GROWLITHE
 	db 15, PIDGEY
-	db 16, GROWLITHE
+	db 16, VULPIX ;GROWLITHE
 	db 15, PIDGEOTTO
 	db 15, PIDGEY
-	db 15, PIDGEY
+	db 15, HOUNDOUR ;PIDGEY
 	; nite
 	db 13, SPINARAK
 	db 14, STANTLER
-	db 15, HOOTHOOT
-	db 16, STANTLER
+	db 15, HOUNDOUR ;HOOTHOOT
+	db 16, HOUNDOUR ;STANTLER
 	db 15, NOCTOWL
 	db 15, ARIADOS
 	db 15, ARIADOS
@@ -1454,8 +1454,8 @@
 	db 16, MEOWTH
 	db 16, RATICATE
 	db 16, MAGNEMITE
-	db 16, NOCTOWL
-	db 16, MEOWTH
+	db 16, MURKROW ;NOCTOWL
+	db 16, MURKROW ;MEOWTH
 	db 16, MEOWTH
 	db 16, MEOWTH
 
@@ -1491,16 +1491,16 @@
 	; morn
 	db 13, EKANS
 	db 14, SPEAROW
-	db 15, RATTATA
-	db 16, RATICATE
+	db 15, MAREEP ;RATTATA
+	db 16, MAREEP ;RATICATE
 	db 15, ARBOK
-	db 16, FEAROW
-	db 16, FEAROW
+	db 16, MAREEP ;FEAROW
+	db 16, MANKEY ;FEAROW
 	; day
 	db 13, EKANS
 	db 14, SPEAROW
-	db 15, RATTATA
-	db 16, RATICATE
+	db 15, MANKEY ;RATTATA
+	db 16, MANKEY ;RATICATE
 	db 15, ARBOK
 	db 16, FEAROW
 	db 16, FEAROW
@@ -1517,20 +1517,20 @@
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
 	; morn
 	db 15, SENTRET
-	db 16, PIDGEOTTO
+	db 16, MAREEP ;PIDGEOTTO
 	db 16, FARFETCH_D
-	db 15, FURRET
+	db 15, MAREEP ;FURRET
 	db 17, RATICATE
 	db 17, FURRET
-	db 17, FURRET
+	db 17, GIRAFARIG ;FURRET
 	; day
 	db 15, SENTRET
 	db 16, PIDGEOTTO
 	db 16, FARFETCH_D
 	db 15, FURRET
-	db 17, RATICATE
-	db 17, FURRET
-	db 17, FURRET
+	db 17, MAREEP ;RATICATE
+	db 17, MAREEP ;FURRET
+	db 17, GIRAFARIG ;FURRET
 	; nite
 	db 15, VENONAT
 	db 16, NOCTOWL
