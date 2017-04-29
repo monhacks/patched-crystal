@@ -6,7 +6,7 @@ This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
 [**Encounters and Evolutions**](Encounters&Evolutions.txt)
 
-[**Wanna play? Get the rom now!**](Pokemon Patched Crystal.gbc)
+Want to try this out? You can get the rom [**here**]https://github.com/UberMedic7/patched-crystal/releases
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
