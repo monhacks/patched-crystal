@@ -1,4 +1,4 @@
-Pokemon Patched Crystal Beta 0.1
+Pokemon Patched Crystal Beta
 
 This hack aims to fix the generation 2 bugs but still retain the original gameplay and features.
 
