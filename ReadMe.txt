@@ -7,6 +7,31 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.6~~
+
+Evolutionary stones can now be purchased from the Goldenrod Department Store 2F
+
+Natu can now be found during the day at:
+Tin Tower 2F
+
+Xatu can now be found rarely during the day or night at:
+Tin Tower 2F
+
+Scyther can now be found during the day at:
+Ilex Forest
+
+Kanto Legendaries can now be obtained via in-game trades, subject to change.
+
+Zapdos is now available via in-game trade in Goldenrod City
+
+Moltres is now available via in-game trade in Violet City
+
+Articuno is now available via in-game trade in Olivine City
+
+Mewtwo is now available via in-game trade in the Power Plant
+
+Mew is now available via in-game trade in Pewter City
+
 ~~0.5~~
 
 TMs are now infinite use

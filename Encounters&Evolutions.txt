@@ -14,6 +14,15 @@ Route 38 done
 Slugma can now be found on Johto during the day at:
 Burned Tower B1F done
 
+Natu can now be found during the day at:
+Tin Tower 2F done
+
+Xatu can now be found rarely during the day or night at:
+Tin Tower 2F done
+
+Scyther can now be found during the day at:
+Ilex Forest done
+
 ~~
 
 Vulpix can be found during the morning and day at:
@@ -51,8 +60,15 @@ Whirl Islands B2F done
 Omanyte and Kabuto can be found only during the night at:
 Whirl Islands in Lugia's Chamber (not in the water) done
 
+Zapdos is now available via in-game trade in Goldenrod City
 
-****ADD LEGENDARIES HERE*****
+Moltres is now available via in-game trade in Violet City
+
+Articuno is now available via in-game trade in Olivine City
+
+Mewtwo is now available via in-game trade in the Power Plant
+
+Mew is now available via in-game trade in Pewter City
 
 
 ~~Evolutions~~

@@ -68,10 +68,10 @@
 	db 20, RATTATA
 	db 21, RATTATA
 	db 22, RATTATA
-	db 22, RATTATA
-	db 23, RATTATA
-	db 24, RATTATA
-	db 24, RATTATA
+	db 22, NATU ;RATTATA
+	db 23, NATU ;RATTATA
+	db 24, NATU ;RATTATA
+	db 24, XATU;RATTATA
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
@@ -79,7 +79,7 @@
 	db 22, RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
-	db 24, RATTATA
+	db 24, XATU;RATTATA
 
 	map TIN_TOWER_3F
 	db 2 percent, 2 percent, 2 percent ; encounter rates: morn/day/nite
@@ -555,7 +555,7 @@
 	db 5, WEEDLE
 	db 7, METAPOD
 	db 7, KAKUNA
-	db 7, PIDGEY
+	db 7, SCYTHER;PIDGEY
 	db 6, PARAS
 	db 6, PARAS
 	; nite
