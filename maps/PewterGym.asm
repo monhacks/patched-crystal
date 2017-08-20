@@ -36,10 +36,18 @@ BrockScript_0x1a2864:
 
 .FightDone:
 	writetext UnknownText_0x1a2ada
-	waitbutton
+	yesorno
+	iftrue .BrockRematch
 	closetext
 	end
 
+.BrockRematch:
+	winlosstext Brock_RematchDefeat, 0
+	loadtrainer BROCK, 1
+	startbattle
+	reloadmapafterbattle
+	end
+	
 TrainerCamperJerry:
 	trainer EVENT_BEAT_CAMPER_JERRY, CAMPER, JERRY, CamperJerrySeenText, CamperJerryBeatenText, 0, CamperJerryScript
 
@@ -144,8 +152,17 @@ UnknownText_0x1a2ada:
 	line "I'm going to be-"
 	cont "come a lot strong-"
 	cont "er too."
+	
+	para "Shall i prove it"
+	line "to you now?"
 	done
-
+	
+Brock_RematchDefeat:
+	text "BROCK: You're"
+	line "stronger than i"
+	line "expected..."
+	done
+	
 CamperJerrySeenText:
 	text "The trainers of"
 	line "this GYM use rock-"

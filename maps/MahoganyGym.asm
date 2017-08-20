@@ -54,11 +54,18 @@ PryceScript_0x199a9e:
 
 UnknownScript_0x199af0:
 	writetext UnknownText_0x199e59
-	waitbutton
+	yesorno
+	iftrue PryceRematch
 UnknownScript_0x199af4:
 	closetext
 	end
 
+PryceRematch:
+	winlosstext Pryce_RematchDefeat, 0
+	loadtrainer PRYCE, 1
+	startbattle
+	reloadmapafterbattle
+	
 MahoganyGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -238,6 +245,16 @@ UnknownText_0x199e59:
 
 	para "Cherish your time"
 	line "together!"
+	
+	para "Shall we test"
+	line "your bond with"
+	
+	para "your pokemon?"
+	done
+	
+Pryce_RematchDefeat:
+	text "Your bond seems"
+	line "strong."
 	done
 
 BoarderRonaldSeenText:

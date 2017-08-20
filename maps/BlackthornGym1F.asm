@@ -90,10 +90,18 @@ BlackthornGymClairScript:
 
 .GotTM24:
 	writetext BlackthornGymClairText_League
-	waitbutton
+	yesorno
+	iftrue .ClairRematch
 	closetext
 	end
 
+.ClairRematch:
+	winlosstext Clair_RematchDefeat, 0
+	loadtrainer CLAIR, 1
+	startbattle
+	reloadmapafterbattle
+	end
+	
 TrainerCooltrainermPaul:
 	trainer EVENT_BEAT_COOLTRAINERM_PAUL, COOLTRAINERM, PAUL, CooltrainermPaulSeenText, CooltrainermPaulBeatenText, 0, CooltrainermPaulScript
 
@@ -285,8 +293,18 @@ BlackthornGymClairText_League:
 
 	para "Give it every-"
 	line "thing you've got."
+	
+	para "Or you can prove"
+	line "your worth to me"
+	
+	para "once again."
 	done
-
+	
+Clair_RematchDefeat:
+	text "I lost again?!"
+	line "This is cant be!"
+	done
+	
 CooltrainermPaulSeenText:
 	text "Your first battle"
 	line "against dragons?"

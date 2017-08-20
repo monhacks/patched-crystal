@@ -83,10 +83,18 @@ MistyScript_0x188432:
 	setflag ENGINE_CASCADEBADGE
 .FightDone:
 	writetext UnknownText_0x188782
-	waitbutton
+	yesorno
+	iftrue .MistyRematch
 	closetext
 	end
 
+.MistyRematch:
+	winlosstext Misty_RematchDefeat, 0
+	loadtrainer MISTY, 1
+	startbattle
+	reloadmapafterbattle
+	end
+	
 TrainerSwimmerfDiana:
 	trainer EVENT_BEAT_SWIMMERF_DIANA, SWIMMERF, DIANA, SwimmerfDianaSeenText, SwimmerfDianaBeatenText, 0, SwimmerfDianaScript
 
@@ -286,6 +294,18 @@ UnknownText_0x188782:
 
 	para "I can battle some"
 	line "skilled trainers."
+	
+	para "But i can always"
+	line "battle you."
+	
+	para "How about a rematch?"
+	done
+	
+Misty_RematchDefeat:
+	text "MISTY: You're still"
+	line "holding up."
+	
+	para "Dont get cocky tho."
 	done
 
 SwimmerfDianaSeenText:

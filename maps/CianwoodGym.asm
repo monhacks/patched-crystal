@@ -70,10 +70,17 @@ ChuckScript_0x9d60f:
 
 .AlreadyGotTM:
 	writetext ChuckAfterText
-	waitbutton
+	yesorno
+	iftrue .ChuckRematch
 .BagFull:
 	closetext
 	end
+	
+.ChuckRematch:
+	winlosstext Chuck_RematchDefeat, 0
+	loadtrainer CHUCK, 1
+	startbattle
+	reloadmapafterbattle
 
 CianwoodGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
@@ -238,8 +245,16 @@ ChuckAfterText:
 	para "From now on, I'm"
 	line "going to train 24"
 	cont "hours a day!"
+	
+	para "But how about we"
+	line "spar right now?"
 	done
 
+Chuck_RematchDefeat:
+	text "I still need"
+	line "to train more..."
+	done
+	
 BlackbeltYoshiSeenText:
 	text "My #MON and I"
 	line "are bound togeth-"

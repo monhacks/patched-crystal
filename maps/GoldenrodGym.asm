@@ -78,11 +78,18 @@ UnknownScript_0x54064:
 
 UnknownScript_0x54077:
 	writetext UnknownText_0x54360
-	waitbutton
+	yesorno
+	iftrue WhitneyRematch
 UnknownScript_0x5407b:
 	closetext
 	end
 
+WhitneyRematch:
+	winlosstext Whitney_RematchDefeat, 0
+	loadtrainer WHITNEY, 1
+	startbattle
+	reloadmapafterbattle
+	
 GoldenrodGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -270,8 +277,16 @@ UnknownText_0x54360:
 
 	para "Come for a visit"
 	line "again! Bye-bye!"
+	
+	para "What? You want a"
+	line "rematch now?"
 	done
 
+Whitney_RematchDefeat:
+	text "Ah, i lost again"
+	line "sob..."
+	done
+	
 LassCarrieSeenText:
 	text "Don't let my"
 	line "#MON's cute"

@@ -40,10 +40,18 @@ SurgeScript_0x1920a5:
 
 .FightDone:
 	writetext UnknownText_0x192303
-	waitbutton
+	yesorno
+	iftrue .SurgeRematch
 	closetext
 	end
-
+	
+.SurgeRematch:
+	winlosstext Surge_RematchDefeat, 0
+	loadtrainer LT_SURGE, 1
+	startbattle
+	reloadmapafterbattle
+	end
+	
 TrainerGentlemanGregory:
 	trainer EVENT_BEAT_GENTLEMAN_GREGORY, GENTLEMAN, GREGORY, GentlemanGregorySeenText, GentlemanGregoryBeatenText, 0, GentlemanGregoryScript
 
@@ -159,6 +167,14 @@ UnknownText_0x192303:
 
 	para "My #MON and I"
 	line "are still at it!"
+	
+	para "How about yours,"
+	line "show me what you got."
+	done
+	
+Surge_RematchDefeat:
+	text "You're still holding"
+	line "up kid!"
 	done
 
 GentlemanGregorySeenText:

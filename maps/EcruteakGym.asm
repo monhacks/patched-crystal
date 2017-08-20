@@ -67,11 +67,18 @@ MortyScript_0x99d58:
 
 UnknownScript_0x99db1:
 	writetext UnknownText_0x9a145
-	waitbutton
+	yesorno
+	iftrue MortyRematch
 UnknownScript_0x99db5:
 	closetext
 	end
 
+MortyRematch:
+	winlosstext Morty_RematchDefeat, 0
+	loadtrainer MORTY, 1
+	startbattle
+	reloadmapafterbattle
+	
 EcruteakGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -276,6 +283,17 @@ UnknownText_0x9a145:
 
 	para "I envy you for"
 	line "that…"
+	
+	para "Why dont you"
+	line "show me what you"
+	
+	para "learned from your"
+	line "travels?"
+	done
+	
+Morty_RematchDefeat:
+	text "Im not good"
+	line "enough yet..."
 	done
 
 SageJeffreySeenText:

@@ -43,8 +43,16 @@ BlaineScript_0x1ab4fb:
 
 .FightDone:
 	writetext UnknownText_0x1ab71c
-	waitbutton
+	yesorno
+	iftrue .BlaineRematch
 	closetext
+	end
+	
+.BlaineRematch:
+	winlosstext Blaine_RematchDefeat, 0
+	loadtrainer BLAINE, 1
+	startbattle
+	reloadmapafterbattle
 	end
 
 SeafoamGymGuyScript:
@@ -125,6 +133,17 @@ UnknownText_0x1ab71c:
 
 	para "even stronger."
 	line "Just you watch!"
+	
+	para "We can show you"
+	line "our red-hot"
+	cont "fighting spirit"
+	
+	para "right now!"
+	done
+	
+Blaine_RematchDefeat:
+	text "BLAINE: Our fire"
+	line "died out."
 	done
 
 SeafoamGymGuyWinText:

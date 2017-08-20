@@ -50,11 +50,18 @@ FalknerScript_0x683c2:
 
 .SpeechAfterTM:
 	writetext UnknownText_0x68735
-	waitbutton
+	yesorno
+	iftrue .FalknerRematch
 .NoRoomForMudSlap:
 	closetext
 	end
 
+.FalknerRematch:
+	winlosstext Falkner_RematchDefeat, 0
+	loadtrainer FALKNER, 1
+	startbattle
+	reloadmapafterbattle
+	
 VioletGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -207,6 +214,16 @@ UnknownText_0x68735:
 
 	para "the greatest bird"
 	line "master!"
+	
+	para "On the other hand"
+	line "we can have a test"
+	
+	para "of skill right now."
+	done
+	
+Falkner_RematchDefeat:
+	text "Darn! im still not"
+	line "good enough..."
 	done
 
 Bird_keeperRodSeenText:

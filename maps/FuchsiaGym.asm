@@ -55,8 +55,16 @@ UnknownScript_0x195e02:
 	setevent EVENT_GOT_TM06_TOXIC
 UnknownScript_0x195e15:
 	writetext UnknownText_0x196074
-	waitbutton
+	yesorno
+	iftrue JanineRematch
 	closetext
+	end
+	
+JanineRematch:
+	winlosstext Janine_RematchDefeat, 0
+	loadtrainer JANINE, 1
+	startbattle
+	reloadmapafterbattle
 	end
 
 FuschiaGym1Script_0x195e1b:
@@ -285,8 +293,16 @@ UnknownText_0x196074:
 	para "I want to become"
 	line "better than both"
 	cont "Father and you!"
+	
+	para "How about you test"
+	line "test my abilities?"
 	done
 
+Janine_RematchDefeat:
+	text "JANINE: I still"
+	line "need to improve..."
+	done
+	
 UnknownText_0x1960e6:
 	text "Fufufu!"
 

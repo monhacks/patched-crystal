@@ -45,8 +45,16 @@ ErikaScript_0x72a6a:
 	setevent EVENT_GOT_TM19_GIGA_DRAIN
 UnknownScript_0x72aae:
 	writetext UnknownText_0x72d8f
-	waitbutton
+	yesorno
+	iftrue ErikaRematch
 	closetext
+	end
+	
+ErikaRematch:
+	winlosstext Erika_RematchDefeat, 0
+	loadtrainer ERIKA, 1
+	startbattle
+	reloadmapafterbattle
 	end
 
 TrainerLassMichelle:
@@ -187,8 +195,19 @@ UnknownText_0x72d8f:
 
 	para "trainers spurs me"
 	line "to do better…"
+	
+	para "A friendly rematch"
+	line "wont be too bad i"
+	cont "guess."
 	done
 
+Erika_RematchDefeat:
+	text "You're still quite"
+	line "good, i accept"
+	
+	para "defeat."
+	done
+	
 LassMichelleSeenText:
 	text "Do you think a"
 	line "girls-only GYM"

@@ -1,11 +1,16 @@
 Pokemon Patched Crystal Beta
 
-This hack aims to fix the generation 2 bugs but still retain the original gameplay and features.
+This hack aims to fix the generation 2 bugs and add certain tweaks but still retain the original gameplay and features.
 
 This hack is .gbc ready, just load it on an emulator and play. Feel free to contact me for any bugs that you might find.
 
 
 Changelog
+
+~~0.7~~
+
+Every Gym Leader is now available for a rematch,
+simply talk to them again and a simple "yes or no" option will appear.
 
 ~~0.6~~
 

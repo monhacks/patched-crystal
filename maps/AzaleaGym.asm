@@ -53,11 +53,18 @@ BugsyScript:
 
 .GotFuryCutter:
 	writetext BugsyText_BugMonsAreDeep
-	waitbutton
+	yesorno
+	iftrue .BugsyRematch
 .NoRoomForFuryCutter:
 	closetext
 	end
-
+	
+.BugsyRematch:
+	winlosstext BugsyText_RematchDefeat, 0
+	loadtrainer BUGSY, 1
+	startbattle
+	reloadmapafterbattle
+	
 AzaleaGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -230,6 +237,21 @@ BugsyText_BugMonsAreDeep:
 
 	para "Study your favor-"
 	line "ites thoroughly."
+	
+	para "Or we can have"
+	line "a rematch to"
+	
+	para "extend my research"
+	line "how about that?"
+	done
+	
+BugsyText_RematchDefeat:
+	text "Whoa, amazing!"
+	line "You're an expert"
+	cont "on #MON!"
+
+	para "My research isn't"
+	line "complete yet."
 	done
 
 Bug_catcherbennySeenText:

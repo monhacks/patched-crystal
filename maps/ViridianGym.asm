@@ -34,10 +34,18 @@ BlueScript_0x9aa26:
 
 .FightDone:
 	writetext LeaderBlueEpilogueText
-	waitbutton
+	yesorno
+	iftrue .BlueRematch
 	closetext
 	end
 
+.BlueRematch:
+	winlosstext Blue_RematchDefeat, 0
+	loadtrainer BLUE, 1
+	startbattle
+	reloadmapafterbattle
+	end
+	
 ViridianGymGuyScript:
 	faceplayer
 	opentext
@@ -136,8 +144,20 @@ LeaderBlueEpilogueText:
 	para "You'd better not"
 	line "lose until I beat"
 	cont "you. Got it?"
+	
+	para "In fact, lets have"
+	line "a rematch right"
+	line "now!"
 	done
-
+	
+Blue_RematchDefeat:
+	text "BLUE: Ugh!"
+	line "I lost again?!"
+	
+	para "I cant keep losing"
+	line "to you!"
+	done
+	
 ViridianGymGuyText:
 	text "Yo, CHAMP in"
 	line "making!"

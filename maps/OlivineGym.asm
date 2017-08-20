@@ -44,11 +44,18 @@ JasmineScript_0x9c12f:
 
 UnknownScript_0x9c172:
 	writetext UnknownText_0x9c3d1
-	waitbutton
+	yesorno
+	iftrue JasmineRematch
 UnknownScript_0x9c176:
 	closetext
 	end
 
+JasmineRematch:
+	winlosstext Jasmine_RematchDefeat, 0
+	loadtrainer JASMINE, 1
+	startbattle
+	reloadmapafterbattle
+	
 OlivineGymTriggerRockets:
 	if_equal 7, .RadioTowerRockets
 	if_equal 6, .GoldenrodRockets
@@ -162,8 +169,19 @@ UnknownText_0x9c3d1:
 	text "Um… I don't know"
 	line "how to say this,"
 	cont "but good luck…"
+	
+	para "But still..."
+	line "i think want to"
+	
+	para "challenge you"
+	line "myself!"
 	done
-
+	
+Jasmine_RematchDefeat:
+	text "Im still not"
+	line "good enough..."
+	done
+	
 OlivineGymGuyText:
 	text "JASMINE uses the"
 	line "newly discovered"
