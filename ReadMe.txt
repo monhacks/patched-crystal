@@ -7,6 +7,10 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.7a~~
+
+GS Ball / Celebi Event now work
+
 ~~0.7~~
 
 Every Gym Leader is now available for a rematch,
