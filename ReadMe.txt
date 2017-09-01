@@ -128,7 +128,8 @@ Porygon evolves into Porygon2 at level 30
 
 ~~0.3~~
 
-Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the players and to reflect better on the real world. Subject to change.
+Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the
+players and to reflect better on the real world. Subject to change.
 
 Previous:
 
@@ -148,7 +149,9 @@ Love ball works as intended
 
 ~~0.1~~
 
-Ghost type attacks take advantage of Special Attack stat instead of Attack stat. (Im not sure if this counts as a bug but for me it seems weird that Ghost type attacks were physical instead of special, so i changed it.)
+Ghost type attacks take advantage of Special Attack stat instead of Attack stat.
+(Im not sure if this counts as a bug but for me it seems weird that Ghost type attacks were physical instead of special,
+so i changed it.)
 
 Haunter now evolves into Gengar at level 40. (This was done for testing purposes and kept as is)
 
