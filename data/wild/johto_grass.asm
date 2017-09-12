@@ -23,7 +23,7 @@
 	db 4, GASTLY
 	db 5, GASTLY
 	db 3, RATTATA
-	db 6, GASTLY
+	db 6, MISDREAVUS ;GASTLY
 	db 5, RATTATA
 	db 5, RATTATA
 
@@ -50,7 +50,7 @@
 	db 4, GASTLY
 	db 5, GASTLY
 	db 3, RATTATA
-	db 6, GASTLY
+	db 6, MISDREAVUS ;GASTLY
 	db 5, RATTATA
 	db 5, RATTATA
 
@@ -75,7 +75,7 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
+	db 22, MISDREAVUS ;GASTLY
 	db 22, RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
@@ -102,7 +102,7 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
+	db 22, MISDREAVUS ;GASTLY
 	db 22, RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
@@ -129,8 +129,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -156,8 +156,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -183,8 +183,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -210,8 +210,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -237,8 +237,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -264,8 +264,8 @@
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
-	db 22, GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;GASTLY
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
 	db 24, RATTATA
@@ -1268,7 +1268,7 @@
 	db 5, HOOTHOOT
 	db 4, ZUBAT
 	db 5, GASTLY
-	db 5, GASTLY
+	db 5, MISDREAVUS ;GASTLY
 
 	map ROUTE_32
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -1295,7 +1295,7 @@
 	db 6, ZUBAT
 	db 7, HOOTHOOT
 	db 7, GASTLY
-	db 7, GASTLY
+	db 7, MISDREAVUS ;GASTLY
 
 	map ROUTE_33
 	db 10 percent, 10 percent, 10 percent ; encounter rates: morn/day/nite
@@ -1503,7 +1503,7 @@
 	db 16, MANKEY ;RATICATE
 	db 15, ARBOK
 	db 16, FEAROW
-	db 16, FEAROW
+	db 16, LARVITAR ;FEAROW
 	; nite
 	db 13, RATTATA
 	db 14, ZUBAT

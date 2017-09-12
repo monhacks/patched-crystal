@@ -5,6 +5,12 @@ NOTE: Some common encounters like rattata were replaced, keep in mind that you c
 
 ~~Encounters~~
 
+Larvitar can now be found rarely during the day at:
+Route 42
+
+Misdreavus can now be found on Johto rarely during the night at:
+Sprout/Tin Tower, Route 31, 32
+
 Houndour can now be found on Johto rarely during the day and mostly during the night at:
 Route 36, 37 done
 

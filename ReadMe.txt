@@ -7,6 +7,15 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.8~~
+Lugia and Ho-Oh now possess their signature moves when you encounter them instead of Gust.
+
+Larvitar can now be found rarely during the day at:
+Route 42
+
+Misdreavus can now be found on Johto rarely during the night at:
+Sprout/Tin Tower, Route 31, 32
+
 ~~0.7a~~
 
 GS Ball / Celebi Event now work
