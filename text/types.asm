@@ -105,7 +105,7 @@ TypeNames: ; 5097b
 	dw Rock
 	dw Bird
 	dw Bug
-	dw Ghost
+	;dw Ghost
 	dw Steel
 	dw Normal
 	dw Normal
@@ -125,6 +125,7 @@ TypeNames: ; 5097b
 	dw Ice
 	dw Dragon
 	dw Dark
+	dw Ghost
 
 Normal:    db "NORMAL@"
 Fighting:  db "FIGHTING@"
@@ -141,9 +142,10 @@ Ground:    db "GROUND@"
 Rock:      db "ROCK@"
 Bird:      db "BIRD@"
 Bug:       db "BUG@"
-Ghost:     db "GHOST@"
+;Ghost:     db "GHOST@"
 Steel:     db "STEEL@"
 Dragon:    db "DRAGON@"
 Dark:      db "DARK@"
+Ghost:     db "GHOST@"
 
 ; 50a28
