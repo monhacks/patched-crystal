@@ -7,7 +7,40 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~0.9~~
+
+Belly Drum no longer provides a stat boost when the move fails
+
+Pichu, Cleffa and Igglypuff now evolve at level 15
+
+Togepi now evolves at level 30
+
+Skarmory can now be found during the day at:
+Route 38
+
+Phanpy can now be found during the day at:
+Dark Cave (Violet City entrance)
+
+Smeargle can now be found during the day at:
+Sprout Tower 2F, 3F
+
+Scyther can now be found during the day at:
+National Park
+
+Remoraid can now be found at:
+Cianwood, Olivine City (Surf)
+
+Octillery can now be found at:
+Cianwood City (Surf)
+
+Mantine can now be found at:
+Cianwood, Olivine City (Surf)
+
+Corsola can now be found at:
+Route 34, Olivine City (Surf)
+
 ~~0.8~~
+
 Lugia and Ho-Oh now possess their signature moves when you encounter them instead of Gust.
 
 Larvitar can now be found rarely during the day at:

@@ -129,7 +129,7 @@
 	map ROUTE_34
 	db 6 percent ; encounter rate
 	db 20, TENTACOOL
-	db 15, TENTACOOL
+	db 15, CORSOLA ;TENTACOOL
 	db 20, TENTACRUEL
 
 	map ROUTE_35
@@ -194,15 +194,15 @@
 
 	map CIANWOOD_CITY
 	db 6 percent ; encounter rate
-	db 20, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACRUEL
+	db 20, REMORAID ;TENTACOOL
+	db 15, OCTILLERY ;TENTACOOL
+	db 20, MANTINE ;TENTACRUEL
 
 	map OLIVINE_CITY
 	db 6 percent ; encounter rate
-	db 20, TENTACOOL
-	db 15, TENTACOOL
-	db 20, TENTACRUEL
+	db 20, CORSOLA ;TENTACOOL
+	db 15, REMORAID ;TENTACOOL
+	db 20, MANTINE ;TENTACRUEL
 
 	map ECRUTEAK_CITY
 	db 2 percent ; encounter rate

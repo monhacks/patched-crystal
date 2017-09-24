@@ -1,9 +1,24 @@
 This is list of encounters that are added and/or adjusted and how certain pokemon evolve now.
 
-NOTE: Some common encounters like rattata were replaced, keep in mind that you can still find all pokemon and in places you already know of
+NOTE: Some common encounters like rattata were replaced, keep in mind that you can still find all pokemon in places you already know of
 
 
-~~Encounters~~
+~~Improved Encounters~~
+
+Skarmory can now be found during the day at:
+Route 38
+
+Phanpy can now be found during the day at:
+Dark Cave (Violet City entrance)
+
+Smeargle can now be found during the day at:
+Sprout Tower 2F, 3F
+
+Mantine can now be found at:
+Cianwood, Olivine City (Surf)
+
+Corsola can now be found at:
+Route 34, Olivine City (Surf)
 
 Larvitar can now be found rarely during the day at:
 Route 42
@@ -12,59 +27,64 @@ Misdreavus can now be found on Johto rarely during the night at:
 Sprout/Tin Tower, Route 31, 32
 
 Houndour can now be found on Johto rarely during the day and mostly during the night at:
-Route 36, 37 done
+Route 36, 37
 
 Murkrow can now be found on Johto during the night at:
-Route 38 done
+Route 38 
 
 Slugma can now be found on Johto during the day at:
-Burned Tower B1F done
+Burned Tower B1F 
 
 Natu can now be found during the day at:
-Tin Tower 2F done
+Tin Tower 2F
 
 Xatu can now be found rarely during the day or night at:
-Tin Tower 2F done
+Tin Tower 2F 
 
 Scyther can now be found during the day at:
-Ilex Forest done
+Ilex Forest, National Park
 
-~~
+
+
+~~Missing Encounters~~
 
 Vulpix can be found during the morning and day at:
-Route 36, 37, 7, 8 done
+Route 36, 37, 7, 8 
 
 Mankey can be found rarely during the morning and mostly during the day at:
-Route 42, 9 done
+Route 42, 9 
 
 Mareep can be found mostly during the morning and day at:
-Route 32, 42, 43 done
+Route 32, 42, 43 
 
 Girafarig can be found rarely during the morning and day at:
-Route 43 done
+Route 43 
 
-Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms semi done
+Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms
 
 Chikorita can be found only during morning at:
-Route 31 done
+Route 31 
 
 Cyndaquil can be found only during the night at:
-Dark cave (Violet city entrance) done
+Dark cave (Violet city entrance) 
 
 Totodile can be found only during the day at:
-Cherrygrove city (Water) done
+Cherrygrove city (Water)
 
 Bulbasaur can be found only during morning and night at:
-Ilex Forest done
+Ilex Forest
 
 Charmander can be found only during the night at:
-Burned Tower B1F done
+Burned Tower B1F
 
 Squirtle can be found at all times (because im biased) at:
-Whirl Islands B2F done
+Whirl Islands B2F
 
 Omanyte and Kabuto can be found only during the night at:
-Whirl Islands in Lugia's Chamber (not in the water) done
+Whirl Islands in Lugia's Chamber (not in the water)
+
+
+~~Kanto Legendaries~~
 
 Zapdos is now available via in-game trade in Goldenrod City
 
@@ -105,6 +125,14 @@ Poliwhirl evolves into Politoed at level 30
 
 Porygon evolves into Porygon2 at level 30
 
-Golbat evolves into Crobat at level 35 Done for the sake of consistency
+Golbat evolves into Crobat at level 35
 
-Chansey evolves into Blissey at level 40 Done for the sake of consistency
+Chansey evolves into Blissey at level 40
+
+Pichu evolves into Pikachu at level 15
+
+Cleffa evolves into Clefairy at level 15
+
+Igglypuff evolves into Jigglypuff at level 15
+
+Togepi evolves into Togetic at level 30
