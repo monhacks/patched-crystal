@@ -16,8 +16,8 @@ cd rgbds
 sudo make install
 cd ..
 
-git clone --recursive https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone --recursive https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
 To build **pokecrystal.gbc**:
@@ -39,8 +39,8 @@ cd rgbds
 sudo make install
 cd ..
 
-git clone --recursive https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone --recursive https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
 To build **pokecrystal.gbc**:
@@ -63,8 +63,8 @@ In the **Cygwin terminal**:
 
 ```bash
 
-git clone --recursive https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone --recursive https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
 To build **pokecrystal.gbc**:
