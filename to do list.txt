@@ -1,0 +1,58 @@
+~~FIXED SHIT~~
+
+THICK CLUB LIGHT BALL
+
+METAL POWDER
+
+Moves that lower Defense can do so after breaking a Substitute
+
+A Disabled but PP Up–enhanced move may not trigger Struggle
+
+Beat Up can desynchronize link battles
+
+Present damage is incorrect in link battles
+
+"Smart" AI encourages Mean Look if its own Pokémon is badly poisoned
+
+NPC use of Full Heal or Full Restore does not cure Nightmare status
+
+HP bar animation is slow for high HP
+
+HP bar animation off-by-one error for low HP
+
+Experience underflow for level 1 Pokémon with Medium-Slow growth rate
+
+Five-digit experience gain is printed incorrectly
+
+Daisy's grooming doesn't always increase happiness
+
+Magikarp in Lake of Rage are shorter, not longer
+
+Magikarp lengths can be miscalculated
+
+Slot machine payout sound effects cut each other off
+
+Team Rocket battle music is not used for Executives or Scientists
+
+No bump noise if standing on tile $3E
+
+Playing Entei's Pokédex cry can distort Raikou's and Suicune's
+
+Catching a Transformed Pokémon always catches a Ditto
+
+Using a Park Ball in normal battles has a corrupt animation
+
+
+
+~~NOT FIXED~~
+
+Magikarp length limits have a unit conversion error
+
+In-battle “…” ellipsis is too high
+
+LoadMetatiles wraps around past 128 blocks
+
+Function6ec1 does not correctly limit object movement
+
+CheckOwnMon only checks the first five letters of OT names
+
