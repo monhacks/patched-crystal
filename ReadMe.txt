@@ -7,7 +7,45 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
-~~0.9~~
+~~1.0~~
+
+Patched Crystal now uses the latest pokecrystal repo as base
+
+Fixed the bugs of the followind items: Thick Club, Light Ball, Metal Powder
+
+Fixed a bug with moves that lower Defense can do so after breaking a Substitute
+
+Fixed a bug where a Disabled but PP Up–enhanced move may not trigger Struggle
+
+Fixed a bug where Beat Up could desynchronize link battles
+
+Fixed a bug where Present damage is incorrect in link battles
+
+Fixed a bug where the AI encourages Mean Look if its own Pokémon is badly poisoned
+
+Fixed a bug where the NPC use of Full Heal or Full Restore does not cure Nightmare status
+
+Fixed a bug where the HP bar animation is slow for high HP
+
+Fixed the HP bar animation off-by-one error for low HP
+
+Fixed a bug where Five-digit experience gain is printed incorrectly
+
+Fixed a bug where Daisy's grooming doesn't always increase happiness
+
+Fixed a bug where Magikarp in Lake of Rage are shorter, not longer
+
+Fixed a bug where Magikarp lengths can be miscalculated
+
+Fixed a bug where Slot machine payout sound effects would cut each other off
+
+Fixed a bug where Team Rocket battle music was not used for Executives or Scientists
+
+Fixed a bug where No bump noise would trigger if standing on tile $3E
+
+Fixed a bug where Playing Entei's Pokédex cry can distort Raikou's and Suicune's
+
+~~b0.9~~
 
 Belly Drum no longer provides a stat boost when the move fails
 
@@ -39,7 +77,7 @@ Cianwood, Olivine City (Surf)
 Corsola can now be found at:
 Route 34, Olivine City (Surf)
 
-~~0.8~~
+~~b0.8~~
 
 Lugia and Ho-Oh now possess their signature moves when you encounter them instead of Gust.
 
@@ -49,16 +87,16 @@ Route 42
 Misdreavus can now be found on Johto rarely during the night at:
 Sprout/Tin Tower, Route 31, 32
 
-~~0.7a~~
+~~b0.7a~~
 
 GS Ball / Celebi Event now work
 
-~~0.7~~
+~~b0.7~~
 
 Every Gym Leader is now available for a rematch,
 simply talk to them again and a simple "yes or no" option will appear.
 
-~~0.6~~
+~~b0.6~~
 
 Evolutionary stones can now be purchased from the Goldenrod Department Store 2F
 
@@ -83,7 +121,7 @@ Mewtwo is now available via in-game trade in the Power Plant
 
 Mew is now available via in-game trade in Pewter City
 
-~~0.5~~
+~~b0.5~~
 
 TMs are now infinite use
 
@@ -136,7 +174,7 @@ Omanyte and Kabuto can be found only during the night at:
 Whirl Islands in Lugia's Chamber (not in the water)
 
 
-~~0.4~~
+~~b0.4~~
 
 Dragon Fang increases the power of Dragon-type attacks as intented
 
@@ -168,7 +206,7 @@ Poliwhirl evolves into Politoed at level 30
 
 Porygon evolves into Porygon2 at level 30
 
-~~0.3~~
+~~b0.3~~
 
 Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the
 players and to reflect better on the real world. Subject to change.
@@ -185,11 +223,11 @@ Morning: 06:00 - 12:59
 Day: 13:00 - 19:59
 Night: 20:00 - 05:59
 
-~~0.2~~
+~~b0.2~~
 
 Love ball works as intended
 
-~~0.1~~
+~~b0.1~~
 
 Ghost type attacks take advantage of Special Attack stat instead of Attack stat.
 (Im not sure if this counts as a bug but for me it seems weird that Ghost type attacks were physical instead of special,
