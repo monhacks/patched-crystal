@@ -16,14 +16,14 @@ cd rgbds
 sudo make install
 cd ..
 
-git clone https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
-To build **pokecrystal.gbc**:
+To build **patched-crystal.gbc**:
 
 ```bash
-make
+make patched-crystal
 ```
 
 
@@ -39,14 +39,14 @@ cd rgbds
 sudo make install
 cd ..
 
-git clone https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
-To build **pokecrystal.gbc**:
+To build **patched-crystal.gbc**:
 
 ```bash
-make
+make patched-crystal
 ```
 
 
@@ -67,18 +67,12 @@ Then download [**rgbds**](https://github.com/rednex/rgbds/releases/): the latest
 In the **Cygwin terminal**, enter these commands:
 
 ```bash
-git clone https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone https://github.com/UberMedic7/patched-crystal
+cd patched-crystal
 ```
 
-To build **pokecrystal.gbc**:
+To build **patched-crystal.gbc**:
 
 ```bash
-make
-```
-
-To build **pokecrystal11.gbc**:
-
-```bash
-make crystal11
+make patched-crystal
 ```
