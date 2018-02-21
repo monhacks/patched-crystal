@@ -1,38 +1,20 @@
-# Pokémon Crystal [![Build Status][travis-badge]][travis]
+# Pokémon Patched Crystal
 
-This is a disassembly of Pokémon Crystal.
+This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
-It builds the following roms:
+[**Changelog**](ReadMe.txt)
 
-* Pokemon - Crystal Version (UE) (V1.0) [C][!].gbc `sha1: f4cd194bdee0d04ca4eac29e09b8e4e9d818c133`
-* Pokemon - Crystal Version (UE) (V1.1) [C][!].gbc `sha1: f2f52230b536214ef7c9924f483392993e226cfb`
+[**Encounters and Evolutions**](Encounters&Evolutions.txt)
 
-To set up the repository, see [INSTALL.md](INSTALL.md).
+[**Want to try this out? You can get the rom, click here!**][release]
 
-## See also
+To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
-* [FAQ](FAQ.md)
-* [Documentation](docs/)
+## Other cool things not by me
+
 * Disassembly of [**Pokémon Red/Blue**][pokered]
-* Disassembly of [**Pokémon Yellow**][pokeyellow]
-* Disassembly of [**Pokémon Gold**][pokegold]
-* Disassembly of [**Pokémon Pinball**][pokepinball]
-* Disassembly of [**Pokémon TCG**][poketcg]
-* Disassembly of [**Pokémon Ruby**][pokeruby]
-* Disassembly of [**Pokémon Fire Red**][pokefirered]
-* Disassembly of [**Pokémon Emerald**][pokeemerald]
-* Discord: [**pret**][Discord]
-* irc: [freenode#pret][irc]
+* irc: [**freenode#pret**][irc]
 
-[pokered]: https://github.com/pret/pokered
-[pokeyellow]: https://github.com/pret/pokeyellow
-[pokegold]: https://github.com/pret/pokegold
-[pokepinball]: https://github.com/pret/pokepinball
-[poketcg]: https://github.com/pret/poketcg
-[pokeruby]: https://github.com/pret/pokeruby
-[pokefirered]: https://github.com/pret/pokefirered
-[pokeemerald]: https://github.com/pret/pokeemerald
-[Discord]: https://discord.gg/cJxDDVP
+[pokered]: https://github.com/iimarckus/pokered
 [irc]: https://kiwiirc.com/client/irc.freenode.net/?#pret
-[travis]: https://travis-ci.org/pret/pokecrystal
-[travis-badge]: https://travis-ci.org/pret/pokecrystal.svg?branch=master
+[release]: https://github.com/UberMedic7/patched-crystal/releases
