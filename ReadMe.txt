@@ -11,6 +11,8 @@ Changelog
 
 Patched Crystal now uses the latest pokecrystal repo as base
 
+[For developers]: if you run the command make patched-crystal it will build patched-crystal.gbc
+
 Fixed the bugs of the followind items: Thick Club, Light Ball, Metal Powder
 
 Fixed a bug with moves that lower Defense can do so after breaking a Substitute
