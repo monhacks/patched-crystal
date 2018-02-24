@@ -56,11 +56,11 @@ TimesOfDay: ; 14044
 	;db NITE_HOUR, DAY_F
 	;db MAX_HOUR,  NITE_F
 	;db -1, MORN_F
-	db 06, NITE
-	db 13, MORN
-	db 20, DAY
-	db 24, NITE
-	db -1, MORN
+	db 06, NITE_F
+	db 13, MORN_F
+	db 20, DAY_F
+	db 24, NITE_F
+	db -1, MORN_F
 ; 1404e
 
 Unreferenced_1404e:

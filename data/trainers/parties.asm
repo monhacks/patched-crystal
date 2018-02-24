@@ -801,13 +801,49 @@ PKMNTrainerGroup:
 
 	; CAL (3)
 	db "CAL@"
-	db TRAINERTYPE_NORMAL
-
+	;db TRAINERTYPE_NORMAL
+	db TRAINERTYPE_MOVES
+	
 	; party
-	db 50, MEGANIUM
-	db 50, TYPHLOSION
-	db 50, FERALIGATR
-
+	;db 50, MEGANIUM
+	;db 50, TYPHLOSION
+	;db 50, FERALIGATR
+	db 60, FERALIGATR
+		db HYDRO_PUMP
+		db DYNAMICPUNCH
+		db SURF
+		db CRUNCH
+		
+	db 60, SKARMORY
+		db STEEL_WING
+		db PROTECT
+		db SANDSTORM
+		db SKY_ATTACK
+		
+	db 60, GYARADOS
+		db HYDRO_PUMP
+		db HYPER_BEAM
+		db ICE_BEAM
+		db FLAMETHROWER
+		
+	db 60, PILOSWINE
+		db BLIZZARD
+		db ANCIENTPOWER
+		db EARTHQUAKE
+		db ICY_WIND
+		
+	db 60, SNORLAX
+		db REST
+		db BODY_SLAM
+		db HYPER_BEAM
+		db DYNAMICPUNCH
+		
+	db 60, GENGAR
+		db SHADOW_BALL
+		db NIGHT_SHADE
+		db TOXIC
+		db DESTINY_BOND
+	
 	db -1 ; end
 
 ; ================
