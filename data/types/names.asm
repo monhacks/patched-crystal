@@ -8,7 +8,7 @@ TypeNames: ; 5097b
 	dw Rock
 	dw Bird
 	dw Bug
-	;dw Ghost
+	dw Dark;dw Ghost
 	dw Steel
 	dw Normal
 	dw Normal
@@ -27,7 +27,7 @@ TypeNames: ; 5097b
 	dw Psychic
 	dw Ice
 	dw Dragon
-	dw Dark
+	;dw Dark
 	dw Ghost
 	
 Normal:    db "NORMAL@"

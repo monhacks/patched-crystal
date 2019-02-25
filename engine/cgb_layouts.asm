@@ -688,6 +688,10 @@ _CGB_TrainerCard: ; 9289
 	ld a, PREDEFPAL_CGB_BADGE
 	call GetPredefPal
 	call LoadHLPaletteIntoDE
+	;ld hl, .BadgePalettes
+	;ld bc, 8 palettes
+	;ld a, BANK(wOBPals1)
+	;call FarCopyWRAM
 
 	; fill screen with opposite-gender palette for the card border
 	hlcoord 0, 0, wAttrMap
@@ -763,6 +767,10 @@ _CGB_TrainerCard: ; 9289
 	ld a, $1
 	ld [hCGBPalUpdate], a
 	ret
+	
+;.BadgePalettes:
+;INCLUDE "gfx/trainer_card/badges.pal"
+
 ; 9373
 
 _CGB_MoveList: ; 9373

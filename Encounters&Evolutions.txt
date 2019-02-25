@@ -86,15 +86,21 @@ Whirl Islands in Lugia's Chamber (not in the water)
 
 ~~Kanto Legendaries~~
 
-Zapdos is now available via in-game trade in Goldenrod City
+In order to encounter all the legendaries, except Mew, you need to have the key item Clear Bell in your inventory.
 
-Moltres is now available via in-game trade in Violet City
+Zapdos can be found at:
+Rock Tunnel
 
-Articuno is now available via in-game trade in Olivine City
+Moltres can be found:
+Victory Road
 
-Mewtwo is now available via in-game trade in the Power Plant
+Articuno can be found at:
+Ice Path
 
-Mew is now available via in-game trade in Pewter City
+Mewtwo can be found at:
+Silver Cave
+
+Mew is now given as a reward by defeating a trainer at Mt. Moon Square
 
 
 ~~Evolutions~~

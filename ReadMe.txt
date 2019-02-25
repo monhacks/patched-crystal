@@ -7,6 +7,18 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~1.1~~
+
+Dark Type is now treated as "Physical" instead of "Special"
+
+Kanto Legendaries can now be encountered in the overworld, more info on "Encounters&Evolutions.txt"
+
+Mew is now given as a reward by defeating a trainer at Mt. Moon Square
+
+NPC trades are reverted back to the originals
+
+Adjusted some dialog of Morty and Falkner
+
 ~~1.0~~
 
 Patched Crystal now uses the latest pokecrystal repo as base
