@@ -6,31 +6,24 @@ const_value set 2
 	const VICTORYROAD_POKE_BALL3
 	const VICTORYROAD_POKE_BALL4
 	const VICTORYROAD_POKE_BALL5
-	
+
 VictoryRoad_MapScripts:
 .SceneScripts:
-	db 2
-	scene_script .DummyScene0
-	scene_script .DummyScene1
-	
-.DummyScene0:
-	end
-
-.DummyScene1:
-	end
+	db 0
+	;scene_script .DummyScene0
+	;scene_script .DummyScene1
 
 .MapCallbacks:
 	db 1
 	callback MAPCALLBACK_OBJECTS, .Moltres
-
+	
 .Moltres:
     checkevent EVENT_FOUGHT_MOLTRES
     iftrue .NoAppear
 	checkitem CLEAR_BELL
 	iftrue .Appear
 	jump .NoAppear
-	
-	
+
 .Appear
 	appear VICTORYROAD_MOLTRES
 	return
@@ -53,6 +46,13 @@ Moltres:
     disappear VICTORYROAD_MOLTRES
     reloadmapafterbattle
     end
+	
+
+;.DummyScene0:
+	;end
+
+;.DummyScene1:
+	;end
 
 UnknownScript_0x74492:
 	moveobject VICTORYROAD_SILVER, 18, 11

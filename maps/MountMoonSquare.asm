@@ -13,7 +13,7 @@ MountMoonSquare_MapScripts:
 	db 2
 	callback MAPCALLBACK_NEWMAP, .DisappearMoonStone
 	callback MAPCALLBACK_OBJECTS, .DisappearRock
-	;callback MAPCALLBACK_OBJECTS, .Sylvia
+	callback MAPCALLBACK_OBJECTS, .Sylvia
 
 .DummyScene:
 	end
@@ -26,18 +26,18 @@ MountMoonSquare_MapScripts:
 	disappear MOUNTMOONSQUARE_ROCK
 	return
 
-;.Sylvia
-	;checkitem BERRY
-	;iftrue .Appear
-	;jump .NoAppear
+.Sylvia
+	checkitem CLEAR_BELL
+	iftrue .Appear
+	jump .NoAppear
 	
-;.Appear
-	;appear NEWBARKTOWN_SYLVIA
-	;return
+.Appear
+	appear MOUNTMOONSQUARE_SYLVIA
+	return
 	
-;.NoAppear
-	;disappear NEWBARKTOWN_SYLVIA
-	;return
+.NoAppear
+	disappear MOUNTMOONSQUARE_SYLVIA
+	return
 
 
 Sylvia:
