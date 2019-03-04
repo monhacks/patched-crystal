@@ -197,15 +197,14 @@ UnknownText_0x72d8f:
 	line "to do better…"
 	
 	para "A friendly rematch"
-	line "wont be too bad i"
-	cont "guess."
+	line "wont be too bad I"
+	cont "guess…"
 	done
 	
 Erika_RematchDefeat:
 	text "You're still quite"
-	line "good, i accept"
-
-	para "defeat."
+	line "good, I accept"
+	cont "defeat."
 	done
 
 LassMichelleSeenText:

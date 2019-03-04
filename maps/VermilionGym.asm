@@ -169,12 +169,13 @@ UnknownText_0x192303:
 	line "are still at it!"
 	
 	para "How about yours,"
-	line "show me what you got."
+	line "show me what you"
+	cont "got!"
 	done
 
 Surge_RematchDefeat:
-	text "You're still holding"
-	line "up kid!"
+	text "You're still"
+	line "holding up kid!"
 	done
 
 GentlemanGregorySeenText:

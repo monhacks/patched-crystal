@@ -248,8 +248,7 @@ PryceText_CherishYourPokemon:
 	
 	para "Shall we test"
 	line "your bond with"
-
-	para "your pokemon?"
+	cont "your pokemon?"
 	done
 
 

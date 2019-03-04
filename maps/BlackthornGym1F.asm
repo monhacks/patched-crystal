@@ -294,13 +294,12 @@ BlackthornGymClairText_League:
 	
 	para "Or you can prove"
 	line "your worth to me"
-	
-	para "once again."
+	cont "once again."
 	done
 	
 Clair_RematchDefeat:
 	text "I lost again?!"
-	line "This is cant be!"
+	line "This cant be!"
 	done
 
 CooltrainermPaulSeenText:

@@ -145,9 +145,9 @@ LeaderBlueEpilogueText:
 	line "lose until I beat"
 	cont "you. Got it?"
 	
-	para "In fact, lets have"
-	line "a rematch right"
-	line "now!"
+	para "In fact, let's"
+	line "have a rematch"
+	cont "right now!"
 	done
 
 Blue_RematchDefeat:

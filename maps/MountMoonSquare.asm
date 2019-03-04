@@ -71,6 +71,7 @@ GotMew:
 	writetext GotMewText
 	yesorno
 	iftrue SylviaRematch
+	closetext
 	end
 
 FullParty:
@@ -86,7 +87,7 @@ SylviaRematch:
 	reloadmapafterbattle
 	
 GotMewText:
-	text "Oh, Hello <PLAYER>."
+	text "Oh, Hello <PLAYER>"
 	
 	para "I hope you take"
 	line "care of your"
@@ -101,8 +102,9 @@ DefeatedText:
 	text "Your skills are"
 	line "quite impressive."
 	
-	para"I think you deserve"
-	line "this reward."
+	para"I think you"
+	line "deserve this"
+	cont "reward."
 	done
 	
 FullPartyText:
@@ -117,7 +119,7 @@ SylviaEncounterText:
 	line "quite the #MON"
 	cont "trainer."
 	
-	para "But i bet you're"
+	para "But I bet you're"
 	line "not as strong as"
 	cont "my boyfriend!"
 	

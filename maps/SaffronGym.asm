@@ -204,8 +204,7 @@ UnknownText_0x189f6c:
 	
 	para "How about you show"
 	line "me how strong this"
-
-	para "power is?"
+	cont "power is?"
 	done
 
 Sabrina_RematchDefeat:

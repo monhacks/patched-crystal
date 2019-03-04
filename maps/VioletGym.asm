@@ -186,7 +186,7 @@ UnknownText_0x68648:
 	;line "act--a TM can be"
 	;cont "used only once."
 	para "Do not worry you"
-	line "can--use a TM as"
+	line "can use a TM as"
 	cont "much as you want."
 	
 	para "TM31 contains"
@@ -221,12 +221,12 @@ UnknownText_0x68735:
 	para "On the other hand"
 	line "we can have a test"
 
-	para "of skill right now."
+	para "of skill right now"
 	done
 
 Falkner_RematchDefeat:
 	text "Darn! im still not"
-	line "good enough..."
+	line "good enough…"
 	done
 
 BirdKeeperRodSeenText:

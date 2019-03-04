@@ -301,7 +301,7 @@ JanineText_ApplyMyself:
 	
 Janine_RematchDefeat:
 	text "JANINE: I still"
-	line "need to improve..."
+	line "need to improve…"
 	done
 
 LassAliceBeforeText:

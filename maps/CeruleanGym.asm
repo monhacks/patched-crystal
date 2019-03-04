@@ -293,17 +293,19 @@ UnknownText_0x188782:
 	para "I can battle some"
 	line "skilled trainers."
 	
-	para "But i can always"
+	para "But I can always"
 	line "battle you."
-
-	para "How about a rematch?"
+	cont "How about a"
+	
+	para "rematch?"
 	done
 
 Misty_RematchDefeat:
-	text "MISTY: You're still"
-	line "holding up."
+	text "MISTY: You're"
+	line "still holding up."
 
-	para "Dont get cocky tho."
+	para "Dont get cocky"
+	line "pest!"
 	done
 
 SwimmerfDianaSeenText:

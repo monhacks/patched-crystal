@@ -150,17 +150,17 @@ UnknownText_0x1a2ada:
 
 	para "Just wait and see."
 	line "I'm going to be-"
-	cont "come a lot strong-"
-	cont "er too."
+	cont "come a lot"
 	
-	para "Shall i prove it"
-	line "to you now?"
+	para "stronger too."
+	line "Shall i prove it"
+	cont "to you now?"
 	done
 
 Brock_RematchDefeat:
 	text "BROCK: You're"
-	line "stronger than i"
-	line "expected..."
+	line "stronger than I"
+	cont "expected."
 	done
 	
 CamperJerrySeenText:

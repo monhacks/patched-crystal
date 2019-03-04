@@ -7,6 +7,16 @@ This hack is .gbc ready, just load it on an emulator and play. Feel free to cont
 
 Changelog
 
+~~1.1a - 1.1b ~~
+
+Fixed a bug which caused the game to crash while entering Victory Road
+
+Fixed a few glitches of the trainer that rewards you with Mew at Mt. Moon Square
+
+Removed the Legendary Birds from the "Often flees" group
+
+Tweaked the text of all gym leaders
+
 ~~1.1~~
 
 Dark Type is now treated as "Physical" instead of "Special"

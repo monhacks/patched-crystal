@@ -281,8 +281,8 @@ UnknownText_0x54360:
 	done
 
 Whitney_RematchDefeat:
-	text "Ah, i lost again"
-	line "sob..."
+	text "Ah, I lost again."
+	line "…Sob…"
 	done
 	
 LassCarrieSeenText:

@@ -170,8 +170,8 @@ Jasmine_GoodLuck:
 	line "how to say this,"
 	cont "but good luck…"
 	
-	para "But still..."
-	line "i think want to"
+	para "But still…"
+	line "I think want to"
 
 	para "challenge you"
 	line "myself!"
@@ -179,7 +179,7 @@ Jasmine_GoodLuck:
 
 Jasmine_RematchDefeat:
 	text "Im still not"
-	line "good enough..."
+	line "good enough…"
 	done
 	
 OlivineGymGuyText:
