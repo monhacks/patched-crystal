@@ -140,48 +140,53 @@ MartGoldenrod3F: ; 1612b
 ; 16134
 
 MartGoldenrod4F: ; 16134
-	db 5 ; # items
+	db 6 ; # items
 	db PROTEIN
 	db IRON
 	db CARBOS
 	db CALCIUM
 	db HP_UP
+	db PP_UP
 	db -1 ; end
 ; 1613b
 
 MartGoldenrod5F1: ; 1613b
-	db 3 ; # items
+	db 4 ; # items
 	db TM_THUNDERPUNCH
 	db TM_FIRE_PUNCH
 	db TM_ICE_PUNCH
+	db TM_PSYCH_UP
 	db -1 ; end
 ; 16140
 
 MartGoldenrod5F2: ; 16140
-	db 4 ; # items
-	db TM_THUNDERPUNCH
-	db TM_FIRE_PUNCH
-	db TM_ICE_PUNCH
-	db TM_HEADBUTT
-	db -1 ; end
-; 16146
-
-MartGoldenrod5F3: ; 16146
-	db 4 ; # items
-	db TM_THUNDERPUNCH
-	db TM_FIRE_PUNCH
-	db TM_ICE_PUNCH
-	db TM_ROCK_SMASH
-	db -1 ; end
-; 1614c
-
-MartGoldenrod5F4: ; 1614c
 	db 5 ; # items
 	db TM_THUNDERPUNCH
 	db TM_FIRE_PUNCH
 	db TM_ICE_PUNCH
 	db TM_HEADBUTT
+	db TM_PSYCH_UP
+	db -1 ; end
+; 16146
+
+MartGoldenrod5F3: ; 16146
+	db 5 ; # items
+	db TM_THUNDERPUNCH
+	db TM_FIRE_PUNCH
+	db TM_ICE_PUNCH
 	db TM_ROCK_SMASH
+	db TM_PSYCH_UP
+	db -1 ; end
+; 1614c
+
+MartGoldenrod5F4: ; 1614c
+	db 6 ; # items
+	db TM_THUNDERPUNCH
+	db TM_FIRE_PUNCH
+	db TM_ICE_PUNCH
+	db TM_HEADBUTT
+	db TM_ROCK_SMASH
+	db TM_PSYCH_UP
 	db -1 ; end
 ; 16153
 
@@ -224,7 +229,7 @@ MartMahogany1: ; 1616a
 ; 16170
 
 MartMahogany2: ; 16170
-	db 9 ; # items
+	db 10 ; # items
 	db RAGECANDYBAR
 	db GREAT_BALL
 	db SUPER_POTION
@@ -234,6 +239,7 @@ MartMahogany2: ; 16170
 	db SUPER_REPEL
 	db REVIVE
 	db FLOWER_MAIL
+	db TWISTEDSPOON
 	db -1 ; end
 ; 1617b
 

@@ -983,7 +983,7 @@ JohtoGrassWildMons: ; 0x2a5e9
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; day
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -991,7 +991,7 @@ JohtoGrassWildMons: ; 0x2a5e9
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; nite
 	db 24, KRABBY
 	db 25, ZUBAT

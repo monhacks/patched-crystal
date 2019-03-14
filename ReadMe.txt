@@ -1,11 +1,40 @@
-Pokemon Patched Crystal Beta
+Pokemon Patched Crystal
 
 This hack aims to fix the generation 2 bugs and add certain tweaks but still retain the original gameplay and features.
 
-This hack is .gbc ready, just load it on an emulator and play. Feel free to contact me for any bugs that you might find.
+This hack is .gbc ready, just load it on an emulator and play. Feel free to contact me for any suggestions or bugs that you might find.
 
 
 Changelog
+
+~~~Retail~~~
+
+~~1.0~~
+
+Fixed a bug where ScriptCall can overflow wScriptStack and crash
+
+Fixed a bug where LoadSpriteGFX does not limit the capacity of UsedSprites
+
+Fixed a bug where ChooseWildEncounter doesn't really validate the wild Pokémon species
+
+Fixed arbitrary code execution via TryObjectEvent
+
+Fixed a bug where ClearWRAM only clears WRAM bank 1
+
+Fixed a bug where the game would crash after defeating Cooltrainer Sylvia after a rematch
+
+TM09 can now be bought at the Goldenrod Department Store 5F
+
+PP UP can now be bought at the Goldenrod Department Store 4F
+
+The held item Twisted Spoon can now be bought at the Mahogany town mart after Team Rocket is defeated
+
+Corrected the Squirtle encounter in Whirl Islands B2F
+
+Setting the time during a new game now properly shows the part of day of the chosen hour
+
+
+~~~Beta~~~
 
 ~~1.1a - 1.1b ~~
 

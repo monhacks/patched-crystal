@@ -409,9 +409,9 @@ LoadSpriteGFX: ; 14306
 	ret
 
 .LoadSprite:
-	; push bc
+	push bc
 	call GetSprite
-	; pop bc
+	pop bc
 	ld a, l
 	ret
 ; 1431e

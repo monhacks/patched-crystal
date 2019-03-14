@@ -56,3 +56,11 @@ Function6ec1 does not correctly limit object movement
 
 CheckOwnMon only checks the first five letters of OT names
 
+
+~~stuff~~
+
+Higher level matches after  you beat Red for the GLs and/or at least the E4
+
+TM09 and Twisted Spoon being unavailable in the game without trading
+
+PP Ups

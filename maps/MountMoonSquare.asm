@@ -85,6 +85,18 @@ SylviaRematch:
 	loadtrainer COOLTRAINERF, SYLVIA2
 	startbattle
 	reloadmapafterbattle
+	opentext
+	writetext RematchDefeat
+	closetext
+	end
+	
+RematchDefeat:
+	text "Oh, it seems that"
+	
+	para "you're getting"
+	line "better and better."
+	cont "Keep it up!"
+	done
 	
 GotMewText:
 	text "Oh, Hello <PLAYER>"
