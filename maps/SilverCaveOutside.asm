@@ -1,45 +1,38 @@
 SilverCaveOutside_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .FlyPoint
 
 .FlyPoint:
 	setflag ENGINE_FLYPOINT_SILVER_CAVE
-	return
+	endcallback
 
 MtSilverPokecenterSign:
-	jumpstd pokecentersign
+	jumpstd PokecenterSignScript
 
 MtSilverSign:
 	jumptext MtSilverSignText
 
 SilverCaveOutsideHiddenFullRestore:
-	hiddenitem EVENT_SILVER_CAVE_OUTSIDE_HIDDEN_FULL_RESTORE, FULL_RESTORE
+	hiddenitem FULL_RESTORE, EVENT_SILVER_CAVE_OUTSIDE_HIDDEN_FULL_RESTORE
 
 MtSilverSignText:
 	text "MT.SILVER"
 	done
 
 SilverCaveOutside_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 23, 19, 1, SILVER_CAVE_POKECENTER_1F
-	warp_def 18, 11, 1, SILVER_CAVE_ROOM_1
+	def_warp_events
+	warp_event 23, 19, SILVER_CAVE_POKECENTER_1F, 1
+	warp_event 18, 11, SILVER_CAVE_ROOM_1, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 3
+	def_bg_events
 	bg_event 24, 19, BGEVENT_READ, MtSilverPokecenterSign
 	bg_event 17, 13, BGEVENT_READ, MtSilverSign
-	bg_event 9, 25, BGEVENT_ITEM, SilverCaveOutsideHiddenFullRestore
+	bg_event  9, 25, BGEVENT_ITEM, SilverCaveOutsideHiddenFullRestore
 
-.ObjectEvents:
-	db 0
+	def_object_events

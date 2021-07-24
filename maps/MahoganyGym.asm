@@ -1,20 +1,18 @@
-const_value set 2
+	object_const_def
 	const MAHOGANYGYM_PRYCE
-	const MAHOGANYGYM_BUENA1
+	const MAHOGANYGYM_BEAUTY1
 	const MAHOGANYGYM_ROCKER1
-	const MAHOGANYGYM_BUENA2
+	const MAHOGANYGYM_BEAUTY2
 	const MAHOGANYGYM_ROCKER2
 	const MAHOGANYGYM_ROCKER3
-	const MAHOGANYGYM_GYM_GUY
+	const MAHOGANYGYM_GYM_GUIDE
 
 MahoganyGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-PryceScript_0x199a9e:
+MahoganyGymPryceScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_PRYCE
@@ -32,7 +30,7 @@ PryceScript_0x199a9e:
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_GLACIERBADGE
-	checkcode VAR_BADGES
+	readvar VAR_BADGES
 	scall MahoganyGymActivateRockets
 .FightDone:
 	checkevent EVENT_GOT_TM16_ICY_WIND
@@ -43,7 +41,7 @@ PryceScript_0x199a9e:
 	setevent EVENT_BEAT_BOARDER_BRAD
 	setevent EVENT_BEAT_BOARDER_DOUGLAS
 	writetext PryceText_GlacierBadgeSpeech
-	buttonsound
+	promptbutton
 	verbosegiveitem TM_ICY_WIND
 	iffalse MahoganyGym_NoRoomForIcyWind
 	setevent EVENT_GOT_TM16_ICY_WIND
@@ -55,7 +53,7 @@ PryceScript_0x199a9e:
 PryceScript_Defeat:
 	writetext PryceText_CherishYourPokemon
 	yesorno
-	iftrue PryceRematch
+	iftrue PryceRematch ;waitbutton
 MahoganyGym_NoRoomForIcyWind:
 	closetext
 	end
@@ -64,24 +62,24 @@ PryceRematch:
 	winlosstext Pryce_RematchDefeat, 0
 	loadtrainer PRYCE, 1
 	startbattle
-	reloadmapafterbattle
+	reloadmapafterbattle			 
 	
 MahoganyGymActivateRockets:
-	if_equal 7, .RadioTowerRockets
-	if_equal 6, .GoldenrodRockets
+	ifequal 7, .RadioTowerRockets
+	ifequal 6, .GoldenrodRockets
 	end
 
 .GoldenrodRockets:
-	jumpstd goldenrodrockets
+	jumpstd GoldenrodRocketsScript
 
 .RadioTowerRockets:
-	jumpstd radiotowerrockets
+	jumpstd RadioTowerRocketsScript
 
 TrainerSkierRoxanne:
-	trainer EVENT_BEAT_SKIER_ROXANNE, SKIER, ROXANNE, SkierRoxanneSeenText, SkierRoxanneBeatenText, 0, .Script
+	trainer SKIER, ROXANNE, EVENT_BEAT_SKIER_ROXANNE, SkierRoxanneSeenText, SkierRoxanneBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SkierRoxanneAfterBattleText
 	waitbutton
@@ -89,10 +87,10 @@ TrainerSkierRoxanne:
 	end
 
 TrainerSkierClarissa:
-	trainer EVENT_BEAT_SKIER_CLARISSA, SKIER, CLARISSA, SkierClarissaSeenText, SkierClarissaBeatenText, 0, .Script
+	trainer SKIER, CLARISSA, EVENT_BEAT_SKIER_CLARISSA, SkierClarissaSeenText, SkierClarissaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SkierClarissaAfterBattleText
 	waitbutton
@@ -100,10 +98,10 @@ TrainerSkierClarissa:
 	end
 
 TrainerBoarderRonald:
-	trainer EVENT_BEAT_BOARDER_RONALD, BOARDER, RONALD, BoarderRonaldSeenText, BoarderRonaldBeatenText, 0, .Script
+	trainer BOARDER, RONALD, EVENT_BEAT_BOARDER_RONALD, BoarderRonaldSeenText, BoarderRonaldBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BoarderRonaldAfterBattleText
 	waitbutton
@@ -111,10 +109,10 @@ TrainerBoarderRonald:
 	end
 
 TrainerBoarderBrad:
-	trainer EVENT_BEAT_BOARDER_BRAD, BOARDER, BRAD, BoarderBradSeenText, BoarderBradBeatenText, 0, .Script
+	trainer BOARDER, BRAD, EVENT_BEAT_BOARDER_BRAD, BoarderBradSeenText, BoarderBradBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BoarderBradAfterBattleText
 	waitbutton
@@ -122,28 +120,28 @@ TrainerBoarderBrad:
 	end
 
 TrainerBoarderDouglas:
-	trainer EVENT_BEAT_BOARDER_DOUGLAS, BOARDER, DOUGLAS, BoarderDouglasSeenText, BoarderDouglasBeatenText, 0, .Script
+	trainer BOARDER, DOUGLAS, EVENT_BEAT_BOARDER_DOUGLAS, BoarderDouglasSeenText, BoarderDouglasBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BoarderDouglasAfterBattleText
 	waitbutton
 	closetext
 	end
 
-MahoganyGymGuyScript:
+MahoganyGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_PRYCE
-	iftrue .MahoganyGymGuyWinScript
-	writetext MahoganyGymGuyText
+	iftrue .MahoganyGymGuideWinScript
+	writetext MahoganyGymGuideText
 	waitbutton
 	closetext
 	end
 
-.MahoganyGymGuyWinScript:
-	writetext MahoganyGymGuyWinText
+.MahoganyGymGuideWinScript:
+	writetext MahoganyGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -151,10 +149,10 @@ MahoganyGymGuyScript:
 MahoganyGymStatue:
 	checkflag ENGINE_GLACIERBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext PRYCE, PRYCE1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, PRYCE, PRYCE1
+	jumpstd GymStatue2Script
 
 PryceText_Intro:
 	text "#MON have many"
@@ -245,18 +243,17 @@ PryceText_CherishYourPokemon:
 
 	para "Cherish your time"
 	line "together!"
-	
+
 	para "Shall we test"
 	line "your bond with"
 	cont "your pokemon?"
 	done
 
-
 Pryce_RematchDefeat:
 	text "Your bond seems"
 	line "strong."
 	done
-
+	
 BoarderRonaldSeenText:
 	text "I'll freeze your"
 	line "#MON, so you"
@@ -357,7 +354,7 @@ SkierClarissaAfterBattleText:
 	cont "about my skiing…"
 	done
 
-MahoganyGymGuyText:
+MahoganyGymGuideText:
 	text "PRYCE is a veteran"
 	line "who has trained"
 
@@ -377,7 +374,7 @@ MahoganyGymGuyText:
 	line "ambition!"
 	done
 
-MahoganyGymGuyWinText:
+MahoganyGymGuideWinText:
 	text "PRYCE is some-"
 	line "thing, but you're"
 	cont "something else!"
@@ -390,28 +387,23 @@ MahoganyGymGuyWinText:
 	done
 
 MahoganyGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 17, 3, MAHOGANY_TOWN
-	warp_def 5, 17, 3, MAHOGANY_TOWN
+	def_warp_events
+	warp_event  4, 17, MAHOGANY_TOWN, 3
+	warp_event  5, 17, MAHOGANY_TOWN, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 3, 15, BGEVENT_READ, MahoganyGymStatue
-	bg_event 6, 15, BGEVENT_READ, MahoganyGymStatue
+	def_bg_events
+	bg_event  3, 15, BGEVENT_READ, MahoganyGymStatue
+	bg_event  6, 15, BGEVENT_READ, MahoganyGymStatue
 
-.ObjectEvents:
-	db 7
-	object_event 5, 3, SPRITE_PRYCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, PryceScript_0x199a9e, -1
-	object_event 4, 6, SPRITE_BUENA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerSkierRoxanne, -1
-	object_event 0, 17, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderRonald, -1
-	object_event 9, 17, SPRITE_BUENA, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerSkierClarissa, -1
-	object_event 5, 9, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderBrad, -1
-	object_event 2, 4, SPRITE_ROCKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderDouglas, -1
-	object_event 7, 15, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MahoganyGymGuyScript, -1
+	def_object_events
+	object_event  5,  3, SPRITE_PRYCE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, MahoganyGymPryceScript, -1
+	object_event  4,  6, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerSkierRoxanne, -1
+	object_event  0, 17, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderRonald, -1
+	object_event  9, 17, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerSkierClarissa, -1
+	object_event  5,  9, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderBrad, -1
+	object_event  2,  4, SPRITE_ROCKER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerBoarderDouglas, -1
+	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MahoganyGymGuideScript, -1

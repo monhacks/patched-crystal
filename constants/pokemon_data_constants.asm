@@ -1,106 +1,119 @@
 ; base data struct members (see data/pokemon/base_stats/*.asm)
-BASE_DEX_NO      EQUS "(wBaseDexNo - wCurBaseData)"
-BASE_STATS       EQUS "(wBaseStats - wCurBaseData)"
-BASE_HP          EQUS "(wBaseHP - wCurBaseData)"
-BASE_ATK         EQUS "(wBaseAttack - wCurBaseData)"
-BASE_SPD         EQUS "(wBaseSpeed - wCurBaseData)"
-BASE_SAT         EQUS "(wBaseSpecialAttack - wCurBaseData)"
-BASE_SDF         EQUS "(wBaseSpecialDefense - wCurBaseData)"
-BASE_TYPES       EQUS "(wBaseType - wCurBaseData)"
-BASE_TYPE_1      EQUS "(wBaseType1 - wCurBaseData)"
-BASE_TYPE_2      EQUS "(wBaseType2 - wCurBaseData)"
-BASE_CATCH_RATE  EQUS "(wBaseCatchRate - wCurBaseData)"
-BASE_EXP         EQUS "(wBaseExp - wCurBaseData)"
-BASE_ITEMS       EQUS "(wBaseItems - wCurBaseData)"
-BASE_ITEM_1      EQUS "(wBaseItem1 - wCurBaseData)"
-BASE_ITEM_2      EQUS "(wBaseItem2 - wCurBaseData)"
-BASE_GENDER      EQUS "(wBaseGender - wCurBaseData)"
-BASE_UNKNOWN_1   EQUS "(wBaseUnknown1 - wCurBaseData)"
-BASE_EGG_STEPS   EQUS "(wBaseEggSteps - wCurBaseData)"
-BASE_UNKNOWN_2   EQUS "(wBaseUnknown2 - wCurBaseData)"
-BASE_PIC_SIZE    EQUS "(wBasePicSize - wCurBaseData)"
-BASE_PADDING     EQUS "(wBasePadding - wCurBaseData)"
-BASE_GROWTH_RATE EQUS "(wBaseGrowthRate - wCurBaseData)"
-BASE_EGG_GROUPS  EQUS "(wBaseEggGroups - wCurBaseData)"
-BASE_TMHM        EQUS "(wBaseTMHM - wCurBaseData)"
-BASE_DATA_SIZE   EQUS "(wCurBaseDataEnd - wCurBaseData)"
+rsreset
+BASE_DEX_NO      rb
+BASE_STATS       rb NUM_STATS
+rsset BASE_STATS
+BASE_HP          rb
+BASE_ATK         rb
+BASE_DEF         rb
+BASE_SPD         rb
+BASE_SAT         rb
+BASE_SDF         rb
+BASE_TYPES       rw
+rsset BASE_TYPES
+BASE_TYPE_1      rb
+BASE_TYPE_2      rb
+BASE_CATCH_RATE  rb
+BASE_EXP         rb
+BASE_ITEMS       rw
+rsset BASE_ITEMS
+BASE_ITEM_1      rb
+BASE_ITEM_2      rb
+BASE_GENDER      rb
+                 rb_skip
+BASE_EGG_STEPS   rb
+                 rb_skip
+BASE_PIC_SIZE    rb
+BASE_FRONTPIC    rw
+BASE_BACKPIC     rw
+BASE_GROWTH_RATE rb
+BASE_EGG_GROUPS  rb
+BASE_TMHM        rb (NUM_TM_HM_TUTOR + 7) / 8
+BASE_DATA_SIZE EQU _RS
 
 ; gender ratio constants
-GENDER_F0    EQU 0 percent
-GENDER_F12_5 EQU 31 ; 12.5 percent
-GENDER_F25   EQU 25 percent
-GENDER_F50   EQU 50 percent
-GENDER_F75   EQU 75 percent
-GENDER_F100  EQU 254 ; 100 percent
-GENDERLESS   EQU 255
+GENDER_F0      EQU   0 percent
+GENDER_F12_5   EQU  12 percent + 1
+GENDER_F25     EQU  25 percent
+GENDER_F50     EQU  50 percent
+GENDER_F75     EQU  75 percent
+GENDER_F100    EQU 100 percent - 1
+GENDER_UNKNOWN EQU -1
 
 ; wBaseGrowthRate values
 ; GrowthRates indexes (see data/growth_rates.asm)
 	const_def
-	const MEDIUM_FAST
-	const SLIGHTLY_FAST
-	const SLIGHTLY_SLOW
-	const MEDIUM_SLOW
-	const FAST
-	const SLOW
+	const GROWTH_MEDIUM_FAST
+	const GROWTH_SLIGHTLY_FAST
+	const GROWTH_SLIGHTLY_SLOW
+	const GROWTH_MEDIUM_SLOW
+	const GROWTH_FAST
+	const GROWTH_SLOW
+NUM_GROWTH_RATES EQU const_value
 
 ; wBaseEggGroups values
-const_value set 1
-	const MONSTER      ; 1
-	const AMPHIBIAN    ; 2
-	const INSECT       ; 3
-	const AVIAN        ; 4
-	const FIELD        ; 5
-	const FAIRY        ; 6
-	const PLANT        ; 7
-	const HUMANSHAPE   ; 8
-	const INVERTEBRATE ; 9
-	const INANIMATE    ; a
-	const AMORPHOUS    ; b
-	const FISH         ; c
-	const LADIES_MAN   ; d
-	const REPTILE      ; e
-	const NO_EGGS      ; f
-
+	const_def 1
+	const EGG_MONSTER       ; 1
+	const EGG_WATER_1       ; 2 (Amphibian)
+	const EGG_BUG           ; 3
+	const EGG_FLYING        ; 4
+	const EGG_GROUND        ; 5 (Field)
+	const EGG_FAIRY         ; 6
+	const EGG_PLANT         ; 7 (Grass)
+	const EGG_HUMANSHAPE    ; 8 (Human-Like)
+	const EGG_WATER_3       ; 9 (Invertebrate)
+	const EGG_MINERAL       ; a
+	const EGG_INDETERMINATE ; b (Amorphous)
+	const EGG_WATER_2       ; c (Fish)
+	const EGG_DITTO         ; d
+	const EGG_DRAGON        ; e
+	const EGG_NONE          ; f (Undiscovered)
 
 ; pokedex entries (see data/pokemon/dex_entries.asm)
 NUM_DEX_ENTRY_BANKS EQU 4
 
-
 ; party_struct members (see macros/wram.asm)
-MON_SPECIES            EQUS "(wPartyMon1Species - wPartyMon1)"
-MON_ITEM               EQUS "(wPartyMon1Item - wPartyMon1)"
-MON_MOVES              EQUS "(wPartyMon1Moves - wPartyMon1)"
-MON_ID                 EQUS "(wPartyMon1ID - wPartyMon1)"
-MON_EXP                EQUS "(wPartyMon1Exp - wPartyMon1)"
-MON_STAT_EXP           EQUS "(wPartyMon1StatExp - wPartyMon1)"
-MON_HP_EXP             EQUS "(wPartyMon1HPExp - wPartyMon1)"
-MON_ATK_EXP            EQUS "(wPartyMon1AtkExp - wPartyMon1)"
-MON_DEF_EXP            EQUS "(wPartyMon1DefExp - wPartyMon1)"
-MON_SPD_EXP            EQUS "(wPartyMon1SpdExp - wPartyMon1)"
-MON_SPC_EXP            EQUS "(wPartyMon1SpcExp - wPartyMon1)"
-MON_DVS                EQUS "(wPartyMon1DVs - wPartyMon1)"
-MON_PP                 EQUS "(wPartyMon1PP - wPartyMon1)"
-MON_HAPPINESS          EQUS "(wPartyMon1Happiness - wPartyMon1)"
-MON_PKRUS              EQUS "(wPartyMon1PokerusStatus - wPartyMon1)"
-MON_CAUGHTDATA         EQUS "(wPartyMon1CaughtData - wPartyMon1)"
-MON_CAUGHTLEVEL        EQUS "(wPartyMon1CaughtLevel - wPartyMon1)"
-MON_CAUGHTTIME         EQUS "(wPartyMon1CaughtTime - wPartyMon1)"
-MON_CAUGHTGENDER       EQUS "(wPartyMon1CaughtGender - wPartyMon1)"
-MON_CAUGHTLOCATION     EQUS "(wPartyMon1CaughtLocation - wPartyMon1)"
-MON_LEVEL              EQUS "(wPartyMon1Level - wPartyMon1)"
-MON_STATUS             EQUS "(wPartyMon1Status - wPartyMon1)"
-MON_HP                 EQUS "(wPartyMon1HP - wPartyMon1)"
-MON_MAXHP              EQUS "(wPartyMon1MaxHP - wPartyMon1)"
-MON_ATK                EQUS "(wPartyMon1Attack - wPartyMon1)"
-MON_DEF                EQUS "(wPartyMon1Defense - wPartyMon1)"
-MON_SPD                EQUS "(wPartyMon1Speed - wPartyMon1)"
-MON_SAT                EQUS "(wPartyMon1SpclAtk - wPartyMon1)"
-MON_SDF                EQUS "(wPartyMon1SpclDef - wPartyMon1)"
-BOXMON_STRUCT_LENGTH   EQUS "(wPartyMon1End - wPartyMon1)"
-PARTYMON_STRUCT_LENGTH EQUS "(wPartyMon1StatsEnd - wPartyMon1)"
-REDMON_STRUCT_LENGTH EQU 44
+rsreset
+MON_SPECIES            rb
+MON_ITEM               rb
+MON_MOVES              rb NUM_MOVES
+MON_ID                 rw
+MON_EXP                rb 3
+MON_STAT_EXP           rw NUM_EXP_STATS
+rsset MON_STAT_EXP
+MON_HP_EXP             rw
+MON_ATK_EXP            rw
+MON_DEF_EXP            rw
+MON_SPD_EXP            rw
+MON_SPC_EXP            rw
+MON_DVS                rw
+MON_PP                 rb NUM_MOVES
+MON_HAPPINESS          rb
+MON_PKRUS              rb
+MON_CAUGHTDATA         rw
+rsset MON_CAUGHTDATA
+MON_CAUGHTTIME         rb
+MON_CAUGHTGENDER       rb
+rsset MON_CAUGHTDATA
+MON_CAUGHTLEVEL        rb
+MON_CAUGHTLOCATION     rb
+MON_LEVEL              rb
+BOXMON_STRUCT_LENGTH EQU _RS
+MON_STATUS             rb
+                       rb_skip
+MON_HP                 rw
+MON_MAXHP              rw
+MON_STATS              rw NUM_BATTLE_STATS
+rsset MON_STATS
+MON_ATK                rw
+MON_DEF                rw
+MON_SPD                rw
+MON_SAT                rw
+MON_SDF                rw
+PARTYMON_STRUCT_LENGTH EQU _RS
 
+NICKNAMED_MON_STRUCT_LENGTH EQU PARTYMON_STRUCT_LENGTH + MON_NAME_LENGTH
+REDMON_STRUCT_LENGTH EQU 44
 
 ; caught data
 
@@ -116,13 +129,26 @@ CAUGHT_BY_BOY     EQU 2
 
 CAUGHT_EGG_LEVEL EQU 1
 
+MON_CRY_LENGTH EQU 6
 
 ; maximum number of party pokemon
 PARTY_LENGTH EQU 6
 
+; boxes
+MONS_PER_BOX EQU 20
+; box: count, species, mons, OTs, nicknames, padding
+BOX_LENGTH EQU 1 + MONS_PER_BOX + 1 + (BOXMON_STRUCT_LENGTH + NAME_LENGTH + MON_NAME_LENGTH) * MONS_PER_BOX + 2 ; $450
+NUM_BOXES EQU 14
+
+; hall of fame
+; hof_mon: species, id, dvs, level, nicknames
+HOF_MON_LENGTH EQU 1 + 2 + 2 + 1 + (MON_NAME_LENGTH - 1) ; $10
+; hall_of_fame: win count, party, terminator
+HOF_LENGTH EQU 1 + HOF_MON_LENGTH * PARTY_LENGTH + 1 ; $62
+NUM_HOF_TEAMS EQU 30
 
 ; evolution types (used in data/pokemon/evos_attacks.asm)
-const_value set 1
+	const_def 1
 	const EVOLVE_LEVEL
 	const EVOLVE_ITEM
 	const EVOLVE_TRADE
@@ -130,70 +156,34 @@ const_value set 1
 	const EVOLVE_STAT
 
 ; EVOLVE_HAPPINESS triggers
-const_value set 1
+	const_def 1
 	const TR_ANYTIME
 	const TR_MORNDAY
 	const TR_NITE
 
 ; EVOLVE_STAT triggers
-const_value set 1
+	const_def 1
 	const ATK_GT_DEF
 	const ATK_LT_DEF
 	const ATK_EQ_DEF
 
+; wild data
 
-; PokeAnims indexes (see engine/pic_animation.asm)
-	const_def
-	const ANIM_MON_SLOW
-	const ANIM_MON_NORMAL
-	const ANIM_MON_MENU
-	const ANIM_MON_TRADE
-	const ANIM_MON_EVOLVE
-	const ANIM_MON_HATCH
-	const ANIM_MON_UNUSED
-	const ANIM_MON_EGG1
-	const ANIM_MON_EGG2
+NUM_GRASSMON EQU 7 ; data/wild/*_grass.asm table size
+NUM_WATERMON EQU 3 ; data/wild/*_water.asm table size
 
+GRASS_WILDDATA_LENGTH EQU 2 + (1 + NUM_GRASSMON * 2) * 3
+WATER_WILDDATA_LENGTH EQU 2 + (1 + NUM_WATERMON * 2) * 1
+FISHGROUP_DATA_LENGTH EQU 1 + 2 * 3
 
-; MonMenuOptions indexes (see engine/mon_menu.asm)
-const_value set 1
-; moves
-	const MONMENU_CUT        ; 1
-	const MONMENU_FLY        ; 2
-	const MONMENU_SURF       ; 3
-	const MONMENU_STRENGTH   ; 4
-	const MONMENU_WATERFALL  ; 5
-	const MONMENU_FLASH      ; 6
-	const MONMENU_WHIRLPOOL  ; 7
-	const MONMENU_DIG        ; 8
-	const MONMENU_TELEPORT   ; 9
-	const MONMENU_SOFTBOILED ; 10
-	const MONMENU_HEADBUTT   ; 11
-	const MONMENU_ROCKSMASH  ; 12
-	const MONMENU_MILKDRINK  ; 13
-	const MONMENU_SWEETSCENT ; 14
-; options
-	const MONMENU_STATS      ; 15
-	const MONMENU_SWITCH     ; 16
-	const MONMENU_ITEM       ; 17
-	const MONMENU_CANCEL     ; 18
-	const MONMENU_MOVE       ; 19
-	const MONMENU_MAIL       ; 20
-	const MONMENU_ERROR      ; 21
-
-; MonMenuOptions types
-MONMENU_FIELD_MOVE EQU 0
-MONMENU_MENUOPTION EQU 1
-
-NUM_MONMENU_ITEMS EQU 8
-
+NUM_ROAMMON_MAPS EQU 16 ; RoamMaps table size (see data/wild/roammon_maps.asm)
 
 ; treemon sets
 ; TreeMons indexes (see data/wild/treemons.asm)
 	const_def
 	const TREEMON_SET_CITY
 	const TREEMON_SET_CANYON
-	const TREEMON_SET_AZALEA
+	const TREEMON_SET_TOWN
 	const TREEMON_SET_ROUTE
 	const TREEMON_SET_KANTO
 	const TREEMON_SET_LAKE
@@ -207,26 +197,28 @@ NUM_TREEMON_SETS EQU const_value
 	const TREEMON_SCORE_GOOD ; 1
 	const TREEMON_SCORE_RARE ; 2
 
-
-; wild data
-
-NUM_GRASSMON EQU 7 ; data/wild/*_grass.asm table size
-NUM_WATERMON EQU 3 ; data/wild/*_water.asm table size
-
-GRASS_WILDDATA_LENGTH EQU (NUM_GRASSMON * 2 + 1) * 3 + 2
-WATER_WILDDATA_LENGTH EQU (NUM_WATERMON * 2 + 1) * 1 + 2
-
-NUM_ROAMMON_MAPS EQU 16 ; RoamMaps table size (see data/wild/roammon_maps.asm)
-
-
-; swarms
-
-SWARM_DUNSPARCE EQU 0
-SWARM_YANMA     EQU 1
-
-FISHSWARM_QWILFISH EQU 1
-FISHSWARM_REMORAID EQU 2
-
+; ChangeHappiness arguments (see data/events/happiness_changes.asm)
+	const_def 1
+	const HAPPINESS_GAINLEVEL         ; 01
+	const HAPPINESS_USEDITEM          ; 02
+	const HAPPINESS_USEDXITEM         ; 03
+	const HAPPINESS_GYMBATTLE         ; 04
+	const HAPPINESS_LEARNMOVE         ; 05
+	const HAPPINESS_FAINTED           ; 06
+	const HAPPINESS_POISONFAINT       ; 07
+	const HAPPINESS_BEATENBYSTRONGFOE ; 08
+	const HAPPINESS_OLDERCUT1         ; 09
+	const HAPPINESS_OLDERCUT2         ; 0a
+	const HAPPINESS_OLDERCUT3         ; 0b
+	const HAPPINESS_YOUNGCUT1         ; 0c
+	const HAPPINESS_YOUNGCUT2         ; 0d
+	const HAPPINESS_YOUNGCUT3         ; 0e
+	const HAPPINESS_BITTERPOWDER      ; 0f
+	const HAPPINESS_ENERGYROOT        ; 10
+	const HAPPINESS_REVIVALHERB       ; 11
+	const HAPPINESS_GROOMING          ; 12
+	const HAPPINESS_GAINLEVELATHOME   ; 13
+NUM_HAPPINESS_CHANGES EQU const_value - 1
 
 ; significant happiness values
 BASE_HAPPINESS        EQU 70
@@ -234,7 +226,6 @@ FRIEND_BALL_HAPPINESS EQU 200
 HAPPINESS_TO_EVOLVE   EQU 220
 HAPPINESS_THRESHOLD_1 EQU 100
 HAPPINESS_THRESHOLD_2 EQU 200
-
 
 ; PP
 PP_UP_MASK EQU %11000000

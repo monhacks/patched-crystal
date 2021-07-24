@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const CHERRYGROVEPOKECENTER1F_NURSE
 	const CHERRYGROVEPOKECENTER1F_FISHER
 	const CHERRYGROVEPOKECENTER1F_GENTLEMAN
 	const CHERRYGROVEPOKECENTER1F_TEACHER
 
 CherrygrovePokecenter1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-NurseScript_0x19696d:
-	jumpstd pokecenternurse
+CherrygrovePokecenter1FNurseScript:
+	jumpstd PokecenterNurseScript
 
 CherrygrovePokecenter1FFisherScript:
 	jumptextfaceplayer CherrygrovePokecenter1FFisherText
@@ -20,18 +18,18 @@ CherrygrovePokecenter1FFisherScript:
 CherrygrovePokecenter1FGentlemanScript:
 	jumptextfaceplayer CherrygrovePokecenter1FGentlemanText
 
-TeacherScript_0x196976:
+CherrygrovePokecenter1FTeacherScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
-	iftrue UnknownScript_0x196984
-	writetext UnknownText_0x1969f1
+	iftrue .CommCenterOpen
+	writetext CherrygrovePokecenter1FTeacherText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x196984:
-	writetext UnknownText_0x196a46
+.CommCenterOpen:
+	writetext CherrygrovePokecenter1FTeacherText_CommCenterOpen
 	waitbutton
 	closetext
 	end
@@ -50,7 +48,7 @@ CherrygrovePokecenter1FGentlemanText:
 	cont "to use."
 	done
 
-UnknownText_0x1969f1:
+CherrygrovePokecenter1FTeacherText:
 	text "The COMMUNICATION"
 	line "CENTER upstairs"
 	cont "was just built."
@@ -59,7 +57,7 @@ UnknownText_0x1969f1:
 	line "finishing it up."
 	done
 
-UnknownText_0x196a46:
+CherrygrovePokecenter1FTeacherText_CommCenterOpen:
 	text "The COMMUNICATION"
 	line "CENTER upstairs"
 	cont "was just built."
@@ -69,24 +67,19 @@ UnknownText_0x196a46:
 	done
 
 CherrygrovePokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 2, CHERRYGROVE_CITY
-	warp_def 4, 7, 2, CHERRYGROVE_CITY
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, CHERRYGROVE_CITY, 2
+	warp_event  4,  7, CHERRYGROVE_CITY, 2
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 4
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NurseScript_0x19696d, -1
-	object_event 2, 3, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FFisherScript, -1
-	object_event 8, 6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FGentlemanScript, -1
-	object_event 1, 6, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, TeacherScript_0x196976, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FNurseScript, -1
+	object_event  2,  3, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FFisherScript, -1
+	object_event  8,  6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FGentlemanScript, -1
+	object_event  1,  6, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CherrygrovePokecenter1FTeacherScript, -1

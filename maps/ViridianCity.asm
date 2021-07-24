@@ -1,34 +1,32 @@
-const_value set 2
+	object_const_def
 	const VIRIDIANCITY_GRAMPS1
 	const VIRIDIANCITY_GRAMPS2
 	const VIRIDIANCITY_FISHER
 	const VIRIDIANCITY_YOUNGSTER
 
 ViridianCity_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .FlyPoint
 
 .FlyPoint:
 	setflag ENGINE_FLYPOINT_VIRIDIAN
-	return
+	endcallback
 
 ViridianCityCoffeeGramps:
 	faceplayer
 	opentext
-	writetext UnknownText_0x1a9aa5
+	writetext ViridianCityCoffeeGrampsQuestionText
 	yesorno
 	iffalse .no
-	writetext UnknownText_0x1a9b6f
+	writetext ViridianCityCoffeeGrampsBelievedText
 	waitbutton
 	closetext
 	end
 
 .no:
-	writetext UnknownText_0x1a9bb7
+	writetext ViridianCityCoffeeGrampsDoubtedText
 	waitbutton
 	closetext
 	end
@@ -38,13 +36,13 @@ ViridianCityGrampsNearGym:
 	opentext
 	checkevent EVENT_BLUE_IN_CINNABAR
 	iftrue .BlueReturned
-	writetext UnknownText_0x1a9c11
+	writetext ViridianCityGrampsNearGymText
 	waitbutton
 	closetext
 	end
 
 .BlueReturned:
-	writetext UnknownText_0x1a9c7e
+	writetext ViridianCityGrampsNearGymBlueReturnedText
 	waitbutton
 	closetext
 	end
@@ -54,13 +52,13 @@ ViridianCityDreamEaterFisher:
 	opentext
 	checkevent EVENT_GOT_TM42_DREAM_EATER
 	iftrue .GotDreamEater
-	writetext UnknownText_0x1a9cc4
-	buttonsound
+	writetext ViridianCityDreamEaterFisherText
+	promptbutton
 	verbosegiveitem TM_DREAM_EATER
 	iffalse .NoRoomForDreamEater
 	setevent EVENT_GOT_TM42_DREAM_EATER
 .GotDreamEater:
-	writetext UnknownText_0x1a9d86
+	writetext ViridianCityDreamEaterFisherGotDreamEaterText
 	waitbutton
 .NoRoomForDreamEater:
 	closetext
@@ -82,12 +80,12 @@ TrainerHouseSign:
 	jumptext TrainerHouseSignText
 
 ViridianCityPokecenterSign:
-	jumpstd pokecentersign
+	jumpstd PokecenterSignScript
 
 ViridianCityMartSign:
-	jumpstd martsign
+	jumpstd MartSignScript
 
-UnknownText_0x1a9aa5:
+ViridianCityCoffeeGrampsQuestionText:
 	text "Hey, kid! I just"
 	line "had a double shot"
 
@@ -107,7 +105,7 @@ UnknownText_0x1a9aa5:
 	para "Do you believe me?"
 	done
 
-UnknownText_0x1a9b6f:
+ViridianCityCoffeeGrampsBelievedText:
 	text "Good, good. Yes, I"
 	line "was something out"
 
@@ -115,7 +113,7 @@ UnknownText_0x1a9b6f:
 	line "let me tell you!"
 	done
 
-UnknownText_0x1a9bb7:
+ViridianCityCoffeeGrampsDoubtedText:
 	text "What? You little"
 	line "whelp!"
 
@@ -126,7 +124,7 @@ UnknownText_0x1a9bb7:
 	line "or two. Humph!"
 	done
 
-UnknownText_0x1a9c11:
+ViridianCityGrampsNearGymText:
 	text "This GYM didn't"
 	line "have a LEADER"
 	cont "until recently."
@@ -138,7 +136,7 @@ UnknownText_0x1a9c11:
 	line "often away."
 	done
 
-UnknownText_0x1a9c7e:
+ViridianCityGrampsNearGymBlueReturnedText:
 	text "Are you going to"
 	line "battle the LEADER?"
 
@@ -146,7 +144,7 @@ UnknownText_0x1a9c7e:
 	line "You'll need it."
 	done
 
-UnknownText_0x1a9cc4:
+ViridianCityDreamEaterFisherText:
 	text "Yawn!"
 
 	para "I must have dozed"
@@ -169,7 +167,7 @@ UnknownText_0x1a9cc4:
 	cont "this TM."
 	done
 
-UnknownText_0x1a9d86:
+ViridianCityDreamEaterFisherGotDreamEaterText:
 	text "TM42 contains"
 	line "DREAM EATER…"
 
@@ -216,32 +214,27 @@ TrainerHouseSignText:
 	done
 
 ViridianCity_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 5
-	warp_def 32, 7, 1, VIRIDIAN_GYM
-	warp_def 21, 9, 1, VIRIDIAN_NICKNAME_SPEECH_HOUSE
-	warp_def 23, 15, 1, TRAINER_HOUSE_1F
-	warp_def 29, 19, 2, VIRIDIAN_MART
-	warp_def 23, 25, 1, VIRIDIAN_POKECENTER_1F
+	def_warp_events
+	warp_event 32,  7, VIRIDIAN_GYM, 1
+	warp_event 21,  9, VIRIDIAN_NICKNAME_SPEECH_HOUSE, 1
+	warp_event 23, 15, TRAINER_HOUSE_1F, 1
+	warp_event 29, 19, VIRIDIAN_MART, 2
+	warp_event 23, 25, VIRIDIAN_POKECENTER_1F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 6
+	def_bg_events
 	bg_event 17, 17, BGEVENT_READ, ViridianCitySign
-	bg_event 27, 7, BGEVENT_READ, ViridianGymSign
-	bg_event 19, 1, BGEVENT_READ, ViridianCityWelcomeSign
+	bg_event 27,  7, BGEVENT_READ, ViridianGymSign
+	bg_event 19,  1, BGEVENT_READ, ViridianCityWelcomeSign
 	bg_event 21, 15, BGEVENT_READ, TrainerHouseSign
 	bg_event 24, 25, BGEVENT_READ, ViridianCityPokecenterSign
 	bg_event 30, 19, BGEVENT_READ, ViridianCityMartSign
 
-.ObjectEvents:
-	db 4
-	object_event 18, 5, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianCityCoffeeGramps, -1
-	object_event 30, 8, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianCityGrampsNearGym, -1
-	object_event 6, 23, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianCityDreamEaterFisher, -1
+	def_object_events
+	object_event 18,  5, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianCityCoffeeGramps, -1
+	object_event 30,  8, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianCityGrampsNearGym, -1
+	object_event  6, 23, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ViridianCityDreamEaterFisher, -1
 	object_event 17, 21, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ViridianCityYoungsterScript, -1

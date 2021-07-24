@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const VIRIDIANGYM_BLUE
-	const VIRIDIANGYM_GYM_GUY
+	const VIRIDIANGYM_GYM_GUIDE
 
 ViridianGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 ViridianGymBlueScript:
 	faceplayer
@@ -35,9 +33,8 @@ ViridianGymBlueScript:
 .FightDone:
 	writetext LeaderBlueEpilogueText
 	yesorno
-	iftrue .BlueRematch
+	iftrue .BlueRematch;waitbutton
 	closetext
-	end
 	
 .BlueRematch:
 	winlosstext Blue_RematchDefeat, 0
@@ -46,18 +43,18 @@ ViridianGymBlueScript:
 	reloadmapafterbattle
 	end
 
-ViridianGymGuyScript:
+ViridianGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_BLUE
-	iftrue .ViridianGymGuyWinScript
-	writetext ViridianGymGuyText
+	iftrue .ViridianGymGuideWinScript
+	writetext ViridianGymGuideText
 	waitbutton
 	closetext
 	end
 
-.ViridianGymGuyWinScript:
-	writetext ViridianGymGuyWinText
+.ViridianGymGuideWinScript:
+	writetext ViridianGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -65,11 +62,11 @@ ViridianGymGuyScript:
 ViridianGymStatue:
 	checkflag ENGINE_EARTHBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 
 .Beaten:
-	trainertotext BLUE, BLUE1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, BLUE, BLUE1
+	jumpstd GymStatue2Script
 
 LeaderBlueBeforeText:
 	text "BLUE: Yo! Finally"
@@ -144,7 +141,7 @@ LeaderBlueEpilogueText:
 	para "You'd better not"
 	line "lose until I beat"
 	cont "you. Got it?"
-	
+
 	para "In fact, let's"
 	line "have a rematch"
 	cont "right now!"
@@ -157,8 +154,8 @@ Blue_RematchDefeat:
 	para "I cant keep losing"
 	line "to you!"
 	done
-	
-ViridianGymGuyText:
+
+ViridianGymGuideText:
 	text "Yo, CHAMP in"
 	line "making!"
 
@@ -178,7 +175,7 @@ ViridianGymGuyText:
 	line "you've got!"
 	done
 
-ViridianGymGuyWinText:
+ViridianGymGuideWinText:
 	text "Man, you are truly"
 	line "tough…"
 
@@ -190,23 +187,18 @@ ViridianGymGuyWinText:
 	done
 
 ViridianGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 17, 1, VIRIDIAN_CITY
-	warp_def 5, 17, 1, VIRIDIAN_CITY
+	def_warp_events
+	warp_event  4, 17, VIRIDIAN_CITY, 1
+	warp_event  5, 17, VIRIDIAN_CITY, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 3, 13, BGEVENT_READ, ViridianGymStatue
-	bg_event 6, 13, BGEVENT_READ, ViridianGymStatue
+	def_bg_events
+	bg_event  3, 13, BGEVENT_READ, ViridianGymStatue
+	bg_event  6, 13, BGEVENT_READ, ViridianGymStatue
 
-.ObjectEvents:
-	db 2
-	object_event 5, 3, SPRITE_BLUE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianGymBlueScript, EVENT_VIRIDIAN_GYM_BLUE
-	object_event 7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianGymGuyScript, EVENT_VIRIDIAN_GYM_BLUE
+	def_object_events
+	object_event  5,  3, SPRITE_BLUE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ViridianGymBlueScript, EVENT_VIRIDIAN_GYM_BLUE
+	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ViridianGymGuideScript, EVENT_VIRIDIAN_GYM_BLUE

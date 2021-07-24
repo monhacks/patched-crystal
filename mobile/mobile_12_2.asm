@@ -1,4 +1,4 @@
-MobileCheckOwnMonAnywhere: ; 4a843
+MobileCheckOwnMonAnywhere:
 ; Like CheckOwnMonAnywhere, but only check for species.
 ; OT/ID don't matter.
 
@@ -9,7 +9,7 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld d, a
 	ld e, 0
 	ld hl, wPartyMon1Species
-	ld bc, wPartyMonOT
+	ld bc, wPartyMonOTs
 .asm_4a851
 	call .CheckMatch
 	ret c
@@ -17,17 +17,17 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld bc, PARTYMON_STRUCT_LENGTH
 	add hl, bc
 	pop bc
-	call .CopyName
+	call .AdvanceOTName
 	dec d
 	jr nz, .asm_4a851
 	ld a, BANK(sBoxCount)
-	call GetSRAMBank
+	call OpenSRAM
 	ld a, [sBoxCount]
 	and a
 	jr z, .asm_4a888
 	ld d, a
 	ld hl, sBoxMon1Species
-	ld bc, sBoxMonOT
+	ld bc, sBoxMonOTs
 .asm_4a873
 	call .CheckMatch
 	jr nc, .asm_4a87c
@@ -39,7 +39,7 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld bc, BOXMON_STRUCT_LENGTH
 	add hl, bc
 	pop bc
-	call .CopyName
+	call .AdvanceOTName
 	dec d
 	jr nz, .asm_4a873
 
@@ -51,13 +51,13 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	and $f
 	cp c
 	jr z, .asm_4a8d1
-	ld hl, .BoxAddrs
+	ld hl, .BoxAddresses
 	ld b, 0
 	add hl, bc
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
-	call GetSRAMBank
+	call OpenSRAM
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
@@ -72,7 +72,7 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld e, l
 	pop hl
 	push de
-	ld de, sBoxMonOT - sBoxCount
+	ld de, sBoxMonOTs - sBoxCount
 	add hl, de
 	ld b, h
 	ld c, l
@@ -90,7 +90,7 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld bc, BOXMON_STRUCT_LENGTH
 	add hl, bc
 	pop bc
-	call .CopyName
+	call .AdvanceOTName
 	dec d
 	jr nz, .asm_4a8ba
 	pop bc
@@ -103,9 +103,8 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	call CloseSRAM
 	and a
 	ret
-; 4a8dc
 
-.CheckMatch: ; 4a8dc
+.CheckMatch:
 	push bc
 	push hl
 	push de
@@ -130,9 +129,9 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	pop bc
 	scf
 	ret
-; 4a8f4
 
-.BoxAddrs: ; 4a8f4
+.BoxAddresses:
+	table_width 3, MobileCheckOwnMonAnywhere.BoxAddresses
 	dba sBox1
 	dba sBox2
 	dba sBox3
@@ -147,9 +146,9 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	dba sBox12
 	dba sBox13
 	dba sBox14
-; 4a91e
+	assert_table_length NUM_BOXES
 
-.CopyName: ; 4a91e
+.AdvanceOTName:
 	push hl
 	ld hl, NAME_LENGTH
 	add hl, bc
@@ -157,12 +156,11 @@ MobileCheckOwnMonAnywhere: ; 4a843
 	ld c, l
 	pop hl
 	ret
-; 4a927
 
-UnusedSpecial_FindItemInPCOrBag: ; 4a927
+UnusedFindItemInPCOrBag:
 	ld a, [wScriptVar]
 	ld [wCurItem], a
-	ld hl, wPCItems
+	ld hl, wNumPCItems
 	call CheckItem
 	jr c, .found
 
@@ -180,9 +178,8 @@ UnusedSpecial_FindItemInPCOrBag: ; 4a927
 	ld a, 1
 	ld [wScriptVar], a
 	ret
-; 4a94e
 
-Function4a94e: ; 4a94e
+Function4a94e:
 	call FadeToMenu
 	ld a, -1
 	ld hl, wd002
@@ -240,18 +237,15 @@ Function4a94e: ; 4a94e
 .asm_4a9b0
 	ld de, SFX_WRONG
 	call PlaySFX
-	ld hl, UnknownText_0x4a9be
+	ld hl, MobilePickThreeMonForBattleText
 	call PrintText
 	jr .asm_4a974
-; 4a9be
 
-UnknownText_0x4a9be: ; 0x4a9be
-	; Pick three #MON for battle.
-	text_jump UnknownText_0x1c51d7
-	db "@"
-; 0x4a9c3
+MobilePickThreeMonForBattleText:
+	text_far _MobilePickThreeMonForBattleText
+	text_end
 
-Function4a9c3: ; 4a9c3
+Function4a9c3:
 	ld hl, wd002
 	ld a, $ff
 	cp [hl]
@@ -268,54 +262,50 @@ Function4a9c3: ; 4a9c3
 .asm_4a9d5
 	scf
 	ret
-; 4a9d7
 
-Function4a9d7: ; 4a9d7
+Function4a9d7:
 	ld a, [wd002]
 	ld hl, wPartyMonNicknames
-	call GetNick
+	call GetNickname
 	ld h, d
 	ld l, e
-	ld de, wEndFlypoint
-	ld bc, 6
+	ld de, wMobileParticipant1Nickname
+	ld bc, NAME_LENGTH_JAPANESE
 	call CopyBytes
 	ld a, [wd003]
 	ld hl, wPartyMonNicknames
-	call GetNick
+	call GetNickname
 	ld h, d
 	ld l, e
-	ld de, wd00c
-	ld bc, 6
+	ld de, wMobileParticipant2Nickname
+	ld bc, NAME_LENGTH_JAPANESE
 	call CopyBytes
 	ld a, [wd004]
 	ld hl, wPartyMonNicknames
-	call GetNick
+	call GetNickname
 	ld h, d
 	ld l, e
-	ld de, wd012
-	ld bc, 6
+	ld de, wMobileParticipant3Nickname
+	ld bc, NAME_LENGTH_JAPANESE
 	call CopyBytes
-	ld hl, UnknownText_0x4aa1d
+	ld hl, MobileUseTheseThreeMonText
 	call PrintText
 	call YesNoBox
 	ret
-; 4aa1d
 
-UnknownText_0x4aa1d: ; 0x4aa1d
-	; , @  and @ . Use these three?
-	text_jump UnknownText_0x1c51f4
-	db "@"
-; 0x4aa22
+MobileUseTheseThreeMonText:
+	text_far _MobileUseTheseThreeMonText
+	text_end
 
-Function4aa22: ; 4aa22
+Function4aa22:
 	call ClearBGPalettes
 
-Function4aa25: ; 4aa25
+Function4aa25:
 	farcall LoadPartyMenuGFX
 	farcall InitPartyMenuWithCancel
 	call Function4aad3
 
-Function4aa34: ; 4aa34
+Function4aa34:
 	ld a, PARTYMENUACTION_MOBILE
 	ld [wPartyMenuActionText], a
 	farcall WritePartyMenuTilemap
@@ -343,17 +333,15 @@ Function4aa34: ; 4aa34
 	set 1, [hl]
 	pop af
 	ret
-; 4aa6e
 
-Function4aa6e: ; 4aa6e
+Function4aa6e: ; unreferenced
 	pop af
 	ld de, SFX_WRONG
 	call PlaySFX
 	call WaitSFX
 	jr Function4aa34
-; 4aa7a
 
-Function4aa7a: ; 4aa7a
+Function4aa7a:
 	ld hl, wd002
 	ld d, $3
 .loop
@@ -406,9 +394,8 @@ Function4aa7a: ; 4aa7a
 
 .finished
 	ret
-; 4aab6
 
-Function4aab6: ; 4aab6
+Function4aab6:
 	ld hl, wd002
 	ld d, $3
 .loop
@@ -428,9 +415,8 @@ Function4aab6: ; 4aab6
 
 .done
 	ret
-; 4aad3
 
-Function4aad3: ; 4aad3
+Function4aad3:
 	ld hl, wPartyCount
 	ld a, [hli]
 	and a
@@ -438,15 +424,15 @@ Function4aad3: ; 4aad3
 
 	ld c, a
 	xor a
-	ld [hObjectStructIndexBuffer], a
+	ldh [hObjectStructIndex], a
 .loop
 	push bc
 	push hl
-	ld e, 0
+	ld e, MONICON_PARTYMENU
 	farcall LoadMenuMonIcon
-	ld a, [hObjectStructIndexBuffer]
+	ldh a, [hObjectStructIndex]
 	inc a
-	ld [hObjectStructIndexBuffer], a
+	ldh [hObjectStructIndex], a
 	pop hl
 	pop bc
 	dec c
@@ -455,9 +441,8 @@ Function4aad3: ; 4aad3
 	call Function4aa7a
 	farcall PlaySpriteAnimations
 	ret
-; 4aafb
 
-Function4aafb: ; 4aafb
+Function4aafb:
 	ld a, [wCurPartySpecies]
 	cp EGG
 	jr z, .egg
@@ -467,9 +452,8 @@ Function4aafb: ; 4aafb
 .egg
 	scf
 	ret
-; 4ab06
 
-Function4ab06: ; 4ab06
+Function4ab06:
 	ld a, [wCurPartyMon]
 	ld bc, PARTYMON_STRUCT_LENGTH
 	ld hl, wPartyMon1HP
@@ -483,9 +467,8 @@ Function4ab06: ; 4ab06
 
 .NotFainted:
 	ret
-; 4ab1a
 
-Function4ab1a: ; 4ab1a
+Function4ab1a:
 .asm_4ab1a
 	ld a, $fb
 	ld [wMenuJoypadFilter], a
@@ -514,7 +497,7 @@ Function4ab1a: ; 4ab1a
 	dec a
 	ld [wCurPartyMon], a
 	ld c, a
-	ld b, $0
+	ld b, 0
 	ld hl, wPartySpecies
 	add hl, bc
 	ld a, [hl]
@@ -549,9 +532,8 @@ Function4ab1a: ; 4ab1a
 	ld [wd018], a
 	and a
 	ret
-; 4ab99
 
-Function4ab99: ; 4ab99
+Function4ab99:
 	bit 1, a
 	jr z, .asm_4aba6
 	ld a, [wd002]
@@ -563,9 +545,8 @@ Function4ab99: ; 4ab99
 .asm_4aba6
 	and a
 	ret
-; 4aba8
 
-Function4aba8: ; 4aba8
+Function4aba8:
 	ld hl, wd004
 	ld a, [hl]
 	cp $ff
@@ -586,9 +567,8 @@ Function4aba8: ; 4aba8
 	ld [hl], a
 	scf
 	ret
-; 4abc3
 
-Function4abc3: ; 4abc3
+Function4abc3:
 	bit 3, a
 	jr z, .asm_4abd5
 	ld a, [wPartyCount]
@@ -677,22 +657,21 @@ Function4abc3: ; 4abc3
 .asm_4ac56
 	and a
 	ret
-; 4ac58
 
-Function4ac58: ; 4ac58
+Function4ac58:
 	lb bc, 2, 18
 	hlcoord 1, 15
 	call ClearBox
 	farcall FreezeMonIcons
-	ld hl, MenuDataHeader_0x4aca2
-	call LoadMenuDataHeader
+	ld hl, MenuHeader_0x4aca2
+	call LoadMenuHeader
 	ld hl, wd019
 	bit 1, [hl]
 	jr z, .asm_4ac89
 	hlcoord 11, 13
 	ld b, $3
 	ld c, $7
-	call TextBox
+	call Textbox
 	hlcoord 13, 14
 	ld de, String_4ada7
 	call PlaceString
@@ -702,41 +681,39 @@ Function4ac58: ; 4ac58
 	hlcoord 11, 9
 	ld b, $7
 	ld c, $7
-	call TextBox
+	call Textbox
 	call Function4ad68
 
 .asm_4ac96
 	ld a, $1
-	ld [hBGMapMode], a
+	ldh [hBGMapMode], a
 	call Function4acaa
 	call ExitMenu
 	and a
 	ret
-; 4aca2
 
-MenuDataHeader_0x4aca2: ; 0x4aca2
+MenuHeader_0x4aca2:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 11, 9, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 	dw NULL
 	db 1 ; default option
-; 0x4acaa
 
-Function4acaa: ; 4acaa
+Function4acaa:
 .asm_4acaa
 	ld a, $a0
-	ld [wMenuData2Flags], a
+	ld [wMenuDataFlags], a
 	ld a, [wd019]
 	bit 1, a
 	jr z, .asm_4acc2
 	ld a, $2
-	ld [wMenuData2Items], a
+	ld [wMenuDataItems], a
 	ld a, $c
 	ld [wMenuBorderTopCoord], a
 	jr .asm_4accc
 
 .asm_4acc2
 	ld a, $4
-	ld [wMenuData2Items], a
+	ld [wMenuDataItems], a
 	ld a, $8
 	ld [wMenuBorderTopCoord], a
 
@@ -744,14 +721,14 @@ Function4acaa: ; 4acaa
 	ld a, $b
 	ld [wMenuBorderLeftCoord], a
 	ld a, $1
-	ld [wMenuCursorBuffer], a
+	ld [wMenuCursorPosition], a
 	call InitVerticalMenuCursor
 	ld hl, w2DMenuFlags1
 	set 6, [hl]
 	call StaticMenuJoypad
 	ld de, SFX_READ_TEXT_2
 	call PlaySFX
-	ld a, [hJoyPressed]
+	ldh a, [hJoyPressed]
 	bit 0, a
 	jr nz, .asm_4acf4
 	bit 1, a
@@ -780,7 +757,7 @@ Function4acaa: ; 4acaa
 	jr z, Function4ad56
 	jr .asm_4acf3
 
-Function4ad17: ; 4ad17
+Function4ad17:
 	call Function4adb2
 	jr z, .asm_4ad4a
 	ld hl, wd002
@@ -795,7 +772,7 @@ Function4ad17: ; 4ad17
 	jr z, .asm_4ad39
 	ld de, SFX_WRONG
 	call WaitPlaySFX
-	ld hl, UnknownText_0x4ad51
+	ld hl, MobileOnlyThreeMonMayEnterText
 	call PrintText
 	ret
 
@@ -815,28 +792,23 @@ Function4ad17: ; 4ad17
 	call Function4adc2
 	ret
 
-UnknownText_0x4ad51: ; 0x4ad51
-	; Only three #MON may enter.
-	text_jump UnknownText_0x1c521c
-	db "@"
-; 0x4ad56
+MobileOnlyThreeMonMayEnterText:
+	text_far _MobileOnlyThreeMonMayEnterText
+	text_end
 
-Function4ad56: ; 4ad56
+Function4ad56:
 	farcall OpenPartyStats
 	call WaitBGMap2
 	ret
-; 4ad60
 
-Function4ad60: ; 4ad60
+Function4ad60:
 	farcall ManagePokemonMoves
 	ret
-; 4ad67
 
-Function4ad67: ; 4ad67
+Function4ad67: ; unreferenced
 	ret
-; 4ad68
 
-Function4ad68: ; 4ad68
+Function4ad68:
 	hlcoord 13, 12
 	ld de, String_4ad88
 	call PlaceString
@@ -853,28 +825,23 @@ Function4ad68: ; 4ad68
 .asm_4ad84
 	call PlaceString
 	ret
-; 4ad88
 
-String_4ad88: ; 4ad88
+String_4ad88:
 	db   "つよさをみる"
 	next "つかえるわざ"
 	next "もどる@"
-; 4ad9a
 
-String_4ad9a: ; 4ad9a
+String_4ad9a:
 	db   "さんかする@"
-; 4ada0
 
-String_4ada0: ; 4ada0
+String_4ada0:
 	db   "さんかしない@"
-; 4ada7
 
-String_4ada7: ; 4ada7
+String_4ada7:
 	db   "つよさをみる"
 	next "もどる@" ; BACK
-; 4adb2
 
-Function4adb2: ; 4adb2
+Function4adb2:
 	ld hl, wd002
 	ld a, [wCurPartyMon]
 	cp [hl]
@@ -887,9 +854,8 @@ Function4adb2: ; 4adb2
 	ret z
 	scf
 	ret
-; 4adc2
 
-Function4adc2: ; 4adc2
+Function4adc2:
 	ld a, [wd002]
 	cp $ff
 	jr nz, .skip
@@ -917,9 +883,8 @@ Function4adc2: ; 4adc2
 	ld a, b
 	ld [wd004], a
 	ret
-; 4adf7
 
-Function4adf7: ; 4adf7
+Function4adf7:
 	ld a, [wd019]
 	bit 0, a
 	ret z
@@ -932,4 +897,3 @@ Function4adf7: ; 4adf7
 	res 0, a
 	ld [wd019], a
 	ret
-; 4ae12

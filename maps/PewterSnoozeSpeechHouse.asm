@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const PEWTERSNOOZESPEECHHOUSE_GRAMPS
 
 PewterSnoozeSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 PewterSnoozeSpeechHouseGrampsScript:
 	jumptextfaceplayer PewterSnoozeSpeechHouseGrampsText
 
 PewterSnoozeSpeechHouseBookshelf:
-	jumpstd picturebookshelf
+	jumpstd PictureBookshelfScript
 
 PewterSnoozeSpeechHouseGrampsText:
 	text "I like snoozing"
@@ -21,22 +19,17 @@ PewterSnoozeSpeechHouseGrampsText:
 	done
 
 PewterSnoozeSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 5, PEWTER_CITY
-	warp_def 3, 7, 5, PEWTER_CITY
+	def_warp_events
+	warp_event  2,  7, PEWTER_CITY, 5
+	warp_event  3,  7, PEWTER_CITY, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, PewterSnoozeSpeechHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, PewterSnoozeSpeechHouseBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, PewterSnoozeSpeechHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, PewterSnoozeSpeechHouseBookshelf
 
-.ObjectEvents:
-	db 1
-	object_event 5, 3, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PewterSnoozeSpeechHouseGrampsScript, -1
+	def_object_events
+	object_event  5,  3, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, PewterSnoozeSpeechHouseGrampsScript, -1

@@ -1,4 +1,4 @@
-AddPhoneNumber:: ; 90000
+AddPhoneNumber::
 	call _CheckCellNum
 	jr c, .cant_add
 	call Phone_FindOpenSlot
@@ -10,10 +10,8 @@ AddPhoneNumber:: ; 90000
 .cant_add
 	scf
 	ret
-; 9000f
 
-
-DelCellNum:: ; 9000f
+DelCellNum::
 	call _CheckCellNum
 	jr nc, .not_in_list
 	xor a
@@ -23,13 +21,11 @@ DelCellNum:: ; 9000f
 .not_in_list
 	scf
 	ret
-; 90019
 
-CheckCellNum:: ; 90019
-	jp _CheckCellNum ; wtf
-; 9001c
+CheckCellNum::
+	jp _CheckCellNum ; useless
 
-_CheckCellNum: ; 9001c
+_CheckCellNum:
 	ld hl, wPhoneList
 	ld b, CONTACT_LIST_SIZE
 .loop
@@ -45,9 +41,8 @@ _CheckCellNum: ; 9001c
 	dec hl
 	scf
 	ret
-; 9002d
 
-Phone_FindOpenSlot: ; 9002d
+Phone_FindOpenSlot:
 	call GetRemainingSpaceInPhoneList
 	ld b, a
 	ld hl, wPhoneList
@@ -64,11 +59,10 @@ Phone_FindOpenSlot: ; 9002d
 	dec hl
 	scf
 	ret
-; 90040
 
-GetRemainingSpaceInPhoneList: ; 90040
+GetRemainingSpaceInPhoneList:
 	xor a
-	ld [wBuffer1], a
+	ld [wRegisteredPhoneNumbers], a
 	ld hl, PermanentNumbers
 .loop
 	ld a, [hli]
@@ -82,7 +76,7 @@ GetRemainingSpaceInPhoneList: ; 90040
 	ld c, a
 	call _CheckCellNum
 	jr c, .permanent
-	ld hl, wBuffer1
+	ld hl, wRegisteredPhoneNumbers
 	inc [hl]
 .permanent
 	pop hl
@@ -93,16 +87,15 @@ GetRemainingSpaceInPhoneList: ; 90040
 
 .done
 	ld a, CONTACT_LIST_SIZE
-	ld hl, wBuffer1
+	ld hl, wRegisteredPhoneNumbers
 	sub [hl]
 	ret
-; 90066
 
 INCLUDE "data/phone/permanent_numbers.asm"
 
-
-FarPlaceString: ; 90069
-	ld a, [hROMBank]
+BrokenPlaceFarString:
+; This routine is not in bank 0 and will fail or crash if called.
+	ldh a, [hROMBank]
 	push af
 	ld a, b
 	rst Bankswitch
@@ -112,10 +105,8 @@ FarPlaceString: ; 90069
 	pop af
 	rst Bankswitch
 	ret
-; 90074
 
-
-CheckPhoneCall:: ; 90074 (24:4074)
+CheckPhoneCall::
 ; Check if the phone is ringing in the overworld.
 
 	call CheckStandingOnEntrance
@@ -151,11 +142,11 @@ CheckPhoneCall:: ; 90074 (24:4074)
 	xor a
 	ret
 
-.timecheck ; 900a6 (24:40a6)
+.timecheck
 	farcall CheckReceiveCallTimer
 	ret
 
-CheckPhoneContactTimeOfDay: ; 900ad (24:40ad)
+CheckPhoneContactTimeOfDay:
 	push hl
 	push bc
 	push de
@@ -171,16 +162,17 @@ CheckPhoneContactTimeOfDay: ; 900ad (24:40ad)
 	pop hl
 	ret
 
-ChooseRandomCaller: ; 900bf (24:40bf)
+ChooseRandomCaller:
 ; If no one is available to call, don't return anything.
-	ld a, [wEngineBuffer3]
+	ld a, [wNumAvailableCallers]
 	and a
 	jr z, .NothingToSample
 
-; Sample a random number between 0 and 31.
+; Store the number of available callers in c.
 	ld c, a
+; Sample a random number between 0 and 31.
 	call Random
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	swap a
 	and $1f
 ; Compute that number modulo the number of available callers.
@@ -188,7 +180,7 @@ ChooseRandomCaller: ; 900bf (24:40bf)
 ; Return the caller ID you just sampled.
 	ld c, a
 	ld b, 0
-	ld hl, wEngineBuffer4
+	ld hl, wAvailableCallers
 	add hl, bc
 	ld a, [hl]
 	scf
@@ -198,26 +190,26 @@ ChooseRandomCaller: ; 900bf (24:40bf)
 	xor a
 	ret
 
-GetAvailableCallers: ; 900de (24:40de)
+GetAvailableCallers:
 	farcall CheckTime
 	ld a, c
-	ld [wEngineBuffer1], a
-	ld hl, wEngineBuffer3
-	ld bc, 11
+	ld [wCheckedTime], a
+	ld hl, wNumAvailableCallers
+	ld bc, CONTACT_LIST_SIZE + 1
 	xor a
 	call ByteFill
 	ld de, wPhoneList
 	ld a, CONTACT_LIST_SIZE
 
 .loop
-	ld [wEngineBuffer2], a
+	ld [wPhoneListIndex], a
 	ld a, [de]
 	and a
 	jr z, .not_good_for_call
 	ld hl, PhoneContacts + PHONE_CONTACT_SCRIPT2_TIME
-	ld bc, PHONE_TABLE_WIDTH
+	ld bc, PHONE_CONTACT_SIZE
 	call AddNTimes
-	ld a, [wEngineBuffer1]
+	ld a, [wCheckedTime]
 	and [hl]
 	jr z, .not_good_for_call
 	ld bc, PHONE_CONTACT_MAP_GROUP - PHONE_CONTACT_SCRIPT2_TIME
@@ -230,23 +222,23 @@ GetAvailableCallers: ; 900de (24:40de)
 	cp [hl]
 	jr z, .not_good_for_call
 .different_map
-	ld a, [wEngineBuffer3]
+	ld a, [wNumAvailableCallers]
 	ld c, a
-	ld b, $0
+	ld b, 0
 	inc a
-	ld [wEngineBuffer3], a
-	ld hl, wEngineBuffer4
+	ld [wNumAvailableCallers], a
+	ld hl, wAvailableCallers
 	add hl, bc
 	ld a, [de]
 	ld [hl], a
 .not_good_for_call
 	inc de
-	ld a, [wEngineBuffer2]
+	ld a, [wPhoneListIndex]
 	dec a
 	jr nz, .loop
 	ret
 
-CheckSpecialPhoneCall:: ; 90136 (24:4136)
+CheckSpecialPhoneCall::
 	ld a, [wSpecialPhoneCallID]
 	and a
 	jr z, .NoPhoneCall
@@ -255,7 +247,7 @@ CheckSpecialPhoneCall:: ; 90136 (24:4136)
 	ld c, a
 	ld b, 0
 	ld hl, SpecialPhoneCallList
-	ld a, 6
+	ld a, SPECIALCALL_SIZE
 	call AddNTimes
 	ld a, [hli]
 	ld h, [hl]
@@ -271,7 +263,7 @@ CheckSpecialPhoneCall:: ; 90136 (24:4136)
 	push hl
 	call LoadCallerScript
 	pop hl
-	ld de, wPhoneScriptPointer
+	ld de, wCallerContact + PHONE_CONTACT_SCRIPT2_BANK
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -288,24 +280,22 @@ CheckSpecialPhoneCall:: ; 90136 (24:4136)
 .NoPhoneCall:
 	xor a
 	ret
-; 90173 (24:4173)
 
-.script ; 0x90173
+.script
 	pause 30
-	jump Script_ReceivePhoneCall
-; 0x90178
+	sjump Script_ReceivePhoneCall
 
-.DoSpecialPhoneCall: ; 90178 (24:4178)
+.DoSpecialPhoneCall:
 	ld a, [wSpecialPhoneCallID]
 	dec a
 	ld c, a
 	ld b, 0
 	ld hl, SpecialPhoneCallList
-	ld a, 6
+	ld a, SPECIALCALL_SIZE
 	call AddNTimes
 	ret
 
-SpecialCallOnlyWhenOutside: ; 90188
+SpecialCallOnlyWhenOutside:
 	ld a, [wEnvironment]
 	cp TOWN
 	jr z, .outside
@@ -318,11 +308,11 @@ SpecialCallOnlyWhenOutside: ; 90188
 	scf
 	ret
 
-SpecialCallWhereverYouAre: ; 90197
+SpecialCallWhereverYouAre:
 	scf
 	ret
 
-Function90199: ; 90199 (24:4199)
+MakePhoneCallFromPokegear:
 	; Don't do the call if you're in a link communication
 	ld a, [wLinkMode]
 	and a
@@ -333,9 +323,9 @@ Function90199: ; 90199 (24:4199)
 	jr nz, .OutOfArea
 	; If the person can't take a call at that time, don't do the call
 	ld a, b
-	ld [wCurrentCaller], a
+	ld [wCurCaller], a
 	ld hl, PhoneContacts
-	ld bc, PHONE_TABLE_WIDTH
+	ld bc, PHONE_CONTACT_SIZE
 	call AddNTimes
 	ld d, h
 	ld e, l
@@ -364,7 +354,7 @@ Function90199: ; 90199 (24:4199)
 	ld hl, PHONE_CONTACT_SCRIPT1_BANK
 	add hl, de
 	ld b, [hl]
-	ld hl, PHONE_CONTACT_SCRIPT1_ADDR_LO
+	ld hl, PHONE_CONTACT_SCRIPT1_ADDR
 	add hl, de
 	ld a, [hli]
 	ld h, [hl]
@@ -372,8 +362,8 @@ Function90199: ; 90199 (24:4199)
 	jr .DoPhoneCall
 
 .OutOfArea:
-	ld b, BANK(UnknownScript_0x90209)
-	ld de, UnknownScript_0x90209
+	ld b, BANK(LoadOutOfAreaScript)
+	ld de, LoadOutOfAreaScript
 	call ExecuteCallbackScript
 	ret
 
@@ -384,27 +374,24 @@ Function90199: ; 90199 (24:4199)
 	ld [wPhoneCaller], a
 	ld a, h
 	ld [wPhoneCaller + 1], a
-	ld b, BANK(UnknownScript_0x90205)
-	ld de, UnknownScript_0x90205
+	ld b, BANK(LoadPhoneScriptBank)
+	ld de, LoadPhoneScriptBank
 	call ExecuteCallbackScript
 	ret
-; 90205 (24:4205)
 
-UnknownScript_0x90205: ; 0x90205
-	ptcall wd002
-	return
-; 0x90209
+LoadPhoneScriptBank:
+	memcall wPhoneScriptBank
+	endcallback
 
-UnknownScript_0x90209: ; 0x90209
-	scall UnknownScript_0x90657
-	return
-; 0x9020d
+LoadOutOfAreaScript:
+	scall PhoneOutOfAreaScript
+	endcallback
 
-LoadCallerScript: ; 9020d (24:420d)
+LoadCallerScript:
 	nop
 	nop
 	ld a, e
-	ld [wCurrentCaller], a
+	ld [wCurCaller], a
 	and a
 	jr nz, .actualcaller
 	ld a, BANK(WrongNumber)
@@ -413,129 +400,120 @@ LoadCallerScript: ; 9020d (24:420d)
 
 .actualcaller
 	ld hl, PhoneContacts
-	ld bc, 12
+	ld bc, PHONE_CONTACT_SIZE
 	ld a, e
 	call AddNTimes
 	ld a, BANK(PhoneContacts)
 .proceed
-	ld de, wEngineBuffer2
-	ld bc, 12
+	ld de, wCallerContact
+	ld bc, PHONE_CONTACT_SIZE
 	call FarCopyBytes
 	ret
-; 90233 (24:4233)
 
-WrongNumber: ; 90233
+WrongNumber:
 	db TRAINER_NONE, PHONE_00
 	dba .script
 .script
-	writetext .text
+	writetext .PhoneWrongNumberText
 	end
-.text
-	; Huh? Sorry, wrong number!
-	text_jump UnknownText_0x1c5565
-	db "@"
-; 90241
+.PhoneWrongNumberText:
+	text_far _PhoneWrongNumberText
+	text_end
 
-Script_ReceivePhoneCall: ; 0x90241
+Script_ReceivePhoneCall:
 	refreshscreen
 	callasm RingTwice_StartCall
-	ptcall wPhoneScriptPointer
+	memcall wCallerContact + PHONE_CONTACT_SCRIPT2_BANK
 	waitbutton
 	callasm HangUp
 	closetext
 	callasm InitCallReceiveDelay
 	end
-; 0x90255
 
-Script_SpecialBillCall:: ; 0x90255
+Script_SpecialBillCall::
 	callasm .LoadBillScript
-	jump Script_ReceivePhoneCall
+	sjump Script_ReceivePhoneCall
 
 .LoadBillScript:
 	ld e, PHONE_BILL
 	jp LoadCallerScript
-; 90261
 
-UnknownScript_0x90261: ; 0x90261
+Script_SpecialElmCall: ; unreferenced
 	callasm .LoadElmScript
 	pause 30
-	jump Script_ReceivePhoneCall
+	sjump Script_ReceivePhoneCall
 
 .LoadElmScript:
 	ld e, PHONE_ELM
 	jp LoadCallerScript
-; 9026f
 
-RingTwice_StartCall: ; 9026f
+RingTwice_StartCall:
 	call .Ring
 	call .Ring
 	farcall StubbedTrainerRankings_PhoneCalls
 	ret
-; 9027c
 
-.Ring: ; 9027c (24:427c)
+.Ring:
 	call Phone_StartRinging
 	call Phone_Wait20Frames
-	call Phone_CallerTextboxWithName
+	call .CallerTextboxWithName
 	call Phone_Wait20Frames
 	call Phone_CallerTextbox
 	call Phone_Wait20Frames
-	call Phone_CallerTextboxWithName
+	call .CallerTextboxWithName
 	ret
 
-Phone_CallerTextboxWithName: ; 90292 (24:4292)
-	ld a, [wCurrentCaller]
+.CallerTextboxWithName:
+	ld a, [wCurCaller]
 	ld b, a
-	call Function90363
+	call Phone_TextboxWithName
 	ret
 
-PhoneCall:: ; 9029a
+PhoneCall::
 	ld a, b
 	ld [wPhoneScriptBank], a
 	ld a, e
 	ld [wPhoneCaller], a
 	ld a, d
 	ld [wPhoneCaller + 1], a
-	call Phone_FirstOfTwoRings
-	call Phone_FirstOfTwoRings
+	call .Ring
+	call .Ring
 	farcall StubbedTrainerRankings_PhoneCalls
 	ret
-; 902b3
 
-Phone_FirstOfTwoRings: ; 902b3
+.Ring:
 	call Phone_StartRinging
 	call Phone_Wait20Frames
-	call Phone_CallerTextboxWithName2
+	call .CallerTextboxWithName
 	call Phone_Wait20Frames
 	call Phone_CallerTextbox
 	call Phone_Wait20Frames
-	call Phone_CallerTextboxWithName2
+	call .CallerTextboxWithName
 	ret
-; 902c9
 
-Phone_CallerTextboxWithName2: ; 902c9
+.CallerTextboxWithName:
 	call Phone_CallerTextbox
 	hlcoord 1, 2
 	ld [hl], "☎"
 	inc hl
 	inc hl
-	ld a, [wPhoneScriptBank]
-	ld b, a
+	;ld a, [wPhoneScriptBank]
+	;ld b, a
 	ld a, [wPhoneCaller]
 	ld e, a
 	ld a, [wPhoneCaller + 1]
 	ld d, a
-	call FarPlaceString
+	;call BrokenPlaceFarString
+	ld a, [wPhoneScriptBank]
+	call PlaceFarString
 	ret
-; 902e3
 
-
-Phone_NoSignal: ; 902e3 (24:42e3)
+Phone_NoSignal:
 	ld de, SFX_NO_SIGNAL
 	call PlaySFX
 	jr Phone_CallEnd
 
-HangUp:: ; 902eb
+HangUp::
 	call HangUp_Beep
 	call HangUp_Wait20Frames
 Phone_CallEnd:
@@ -552,46 +530,37 @@ Phone_CallEnd:
 	call HangUp_BoopOff
 	call HangUp_Wait20Frames
 	ret
-; 90316
 
-Function90316: ; 90316
+HangUp_ShutDown: ; unreferenced
 	ld de, SFX_SHUT_DOWN_PC
 	call PlaySFX
 	ret
-; 9031d
 
-HangUp_Beep: ; 9031d
-	ld hl, UnknownText_0x9032a
+HangUp_Beep:
+	ld hl, PhoneClickText
 	call PrintText
 	ld de, SFX_HANG_UP
 	call PlaySFX
 	ret
-; 9032a
 
-UnknownText_0x9032a: ; 9032a
-	text_jump UnknownText_0x1c5580
-	db "@"
-; 9032f
+PhoneClickText:
+	text_far _PhoneClickText
+	text_end
 
-
-HangUp_BoopOn: ; 9032f
-	ld hl, UnknownText_0x90336
+HangUp_BoopOn:
+	ld hl, PhoneEllipseText
 	call PrintText
 	ret
-; 90336
 
-UnknownText_0x90336: ; 0x90336
-	text_jump UnknownText_0x1c5588
-	db "@"
-; 0x9033b
+PhoneEllipseText:
+	text_far _PhoneEllipseText
+	text_end
 
-
-HangUp_BoopOff: ; 9033b
-	call SpeechTextBox
+HangUp_BoopOff:
+	call SpeechTextbox
 	ret
-; 9033f
 
-Phone_StartRinging: ; 9033f
+Phone_StartRinging:
 	call WaitSFX
 	ld de, SFX_CALL
 	call PlaySFX
@@ -599,20 +568,17 @@ Phone_StartRinging: ; 9033f
 	call UpdateSprites
 	farcall PhoneRing_CopyTilemapAtOnce
 	ret
-; 90355
 
-HangUp_Wait20Frames: ; 90355
+HangUp_Wait20Frames:
 	jr Phone_Wait20Frames
 
-Phone_Wait20Frames
+Phone_Wait20Frames:
 	ld c, 20
 	call DelayFrames
 	farcall PhoneRing_CopyTilemapAtOnce
 	ret
-; 90363
 
-
-Function90363: ; 90363 (24:4363)
+Phone_TextboxWithName:
 	push bc
 	call Phone_CallerTextbox
 	hlcoord 1, 1
@@ -622,20 +588,17 @@ Function90363: ; 90363 (24:4363)
 	ld d, h
 	ld e, l
 	pop bc
-	call Function90380
+	call GetCallerClassAndName
 	ret
 
-
-Phone_CallerTextbox: ; 90375
+Phone_CallerTextbox:
 	hlcoord 0, 0
 	ld b, 2
 	ld c, SCREEN_WIDTH - 2
-	call TextBox
+	call Textbox
 	ret
-; 90380
 
-
-Function90380: ; 90380 (24:4380)
+GetCallerClassAndName:
 	ld h, d
 	ld l, e
 	ld a, b
@@ -643,7 +606,7 @@ Function90380: ; 90380 (24:4380)
 	call GetCallerName
 	ret
 
-CheckCanDeletePhoneNumber: ; 9038a (24:438a)
+CheckCanDeletePhoneNumber:
 	ld a, c
 	call GetCallerTrainerClass
 	ld a, c
@@ -657,20 +620,18 @@ CheckCanDeletePhoneNumber: ; 9038a (24:438a)
 	ld c, $1
 	ret
 
-GetCallerTrainerClass: ; 9039a
+GetCallerTrainerClass:
 	push hl
 	ld hl, PhoneContacts + PHONE_CONTACT_TRAINER_CLASS
-	ld bc, PHONE_TABLE_WIDTH
+	ld bc, PHONE_CONTACT_SIZE
 	call AddNTimes
 	ld a, [hli]
 	ld b, [hl]
 	ld c, a
 	pop hl
 	ret
-; 903a9
 
-
-GetCallerName: ; 903a9 (24:43a9)
+GetCallerName:
 	ld a, c
 	and a
 	jr z, .NotTrainer
@@ -702,25 +663,10 @@ GetCallerName: ; 903a9 (24:43a9)
 	pop hl
 	call PlaceString
 	ret
-; 903d6 (24:43d6)
 
-NonTrainerCallerNames: ; 903d6
-	dw .none
-	dw .mom
-	dw .bikeshop
-	dw .bill
-	dw .elm
-	dw .buena
+INCLUDE "data/phone/non_trainer_names.asm"
 
-.none db "----------@"
-.mom db "MOM:@"
-.bill db "BILL:@"
-.elm db "PROF.ELM:@"
-.bikeshop db "BIKE SHOP:@"
-.buena db "BUENA:<LNBRK>   DISC JOCKEY@"
-; 90423
-
-Phone_GetTrainerName: ; 90423 (24:4423)
+Phone_GetTrainerName:
 	push hl
 	push bc
 	farcall GetTrainerName
@@ -728,7 +674,7 @@ Phone_GetTrainerName: ; 90423 (24:4423)
 	pop hl
 	ret
 
-Phone_GetTrainerClassName: ; 9042e (24:442e)
+Phone_GetTrainerClassName:
 	push hl
 	push bc
 	farcall GetTrainerClassName
@@ -736,15 +682,15 @@ Phone_GetTrainerClassName: ; 9042e (24:442e)
 	pop hl
 	ret
 
-GetCallerLocation: ; 90439
-	ld a, [wCurrentCaller]
+GetCallerLocation:
+	ld a, [wCurCaller]
 	call GetCallerTrainerClass
 	ld d, c
 	ld e, b
 	push de
-	ld a, [wCurrentCaller]
+	ld a, [wCurCaller]
 	ld hl, PhoneContacts + PHONE_CONTACT_MAP_GROUP
-	ld bc, PHONE_TABLE_WIDTH
+	ld bc, PHONE_CONTACT_SIZE
 	call AddNTimes
 	ld b, [hl]
 	inc hl
@@ -756,43 +702,31 @@ GetCallerLocation: ; 90439
 	pop bc
 	pop de
 	ret
-; 9045f
-
 
 INCLUDE "data/phone/phone_contacts.asm"
 
 INCLUDE "data/phone/special_calls.asm"
 
-
-UnknownScript_0x90657: ; 0x90657
-	writetext UnknownText_0x9065b
+PhoneOutOfAreaScript:
+	writetext PhoneOutOfAreaText
 	end
-; 0x9065b
 
-UnknownText_0x9065b: ; 0x9065b
-	; That number is out of the area.
-	text_jump UnknownText_0x1c558b
-	db "@"
-; 0x90660
+PhoneOutOfAreaText:
+	text_far _PhoneOutOfAreaText
+	text_end
 
-PhoneScript_JustTalkToThem: ; 0x90660
-	writetext UnknownText_0x90664
+PhoneScript_JustTalkToThem:
+	writetext PhoneJustTalkToThemText
 	end
-; 0x90664
 
-UnknownText_0x90664: ; 0x90664
-	; Just go talk to that person!
-	text_jump UnknownText_0x1c55ac
-	db "@"
-; 0x90669
+PhoneJustTalkToThemText:
+	text_far _PhoneJustTalkToThemText
+	text_end
 
-UnknownScript_0x90669: ; 0x90669
-	writetext UnknownText_0x9066d
+PhoneThankYouTextScript: ; unreferenced
+	writetext PhoneThankYouText
 	end
-; 0x9066d
 
-UnknownText_0x9066d: ; 0x9066d
-	; Thank you!
-	text_jump UnknownText_0x1c55ca
-	db "@"
-; 0x90672
+PhoneThankYouText:
+	text_far _PhoneThankYouText
+	text_end

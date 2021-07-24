@@ -1,38 +1,36 @@
-const_value set 2
+	object_const_def
 	const MAHOGANYREDGYARADOSSPEECHHOUSE_BLACK_BELT
 	const MAHOGANYREDGYARADOSSPEECHHOUSE_TEACHER
 
 MahoganyRedGyaradosSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 MahoganyRedGyaradosSpeechHouseBlackBeltScript:
 	jumptextfaceplayer MahoganyRedGyaradosSpeechHouseBlackBeltText
 
-TeacherScript_0x199982:
+MahoganyRedGyaradosSpeechHouseTeacherScript:
 	faceplayer
 	opentext
 	checkflag ENGINE_ROCKETS_IN_RADIO_TOWER
-	iftrue UnknownScript_0x199990
-	writetext UnknownText_0x199a0e
+	iftrue .RocketsInRadioTower
+	writetext MahoganyRedGyaradosSpeechHouseTeacherText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x199990:
-	writetext UnknownText_0x199a3d
+.RocketsInRadioTower:
+	writetext MahoganyRedGyaradosSpeechHouseTeacherText_RocketsInRadioTower
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x195996:
-	jumpstd picturebookshelf
+MahoganyRedGyaradosSpeechHouseUnusedBookshelf1: ; unreferenced
+	jumpstd PictureBookshelfScript
 
-UnknownScript_0x195999:
-	jumpstd magazinebookshelf
+MahoganyRedGyaradosSpeechHouseUnusedBookshelf2: ; unreferenced
+	jumpstd MagazineBookshelfScript
 
 MahoganyRedGyaradosSpeechHouseBlackBeltText:
 	text "I heard that a red"
@@ -46,13 +44,13 @@ MahoganyRedGyaradosSpeechHouseBlackBeltText:
 	line "in that lake…"
 	done
 
-UnknownText_0x199a0e:
+MahoganyRedGyaradosSpeechHouseTeacherText:
 	text "My favorite radio"
 	line "program? I'd say"
 	cont "#MON MUSIC."
 	done
 
-UnknownText_0x199a3d:
+MahoganyRedGyaradosSpeechHouseTeacherText_RocketsInRadioTower:
 	text "I've been hearing"
 	line "laughter on the"
 
@@ -61,21 +59,16 @@ UnknownText_0x199a3d:
 	done
 
 MahoganyRedGyaradosSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 2, MAHOGANY_TOWN
-	warp_def 3, 7, 2, MAHOGANY_TOWN
+	def_warp_events
+	warp_event  2,  7, MAHOGANY_TOWN, 2
+	warp_event  3,  7, MAHOGANY_TOWN, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 2, 3, SPRITE_BLACK_BELT, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MahoganyRedGyaradosSpeechHouseBlackBeltScript, -1
-	object_event 6, 5, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, TeacherScript_0x199982, -1
+	def_object_events
+	object_event  2,  3, SPRITE_BLACK_BELT, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MahoganyRedGyaradosSpeechHouseBlackBeltScript, -1
+	object_event  6,  5, SPRITE_TEACHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, MahoganyRedGyaradosSpeechHouseTeacherScript, -1

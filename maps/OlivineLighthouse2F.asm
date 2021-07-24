@@ -1,60 +1,58 @@
-const_value set 2
+	object_const_def
 	const OLIVINELIGHTHOUSE2F_SAILOR
 	const OLIVINELIGHTHOUSE2F_GENTLEMAN
 
 OlivineLighthouse2F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 TrainerGentlemanAlfred:
-	trainer EVENT_BEAT_GENTLEMAN_ALFRED, GENTLEMAN, ALFRED, GentlemanAlfredSeenText, GentlemanAlfredBeatenText, 0, .Script
+	trainer GENTLEMAN, ALFRED, EVENT_BEAT_GENTLEMAN_ALFRED, GentlemanAlfredSeenText, GentlemanAlfredBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GentlemanAlfredAfterBattleText
 	waitbutton
 	closetext
 	end
 
-TrainerSailorHuey1:
-	trainer EVENT_BEAT_SAILOR_HUEY, SAILOR, HUEY1, SailorHuey1SeenText, SailorHuey1BeatenText, 0, .Script
+TrainerSailorHuey:
+	trainer SAILOR, HUEY1, EVENT_BEAT_SAILOR_HUEY, SailorHueySeenText, SailorHueyBeatenText, 0, .Script
 
 .Script:
-	writecode VAR_CALLERID, PHONE_SAILOR_HUEY
-	end_if_just_battled
+	loadvar VAR_CALLERID, PHONE_SAILOR_HUEY
+	endifjustbattled
 	opentext
-	checkflag ENGINE_HUEY
-	iftrue UnknownScript_0x5afc7
+	checkflag ENGINE_HUEY_READY_FOR_REMATCH
+	iftrue .WantsBattle
 	checkcellnum PHONE_SAILOR_HUEY
-	iftrue UnknownScript_0x5b05f
+	iftrue .NumberAccepted
 	checkevent EVENT_HUEY_ASKED_FOR_PHONE_NUMBER
-	iftrue UnknownScript_0x5afb0
+	iftrue .AskedBefore
 	setevent EVENT_HUEY_ASKED_FOR_PHONE_NUMBER
-	scall UnknownScript_0x5b053
-	jump UnknownScript_0x5afb3
+	scall .AskNumber1
+	sjump .AskForNumber
 
-UnknownScript_0x5afb0:
-	scall UnknownScript_0x5b057
-UnknownScript_0x5afb3:
+.AskedBefore:
+	scall .AskNumber2
+.AskForNumber:
 	askforphonenumber PHONE_SAILOR_HUEY
-	if_equal PHONE_CONTACTS_FULL, UnknownScript_0x5b067
-	if_equal PHONE_CONTACT_REFUSED, UnknownScript_0x5b063
-	trainertotext SAILOR, HUEY1, MEM_BUFFER_0
-	scall UnknownScript_0x5b05b
-	jump UnknownScript_0x5b05f
+	ifequal PHONE_CONTACTS_FULL, .PhoneFull
+	ifequal PHONE_CONTACT_REFUSED, .NumberDeclined
+	gettrainername STRING_BUFFER_3, SAILOR, HUEY1
+	scall .RegisteredNumber
+	sjump .NumberAccepted
 
-UnknownScript_0x5afc7:
-	scall UnknownScript_0x5b06b
-	winlosstext SailorHuey1BeatenText, 0
-	copybytetovar wHueyFightCount
-	if_equal 3, .Fight3
-	if_equal 2, .Fight2
-	if_equal 1, .Fight1
-	if_equal 0, .LoadFight0
+.WantsBattle:
+	scall .Rematch
+	winlosstext SailorHueyBeatenText, 0
+	readmem wHueyFightCount
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
 .Fight3:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight3
@@ -68,104 +66,103 @@ UnknownScript_0x5afc7:
 	loadtrainer SAILOR, HUEY1
 	startbattle
 	reloadmapafterbattle
-	loadvar wHueyFightCount, 1
-	clearflag ENGINE_HUEY
+	loadmem wHueyFightCount, 1
+	clearflag ENGINE_HUEY_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer SAILOR, HUEY2
 	startbattle
 	reloadmapafterbattle
-	loadvar wHueyFightCount, 2
-	clearflag ENGINE_HUEY
+	loadmem wHueyFightCount, 2
+	clearflag ENGINE_HUEY_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer SAILOR, HUEY3
 	startbattle
 	reloadmapafterbattle
-	loadvar wHueyFightCount, 3
-	clearflag ENGINE_HUEY
+	loadmem wHueyFightCount, 3
+	clearflag ENGINE_HUEY_READY_FOR_REMATCH
 	end
 
 .LoadFight3:
 	loadtrainer SAILOR, HUEY4
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_HUEY
+	clearflag ENGINE_HUEY_READY_FOR_REMATCH
 	checkevent EVENT_HUEY_PROTEIN
-	iftrue UnknownScript_0x5b03f
+	iftrue .HasProtein
 	checkevent EVENT_GOT_PROTEIN_FROM_HUEY
-	iftrue UnknownScript_0x5b03e
-	scall UnknownScript_0x5b076
+	iftrue .SkipGift
+	scall .RematchGift
 	verbosegiveitem PROTEIN
-	iffalse UnknownScript_0x5b06f
+	iffalse .PackFull
 	setevent EVENT_GOT_PROTEIN_FROM_HUEY
-	jump UnknownScript_0x5b05f
+	sjump .NumberAccepted
 
-UnknownScript_0x5b03e:
+.SkipGift:
 	end
 
-UnknownScript_0x5b03f:
+.HasProtein:
 	opentext
-	writetext UnknownText_0x5b1b6
+	writetext SailorHueyGiveProteinText
 	waitbutton
 	verbosegiveitem PROTEIN
-	iffalse UnknownScript_0x5b06f
+	iffalse .PackFull
 	clearevent EVENT_HUEY_PROTEIN
 	setevent EVENT_GOT_PROTEIN_FROM_HUEY
-	jump UnknownScript_0x5b05f
+	sjump .NumberAccepted
 
-UnknownScript_0x5b053:
-	jumpstd asknumber1m
+.AskNumber1:
+	jumpstd AskNumber1MScript
 	end
 
-UnknownScript_0x5b057:
-	jumpstd asknumber2m
+.AskNumber2:
+	jumpstd AskNumber2MScript
 	end
 
-UnknownScript_0x5b05b:
-	jumpstd registerednumberm
+.RegisteredNumber:
+	jumpstd RegisteredNumberMScript
 	end
 
-UnknownScript_0x5b05f:
-	jumpstd numberacceptedm
+.NumberAccepted:
+	jumpstd NumberAcceptedMScript
 	end
 
-UnknownScript_0x5b063:
-	jumpstd numberdeclinedm
+.NumberDeclined:
+	jumpstd NumberDeclinedMScript
 	end
 
-UnknownScript_0x5b067:
-	jumpstd phonefullm
+.PhoneFull:
+	jumpstd PhoneFullMScript
 	end
 
-UnknownScript_0x5b06b:
-	jumpstd rematchm
+.Rematch:
+	jumpstd RematchMScript
 	end
 
-UnknownScript_0x5b06f:
+.PackFull:
 	setevent EVENT_HUEY_PROTEIN
-	jumpstd packfullm
+	jumpstd PackFullMScript
 	end
 
-UnknownScript_0x5b076:
-	jumpstd rematchgiftm
+.RematchGift:
+	jumpstd RematchGiftMScript
 	end
 
-SailorHuey1SeenText:
+SailorHueySeenText:
 	text "Men of the sea are"
 	line "always spoiling"
 	cont "for a good fight!"
 	done
 
-SailorHuey1BeatenText:
+SailorHueyBeatenText:
 	text "Urf!"
 	line "I lose!"
 	done
 
-; unused
-UnusedText_0x5b0be:
+SailorHueyUnusedText: ; unreferenced
 	text "What power!"
 	line "How would you like"
 
@@ -195,7 +192,7 @@ GentlemanAlfredAfterBattleText:
 	line "ordinary medicine."
 	done
 
-UnknownText_0x5b1b6:
+SailorHueyGiveProteinText:
 	text "Man! You're as"
 	line "tough as ever!"
 
@@ -205,25 +202,20 @@ UnknownText_0x5b1b6:
 	done
 
 OlivineLighthouse2F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 6
-	warp_def 3, 11, 3, OLIVINE_LIGHTHOUSE_1F
-	warp_def 5, 3, 2, OLIVINE_LIGHTHOUSE_3F
-	warp_def 16, 13, 4, OLIVINE_LIGHTHOUSE_1F
-	warp_def 17, 13, 5, OLIVINE_LIGHTHOUSE_1F
-	warp_def 16, 11, 4, OLIVINE_LIGHTHOUSE_3F
-	warp_def 17, 11, 5, OLIVINE_LIGHTHOUSE_3F
+	def_warp_events
+	warp_event  3, 11, OLIVINE_LIGHTHOUSE_1F, 3
+	warp_event  5,  3, OLIVINE_LIGHTHOUSE_3F, 2
+	warp_event 16, 13, OLIVINE_LIGHTHOUSE_1F, 4
+	warp_event 17, 13, OLIVINE_LIGHTHOUSE_1F, 5
+	warp_event 16, 11, OLIVINE_LIGHTHOUSE_3F, 4
+	warp_event 17, 11, OLIVINE_LIGHTHOUSE_3F, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 9, 3, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSailorHuey1, -1
-	object_event 17, 8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerGentlemanAlfred, -1
+	def_object_events
+	object_event  9,  3, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerSailorHuey, -1
+	object_event 17,  8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerGentlemanAlfred, -1

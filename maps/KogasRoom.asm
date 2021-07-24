@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const KOGASROOM_KOGA
 
 KogasRoom_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .LockDoor
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .LockDoor ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_TILES, .KogasRoomDoors
 
 .LockDoor:
-	priorityjump .KogasDoorLocksBehindYou
+	prioritysjump .KogasDoorLocksBehindYou
 	end
 
 .DummyScene:
@@ -27,17 +25,17 @@ KogasRoom_MapScripts:
 	iffalse .KeepExitClosed
 	changeblock 4, 2, $16 ; open door
 .KeepExitClosed:
-	return
+	endcallback
 
 .KogasDoorLocksBehindYou:
-	applymovement PLAYER, KogasMovementData_0x18078e
+	applymovement PLAYER, KogasRoom_EnterMovement
 	refreshscreen $86
 	playsound SFX_STRENGTH
 	earthquake 80
 	changeblock 4, 14, $2a ; wall
 	reloadmappart
 	closetext
-	setscene 1
+	setscene SCENE_FINISHED
 	setevent EVENT_KOGAS_ROOM_ENTRANCE_CLOSED
 	waitsfx
 	end
@@ -73,7 +71,7 @@ KogaScript_AfterBattle:
 	closetext
 	end
 
-KogasMovementData_0x18078e:
+KogasRoom_EnterMovement:
 	step UP
 	step UP
 	step UP
@@ -130,22 +128,17 @@ KogaScript_KogaDefeatText:
 	done
 
 KogasRoom_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 17, 2, WILLS_ROOM
-	warp_def 5, 17, 3, WILLS_ROOM
-	warp_def 4, 2, 1, BRUNOS_ROOM
-	warp_def 5, 2, 2, BRUNOS_ROOM
+	def_warp_events
+	warp_event  4, 17, WILLS_ROOM, 2
+	warp_event  5, 17, WILLS_ROOM, 3
+	warp_event  4,  2, BRUNOS_ROOM, 1
+	warp_event  5,  2, BRUNOS_ROOM, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 5, 7, SPRITE_KOGA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, KogaScript_Battle, -1
+	def_object_events
+	object_event  5,  7, SPRITE_KOGA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, KogaScript_Battle, -1

@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODDEPTSTORE2F_CLERK1
 	const GOLDENRODDEPTSTORE2F_CLERK2
 	const GOLDENRODDEPTSTORE2F_YOUNGSTER
@@ -6,20 +6,18 @@ const_value set 2
 	const GOLDENRODDEPTSTORE2F_GENTLEMAN
 
 GoldenrodDeptStore2F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-ClerkScript_0x55b5d:
+GoldenrodDeptStore2FClerk1Script:
 	faceplayer
 	opentext
 	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_2F_1
 	closetext
 	end
 
-ClerkScript_0x55b65:
+GoldenrodDeptStore2FClerk2Script:
 	faceplayer
 	opentext
 	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_2F_2
@@ -39,10 +37,9 @@ GoldenrodDeptStore2FDirectory:
 	jumptext GoldenrodDeptStore2FDirectoryText
 
 GoldenrodDeptStore2FElevatorButton:
-	jumpstd elevatorbutton
+	jumpstd ElevatorButtonScript
 
-; unused
-UnusedText_0x55b7c:
+GoldenrodDeptStore2FUnusedText1: ; unreferenced
 	text "We intend to sell"
 	line "items for #MON"
 	cont "to hold."
@@ -52,8 +49,7 @@ UnusedText_0x55b7c:
 	cont "MON hold it."
 	done
 
-; unused
-UnusedText_0x55bd3:
+GoldenrodDeptStore2FUnusedText2: ; unreferenced
 	text "By giving #MON"
 	line "items to hold, I"
 
@@ -101,27 +97,22 @@ GoldenrodDeptStore2FDirectoryText:
 	done
 
 GoldenrodDeptStore2F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 12, 0, 1, GOLDENROD_DEPT_STORE_3F
-	warp_def 15, 0, 3, GOLDENROD_DEPT_STORE_1F
-	warp_def 2, 0, 1, GOLDENROD_DEPT_STORE_ELEVATOR
+	def_warp_events
+	warp_event 12,  0, GOLDENROD_DEPT_STORE_3F, 1
+	warp_event 15,  0, GOLDENROD_DEPT_STORE_1F, 3
+	warp_event  2,  0, GOLDENROD_DEPT_STORE_ELEVATOR, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 14, 0, BGEVENT_READ, GoldenrodDeptStore2FDirectory
-	bg_event 3, 0, BGEVENT_READ, GoldenrodDeptStore2FElevatorButton
+	def_bg_events
+	bg_event 14,  0, BGEVENT_READ, GoldenrodDeptStore2FDirectory
+	bg_event  3,  0, BGEVENT_READ, GoldenrodDeptStore2FElevatorButton
 
-.ObjectEvents:
-	db 5
-	object_event 13, 5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x55b5d, -1
-	object_event 13, 6, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x55b65, -1
-	object_event 9, 6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FYoungsterScript, -1
-	object_event 6, 2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FCooltrainerFScript, -1
-	object_event 2, 6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FGentlemanScript, -1
+	def_object_events
+	object_event 13,  5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FClerk1Script, -1
+	object_event 13,  6, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FClerk2Script, -1
+	object_event  9,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FYoungsterScript, -1
+	object_event  6,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FCooltrainerFScript, -1
+	object_event  2,  6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore2FGentlemanScript, -1

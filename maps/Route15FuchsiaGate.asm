@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const ROUTE15FUCHSIAGATE_OFFICER
 
 Route15FuchsiaGate_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Route15FuchsiaGateOfficerScript:
 	jumptextfaceplayer Route15FuchsiaGateOfficerText
@@ -20,22 +18,17 @@ Route15FuchsiaGateOfficerText:
 	done
 
 Route15FuchsiaGate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 4, 8, FUCHSIA_CITY
-	warp_def 0, 5, 9, FUCHSIA_CITY
-	warp_def 9, 4, 1, ROUTE_15
-	warp_def 9, 5, 2, ROUTE_15
+	def_warp_events
+	warp_event  0,  4, FUCHSIA_CITY, 8
+	warp_event  0,  5, FUCHSIA_CITY, 9
+	warp_event  9,  4, ROUTE_15, 1
+	warp_event  9,  5, ROUTE_15, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 5, 2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route15FuchsiaGateOfficerScript, -1
+	def_object_events
+	object_event  5,  2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route15FuchsiaGateOfficerScript, -1

@@ -1,16 +1,14 @@
-const_value set 2
+	object_const_def
 	const CELADONDEPTSTORE4F_CLERK
 	const CELADONDEPTSTORE4F_SUPER_NERD
 	const CELADONDEPTSTORE4F_YOUNGSTER
 
 CeladonDeptStore4F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-ClerkScript_0x70f0d:
+CeladonDeptStore4FClerkScript:
 	faceplayer
 	opentext
 	pokemart MARTTYPE_STANDARD, MART_CELADON_4F
@@ -27,7 +25,7 @@ CeladonDeptStore4FDirectory:
 	jumptext CeladonDeptStore4FDirectoryText
 
 CeladonDeptStore4FElevatorButton:
-	jumpstd elevatorbutton
+	jumpstd ElevatorButtonScript
 
 CeladonDeptStore4FSuperNerdText:
 	text "I'm here to buy"
@@ -51,25 +49,20 @@ CeladonDeptStore4FDirectoryText:
 	done
 
 CeladonDeptStore4F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 12, 0, 1, CELADON_DEPT_STORE_5F
-	warp_def 15, 0, 2, CELADON_DEPT_STORE_3F
-	warp_def 2, 0, 1, CELADON_DEPT_STORE_ELEVATOR
+	def_warp_events
+	warp_event 12,  0, CELADON_DEPT_STORE_5F, 1
+	warp_event 15,  0, CELADON_DEPT_STORE_3F, 2
+	warp_event  2,  0, CELADON_DEPT_STORE_ELEVATOR, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 14, 0, BGEVENT_READ, CeladonDeptStore4FDirectory
-	bg_event 3, 0, BGEVENT_READ, CeladonDeptStore4FElevatorButton
+	def_bg_events
+	bg_event 14,  0, BGEVENT_READ, CeladonDeptStore4FDirectory
+	bg_event  3,  0, BGEVENT_READ, CeladonDeptStore4FElevatorButton
 
-.ObjectEvents:
-	db 3
-	object_event 13, 5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x70f0d, -1
-	object_event 7, 6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeladonDeptStore4FSuperNerdScript, -1
-	object_event 8, 2, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonDeptStore4FYoungsterScript, -1
+	def_object_events
+	object_event 13,  5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonDeptStore4FClerkScript, -1
+	object_event  7,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeladonDeptStore4FSuperNerdScript, -1
+	object_event  8,  2, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonDeptStore4FYoungsterScript, -1

@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODDEPTSTOREB1F_POKE_BALL1
 	const GOLDENRODDEPTSTOREB1F_POKE_BALL2
 	const GOLDENRODDEPTSTOREB1F_POKE_BALL3
@@ -9,42 +9,40 @@ const_value set 2
 	const GOLDENRODDEPTSTOREB1F_MACHOP
 
 GoldenrodDeptStoreB1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 2
-	callback MAPCALLBACK_TILES, UnknownScript_0x7d781
-	callback MAPCALLBACK_NEWMAP, UnknownScript_0x7d7ac
+	def_callbacks
+	callback MAPCALLBACK_TILES, .ClearBoxes
+	callback MAPCALLBACK_NEWMAP, .Unblock
 
-UnknownScript_0x7d781:
+.ClearBoxes:
 	checkevent EVENT_RECEIVED_CARD_KEY
-	iftrue UnknownScript_0x7d78a
-	jump UnknownScript_0x7d791
+	iftrue .GotCardKey
+	sjump .Continue
 
-UnknownScript_0x7d78a:
+.GotCardKey:
 	changeblock 16, 4, $0d ; floor
-	jump UnknownScript_0x7d791
+	sjump .Continue
 
-UnknownScript_0x7d791:
+.Continue:
 	checkevent EVENT_GOLDENROD_DEPT_STORE_B1F_LAYOUT_2
 	iftrue .Layout2
 	checkevent EVENT_GOLDENROD_DEPT_STORE_B1F_LAYOUT_3
 	iftrue .Layout3
 	changeblock 10, 8, $0d ; floor
-	return
+	endcallback
 
 .Layout2:
 	changeblock 4, 10, $0d ; floor
-	return
+	endcallback
 
 .Layout3:
 	changeblock 10, 12, $0d ; floor
-	return
+	endcallback
 
-UnknownScript_0x7d7ac:
+.Unblock:
 	clearevent EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_BLOCKED_OFF
-	return
+	endcallback
 
 GoldenrodDeptStoreB1FBlackBelt1Script:
 	jumptextfaceplayer GoldenrodDeptStoreB1FBlackBelt1Text
@@ -55,9 +53,9 @@ GoldenrodDeptStoreB1FBlackBelt2Script:
 GoldenrodDeptStoreB1FBlackBelt3Script:
 	jumptextfaceplayer GoldenrodDeptStoreB1FBlackBelt3Text
 
-MachopScript_0x7d7b9:
+GoldenrodDeptStoreB1FMachopScript:
 	opentext
-	writetext UnknownText_0x7d8bb
+	writetext GoldenrodDeptStoreB1FMachokeText
 	cry MACHOKE
 	waitbutton
 	closetext
@@ -105,33 +103,28 @@ GoldenrodDeptStoreB1FBlackBelt3Text:
 	line "want it!"
 	done
 
-UnknownText_0x7d8bb:
+GoldenrodDeptStoreB1FMachokeText:
 	text "MACHOKE: Maaacho!"
 	done
 
 GoldenrodDeptStoreB1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 17, 2, 3, GOLDENROD_UNDERGROUND_WAREHOUSE
-	warp_def 9, 4, 1, GOLDENROD_DEPT_STORE_ELEVATOR
-	warp_def 10, 4, 2, GOLDENROD_DEPT_STORE_ELEVATOR
+	def_warp_events
+	warp_event 17,  2, GOLDENROD_UNDERGROUND_WAREHOUSE, 3
+	warp_event  9,  4, GOLDENROD_DEPT_STORE_ELEVATOR, 1
+	warp_event 10,  4, GOLDENROD_DEPT_STORE_ELEVATOR, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 8
-	object_event 10, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FEther, EVENT_GOLDENROD_DEPT_STORE_B1F_ETHER
-	object_event 14, 2, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FAmuletCoin, EVENT_GOLDENROD_DEPT_STORE_B1F_AMULET_COIN
-	object_event 6, 3, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FBurnHeal, EVENT_GOLDENROD_DEPT_STORE_B1F_BURN_HEAL
-	object_event 15, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FUltraBall, EVENT_GOLDENROD_DEPT_STORE_B1F_ULTRA_BALL
-	object_event 9, 10, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt1Script, -1
-	object_event 4, 8, SPRITE_BLACK_BELT, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt2Script, -1
-	object_event 6, 13, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt3Script, -1
-	object_event 7, 7, SPRITE_MACHOP, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, MachopScript_0x7d7b9, -1
+	def_object_events
+	object_event 10, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FEther, EVENT_GOLDENROD_DEPT_STORE_B1F_ETHER
+	object_event 14,  2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FAmuletCoin, EVENT_GOLDENROD_DEPT_STORE_B1F_AMULET_COIN
+	object_event  6,  3, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FBurnHeal, EVENT_GOLDENROD_DEPT_STORE_B1F_BURN_HEAL
+	object_event 15, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodDeptStoreB1FUltraBall, EVENT_GOLDENROD_DEPT_STORE_B1F_ULTRA_BALL
+	object_event  9, 10, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt1Script, -1
+	object_event  4,  8, SPRITE_BLACK_BELT, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt2Script, -1
+	object_event  6, 13, SPRITE_BLACK_BELT, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FBlackBelt3Script, -1
+	object_event  7,  7, SPRITE_MACHOP, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreB1FMachopScript, -1

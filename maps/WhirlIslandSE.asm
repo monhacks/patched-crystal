@@ -1,24 +1,17 @@
 WhirlIslandSE_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 WhirlIslandSE_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 5, 13, 4, ROUTE_41
-	warp_def 5, 3, 6, WHIRL_ISLAND_B1F
+	def_warp_events
+	warp_event  5, 13, ROUTE_41, 4
+	warp_event  5,  3, WHIRL_ISLAND_B1F, 6
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 0
+	def_object_events

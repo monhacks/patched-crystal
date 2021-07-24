@@ -1,32 +1,30 @@
-const_value set 2
+	object_const_def
 	const CHERRYGROVEEVOLUTIONSPEECHHOUSE_LASS
 	const CHERRYGROVEEVOLUTIONSPEECHHOUSE_YOUNGSTER
 
 CherrygroveEvolutionSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-YoungsterScript_0x196cb2:
+CherrygroveEvolutionSpeechHouseYoungsterScript:
 	opentext
-	writetext UnknownText_0x196cc3
+	writetext CherrygroveEvolutionSpeechHouseYoungsterText
 	waitbutton
 	closetext
 	end
 
-LassScript_0x196cb9:
+CherrygroveEvolutionSpeechHouseLassScript:
 	opentext
-	writetext UnknownText_0x196cfc
+	writetext CherrygroveEvolutionSpeechHouseLassText
 	waitbutton
 	closetext
 	end
 
 CherrygroveEvolutionSpeechHouseBookshelf:
-	jumpstd magazinebookshelf
+	jumpstd MagazineBookshelfScript
 
-UnknownText_0x196cc3:
+CherrygroveEvolutionSpeechHouseYoungsterText:
 	text "#MON gain expe-"
 	line "rience in battle"
 
@@ -34,7 +32,7 @@ UnknownText_0x196cc3:
 	line "form."
 	done
 
-UnknownText_0x196cfc:
+CherrygroveEvolutionSpeechHouseLassText:
 	text "#MON change?"
 
 	para "I would be shocked"
@@ -42,23 +40,18 @@ UnknownText_0x196cfc:
 	done
 
 CherrygroveEvolutionSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 5, CHERRYGROVE_CITY
-	warp_def 3, 7, 5, CHERRYGROVE_CITY
+	def_warp_events
+	warp_event  2,  7, CHERRYGROVE_CITY, 5
+	warp_event  3,  7, CHERRYGROVE_CITY, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, CherrygroveEvolutionSpeechHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, CherrygroveEvolutionSpeechHouseBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, CherrygroveEvolutionSpeechHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, CherrygroveEvolutionSpeechHouseBookshelf
 
-.ObjectEvents:
-	db 2
-	object_event 3, 5, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, LassScript_0x196cb9, -1
-	object_event 2, 5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x196cb2, -1
+	def_object_events
+	object_event  3,  5, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CherrygroveEvolutionSpeechHouseLassScript, -1
+	object_event  2,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CherrygroveEvolutionSpeechHouseYoungsterScript, -1

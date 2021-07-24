@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const DAYCARE_GRAMPS
 	const DAYCARE_GRANNY
 
 DayCare_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .EggCheckCallback
 
 .EggCheckCallback:
@@ -15,12 +13,12 @@ DayCare_MapScripts:
 	iftrue .PutDayCareManOutside
 	clearevent EVENT_DAY_CARE_MAN_IN_DAY_CARE
 	setevent EVENT_DAY_CARE_MAN_ON_ROUTE_34
-	return
+	endcallback
 
 .PutDayCareManOutside:
 	setevent EVENT_DAY_CARE_MAN_IN_DAY_CARE
 	clearevent EVENT_DAY_CARE_MAN_ON_ROUTE_34
-	return
+	endcallback
 
 DayCareManScript_Inside:
 	faceplayer
@@ -28,11 +26,11 @@ DayCareManScript_Inside:
 	checkevent EVENT_GOT_ODD_EGG
 	iftrue .AlreadyHaveOddEgg
 	writetext DayCareManText_GiveOddEgg
-	buttonsound
+	promptbutton
 	closetext
-	checkcode VAR_PARTYCOUNT
-	if_equal PARTY_LENGTH, .PartyFull
-	special Special_GiveOddEgg
+	readvar VAR_PARTYCOUNT
+	ifequal PARTY_LENGTH, .PartyFull
+	special GiveOddEgg
 	opentext
 	writetext DayCareText_GotOddEgg
 	playsound SFX_KEY_ITEM
@@ -51,7 +49,7 @@ DayCareManScript_Inside:
 	end
 
 .AlreadyHaveOddEgg:
-	special Special_DayCareMan
+	special DayCareMan
 	waitbutton
 	closetext
 	end
@@ -61,7 +59,7 @@ DayCareLadyScript:
 	opentext
 	checkflag ENGINE_DAY_CARE_MAN_HAS_EGG
 	iftrue .HusbandWasLookingForYou
-	special Special_DayCareLady
+	special DayCareLady
 	waitbutton
 	closetext
 	end
@@ -73,14 +71,14 @@ DayCareLadyScript:
 	end
 
 DayCareBookshelf:
-	jumpstd difficultbookshelf
+	jumpstd DifficultBookshelfScript
 
 Text_GrampsLookingForYou:
 	text "Gramps was looking"
 	line "for you."
 	done
 
-Text_DayCareManTalksAboutEggTicket:
+Text_DayCareManTalksAboutEggTicket: ; unreferenced
 	text "I'm the DAY-CARE"
 	line "MAN."
 
@@ -127,7 +125,7 @@ DayCareManText_GiveOddEgg:
 	line "yours to keep!"
 	done
 
-DayCareText_ComeAgain:
+DayCareText_ComeAgain: ; unreferenced
 	text "Come again."
 	done
 
@@ -156,25 +154,20 @@ DayCareText_PartyFull:
 	done
 
 DayCare_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 5, 3, ROUTE_34
-	warp_def 0, 6, 4, ROUTE_34
-	warp_def 2, 7, 5, ROUTE_34
-	warp_def 3, 7, 5, ROUTE_34
+	def_warp_events
+	warp_event  0,  5, ROUTE_34, 3
+	warp_event  0,  6, ROUTE_34, 4
+	warp_event  2,  7, ROUTE_34, 5
+	warp_event  3,  7, ROUTE_34, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, DayCareBookshelf
-	bg_event 1, 1, BGEVENT_READ, DayCareBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, DayCareBookshelf
+	bg_event  1,  1, BGEVENT_READ, DayCareBookshelf
 
-.ObjectEvents:
-	db 2
-	object_event 2, 3, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareManScript_Inside, EVENT_DAY_CARE_MAN_IN_DAY_CARE
-	object_event 5, 3, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, DayCareLadyScript, -1
+	def_object_events
+	object_event  2,  3, SPRITE_GRAMPS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DayCareManScript_Inside, EVENT_DAY_CARE_MAN_IN_DAY_CARE
+	object_event  5,  3, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, DayCareLadyScript, -1

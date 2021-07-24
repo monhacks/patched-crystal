@@ -1,25 +1,18 @@
 RuinsOfAlphOmanyteWordRoom_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 RuinsOfAlphOmanyteWordRoom_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 9, 7, 3, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM
-	warp_def 10, 7, 4, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM
-	warp_def 17, 13, 6, RUINS_OF_ALPH_INNER_CHAMBER
+	def_warp_events
+	warp_event  9,  7, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM, 3
+	warp_event 10,  7, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM, 4
+	warp_event 17, 13, RUINS_OF_ALPH_INNER_CHAMBER, 6
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 0
+	def_object_events

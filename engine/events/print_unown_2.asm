@@ -1,28 +1,28 @@
-RotateUnownFrontpic: ; e0000
+RotateUnownFrontpic:
 ; something to do with Unown printer
 	push de
-	xor a ; sScratch
-	call GetSRAMBank
+	xor a ; BANK(sScratch)
+	call OpenSRAM
 	ld hl, sScratch
 	ld bc, 0
 .loop
 	push bc
 	push hl
 	push bc
-	ld de, wd002
+	ld de, wPrintedUnownTileSource
 	call .Copy
 	call .Rotate
-	ld hl, UnownPrinter_OverworldMapRectangle
+	ld hl, UnownPrinter_GBPrinterRectangle
 	pop bc
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
 	ld e, a
 	ld d, [hl]
-	ld hl, wd012
+	ld hl, wPrintedUnownTileDest
 	call .Copy
 	pop hl
-	ld bc, $10
+	ld bc, LEN_2BPP_TILE
 	add hl, bc
 	pop bc
 	inc c
@@ -30,21 +30,21 @@ RotateUnownFrontpic: ; e0000
 	cp 7 * 7
 	jr c, .loop
 
-	ld hl, wOverworldMap
+	ld hl, wGameboyPrinter2bppSource
 	ld de, sScratch
 	ld bc, 7 * 7 tiles
 	call CopyBytes
 	pop hl
 	ld de, sScratch
 	ld c, 7 * 7
-	ld a, [hROMBank]
+	ldh a, [hROMBank]
 	ld b, a
 	call Get2bpp
 	call CloseSRAM
 	ret
 
-.Copy: ; e004e
-	ld c, $10
+.Copy:
+	ld c, LEN_2BPP_TILE
 .loop_copy
 	ld a, [hli]
 	ld [de], a
@@ -53,19 +53,19 @@ RotateUnownFrontpic: ; e0000
 	jr nz, .loop_copy
 	ret
 
-.Rotate: ; e0057
-	ld hl, wd012
+.Rotate:
+	ld hl, wPrintedUnownTileDest
 	ld e, %10000000
 	ld d, 8
 .loop_decompress
 	push hl
-	ld hl, wd002
+	ld hl, wPrintedUnownTileSource
 	call .CountSetBit
 	pop hl
 	ld a, b
 	ld [hli], a
 	push hl
-	ld hl, wd003
+	ld hl, wPrintedUnownTileSource + 1
 	call .CountSetBit
 	pop hl
 	ld a, b
@@ -75,7 +75,7 @@ RotateUnownFrontpic: ; e0000
 	jr nz, .loop_decompress
 	ret
 
-.CountSetBit: ; e0078
+.CountSetBit:
 	ld b, 0
 	ld c, 8
 .loop_count
@@ -95,17 +95,9 @@ RotateUnownFrontpic: ; e0000
 	jr nz, .loop_count
 	ret
 
-overworldmaprect: MACRO
-y = 0
-rept \1
-x = \1 * (\2 +- 1) + y
-rept \2
-	dw wOverworldMap tile x
-x = x +- \2
+UnownPrinter_GBPrinterRectangle:
+for y, 7
+for x, 7 - 1, -1, -1
+	dw wGameboyPrinter2bppSource tile (x * 7 + y)
 endr
-y = y + 1
 endr
-ENDM
-
-UnownPrinter_OverworldMapRectangle: ; e008b
-	overworldmaprect 7, 7

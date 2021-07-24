@@ -1,60 +1,58 @@
-const_value set 2
+	object_const_def
 	const ROUTE39BARN_TWIN1
 	const ROUTE39BARN_TWIN2
 	const ROUTE39BARN_MOOMOO
 
 Route39Barn_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-TwinScript_0x9cc76:
+Route39BarnTwin1Script:
 	faceplayer
 	opentext
 	checkevent EVENT_HEALED_MOOMOO
 	iftrue .FeedingMooMoo
-	writetext Text_MoomooIsSick
+	writetext Route39BarnTwinMoomooIsSickText
 	waitbutton
 	closetext
-	spriteface ROUTE39BARN_TWIN1, RIGHT
+	turnobject ROUTE39BARN_TWIN1, RIGHT
 	end
 
 .FeedingMooMoo:
-	writetext Text_WereFeedingMoomoo
+	writetext Route39BarnTwinWereFeedingMoomooText
 	waitbutton
 	closetext
-	spriteface ROUTE39BARN_TWIN1, RIGHT
+	turnobject ROUTE39BARN_TWIN1, RIGHT
 	end
 
-TwinScript_0x9cc90:
+Route39BarnTwin2Script:
 	faceplayer
 	opentext
 	checkevent EVENT_HEALED_MOOMOO
 	iftrue .FeedingMooMoo
-	writetext Text_MoomooIsSick
+	writetext Route39BarnTwinMoomooIsSickText
 	waitbutton
 	closetext
-	spriteface ROUTE39BARN_TWIN2, LEFT
+	turnobject ROUTE39BARN_TWIN2, LEFT
 	end
 
 .FeedingMooMoo:
-	writetext Text_WereFeedingMoomoo
+	writetext Route39BarnTwinWereFeedingMoomooText
 	waitbutton
 	closetext
-	spriteface ROUTE39BARN_TWIN2, LEFT
+	turnobject ROUTE39BARN_TWIN2, LEFT
 	end
 
-MooMoo:
+MoomooScript:
 	opentext
 	checkevent EVENT_HEALED_MOOMOO
 	iftrue .HappyCow
-	writetext Text_WeakMoo
-	writebyte MILTANK
-	special Special_PlaySlowCry
-	buttonsound
-	writetext Text_ItsCryIsWeak
+	writetext MoomooWeakMooText
+	setval MILTANK
+	special PlaySlowCry
+	promptbutton
+	writetext Route39BarnItsCryIsWeakText
 	checkevent EVENT_TALKED_TO_FARMER_ABOUT_MOOMOO
 	iftrue .GiveBerry
 	waitbutton
@@ -62,126 +60,126 @@ MooMoo:
 	end
 
 .GiveBerry:
-	buttonsound
-	writetext Text_AskGiveBerry
+	promptbutton
+	writetext Route39BarnAskGiveBerryText
 	yesorno
 	iffalse .Refused
 	checkitem BERRY
 	iffalse .NoBerriesInBag
 	takeitem BERRY
-	copybytetovar wMooMooBerries
-	addvar 1
-	copyvartobyte wMooMooBerries
-	if_equal 3, .ThreeBerries
-	if_equal 5, .FiveBerries
-	if_equal 7, .SevenBerries
-	writetext Text_GaveBerry
+	readmem wMooMooBerries
+	addval 1
+	writemem wMooMooBerries
+	ifequal 3, .ThreeBerries
+	ifequal 5, .FiveBerries
+	ifequal 7, .SevenBerries
+	writetext Route39BarnGaveBerryText
 	waitbutton
 	closetext
 	end
 
 .ThreeBerries:
-	writetext Text_GaveBerry
-	buttonsound
-	writetext Text_LittleHealthier
+	writetext Route39BarnGaveBerryText
+	promptbutton
+	writetext Route39BarnLittleHealthierText
 	waitbutton
 	closetext
 	end
 
 .FiveBerries:
-	writetext Text_GaveBerry
-	buttonsound
-	writetext Text_QuiteHealthy
+	writetext Route39BarnGaveBerryText
+	promptbutton
+	writetext Route39BarnQuiteHealthyText
 	waitbutton
 	closetext
 	end
 
 .SevenBerries:
 	playmusic MUSIC_HEAL
-	writetext Text_GaveBerry
+	writetext Route39BarnGaveBerryText
 	pause 60
-	buttonsound
+	promptbutton
 	special RestartMapMusic
-	writetext Text_TotallyHealthy
+	writetext Route39BarnTotallyHealthyText
 	waitbutton
 	closetext
 	setevent EVENT_HEALED_MOOMOO
 	end
 
 .NoBerriesInBag:
-	writetext Text_NoBerries
+	writetext Route39BarnNoBerriesText
 	waitbutton
 	closetext
 	end
 
 .Refused:
-	writetext Text_RefusedToGiveBerry
+	writetext Route39BarnRefusedBerryText
 	waitbutton
 	closetext
 	end
 
 .HappyCow:
-	writetext UnknownText_0x9cd92
+	writetext MoomooHappyMooText
 	cry MILTANK
 	waitbutton
 	closetext
 	end
 
-Text_MoomooIsSick:
+Route39BarnTwinMoomooIsSickText:
 	text "MOOMOO is sick…"
 
 	para "She needs lots of"
 	line "BERRIES."
 	done
 
-Text_WereFeedingMoomoo:
+Route39BarnTwinWereFeedingMoomooText:
 	text "We're feeding"
 	line "MOOMOO!"
 	done
 
-Text_WeakMoo:
+MoomooWeakMooText:
 	text "MILTANK: …Moo…"
 	done
 
-Text_ItsCryIsWeak:
+Route39BarnItsCryIsWeakText:
 	text "Its cry is weak…"
 	done
 
-UnknownText_0x9cd92:
+MoomooHappyMooText:
 	text "MILTANK: Mooo!"
 	done
 
-Text_AskGiveBerry:
+Route39BarnAskGiveBerryText:
 	text "Give a BERRY to"
 	line "MILTANK?"
 	done
 
-Text_GaveBerry:
+Route39BarnGaveBerryText:
 	text "<PLAYER> gave a"
 	line "BERRY to MILTANK."
 	done
 
-Text_LittleHealthier:
+Route39BarnLittleHealthierText:
 	text "MILTANK became a"
 	line "little healthier!"
 	done
 
-Text_QuiteHealthy:
+Route39BarnQuiteHealthyText:
 	text "MILTANK became"
 	line "quite healthy!"
 	done
 
-Text_TotallyHealthy:
+Route39BarnTotallyHealthyText:
 	text "MILTANK became"
 	line "totally healthy!"
 	done
 
-Text_NoBerries:
+Route39BarnNoBerriesText:
 	text "<PLAYER> has no"
 	line "BERRIES…"
 	done
 
-Text_RefusedToGiveBerry:
+Route39BarnRefusedBerryText:
 	text "<PLAYER> wouldn't"
 	line "give a BERRY."
 
@@ -189,22 +187,17 @@ Text_RefusedToGiveBerry:
 	done
 
 Route39Barn_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 3, 7, 1, ROUTE_39
-	warp_def 4, 7, 1, ROUTE_39
+	def_warp_events
+	warp_event  3,  7, ROUTE_39, 1
+	warp_event  4,  7, ROUTE_39, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 2, 3, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, TwinScript_0x9cc76, -1
-	object_event 4, 3, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, TwinScript_0x9cc90, -1
-	object_event 3, 3, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MooMoo, -1
+	def_object_events
+	object_event  2,  3, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route39BarnTwin1Script, -1
+	object_event  4,  3, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route39BarnTwin2Script, -1
+	object_event  3,  3, SPRITE_TAUROS, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MoomooScript, -1

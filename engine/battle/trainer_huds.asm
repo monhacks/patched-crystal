@@ -1,22 +1,20 @@
-BattleStart_TrainerHuds: ; 2c000
+BattleStart_TrainerHuds:
 	ld a, $e4
-	ld [rOBP0], a
+	ldh [rOBP0], a
 	call LoadBallIconGFX
 	call ShowPlayerMonsRemaining
 	ld a, [wBattleMode]
 	dec a
 	ret z
 	jp ShowOTTrainerMonsRemaining
-; 2c012
 
-EnemySwitch_TrainerHud: ; 2c012
+EnemySwitch_TrainerHud:
 	ld a, $e4
-	ld [rOBP0], a
+	ldh [rOBP0], a
 	call LoadBallIconGFX
 	jp ShowOTTrainerMonsRemaining
-; 2c01c
 
-ShowPlayerMonsRemaining: ; 2c01c
+ShowPlayerMonsRemaining:
 	call DrawPlayerPartyIconHUDBorder
 	ld hl, wPartyMon1HP
 	ld de, wPartyCount
@@ -30,9 +28,8 @@ ShowPlayerMonsRemaining: ; 2c01c
 	ld [wPlaceBallsDirection], a
 	ld hl, wVirtualOAMSprite00
 	jp LoadTrainerHudOAM
-; 2c03a
 
-ShowOTTrainerMonsRemaining: ; 2c03a
+ShowOTTrainerMonsRemaining:
 	call DrawEnemyHUDBorder
 	ld hl, wOTPartyMon1HP
 	ld de, wOTPartyCount
@@ -46,12 +43,11 @@ ShowOTTrainerMonsRemaining: ; 2c03a
 	ld [wPlaceBallsDirection], a
 	ld hl, wVirtualOAMSprite00 + PARTY_LENGTH * SPRITEOAMSTRUCT_LENGTH
 	jp LoadTrainerHudOAM
-; 2c059
 
-StageBallTilesData: ; 2c059
+StageBallTilesData:
 	ld a, [de]
 	push af
-	ld de, wBuffer1
+	ld de, wBattleHUDTiles
 	ld c, PARTY_LENGTH
 	ld a, $34 ; empty slot
 .loop1
@@ -60,7 +56,8 @@ StageBallTilesData: ; 2c059
 	dec c
 	jr nz, .loop1
 	pop af
-	ld de, wBuffer1
+
+	ld de, wBattleHUDTiles
 .loop2
 	push af
 	call .GetHUDTile
@@ -69,9 +66,8 @@ StageBallTilesData: ; 2c059
 	dec a
 	jr nz, .loop2
 	ret
-; 2c075
 
-.GetHUDTile: ; 2c075
+.GetHUDTile:
 	ld a, [hli]
 	and a
 	jr nz, .got_hp
@@ -102,12 +98,11 @@ StageBallTilesData: ; 2c059
 	ld bc, PARTYMON_STRUCT_LENGTH + MON_HP - MON_STATUS
 	add hl, bc
 	ret
-; 2c095
 
-DrawPlayerHUDBorder: ; 2c095
+DrawPlayerHUDBorder:
 	ld hl, .tiles
 	ld de, wTrainerHUDTiles
-	ld bc, 4
+	ld bc, .tiles_end - .tiles
 	call CopyBytes
 	hlcoord 18, 10
 	ld de, -1 ; start on right
@@ -118,12 +113,12 @@ DrawPlayerHUDBorder: ; 2c095
 	db $77 ; bottom right
 	db $6f ; bottom left
 	db $76 ; bottom side
-; 2c0ad
+.tiles_end
 
-DrawPlayerPartyIconHUDBorder: ; 2c0ad
+DrawPlayerPartyIconHUDBorder:
 	ld hl, .tiles
 	ld de, wTrainerHUDTiles
-	ld bc, 4
+	ld bc, .tiles_end - .tiles
 	call CopyBytes
 	hlcoord 18, 10
 	ld de, -1 ; start on right
@@ -134,12 +129,12 @@ DrawPlayerPartyIconHUDBorder: ; 2c0ad
 	db $5c ; bottom right
 	db $6f ; bottom left
 	db $76 ; bottom side
-; 2c0c5
+.tiles_end
 
-DrawEnemyHUDBorder: ; 2c0c5
+DrawEnemyHUDBorder:
 	ld hl, .tiles
 	ld de, wTrainerHUDTiles
-	ld bc, 4
+	ld bc, .tiles_end - .tiles
 	call CopyBytes
 	hlcoord 1, 2
 	ld de, 1 ; start on left
@@ -160,29 +155,28 @@ DrawEnemyHUDBorder: ; 2c0c5
 	db $74 ; bottom left
 	db $78 ; bottom right
 	db $76 ; bottom side
-; 2c0f1
+.tiles_end
 
-PlaceHUDBorderTiles: ; 2c0f1
-	ld a, [wTrainerHUDTiles]
+PlaceHUDBorderTiles:
+	ld a, [wTrainerHUDTiles + 0]
 	ld [hl], a
 	ld bc, SCREEN_WIDTH
 	add hl, bc
-	ld a, [wStartFlypoint]
+	ld a, [wTrainerHUDTiles + 1]
 	ld [hl], a
-	ld b, $8
+	ld b, 8
 .loop
 	add hl, de
-	ld a, [wMovementBuffer]
+	ld a, [wTrainerHUDTiles + 3]
 	ld [hl], a
 	dec b
 	jr nz, .loop
 	add hl, de
-	ld a, [wEndFlypoint]
+	ld a, [wTrainerHUDTiles + 2]
 	ld [hl], a
 	ret
-; 2c10d
 
-LinkBattle_TrainerHuds: ; 2c10d
+LinkBattle_TrainerHuds:
 	call LoadBallIconGFX
 	ld hl, wPartyMon1HP
 	ld de, wPartyCount
@@ -191,7 +185,7 @@ LinkBattle_TrainerHuds: ; 2c10d
 	ld a, 10 * 8
 	ld [hli], a
 	ld [hl], 8 * 8
-	ld a, $8
+	ld a, 8
 	ld [wPlaceBallsDirection], a
 	ld hl, wVirtualOAMSprite00
 	call LoadTrainerHudOAM
@@ -205,10 +199,9 @@ LinkBattle_TrainerHuds: ; 2c10d
 	ld [hl], 13 * 8
 	ld hl, wVirtualOAMSprite00 + PARTY_LENGTH * SPRITEOAMSTRUCT_LENGTH
 	jp LoadTrainerHudOAM
-; 2c143
 
-LoadTrainerHudOAM: ; 2c143
-	ld de, wBuffer1
+LoadTrainerHudOAM:
+	ld de, wBattleHUDTiles
 	ld c, PARTY_LENGTH
 .loop
 	ld a, [wPlaceBallsY]
@@ -228,27 +221,24 @@ LoadTrainerHudOAM: ; 2c143
 	dec c
 	jr nz, .loop
 	ret
-; 2c165
 
-LoadBallIconGFX: ; 2c165
+LoadBallIconGFX:
 	ld de, .gfx
 	ld hl, vTiles0 tile $31
 	lb bc, BANK(LoadBallIconGFX), 4
-	call Get2bpp_2
+	call Get2bppViaHDMA
 	ret
-; 2c172
 
-.gfx ; 2c172
+.gfx
 INCBIN "gfx/battle/balls.2bpp"
-; 2c1b2
 
-_ShowLinkBattleParticipants: ; 2c1b2
+_ShowLinkBattleParticipants:
 	call ClearBGPalettes
 	call LoadFontsExtra
 	hlcoord 2, 3
 	ld b, 9
 	ld c, 14
-	call TextBox
+	call Textbox
 	hlcoord 4, 5
 	ld de, wPlayerName
 	call PlaceString
@@ -264,6 +254,5 @@ _ShowLinkBattleParticipants: ; 2c1b2
 	call GetSGBLayout
 	call SetPalettes
 	ld a, $e4
-	ld [rOBP0], a
+	ldh [rOBP0], a
 	ret
-; 2c1ef

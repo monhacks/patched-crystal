@@ -1,14 +1,12 @@
-const_value set 2
+	object_const_def
 	const VIOLETNICKNAMESPEECHHOUSE_TEACHER
 	const VIOLETNICKNAMESPEECHHOUSE_LASS
 	const VIOLETNICKNAMESPEECHHOUSE_BIRD
 
 VioletNicknameSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 VioletNicknameSpeechHouseTeacherScript:
 	jumptextfaceplayer VioletNicknameSpeechHouseTeacherText
@@ -16,10 +14,10 @@ VioletNicknameSpeechHouseTeacherScript:
 VioletNicknameSpeechHouseLassScript:
 	jumptextfaceplayer VioletNicknameSpeechHouseLassText
 
-BirdScript_0x693ef:
+VioletNicknameSpeechHouseBirdScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x6947c
+	writetext VioletNicknameSpeechHouseBirdText
 	cry PIDGEY
 	waitbutton
 	closetext
@@ -40,27 +38,22 @@ VioletNicknameSpeechHouseLassText:
 	line "STRAWBERRY!"
 	done
 
-UnknownText_0x6947c:
+VioletNicknameSpeechHouseBirdText:
 	text "STRAWBERRY: Pijji!"
 	done
 
 VioletNicknameSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 3, 7, 4, VIOLET_CITY
-	warp_def 4, 7, 4, VIOLET_CITY
+	def_warp_events
+	warp_event  3,  7, VIOLET_CITY, 4
+	warp_event  4,  7, VIOLET_CITY, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 2, 3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, VioletNicknameSpeechHouseTeacherScript, -1
-	object_event 6, 4, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletNicknameSpeechHouseLassScript, -1
-	object_event 5, 2, SPRITE_BIRD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, BirdScript_0x693ef, -1
+	def_object_events
+	object_event  2,  3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, VioletNicknameSpeechHouseTeacherScript, -1
+	object_event  6,  4, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, VioletNicknameSpeechHouseLassScript, -1
+	object_event  5,  2, SPRITE_BIRD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, VioletNicknameSpeechHouseBirdScript, -1

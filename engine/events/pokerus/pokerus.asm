@@ -1,4 +1,4 @@
-GivePokerusAndConvertBerries: ; 2ed44
+GivePokerusAndConvertBerries:
 	call ConvertBerriesToBerryJuice
 	ld hl, wPartyMon1PokerusStatus
 	ld a, [wPartyCount]
@@ -19,15 +19,15 @@ GivePokerusAndConvertBerries: ; 2ed44
 ; If we haven't been to Goldenrod City at least once,
 ; prevent the contraction of Pokerus.
 	ld hl, wStatusFlags2
-	bit 6, [hl]
+	bit STATUSFLAGS2_REACHED_GOLDENROD_F, [hl]
 	ret z
 	call Random
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	and a
 	ret nz
-	ld a, [hRandomSub]
-	cp $3
-	ret nc                 ; 3/65536 chance (00 00, 00 01 or 00 02)
+	ldh a, [hRandomSub]
+	cp 3
+	ret nc ; 3/65536 chance (00 00, 00 01 or 00 02)
 	ld a, [wPartyCount]
 	ld b, a
 .randomMonSelectLoop
@@ -36,11 +36,11 @@ GivePokerusAndConvertBerries: ; 2ed44
 	cp b
 	jr nc, .randomMonSelectLoop
 	ld hl, wPartyMon1PokerusStatus
-	call GetPartyLocation  ; get pokerus byte of random mon
+	call GetPartyLocation ; get pokerus byte of random mon
 	ld a, [hl]
 	and $f0
-	ret nz                 ; if it already has pokerus, do nothing
-.randomPokerusLoop         ; Simultaneously sample the strain and duration
+	ret nz ; if it already has pokerus, do nothing
+.randomPokerusLoop ; Simultaneously sample the strain and duration
 	call Random
 	and a
 	jr z, .randomPokerusLoop
@@ -61,21 +61,21 @@ GivePokerusAndConvertBerries: ; 2ed44
 
 .TrySpreadPokerus:
 	call Random
-	cp 1 + 33 percent
-	ret nc              ; 1/3 chance
+	cp 33 percent + 1
+	ret nc ; 1/3 chance
 
 	ld a, [wPartyCount]
 	cp 1
-	ret z               ; only one mon, nothing to do
+	ret z ; only one mon, nothing to do
 
 	ld c, [hl]
 	ld a, b
 	cp 2
-	jr c, .checkPreviousMonsLoop    ; no more mons after this one, go backwards
+	jr c, .checkPreviousMonsLoop ; no more mons after this one, go backwards
 
 	call Random
-	cp 1 + 50 percent
-	jr c, .checkPreviousMonsLoop    ; 1/2 chance, go backwards
+	cp 50 percent + 1
+	jr c, .checkPreviousMonsLoop ; 1/2 chance, go backwards
 .checkFollowingMonsLoop
 	add hl, de
 	ld a, [hl]
@@ -83,8 +83,8 @@ GivePokerusAndConvertBerries: ; 2ed44
 	jr z, .infectMon
 	ld c, a
 	and $3
-	ret z               ; if mon has cured pokerus, stop searching
-	dec b               ; go on to next mon
+	ret z ; if mon has cured pokerus, stop searching
+	dec b ; go on to next mon
 	ld a, b
 	cp 1
 	jr nz, .checkFollowingMonsLoop ; no more mons left
@@ -93,7 +93,7 @@ GivePokerusAndConvertBerries: ; 2ed44
 .checkPreviousMonsLoop
 	ld a, [wPartyCount]
 	cp b
-	ret z               ; no more mons
+	ret z ; no more mons
 	ld a, l
 	sub e
 	ld l, a
@@ -105,8 +105,8 @@ GivePokerusAndConvertBerries: ; 2ed44
 	jr z, .infectMon
 	ld c, a
 	and $3
-	ret z               ; if mon has cured pokerus, stop searching
-	inc b               ; go on to next mon
+	ret z ; if mon has cured pokerus, stop searching
+	inc b ; go on to next mon
 	jr .checkPreviousMonsLoop
 
 .infectMon
@@ -121,14 +121,15 @@ GivePokerusAndConvertBerries: ; 2ed44
 	ld [hl], a
 	ret
 
-; any berry held by a Shuckle may be converted to berry juice
-ConvertBerriesToBerryJuice: ; 2ede6
+ConvertBerriesToBerryJuice:
+; If we haven't been to Goldenrod City at least once,
+; prevent Shuckle from turning held Berry into Berry Juice.
 	ld hl, wStatusFlags2
-	bit 6, [hl]
+	bit STATUSFLAGS2_REACHED_GOLDENROD_F, [hl]
 	ret z
 	call Random
-	cp $10
-	ret nc              ; 1/16 chance
+	cp 1 out_of 16 ; 6.25% chance
+	ret nc
 	ld hl, wPartyMons
 	ld a, [wPartyCount]
 .partyMonLoop

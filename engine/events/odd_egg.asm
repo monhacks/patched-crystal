@@ -1,4 +1,4 @@
-GiveOddEgg: ; 1fb4b6
+_GiveOddEgg:
 	; Figure out which egg to give.
 
 	; Compare a random word to
@@ -22,14 +22,14 @@ GiveOddEgg: ; 1fb4b6
 	jr z, .done
 .not_done
 
-	; Break when [hRandom] <= de.
-	ld a, [hRandom + 1]
+	; Break when the random word <= the next probability in de.
+	ldh a, [hRandomSub]
 	cp d
 	jr c, .done
 	jr z, .ok
 	jr .next
 .ok
-	ld a, [hRandom + 0]
+	ldh a, [hRandomAdd]
 	cp e
 	jr c, .done
 	jr z, .done
@@ -39,36 +39,38 @@ GiveOddEgg: ; 1fb4b6
 .done
 
 	ld hl, OddEggs
-	ld a, OddEgg2 - OddEgg1
+	ld a, NICKNAMED_MON_STRUCT_LENGTH
 	call AddNTimes
 
-	ld de, wOddEggSpecies
-	ld bc, PARTYMON_STRUCT_LENGTH + 2 * MON_NAME_LENGTH
+	; Writes to wOddEgg, wOddEggName, and wOddEggOT,
+	; even though OddEggs does not have data for wOddEggOT
+	ld de, wOddEgg
+	ld bc, NICKNAMED_MON_STRUCT_LENGTH + NAME_LENGTH
 	call CopyBytes
 
 	ld a, EGG_TICKET
 	ld [wCurItem], a
 	ld a, 1
-	ld [wItemQuantityChangeBuffer], a
+	ld [wItemQuantityChange], a
 	ld a, -1
 	ld [wCurItemQuantity], a
 	ld hl, wNumItems
 	call TossItem
 
-	; load species in wcd2a
+	; load species in wMobileMonSpecies
 	ld a, EGG
-	ld [wMobileMonSpeciesBuffer], a
+	ld [wMobileMonSpecies], a
 
-	; load pointer to (wMobileMonSpeciesBuffer - 1) in wMobileMonSpeciesPointerBuffer
-	ld a, LOW(wMobileMonSpeciesBuffer - 1)
-	ld [wMobileMonSpeciesPointerBuffer], a
-	ld a, HIGH(wMobileMonSpeciesBuffer - 1)
-	ld [wMobileMonSpeciesPointerBuffer + 1], a
-	; load pointer to wOddEggSpecies in wMobileMonStructurePointerBuffer
-	ld a, LOW(wOddEggSpecies)
-	ld [wMobileMonStructurePointerBuffer], a
-	ld a, HIGH(wOddEggSpecies)
-	ld [wMobileMonStructurePointerBuffer + 1], a
+	; load pointer to (wMobileMonSpecies - 1) in wMobileMonSpeciesPointer
+	ld a, LOW(wMobileMonSpecies - 1)
+	ld [wMobileMonSpeciesPointer], a
+	ld a, HIGH(wMobileMonSpecies - 1)
+	ld [wMobileMonSpeciesPointer + 1], a
+	; load pointer to wOddEgg in wMobileMonStructPointer
+	ld a, LOW(wOddEgg)
+	ld [wMobileMonStructPointer], a
+	ld a, HIGH(wOddEgg)
+	ld [wMobileMonStructPointer + 1], a
 
 	; load Odd Egg Name in wTempOddEggNickname
 	ld hl, .Odd
@@ -76,21 +78,20 @@ GiveOddEgg: ; 1fb4b6
 	ld bc, MON_NAME_LENGTH
 	call CopyBytes
 
-	; load pointer to wTempOddEggNickname in wMobileMonOTNamePointerBuffer
+	; load pointer to wTempOddEggNickname in wMobileMonOTPointer
 	ld a, LOW(wTempOddEggNickname)
-	ld [wMobileMonOTNamePointerBuffer], a
+	ld [wMobileMonOTPointer], a
 	ld a, HIGH(wTempOddEggNickname)
-	ld [wMobileMonOTNamePointerBuffer + 1], a
-	; load pointer to wOddEggName in wMobileMonNicknamePointerBuffer
+	ld [wMobileMonOTPointer + 1], a
+	; load pointer to wOddEggName in wMobileMonNicknamePointer
 	ld a, LOW(wOddEggName)
-	ld [wMobileMonNicknamePointerBuffer], a
+	ld [wMobileMonNicknamePointer], a
 	ld a, HIGH(wOddEggName)
-	ld [wMobileMonNicknamePointerBuffer + 1], a
+	ld [wMobileMonNicknamePointer + 1], a
 	farcall AddMobileMonToParty
 	ret
-; 1fb546
 
 .Odd:
 	db "ODD@@@@@@@@@"
 
-INCLUDE "data/odd_eggs.asm"
+INCLUDE "data/events/odd_eggs.asm"

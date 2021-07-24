@@ -1,6 +1,7 @@
 ; Every Pokémon sorted in New Pokédex Order.
 
-NewPokedexOrder: ; 0x40d60
+NewPokedexOrder:
+	table_width 1, NewPokedexOrder
 	db CHIKORITA
 	db BAYLEEF
 	db MEGANIUM
@@ -252,4 +253,4 @@ NewPokedexOrder: ; 0x40d60
 	db MEWTWO
 	db MEW
 	db CELEBI
-; 0x40e5b
+	assert_table_length NUM_POKEMON

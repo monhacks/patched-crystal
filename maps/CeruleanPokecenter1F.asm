@@ -1,30 +1,28 @@
-const_value set 2
+	object_const_def
 	const CERULEANPOKECENTER1F_NURSE
 	const CERULEANPOKECENTER1F_SUPER_NERD
-	const CERULEANPOKECENTER1F_GYM_GUY
+	const CERULEANPOKECENTER1F_GYM_GUIDE
 
 CeruleanPokecenter1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-NurseScript_0x18820f:
-	jumpstd pokecenternurse
+CeruleanPokecenter1FNurseScript:
+	jumpstd PokecenterNurseScript
 
-SuperNerdScript_0x188212:
-	special Special_Mobile_DummyReturnFalse
+CeruleanPokecenter1FSuperNerdScript:
+	special Mobile_DummyReturnFalse
 	iftrue .mobile
-	jumptextfaceplayer UnknownText_0x188221
+	jumptextfaceplayer CeruleanPokecenter1FSuperNerdText
 
 .mobile
-	jumptextfaceplayer UnknownText_0x18828c
+	jumptextfaceplayer CeruleanPokecenter1FSuperNerdText_Mobile
 
-CeruleanPokecenter1FGymGuyScript:
-	jumptextfaceplayer CeruleanPokecenter1FGymGuyText
+CeruleanPokecenter1FGymGuideScript:
+	jumptextfaceplayer CeruleanPokecenter1FGymGuideText
 
-UnknownText_0x188221:
+CeruleanPokecenter1FSuperNerdText:
 	text "For battles, I'd"
 	line "much rather use"
 
@@ -36,7 +34,7 @@ UnknownText_0x188221:
 	cont "caught #MON."
 	done
 
-UnknownText_0x18828c:
+CeruleanPokecenter1FSuperNerdText_Mobile:
 	text "Do you battle by"
 	line "mobile phone?"
 
@@ -48,7 +46,7 @@ UnknownText_0x18828c:
 	cont "nerve wracking."
 	done
 
-CeruleanPokecenter1FGymGuyText:
+CeruleanPokecenter1FGymGuideText:
 	text "The MAGNET TRAIN"
 	line "travels at over"
 
@@ -63,23 +61,18 @@ CeruleanPokecenter1FGymGuyText:
 	done
 
 CeruleanPokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 4, CERULEAN_CITY
-	warp_def 4, 7, 4, CERULEAN_CITY
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, CERULEAN_CITY, 4
+	warp_event  4,  7, CERULEAN_CITY, 4
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NurseScript_0x18820f, -1
-	object_event 8, 4, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SuperNerdScript_0x188212, -1
-	object_event 1, 5, SPRITE_GYM_GUY, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeruleanPokecenter1FGymGuyScript, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeruleanPokecenter1FNurseScript, -1
+	object_event  8,  4, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeruleanPokecenter1FSuperNerdScript, -1
+	object_event  1,  5, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeruleanPokecenter1FGymGuideScript, -1

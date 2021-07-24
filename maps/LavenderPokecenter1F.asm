@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const LAVENDERPOKECENTER1F_NURSE
 	const LAVENDERPOKECENTER1F_GENTLEMAN
 	const LAVENDERPOKECENTER1F_TEACHER
 	const LAVENDERPOKECENTER1F_YOUNGSTER
 
 LavenderPokecenter1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-NurseScript_0x7e6a0:
-	jumpstd pokecenternurse
+LavenderPokecenter1FNurseScript:
+	jumpstd PokecenterNurseScript
 
 LavenderPokecenter1FGentlemanScript:
 	jumptextfaceplayer LavenderPokecenter1FGentlemanText
@@ -20,18 +18,18 @@ LavenderPokecenter1FGentlemanScript:
 LavenderPokecenter1FTeacherScript:
 	jumptextfaceplayer LavenderPokecenter1FTeacherText
 
-YoungsterScript_0x7e6a9:
+LavenderPokecenter1FYoungsterScript:
 	faceplayer
 	opentext
 	checkevent EVENT_RETURNED_MACHINE_PART
-	iftrue UnknownScript_0x7e6b7
-	writetext UnknownText_0x7e779
+	iftrue .ReturnedMachinePart
+	writetext LavenderPokecenter1FYoungsterText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x7e6b7:
-	writetext UnknownText_0x7e7ed
+.ReturnedMachinePart:
+	writetext LavenderPokecenter1FYoungsterText_ReturnedMachinePart
 	waitbutton
 	closetext
 	end
@@ -55,7 +53,7 @@ LavenderPokecenter1FTeacherText:
 	cont "to tune into it."
 	done
 
-UnknownText_0x7e779:
+LavenderPokecenter1FYoungsterText:
 	text "If the POWER PLANT"
 	line "isn't running, the"
 
@@ -67,7 +65,7 @@ UnknownText_0x7e779:
 	cont "can't broadcast…"
 	done
 
-UnknownText_0x7e7ed:
+LavenderPokecenter1FYoungsterText_ReturnedMachinePart:
 	text "The DIRECTOR of"
 	line "the RADIO STATION"
 	cont "sure was happy."
@@ -81,24 +79,19 @@ UnknownText_0x7e7ed:
 	done
 
 LavenderPokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 1, LAVENDER_TOWN
-	warp_def 4, 7, 1, LAVENDER_TOWN
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, LAVENDER_TOWN, 1
+	warp_event  4,  7, LAVENDER_TOWN, 1
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 4
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NurseScript_0x7e6a0, -1
-	object_event 7, 6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FGentlemanScript, -1
-	object_event 5, 3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FTeacherScript, -1
-	object_event 1, 5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x7e6a9, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FNurseScript, -1
+	object_event  7,  6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FGentlemanScript, -1
+	object_event  5,  3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FTeacherScript, -1
+	object_event  1,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, LavenderPokecenter1FYoungsterScript, -1

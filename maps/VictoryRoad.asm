@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const VICTORYROAD_MOLTRES
 	const VICTORYROAD_SILVER
 	const VICTORYROAD_POKE_BALL1
@@ -8,29 +8,33 @@ const_value set 2
 	const VICTORYROAD_POKE_BALL5
 
 VictoryRoad_MapScripts:
-.SceneScripts:
-	db 0
-	;scene_script .DummyScene0
-	;scene_script .DummyScene1
+	def_scene_scripts
+	scene_script .DummyScene0 ; SCENE_DEFAULT
+	scene_script .DummyScene1 ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 1
-	callback MAPCALLBACK_OBJECTS, .Moltres
-	
+	def_callbacks
+	callback MAPCALLBACK_OBJECTS, .Moltres   
+
+.DummyScene0:			
+	end
+
+.DummyScene1:
+	end
+
 .Moltres:
     checkevent EVENT_FOUGHT_MOLTRES
     iftrue .NoAppear
 	checkitem CLEAR_BELL
 	iftrue .Appear
 	jump .NoAppear
-
+	
 .Appear
 	appear VICTORYROAD_MOLTRES
-	return
+	endcallback
 	
 .NoAppear
 	disappear VICTORYROAD_MOLTRES
-	return
+	endcallback
 	
 Moltres:
 	faceplayer
@@ -46,85 +50,79 @@ Moltres:
     disappear VICTORYROAD_MOLTRES
     reloadmapafterbattle
     end
-	
 
-;.DummyScene0:
-	;end
 
-;.DummyScene1:
-	;end
-
-UnknownScript_0x74492:
+VictoryRoadRivalLeft:
 	moveobject VICTORYROAD_SILVER, 18, 11
-	spriteface PLAYER, DOWN
+	turnobject PLAYER, DOWN
 	showemote EMOTE_SHOCK, PLAYER, 15
-	special Special_FadeOutMusic
+	special FadeOutMusic
 	pause 15
 	appear VICTORYROAD_SILVER
-	applymovement VICTORYROAD_SILVER, MovementData_0x74539
-	scall UnknownScript_0x744d4
-	applymovement VICTORYROAD_SILVER, MovementData_0x7454c
+	applymovement VICTORYROAD_SILVER, VictoryRoadRivalBattleApproachMovement1
+	scall VictoryRoadRivalNext
+	applymovement VICTORYROAD_SILVER, VictoryRoadRivalBattleExitMovement1
 	disappear VICTORYROAD_SILVER
-	setscene 1
+	setscene SCENE_FINISHED
 	playmapmusic
 	end
 
-UnknownScript_0x744b5:
-	spriteface PLAYER, DOWN
+VictoryRoadRivalRight:
+	turnobject PLAYER, DOWN
 	showemote EMOTE_SHOCK, PLAYER, 15
-	special Special_FadeOutMusic
+	special FadeOutMusic
 	pause 15
 	appear VICTORYROAD_SILVER
-	applymovement VICTORYROAD_SILVER, MovementData_0x74542
-	scall UnknownScript_0x744d4
-	applymovement VICTORYROAD_SILVER, MovementData_0x74555
+	applymovement VICTORYROAD_SILVER, VictoryRoadRivalBattleApproachMovement2
+	scall VictoryRoadRivalNext
+	applymovement VICTORYROAD_SILVER, VictoryRoadRivalBattleExitMovement2
 	disappear VICTORYROAD_SILVER
-	setscene 1
+	setscene SCENE_FINISHED
 	playmapmusic
 	end
 
-UnknownScript_0x744d4:
-	spriteface PLAYER, DOWN
+VictoryRoadRivalNext:
+	turnobject PLAYER, DOWN
 	playmusic MUSIC_RIVAL_ENCOUNTER
 	opentext
-	writetext UnknownText_0x7455f
+	writetext VictoryRoadRivalBeforeText
 	waitbutton
 	closetext
 	setevent EVENT_RIVAL_VICTORY_ROAD
 	checkevent EVENT_GOT_TOTODILE_FROM_ELM
-	iftrue UnknownScript_0x744ff
+	iftrue .GotTotodile
 	checkevent EVENT_GOT_CHIKORITA_FROM_ELM
-	iftrue UnknownScript_0x7450f
-	winlosstext UnknownText_0x7463d, UnknownText_0x747aa
+	iftrue .GotChikorita
+	winlosstext VictoryRoadRivalDefeatText, VictoryRoadRivalVictoryText
 	setlasttalked VICTORYROAD_SILVER
 	loadtrainer RIVAL1, RIVAL1_5_TOTODILE
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump UnknownScript_0x7451f
+	sjump .AfterBattle
 
-UnknownScript_0x744ff:
-	winlosstext UnknownText_0x7463d, UnknownText_0x747aa
+.GotTotodile:
+	winlosstext VictoryRoadRivalDefeatText, VictoryRoadRivalVictoryText
 	setlasttalked VICTORYROAD_SILVER
 	loadtrainer RIVAL1, RIVAL1_5_CHIKORITA
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump UnknownScript_0x7451f
+	sjump .AfterBattle
 
-UnknownScript_0x7450f:
-	winlosstext UnknownText_0x7463d, UnknownText_0x747aa
+.GotChikorita:
+	winlosstext VictoryRoadRivalDefeatText, VictoryRoadRivalVictoryText
 	setlasttalked VICTORYROAD_SILVER
 	loadtrainer RIVAL1, RIVAL1_5_CYNDAQUIL
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump UnknownScript_0x7451f
+	sjump .AfterBattle
 
-UnknownScript_0x7451f:
+.AfterBattle:
 	playmusic MUSIC_RIVAL_AFTER
 	opentext
-	writetext UnknownText_0x746ce
+	writetext VictoryRoadRivalAfterText
 	waitbutton
 	closetext
 	end
@@ -145,12 +143,12 @@ VictoryRoadHPUp:
 	itemball HP_UP
 
 VictoryRoadHiddenMaxPotion:
-	hiddenitem EVENT_VICTORY_ROAD_HIDDEN_MAX_POTION, MAX_POTION
+	hiddenitem MAX_POTION, EVENT_VICTORY_ROAD_HIDDEN_MAX_POTION
 
 VictoryRoadHiddenFullHeal:
-	hiddenitem EVENT_VICTORY_ROAD_HIDDEN_FULL_HEAL, FULL_HEAL
+	hiddenitem FULL_HEAL, EVENT_VICTORY_ROAD_HIDDEN_FULL_HEAL
 
-MovementData_0x74539:
+VictoryRoadRivalBattleApproachMovement1:
 	step LEFT
 	step LEFT
 	step LEFT
@@ -161,7 +159,7 @@ MovementData_0x74539:
 	step UP
 	step_end
 
-MovementData_0x74542:
+VictoryRoadRivalBattleApproachMovement2:
 	step UP
 	step UP
 	step LEFT
@@ -173,7 +171,7 @@ MovementData_0x74542:
 	step UP
 	step_end
 
-MovementData_0x7454c:
+VictoryRoadRivalBattleExitMovement1:
 	step DOWN
 	step DOWN
 	step RIGHT
@@ -184,7 +182,7 @@ MovementData_0x7454c:
 	step RIGHT
 	step_end
 
-MovementData_0x74555:
+VictoryRoadRivalBattleExitMovement2:
 	step DOWN
 	step DOWN
 	step RIGHT
@@ -196,7 +194,7 @@ MovementData_0x74555:
 	step DOWN
 	step_end
 
-UnknownText_0x7455f:
+VictoryRoadRivalBeforeText:
 	text "Hold it."
 
 	para "…Are you going to"
@@ -222,7 +220,7 @@ UnknownText_0x7455f:
 	line "I challenge you!"
 	done
 
-UnknownText_0x7463d:
+VictoryRoadRivalDefeatText:
 	text "…I couldn't win…"
 
 	para "I gave it every-"
@@ -238,7 +236,7 @@ UnknownText_0x7463d:
 	line "said to me…"
 	done
 
-UnknownText_0x746ce:
+VictoryRoadRivalAfterText:
 	text "…I haven't given up"
 	line "on becoming the"
 	cont "greatest trainer…"
@@ -260,7 +258,7 @@ UnknownText_0x746ce:
 	line "at it until then."
 	done
 
-UnknownText_0x747aa:
+VictoryRoadRivalVictoryText:
 	text "…Humph!"
 
 	para "When it comes down"
@@ -276,38 +274,33 @@ MoltresText:
 	done
 
 VictoryRoad_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 10
-	warp_def 9, 67, 5, VICTORY_ROAD_GATE
-	warp_def 1, 49, 3, VICTORY_ROAD
-	warp_def 1, 35, 2, VICTORY_ROAD
-	warp_def 13, 31, 5, VICTORY_ROAD
-	warp_def 13, 17, 4, VICTORY_ROAD
-	warp_def 17, 33, 7, VICTORY_ROAD
-	warp_def 17, 19, 6, VICTORY_ROAD
-	warp_def 0, 11, 9, VICTORY_ROAD
-	warp_def 0, 27, 8, VICTORY_ROAD
-	warp_def 13, 5, 3, ROUTE_23
+	def_warp_events
+	warp_event  9, 67, VICTORY_ROAD_GATE, 5
+	warp_event  1, 49, VICTORY_ROAD, 3
+	warp_event  1, 35, VICTORY_ROAD, 2
+	warp_event 13, 31, VICTORY_ROAD, 5
+	warp_event 13, 17, VICTORY_ROAD, 4
+	warp_event 17, 33, VICTORY_ROAD, 7
+	warp_event 17, 19, VICTORY_ROAD, 6
+	warp_event  0, 11, VICTORY_ROAD, 9
+	warp_event  0, 27, VICTORY_ROAD, 8
+	warp_event 13,  5, ROUTE_23, 3
 
-.CoordEvents:
-	db 2
-	coord_event 12, 8, 0, UnknownScript_0x74492
-	coord_event 13, 8, 0, UnknownScript_0x744b5
+	def_coord_events
+	coord_event 12,  8, SCENE_DEFAULT, VictoryRoadRivalLeft
+	coord_event 13,  8, SCENE_DEFAULT, VictoryRoadRivalRight
 
-.BGEvents:
-	db 2
-	bg_event 3, 29, BGEVENT_ITEM, VictoryRoadHiddenMaxPotion
-	bg_event 3, 65, BGEVENT_ITEM, VictoryRoadHiddenFullHeal
+	def_bg_events
+	bg_event  3, 29, BGEVENT_ITEM, VictoryRoadHiddenMaxPotion
+	bg_event  3, 65, BGEVENT_ITEM, VictoryRoadHiddenFullHeal
 
-.ObjectEvents:
-	db 7
+	def_object_events
 	object_event 3, 26, SPRITE_MOLTRES, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Moltres, EVENT_VICTORY_ROAD_MOLTRES
 	object_event 18, 13, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_RIVAL_VICTORY_ROAD
-	object_event 3, 28, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadTMEarthquake, EVENT_VICTORY_ROAD_TM_EARTHQUAKE
-	object_event 12, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadMaxRevive, EVENT_VICTORY_ROAD_MAX_REVIVE
-	object_event 18, 29, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullRestore, EVENT_VICTORY_ROAD_FULL_RESTORE
-	object_event 15, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullHeal, EVENT_VICTORY_ROAD_FULL_HEAL
-	object_event 7, 38, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadHPUp, EVENT_VICTORY_ROAD_HP_UP
+	object_event  3, 28, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadTMEarthquake, EVENT_VICTORY_ROAD_TM_EARTHQUAKE
+	object_event 12, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadMaxRevive, EVENT_VICTORY_ROAD_MAX_REVIVE
+	object_event 18, 29, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullRestore, EVENT_VICTORY_ROAD_FULL_RESTORE
+	object_event 15, 48, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadFullHeal, EVENT_VICTORY_ROAD_FULL_HEAL
+	object_event  7, 38, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, VictoryRoadHPUp, EVENT_VICTORY_ROAD_HP_UP

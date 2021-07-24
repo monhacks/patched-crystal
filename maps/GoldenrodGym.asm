@@ -1,19 +1,17 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODGYM_WHITNEY
 	const GOLDENRODGYM_LASS1
 	const GOLDENRODGYM_LASS2
-	const GOLDENRODGYM_BUENA1
-	const GOLDENRODGYM_BUENA2
-	const GOLDENRODGYM_GYM_GUY
+	const GOLDENRODGYM_BEAUTY1
+	const GOLDENRODGYM_BEAUTY2
+	const GOLDENRODGYM_GYM_GUIDE
 
 GoldenrodGym_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .DummyScene0
-	scene_script .DummyScene1
+	def_scene_scripts
+	scene_script .DummyScene0 ; SCENE_GOLDENRODGYM_NOTHING
+	scene_script .DummyScene1 ; SCENE_GOLDENRODGYM_WHITNEY_STOPS_CRYING
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene0:
 	end
@@ -21,21 +19,21 @@ GoldenrodGym_MapScripts:
 .DummyScene1:
 	end
 
-WhitneyScript_0x5400c:
+GoldenrodGymWhitneyScript:
 	faceplayer
 	checkevent EVENT_BEAT_WHITNEY
 	iftrue .FightDone
 	opentext
-	writetext UnknownText_0x54122
+	writetext WhitneyBeforeText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x541a5, 0
+	winlosstext WhitneyShouldntBeSoSeriousText, 0
 	loadtrainer WHITNEY, WHITNEY1
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_WHITNEY
 	setevent EVENT_MADE_WHITNEY_CRY
-	setscene 1
+	setscene SCENE_GOLDENRODGYM_WHITNEY_STOPS_CRYING
 	setevent EVENT_BEAT_BEAUTY_VICTORIA
 	setevent EVENT_BEAT_BEAUTY_SAMANTHA
 	setevent EVENT_BEAT_LASS_CARRIE
@@ -44,66 +42,64 @@ WhitneyScript_0x5400c:
 	opentext
 	checkevent EVENT_MADE_WHITNEY_CRY
 	iffalse .StoppedCrying
-	writetext UnknownText_0x541f4
+	writetext WhitneyYouMeanieText
 	waitbutton
 	closetext
 	end
 
 .StoppedCrying:
 	checkevent EVENT_GOT_TM45_ATTRACT
-	iftrue UnknownScript_0x54077
+	iftrue .GotAttract
 	checkflag ENGINE_PLAINBADGE
-	iftrue UnknownScript_0x54064
-	writetext UnknownText_0x54222
-	buttonsound
+	iftrue .GotPlainBadge
+	writetext WhitneyWhatDoYouWantText
+	promptbutton
 	waitsfx
-	writetext UnknownText_0x54273
+	writetext PlayerReceivedPlainBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_PLAINBADGE
-	checkcode VAR_BADGES
+	readvar VAR_BADGES
 	scall GoldenrodGymActivateRockets
-UnknownScript_0x54064:
-	writetext UnknownText_0x5428b
-	buttonsound
+.GotPlainBadge:
+	writetext WhitneyPlainBadgeText
+	promptbutton
 	verbosegiveitem TM_ATTRACT
-	iffalse UnknownScript_0x5407b
+	iffalse .NoRoomForAttract
 	setevent EVENT_GOT_TM45_ATTRACT
-	writetext UnknownText_0x54302
+	writetext WhitneyAttractText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x54077:
-	writetext UnknownText_0x54360
+.GotAttract:
+	writetext WhitneyGoodCryText
 	yesorno
-	iftrue WhitneyRematch
-UnknownScript_0x5407b:
+	iftrue WhitneyRematch ;waitbutton
+.NoRoomForAttract:
 	closetext
-	end
-	
 WhitneyRematch:
 	winlosstext Whitney_RematchDefeat, 0
 	loadtrainer WHITNEY, 1
 	startbattle
-	reloadmapafterbattle
+	reloadmapafterbattle	
 
 GoldenrodGymActivateRockets:
-	if_equal 7, .RadioTowerRockets
-	if_equal 6, .GoldenrodRockets
+	ifequal 7, .RadioTowerRockets
+	ifequal 6, .GoldenrodRockets
 	end
 
 .GoldenrodRockets:
-	jumpstd goldenrodrockets
+	jumpstd GoldenrodRocketsScript
 
 .RadioTowerRockets:
-	jumpstd radiotowerrockets
+	jumpstd RadioTowerRocketsScript
 
 TrainerLassCarrie:
-	trainer EVENT_BEAT_LASS_CARRIE, LASS, CARRIE, LassCarrieSeenText, LassCarrieBeatenText, 0, .Script
+	trainer LASS, CARRIE, EVENT_BEAT_LASS_CARRIE, LassCarrieSeenText, LassCarrieBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext LassCarrieAfterBattleText
 	waitbutton
@@ -113,21 +109,21 @@ TrainerLassCarrie:
 WhitneyCriesScript:
 	showemote EMOTE_SHOCK, GOLDENRODGYM_LASS2, 15
 	applymovement GOLDENRODGYM_LASS2, BridgetWalksUpMovement
-	spriteface PLAYER, DOWN
+	turnobject PLAYER, DOWN
 	opentext
 	writetext BridgetWhitneyCriesText
 	waitbutton
 	closetext
 	applymovement GOLDENRODGYM_LASS2, BridgetWalksAwayMovement
-	setscene 0
+	setscene SCENE_GOLDENRODGYM_NOTHING
 	clearevent EVENT_MADE_WHITNEY_CRY
 	end
 
 TrainerLassBridget:
-	trainer EVENT_BEAT_LASS_BRIDGET, LASS, BRIDGET, LassBridgetSeenText, LassBridgetBeatenText, 0, .Script
+	trainer LASS, BRIDGET, EVENT_BEAT_LASS_BRIDGET, LassBridgetSeenText, LassBridgetBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext LassBridgetAfterBattleText
 	waitbutton
@@ -135,10 +131,10 @@ TrainerLassBridget:
 	end
 
 TrainerBeautyVictoria:
-	trainer EVENT_BEAT_BEAUTY_VICTORIA, BEAUTY, VICTORIA, BeautyVictoriaSeenText, BeautyVictoriaBeatenText, 0, .Script
+	trainer BEAUTY, VICTORIA, EVENT_BEAT_BEAUTY_VICTORIA, BeautyVictoriaSeenText, BeautyVictoriaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BeautyVictoriaAfterBattleText
 	waitbutton
@@ -146,29 +142,29 @@ TrainerBeautyVictoria:
 	end
 
 TrainerBeautySamantha:
-	trainer EVENT_BEAT_BEAUTY_SAMANTHA, BEAUTY, SAMANTHA, BeautySamanthaSeenText, BeautySamanthaBeatenText, 0, .Script
+	trainer BEAUTY, SAMANTHA, EVENT_BEAT_BEAUTY_SAMANTHA, BeautySamanthaSeenText, BeautySamanthaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BeautySamanthaAfterBattleText
 	waitbutton
 	closetext
 	end
 
-GoldenrodGymGuyScript:
+GoldenrodGymGuideScript:
 	faceplayer
 	checkevent EVENT_BEAT_WHITNEY
-	iftrue .GoldenrodGymGuyWinScript
+	iftrue .GoldenrodGymGuideWinScript
 	opentext
-	writetext GoldenrodGymGuyText
+	writetext GoldenrodGymGuideText
 	waitbutton
 	closetext
 	end
 
-.GoldenrodGymGuyWinScript:
+.GoldenrodGymGuideWinScript:
 	opentext
-	writetext GoldenrodGymGuyWinText
+	writetext GoldenrodGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -176,10 +172,10 @@ GoldenrodGymGuyScript:
 GoldenrodGymStatue:
 	checkflag ENGINE_PLAINBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext WHITNEY, WHITNEY1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, WHITNEY, WHITNEY1
+	jumpstd GymStatue2Script
 
 BridgetWalksUpMovement:
 	step LEFT
@@ -191,7 +187,7 @@ BridgetWalksAwayMovement:
 	turn_head LEFT
 	step_end
 
-UnknownText_0x54122:
+WhitneyBeforeText:
 	text "Hi! I'm WHITNEY!"
 
 	para "Everyone was into"
@@ -206,7 +202,7 @@ UnknownText_0x54122:
 	cont "you--I'm good!"
 	done
 
-UnknownText_0x541a5:
+WhitneyShouldntBeSoSeriousText:
 	text "Sob…"
 
 	para "…Waaaaaaah!"
@@ -217,7 +213,7 @@ UnknownText_0x541a5:
 	cont "you child, you!"
 	done
 
-UnknownText_0x541f4:
+WhitneyYouMeanieText:
 	text "Waaaaah!"
 
 	para "Waaaaah!"
@@ -226,7 +222,7 @@ UnknownText_0x541f4:
 	line "…You meanie!"
 	done
 
-UnknownText_0x54222:
+WhitneyWhatDoYouWantText:
 	text "…Sniff…"
 
 	para "What? What do you"
@@ -237,12 +233,12 @@ UnknownText_0x54222:
 	cont "PLAINBADGE."
 	done
 
-UnknownText_0x54273:
+PlayerReceivedPlainBadgeText:
 	text "<PLAYER> received"
 	line "PLAINBADGE."
 	done
 
-UnknownText_0x5428b:
+WhitneyPlainBadgeText:
 	text "PLAINBADGE lets"
 	line "your #MON use"
 
@@ -257,7 +253,7 @@ UnknownText_0x5428b:
 	line "this too!"
 	done
 
-UnknownText_0x54302:
+WhitneyAttractText:
 	text "It's ATTRACT!"
 	line "It makes full use"
 
@@ -269,13 +265,13 @@ UnknownText_0x54302:
 	cont "like me?"
 	done
 
-UnknownText_0x54360:
+WhitneyGoodCryText:
 	text "Ah, that was a"
 	line "good cry!"
 
 	para "Come for a visit"
 	line "again! Bye-bye!"
-	
+
 	para "What? You want a"
 	line "rematch now?"
 	done
@@ -284,7 +280,7 @@ Whitney_RematchDefeat:
 	text "Ah, I lost again."
 	line "…Sob…"
 	done
-	
+
 LassCarrieSeenText:
 	text "Don't let my"
 	line "#MON's cute"
@@ -375,7 +371,7 @@ BeautySamanthaAfterBattleText:
 	cont "on any type…"
 	done
 
-GoldenrodGymGuyText:
+GoldenrodGymGuideText:
 	text "Yo! CHAMP in"
 	line "making!"
 
@@ -388,35 +384,30 @@ GoldenrodGymGuyText:
 	cont "#MON."
 	done
 
-GoldenrodGymGuyWinText:
+GoldenrodGymGuideWinText:
 	text "You won? Great! I"
 	line "was busy admiring"
 	cont "the ladies here."
 	done
 
 GoldenrodGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 17, 1, GOLDENROD_CITY
-	warp_def 3, 17, 1, GOLDENROD_CITY
+	def_warp_events
+	warp_event  2, 17, GOLDENROD_CITY, 1
+	warp_event  3, 17, GOLDENROD_CITY, 1
 
-.CoordEvents:
-	db 1
-	coord_event 8, 5, 1, WhitneyCriesScript
+	def_coord_events
+	coord_event  8,  5, SCENE_GOLDENRODGYM_WHITNEY_STOPS_CRYING, WhitneyCriesScript
 
-.BGEvents:
-	db 2
-	bg_event 1, 15, BGEVENT_READ, GoldenrodGymStatue
-	bg_event 4, 15, BGEVENT_READ, GoldenrodGymStatue
+	def_bg_events
+	bg_event  1, 15, BGEVENT_READ, GoldenrodGymStatue
+	bg_event  4, 15, BGEVENT_READ, GoldenrodGymStatue
 
-.ObjectEvents:
-	db 6
-	object_event 8, 3, SPRITE_WHITNEY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, WhitneyScript_0x5400c, -1
-	object_event 9, 13, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerLassCarrie, -1
-	object_event 9, 6, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerLassBridget, -1
-	object_event 0, 2, SPRITE_BUENA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautyVictoria, -1
-	object_event 19, 5, SPRITE_BUENA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautySamantha, -1
-	object_event 5, 15, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGymGuyScript, -1
+	def_object_events
+	object_event  8,  3, SPRITE_WHITNEY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGymWhitneyScript, -1
+	object_event  9, 13, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerLassCarrie, -1
+	object_event  9,  6, SPRITE_LASS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 1, TrainerLassBridget, -1
+	object_event  0,  2, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautyVictoria, -1
+	object_event 19,  5, SPRITE_BEAUTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBeautySamantha, -1
+	object_event  5, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGymGuideScript, -1

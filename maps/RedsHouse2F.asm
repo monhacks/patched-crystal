@@ -1,9 +1,7 @@
 RedsHouse2F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 RedsHouse2FN64Script:
 	jumptext RedsHouse2FN64Text
@@ -26,20 +24,15 @@ RedsHouse2FPCText:
 	done
 
 RedsHouse2F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 7, 0, 3, REDS_HOUSE_1F
+	def_warp_events
+	warp_event  7,  0, REDS_HOUSE_1F, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 3, 5, BGEVENT_READ, RedsHouse2FN64Script
-	bg_event 0, 1, BGEVENT_READ, RedsHouse2FPCScript
+	def_bg_events
+	bg_event  3,  5, BGEVENT_READ, RedsHouse2FN64Script
+	bg_event  0,  1, BGEVENT_READ, RedsHouse2FPCScript
 
-.ObjectEvents:
-	db 0
+	def_object_events

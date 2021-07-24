@@ -1,4 +1,4 @@
-DetermineLinkBattleResult: ; 2b930
+DetermineLinkBattleResult:
 	farcall UpdateEnemyMonInParty
 	ld hl, wPartyMon1HP
 	call .CountMonsRemaining
@@ -41,24 +41,24 @@ DetermineLinkBattleResult: ; 2b930
 .victory
 	ld a, [wBattleResult]
 	and $f0
-	ld [wBattleResult], a
+	ld [wBattleResult], a ; WIN
 	ret
 
 .defeat
 	ld a, [wBattleResult]
 	and $f0
-	add $1
+	add LOSE
 	ld [wBattleResult], a
 	ret
 
 .drawn
 	ld a, [wBattleResult]
 	and $f0
-	add $2
+	add DRAW
 	ld [wBattleResult], a
 	ret
 
-.CountMonsRemaining: ; 2b995
+.CountMonsRemaining:
 	ld c, 0
 	ld b, 3
 	ld de, PARTYMON_STRUCT_LENGTH - 1
@@ -74,7 +74,7 @@ DetermineLinkBattleResult: ; 2b930
 	jr nz, .loop
 	ret
 
-.CalcPercentHPRemaining: ; 2b9a6
+.CalcPercentHPRemaining:
 	ld de, 0
 	ld c, $3
 .loop2
@@ -83,13 +83,13 @@ DetermineLinkBattleResult: ; 2b930
 	jr z, .next
 	dec hl
 	xor a
-	ld [hDividend + 0], a
+	ldh [hDividend + 0], a
 	ld a, [hli]
-	ld [hDividend + 1], a
+	ldh [hDividend + 1], a
 	ld a, [hli]
-	ld [hDividend + 2], a
+	ldh [hDividend + 2], a
 	xor a
-	ld [hDividend + 3], a
+	ldh [hDividend + 3], a
 	ld a, [hli]
 	ld b, a
 	ld a, [hld]
@@ -97,13 +97,13 @@ DetermineLinkBattleResult: ; 2b930
 	rr a
 	srl b
 	rr a
-	ld [hDivisor], a
+	ldh [hDivisor], a
 	ld b, $4
 	call Divide
-	ld a, [hQuotient + 2]
+	ldh a, [hQuotient + 3]
 	add e
 	ld e, a
-	ld a, [hQuotient + 1]
+	ldh a, [hQuotient + 2]
 	adc d
 	ld d, a
 	dec hl
@@ -117,26 +117,26 @@ DetermineLinkBattleResult: ; 2b930
 	jr nz, .loop2
 	ret
 
-.BothSides_CheckNumberMonsAtFullHealth: ; 2b9e1
+.BothSides_CheckNumberMonsAtFullHealth:
 	ld hl, wPartyMon1HP
 	call .CheckFaintedOrFullHealth
 	jr nz, .finish ; we have a pokemon that's neither fainted nor at full health
 	ld hl, wOTPartyMon1HP
 	call .CheckFaintedOrFullHealth
-	ld e, $1
+	ld e, $1 ; victory
 	ret
 
 .finish
 	ld hl, wOTPartyMon1HP
 	call .CheckFaintedOrFullHealth
-	ld e, $0
+	ld e, $0 ; drawn
 	ret nz ; we both have pokemon that are neither fainted nor at full health
-	ld e, $2
-	ld a, $1
+	ld e, $2 ; defeat
+	ld a, $1 ; not drawn
 	and a
 	ret
 
-.CheckFaintedOrFullHealth: ; 2ba01
+.CheckFaintedOrFullHealth:
 	ld d, 3
 .loop3
 	ld a, [hli]

@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const EARLSPOKEMONACADEMY_EARL
 	const EARLSPOKEMONACADEMY_YOUNGSTER1
 	const EARLSPOKEMONACADEMY_GAMEBOY_KID1
@@ -7,33 +7,31 @@ const_value set 2
 	const EARLSPOKEMONACADEMY_POKEDEX
 
 EarlsPokemonAcademy_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 AcademyEarl:
-	applymovement EARLSPOKEMONACADEMY_EARL, MovementData_0x68b2d
+	applymovement EARLSPOKEMONACADEMY_EARL, AcademyEarlSpinMovement
 	faceplayer
 	opentext
-	writetext UnknownText_0x68b3b
+	writetext AcademyEarlIntroText
 	yesorno
 	iffalse .Part1
-	writetext UnknownText_0x68bbd
+	writetext AcademyEarlTeachHowToWinText
 	yesorno
 	iffalse .Done
 .Part1:
-	writetext UnknownText_0x68c51
+	writetext AcademyEarlTeachMoreText
 	yesorno
 	iffalse .Done
-	writetext UnknownText_0x68c7b
+	writetext AcademyEarlTeachHowToRaiseWellText
 	waitbutton
 	closetext
 	end
 
 .Done:
-	writetext UnknownText_0x68d31
+	writetext AcademyEarlNoMoreToTeachText
 	waitbutton
 	closetext
 	end
@@ -47,7 +45,7 @@ EarlsPokemonAcademyGameboyKid1Script:
 	writetext EarlsPokemonAcademyGameboyKid1Text
 	waitbutton
 	closetext
-	spriteface EARLSPOKEMONACADEMY_GAMEBOY_KID1, DOWN
+	turnobject EARLSPOKEMONACADEMY_GAMEBOY_KID1, DOWN
 	end
 
 EarlsPokemonAcademyGameboyKid2Script:
@@ -56,7 +54,7 @@ EarlsPokemonAcademyGameboyKid2Script:
 	writetext EarlsPokemonAcademyGameboyKid2Text
 	waitbutton
 	closetext
-	spriteface EARLSPOKEMONACADEMY_GAMEBOY_KID2, DOWN
+	turnobject EARLSPOKEMONACADEMY_GAMEBOY_KID2, DOWN
 	end
 
 EarlsPokemonAcademyYoungster2Script:
@@ -66,54 +64,54 @@ AcademyBlackboard:
 	opentext
 	writetext AcademyBlackboardText
 .Loop:
-	loadmenudata .BlackboardMenuData
+	loadmenu .BlackboardMenuHeader
 	_2dmenu
 	closewindow
-	if_equal 1, .Poison
-	if_equal 2, .Paralysis
-	if_equal 3, .Sleep
-	if_equal 4, .Burn
-	if_equal 5, .Freeze
+	ifequal 1, .Poison
+	ifequal 2, .Paralysis
+	ifequal 3, .Sleep
+	ifequal 4, .Burn
+	ifequal 5, .Freeze
 	closetext
 	end
 
 .Poison:
 	writetext AcademyPoisonText
 	waitbutton
-	jump .Loop
+	sjump .Loop
 
 .Paralysis:
 	writetext AcademyParalysisText
 	waitbutton
-	jump .Loop
+	sjump .Loop
 
 .Sleep:
 	writetext AcademySleepText
 	waitbutton
-	jump .Loop
+	sjump .Loop
 
 .Burn:
 	writetext AcademyBurnText
 	waitbutton
-	jump .Loop
+	sjump .Loop
 
 .Freeze:
 	writetext AcademyFreezeText
 	waitbutton
-	jump .Loop
+	sjump .Loop
 
-.BlackboardMenuData:
+.BlackboardMenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 0, 0, 11, 8
-	dw .MenuData2
+	dw .MenuData
 	db 1 ; default option
 
-.MenuData2:
+.MenuData:
 	db STATICMENU_CURSOR ; flags
 	dn 3, 2 ; rows, columns
 	db 5 ; spacing
 	dba .Text
-	dbw BANK(AcademyBlackboard), 0
+	dbw BANK(@), NULL
 
 .Text:
 	db "PSN@"
@@ -140,14 +138,13 @@ AcademyNotebook:
 	closetext
 	end
 
-AcademyStickerMachine:
-; unused
+AcademyStickerMachine: ; unreferenced
 	jumptext AcademyStickerMachineText
 
 AcademyBookshelf:
-	jumpstd difficultbookshelf
+	jumpstd DifficultBookshelfScript
 
-MovementData_0x68b2d:
+AcademyEarlSpinMovement:
 	turn_head DOWN
 	turn_head LEFT
 	turn_head UP
@@ -163,7 +160,7 @@ MovementData_0x68b2d:
 	turn_head DOWN
 	step_end
 
-UnknownText_0x68b3b:
+AcademyEarlIntroText:
 	text "EARL, I am!"
 
 	para "Wonderful are"
@@ -178,7 +175,7 @@ UnknownText_0x68b3b:
 	cont "a winner is you?"
 	done
 
-UnknownText_0x68bbd:
+AcademyEarlTeachHowToWinText:
 	text "Good! Teach you,"
 	line "I will!"
 
@@ -194,13 +191,13 @@ UnknownText_0x68bbd:
 	line "want to hear?"
 	done
 
-UnknownText_0x68c51:
+AcademyEarlTeachMoreText:
 	text "So, want to know"
 	line "how to raise"
 	cont "#MON well?"
 	done
 
-UnknownText_0x68c7b:
+AcademyEarlTeachHowToRaiseWellText:
 	text "Fine! Teach you,"
 	line "I will!"
 
@@ -221,7 +218,7 @@ UnknownText_0x68c7b:
 	cont "become!"
 	done
 
-UnknownText_0x68d31:
+AcademyEarlNoMoreToTeachText:
 	text "Oh! Smart student"
 	line "you are! Nothing"
 	cont "more do I teach!"
@@ -273,8 +270,7 @@ AcademyBlackboardText:
 	line "battle."
 	done
 
-AcademyBlackboardText2:
-; unused
+AcademyBlackboardText2: ; unreferenced
 	text "Read which topic?"
 	done
 
@@ -412,29 +408,24 @@ AcademyStickerMachineText:
 	done
 
 EarlsPokemonAcademy_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 3, 15, 3, VIOLET_CITY
-	warp_def 4, 15, 3, VIOLET_CITY
+	def_warp_events
+	warp_event  3, 15, VIOLET_CITY, 3
+	warp_event  4, 15, VIOLET_CITY, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 4
-	bg_event 0, 1, BGEVENT_READ, AcademyBookshelf
-	bg_event 1, 1, BGEVENT_READ, AcademyBookshelf
-	bg_event 3, 0, BGEVENT_READ, AcademyBlackboard
-	bg_event 4, 0, BGEVENT_READ, AcademyBlackboard
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, AcademyBookshelf
+	bg_event  1,  1, BGEVENT_READ, AcademyBookshelf
+	bg_event  3,  0, BGEVENT_READ, AcademyBlackboard
+	bg_event  4,  0, BGEVENT_READ, AcademyBlackboard
 
-.ObjectEvents:
-	db 6
-	object_event 4, 2, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, AcademyEarl, EVENT_EARLS_ACADEMY_EARL
-	object_event 2, 5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyYoungster1Script, -1
-	object_event 3, 11, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyGameboyKid1Script, -1
-	object_event 4, 11, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyGameboyKid2Script, -1
-	object_event 4, 7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyYoungster2Script, -1
-	object_event 2, 4, SPRITE_POKEDEX, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AcademyNotebook, -1
+	def_object_events
+	object_event  4,  2, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, AcademyEarl, EVENT_EARLS_ACADEMY_EARL
+	object_event  2,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyYoungster1Script, -1
+	object_event  3, 11, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyGameboyKid1Script, -1
+	object_event  4, 11, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyGameboyKid2Script, -1
+	object_event  4,  7, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EarlsPokemonAcademyYoungster2Script, -1
+	object_event  2,  4, SPRITE_POKEDEX, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AcademyNotebook, -1

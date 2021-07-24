@@ -1,22 +1,20 @@
-const_value set 2
+	object_const_def
 	const FUCHSIAPOKECENTER1F_NURSE
 	const FUCHSIAPOKECENTER1F_COOLTRAINER_M
 	const FUCHSIAPOKECENTER1F_COOLTRAINER_F
 	const FUCHSIAPOKECENTER1F_JANINE_IMPERSONATOR
 
 FuchsiaPokecenter1F_MapScripts:
-.SceneScripts:
-	db 1
+	def_scene_scripts
 	scene_script .DummyScene
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
 
-NurseScript_0x196459:
-	jumpstd pokecenternurse
+FuchsiaPokecenter1FNurseScript:
+	jumpstd PokecenterNurseScript
 
 FuchsiaPokecenter1FCooltrainerMScript:
 	jumptextfaceplayer FuchsiaPokecenter1FCooltrainerMText
@@ -24,27 +22,27 @@ FuchsiaPokecenter1FCooltrainerMScript:
 FuchsiaPokecenter1FCooltrainerFScript:
 	jumptextfaceplayer FuchsiaPokecenter1FCooltrainerFText
 
-JanineImpersonatorScript_0x196462:
+FuchsiaPokecenter1FJanineImpersonatorScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x19652e
+	writetext FuchsiaPokecenter1FJanineImpersonatorText1
 	waitbutton
 	closetext
-	applymovement FUCHSIAPOKECENTER1F_JANINE_IMPERSONATOR, MovementData_0x196486
+	applymovement FUCHSIAPOKECENTER1F_JANINE_IMPERSONATOR, FuchsiaPokecenter1FJanineImpersonatorSpinMovement
 	faceplayer
 	variablesprite SPRITE_JANINE_IMPERSONATOR, SPRITE_JANINE
-	special Special_LoadUsedSpritesGFX
+	special LoadUsedSpritesGFX
 	opentext
-	writetext UnknownText_0x19654e
+	writetext FuchsiaPokecenter1FJanineImpersonatorText2
 	waitbutton
 	closetext
-	applymovement FUCHSIAPOKECENTER1F_JANINE_IMPERSONATOR, MovementData_0x196486
+	applymovement FUCHSIAPOKECENTER1F_JANINE_IMPERSONATOR, FuchsiaPokecenter1FJanineImpersonatorSpinMovement
 	faceplayer
 	variablesprite SPRITE_JANINE_IMPERSONATOR, SPRITE_LASS
-	special Special_LoadUsedSpritesGFX
+	special LoadUsedSpritesGFX
 	end
 
-MovementData_0x196486:
+FuchsiaPokecenter1FJanineImpersonatorSpinMovement:
 	turn_head DOWN
 	turn_head LEFT
 	turn_head UP
@@ -78,35 +76,30 @@ FuchsiaPokecenter1FCooltrainerFText:
 	cont "looked identical."
 	done
 
-UnknownText_0x19652e:
+FuchsiaPokecenter1FJanineImpersonatorText1:
 	text "I'm JANINE! Hocus-"
 	line "pocus… Poof!"
 	done
 
-UnknownText_0x19654e:
+FuchsiaPokecenter1FJanineImpersonatorText2:
 	text "See? I look just"
 	line "like her now!"
 	done
 
 FuchsiaPokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 5, FUCHSIA_CITY
-	warp_def 4, 7, 5, FUCHSIA_CITY
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, FUCHSIA_CITY, 5
+	warp_event  4,  7, FUCHSIA_CITY, 5
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 4
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, NurseScript_0x196459, -1
-	object_event 8, 4, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FCooltrainerMScript, -1
-	object_event 1, 4, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FCooltrainerFScript, -1
-	object_event 5, 3, SPRITE_JANINE_IMPERSONATOR, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, JanineImpersonatorScript_0x196462, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FNurseScript, -1
+	object_event  8,  4, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FCooltrainerMScript, -1
+	object_event  1,  4, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FCooltrainerFScript, -1
+	object_event  5,  3, SPRITE_JANINE_IMPERSONATOR, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, FuchsiaPokecenter1FJanineImpersonatorScript, -1

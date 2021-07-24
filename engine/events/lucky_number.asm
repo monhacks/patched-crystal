@@ -1,7 +1,7 @@
-Special_CheckForLuckyNumberWinners: ; 4d87a
+CheckForLuckyNumberWinners:
 	xor a
 	ld [wScriptVar], a
-	ld [wFoundMatchingIDInParty], a
+	ld [wTempByteValue], a
 	ld a, [wPartyCount]
 	and a
 	ret z
@@ -20,7 +20,7 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	dec d
 	jr nz, .PartyLoop
 	ld a, BANK(sBox)
-	call GetSRAMBank
+	call OpenSRAM
 	ld a, [sBoxCount]
 	and a
 	jr z, .SkipOpenBox
@@ -34,8 +34,8 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	jr z, .SkipOpenBoxMon
 	call .CompareLuckyNumberToMonID
 	jr nc, .SkipOpenBoxMon
-	ld a, 1
-	ld [wFoundMatchingIDInParty], a
+	ld a, TRUE
+	ld [wTempByteValue], a
 
 .SkipOpenBoxMon:
 	push bc
@@ -59,7 +59,7 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	add hl, bc
 	add hl, bc
 	ld a, [hli]
-	call GetSRAMBank
+	call OpenSRAM
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a ; hl now contains the address of the loaded box in SRAM
@@ -81,8 +81,8 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 
 	call .CompareLuckyNumberToMonID ; sets wScriptVar and wCurPartySpecies appropriately
 	jr nc, .SkipBoxMon
-	ld a, 1
-	ld [wFoundMatchingIDInParty], a
+	ld a, TRUE
+	ld [wTempByteValue], a
 
 .SkipBoxMon:
 	push bc
@@ -103,38 +103,39 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	ld a, [wScriptVar]
 	and a
 	ret z ; found nothing
+
 	farcall StubbedTrainerRankings_LuckyNumberShow
-	ld a, [wFoundMatchingIDInParty]
+	ld a, [wTempByteValue]
 	and a
 	push af
 	ld a, [wCurPartySpecies]
-	ld [wNamedObjectIndexBuffer], a
+	ld [wNamedObjectIndex], a
 	call GetPokemonName
-	ld hl, .FoundPartymonText
+	ld hl, .LuckyNumberMatchPartyText
 	pop af
 	jr z, .print
-	ld hl, .FoundBoxmonText
+	ld hl, .LuckyNumberMatchPCText
 
 .print
 	jp PrintText
 
-.CompareLuckyNumberToMonID: ; 4d939
+.CompareLuckyNumberToMonID:
 	push bc
 	push de
 	push hl
 	ld d, h
 	ld e, l
-	ld hl, wBuffer1
+	ld hl, wMonIDDigitsBuffer
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	call PrintNum
-	ld hl, wLuckyNumberDigit1Buffer
+	ld hl, wLuckyNumberDigitsBuffer
 	ld de, wLuckyIDNumber
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5
 	call PrintNum
 	ld b, 5
 	ld c, 0
-	ld hl, wLuckyNumberDigit5Buffer
-	ld de, wBuffer5
+	ld hl, wLuckyNumberDigitsBuffer + 4
+	ld de, wMonIDDigitsBuffer + 4
 .loop
 	ld a, [de]
 	cp [hl]
@@ -148,7 +149,7 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 .done
 	pop hl
 	push hl
-	ld de, -6
+	ld de, MON_SPECIES - MON_ID
 	add hl, de
 	ld a, [hl]
 	pop hl
@@ -190,7 +191,8 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	and a
 	ret
 
-.BoxBankAddresses: ; 4d99f
+.BoxBankAddresses:
+	table_width 3, CheckForLuckyNumberWinners.BoxBankAddresses
 	dba sBox1
 	dba sBox2
 	dba sBox3
@@ -205,18 +207,17 @@ Special_CheckForLuckyNumberWinners: ; 4d87a
 	dba sBox12
 	dba sBox13
 	dba sBox14
+	assert_table_length NUM_BOXES
 
-.FoundPartymonText: ; 0x4d9c9
-	; Congratulations! We have a match with the ID number of @  in your party.
-	text_jump UnknownText_0x1c1261
-	db "@"
+.LuckyNumberMatchPartyText:
+	text_far _LuckyNumberMatchPartyText
+	text_end
 
-.FoundBoxmonText: ; 0x4d9ce
-	; Congratulations! We have a match with the ID number of @  in your PC BOX.
-	text_jump UnknownText_0x1c12ae
-	db "@"
+.LuckyNumberMatchPCText:
+	text_far _LuckyNumberMatchPCText
+	text_end
 
-Special_PrintTodaysLuckyNumber: ; 4d9d3
+PrintTodaysLuckyNumber:
 	ld hl, wStringBuffer3
 	ld de, wLuckyIDNumber
 	lb bc, PRINTNUM_LEADINGZEROS | 2, 5

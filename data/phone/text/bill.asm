@@ -1,4 +1,4 @@
-BillPhoneMornGreetingText: ; 0x1b4427
+BillPhoneMornGreetingText:
 	text "Good morning!"
 
 	para "This is the #-"
@@ -8,7 +8,7 @@ BillPhoneMornGreetingText: ; 0x1b4427
 	line "SERVICE."
 	done
 
-BillPhoneDayGreetingText: ; 0x1b4470
+BillPhoneDayGreetingText:
 	text "Good day!"
 
 	para "This is the #-"
@@ -18,7 +18,7 @@ BillPhoneDayGreetingText: ; 0x1b4470
 	line "SERVICE."
 	done
 
-BillPhoneNiteGreetingText: ; 0x1b44b5
+BillPhoneNiteGreetingText:
 	text "Good evening!"
 
 	para "This is the #-"
@@ -28,23 +28,23 @@ BillPhoneNiteGreetingText: ; 0x1b44b5
 	line "SERVICE."
 	done
 
-BillPhoneGeneriText: ; 0x1b44fe
+BillPhoneGenericText:
 	text "Who's calling?"
 
 	para "<PLAY_G>, is it?"
 	line "Hang on a sec…"
 
-	para $56
-	line $56
+	para "<……>"
+	line "<……>"
 	done
 
-BillPhoneNotFullText: ; 0x1b452a
+BillPhoneNotFullText:
 	text "Thanks for"
 	line "waiting!"
 
 	para "<PLAY_G>, your BOX"
 	line "has room for @"
-	text_from_ram wStringBuffer3
+	text_ram wStringBuffer3
 	text_start
 	cont "more #MON."
 
@@ -52,21 +52,21 @@ BillPhoneNotFullText: ; 0x1b452a
 	line "fill it up!"
 	done
 
-BillPhoneNearlyFullText: ; 0x1b4587
+BillPhoneNearlyFullText:
 	text "Thanks for"
 	line "waiting!"
 
 	para "<PLAY_G>, your BOX"
 	line "has room for only"
 	cont "@"
-	text_from_ram wStringBuffer3
+	text_ram wStringBuffer3
 	text " more #MON."
 
 	para "Maybe you should"
 	line "switch your BOX."
 	done
 
-BillPhoneFullText: ; 0x1b45ed
+BillPhoneFullText:
 	text "Thanks for"
 	line "waiting!"
 
@@ -80,7 +80,7 @@ BillPhoneFullText: ; 0x1b45ed
 	line "more #MON."
 	done
 
-BillPhoneNewlyFullText: ; 0x1b4652
+BillPhoneNewlyFullText:
 	text "Hi, <PLAY_G>?"
 	line "It's me, BILL!"
 

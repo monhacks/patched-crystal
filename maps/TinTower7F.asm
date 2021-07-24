@@ -1,34 +1,27 @@
-const_value set 2
+	object_const_def
 	const TINTOWER7F_POKE_BALL
 
 TinTower7F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 TinTower7FMaxRevive:
 	itemball MAX_REVIVE
 
 TinTower7F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 5
-	warp_def 3, 9, 1, TIN_TOWER_6F
-	warp_def 10, 15, 1, TIN_TOWER_8F
-	warp_def 12, 7, 4, TIN_TOWER_7F
-	warp_def 8, 3, 3, TIN_TOWER_7F
-	warp_def 6, 9, 5, TIN_TOWER_9F
+	def_warp_events
+	warp_event  3,  9, TIN_TOWER_6F, 1
+	warp_event 10, 15, TIN_TOWER_8F, 1
+	warp_event 12,  7, TIN_TOWER_7F, 4
+	warp_event  8,  3, TIN_TOWER_7F, 3
+	warp_event  6,  9, TIN_TOWER_9F, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 16, 1, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TinTower7FMaxRevive, EVENT_TIN_TOWER_7F_MAX_REVIVE
+	def_object_events
+	object_event 16,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TinTower7FMaxRevive, EVENT_TIN_TOWER_7F_MAX_REVIVE

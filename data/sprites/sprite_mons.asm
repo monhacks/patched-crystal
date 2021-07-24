@@ -1,5 +1,6 @@
-SpriteMons: ; 14495
+SpriteMons:
 ; entries correspond to SPRITE_* constants past SPRITE_POKEMON
+	table_width 1, SpriteMons
 	db UNOWN
 	db GEODUDE
 	db GROWLITHE
@@ -35,4 +36,4 @@ SpriteMons: ; 14495
 	db GYARADOS
 	db LUGIA
 	db HO_OH
-; 144b8
+	assert_table_length NUM_POKEMON_SPRITES

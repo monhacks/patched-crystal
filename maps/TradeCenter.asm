@@ -1,76 +1,69 @@
-const_value set 2
+	object_const_def
 	const TRADECENTER_CHRIS1
 	const TRADECENTER_CHRIS2
 
 TradeCenter_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .InitializeTradeCenter
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .InitializeTradeCenter ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .SetWhichChris
 
 .InitializeTradeCenter:
-	priorityjump .InitializeAndPreparePokecenter2F
+	prioritysjump .InitializeAndPreparePokecenter2F
 	end
 
 .DummyScene:
 	end
 
 .SetWhichChris:
-	special Special_CableClubCheckWhichChris
+	special CableClubCheckWhichChris
 	iffalse .Chris2
 	disappear TRADECENTER_CHRIS2
 	appear TRADECENTER_CHRIS1
-	return
+	endcallback
 
 .Chris2:
 	disappear TRADECENTER_CHRIS1
 	appear TRADECENTER_CHRIS2
-	return
+	endcallback
 
 .InitializeAndPreparePokecenter2F:
-	setscene 1
-	setmapscene POKECENTER_2F, 1
+	setscene SCENE_FINISHED
+	setmapscene POKECENTER_2F, SCENE_POKECENTER2F_LEAVE_TRADE_CENTER
 	end
 
-MapTradeCenterSignpost1Script:
-	special Special_TradeCenter
+TradeCenterConsoleScript:
+	special TradeCenter
 	newloadmap MAPSETUP_LINKRETURN
 	end
 
-ChrisScript_0x19340b:
+TradeCenterFriendScript: ; unreferenced
 	opentext
-	writetext .FriendReadyText
+	writetext TradeCenterFriendReadyText
 	waitbutton
 	closetext
 	end
 
-.FriendReadyText:
+TradeCenterFriendReadyText:
 	text "Your friend is"
 	line "ready."
 	done
 
 TradeCenter_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 7, 2, POKECENTER_2F
-	warp_def 5, 7, 2, POKECENTER_2F
+	def_warp_events
+	warp_event  4,  7, POKECENTER_2F, 2
+	warp_event  5,  7, POKECENTER_2F, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 4, 4, BGEVENT_RIGHT, MapTradeCenterSignpost1Script
-	bg_event 5, 4, BGEVENT_LEFT, MapTradeCenterSignpost1Script
+	def_bg_events
+	bg_event  4,  4, BGEVENT_RIGHT, TradeCenterConsoleScript
+	bg_event  5,  4, BGEVENT_LEFT, TradeCenterConsoleScript
 
-.ObjectEvents:
-	db 2
-	object_event 3, 4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ChrisScript_0x193499, EVENT_GAVE_KURT_APRICORNS
-	object_event 6, 4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ChrisScript_0x193499, EVENT_RECEIVED_BALLS_FROM_KURT
+	def_object_events
+	object_event  3,  4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
+	object_event  6,  4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CableClubFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2

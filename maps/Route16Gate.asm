@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const ROUTE16GATE_OFFICER
 
 Route16Gate_MapScripts:
-.SceneScripts:
-	db 1
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .DummyScene ; SCENE_DEFAULT
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
@@ -15,22 +13,22 @@ Route16Gate_MapScripts:
 Route16GateOfficerScript:
 	jumptextfaceplayer Route16GateOfficerText
 
-UnknownScript_0x733ed:
+Route16GateBicycleCheck:
 	checkitem BICYCLE
-	iffalse UnknownScript_0x733f3
+	iffalse .NoBicycle
 	end
 
-UnknownScript_0x733f3:
+.NoBicycle:
 	showemote EMOTE_SHOCK, ROUTE16GATE_OFFICER, 15
-	spriteface PLAYER, UP
+	turnobject PLAYER, UP
 	opentext
-	writetext UnknownText_0x73496
+	writetext Route16GateCannotPassText
 	waitbutton
 	closetext
-	applymovement PLAYER, MovementData_0x73405
+	applymovement PLAYER, Route16GateCannotPassMovement
 	end
 
-MovementData_0x73405:
+Route16GateCannotPassMovement:
 	step RIGHT
 	turn_head LEFT
 	step_end
@@ -50,7 +48,7 @@ Route16GateOfficerText:
 	line "a ship or train."
 	done
 
-UnknownText_0x73496:
+Route16GateCannotPassText:
 	text "Hey! Whoa! Stop!"
 
 	para "You can't go out"
@@ -61,24 +59,19 @@ UnknownText_0x73496:
 	done
 
 Route16Gate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 4, 4, ROUTE_16
-	warp_def 0, 5, 5, ROUTE_16
-	warp_def 9, 4, 2, ROUTE_16
-	warp_def 9, 5, 3, ROUTE_16
+	def_warp_events
+	warp_event  0,  4, ROUTE_16, 4
+	warp_event  0,  5, ROUTE_16, 5
+	warp_event  9,  4, ROUTE_16, 2
+	warp_event  9,  5, ROUTE_16, 3
 
-.CoordEvents:
-	db 2
-	coord_event 5, 4, 0, UnknownScript_0x733ed
-	coord_event 5, 5, 0, UnknownScript_0x733ed
+	def_coord_events
+	coord_event  5,  4, SCENE_DEFAULT, Route16GateBicycleCheck
+	coord_event  5,  5, SCENE_DEFAULT, Route16GateBicycleCheck
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 5, 2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route16GateOfficerScript, -1
+	def_object_events
+	object_event  5,  2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route16GateOfficerScript, -1

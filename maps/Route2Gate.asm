@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const ROUTE2GATE_SCIENTIST
 
 Route2Gate_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Route2GateScientistScript:
 	jumptextfaceplayer Route2GateScientistText
@@ -26,22 +24,17 @@ Route2GateScientistText:
 	done
 
 Route2Gate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 0, 3, ROUTE_2
-	warp_def 5, 0, 4, ROUTE_2
-	warp_def 4, 7, 2, ROUTE_2
-	warp_def 5, 7, 2, ROUTE_2
+	def_warp_events
+	warp_event  4,  0, ROUTE_2, 3
+	warp_event  5,  0, ROUTE_2, 4
+	warp_event  4,  7, ROUTE_2, 2
+	warp_event  5,  7, ROUTE_2, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 6, 4, SPRITE_SCIENTIST, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 2, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route2GateScientistScript, -1
+	def_object_events
+	object_event  6,  4, SPRITE_SCIENTIST, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 2, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route2GateScientistScript, -1

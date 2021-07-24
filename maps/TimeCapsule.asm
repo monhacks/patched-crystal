@@ -1,76 +1,69 @@
-const_value set 2
+	object_const_def
 	const TIMECAPSULE_CHRIS1
 	const TIMECAPSULE_CHRIS2
 
 TimeCapsule_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .InitializeTimeCapsule
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .InitializeTimeCapsule ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .SetWhichChris
 
 .InitializeTimeCapsule:
-	priorityjump .InitializeAndPreparePokecenter2F
+	prioritysjump .InitializeAndPreparePokecenter2F
 	end
 
 .DummyScene:
 	end
 
 .SetWhichChris:
-	special Special_CableClubCheckWhichChris
+	special CableClubCheckWhichChris
 	iffalse .Chris2
 	disappear TIMECAPSULE_CHRIS2
 	appear TIMECAPSULE_CHRIS1
-	return
+	endcallback
 
 .Chris2:
 	disappear TIMECAPSULE_CHRIS1
 	appear TIMECAPSULE_CHRIS2
-	return
+	endcallback
 
 .InitializeAndPreparePokecenter2F:
-	setscene 1
-	setmapscene POKECENTER_2F, 3
+	setscene SCENE_FINISHED
+	setmapscene POKECENTER_2F, SCENE_POKECENTER2F_LEAVE_TIME_CAPSULE
 	end
 
-MapTimeCapsuleSignpost1Script:
-	special Special_TimeCapsule
+TimeCapsuleConsoleScript:
+	special TimeCapsule
 	newloadmap MAPSETUP_LINKRETURN
 	end
 
-ChrisScript_0x19351a:
+TimeCapsuleFriendScript:
 	opentext
-	writetext UnknownText_0x193521
+	writetext .FriendReadyText
 	waitbutton
 	closetext
 	end
 
-UnknownText_0x193521:
+.FriendReadyText:
 	text "Your friend is"
 	line "ready."
 	done
 
 TimeCapsule_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 7, 4, POKECENTER_2F
-	warp_def 5, 7, 4, POKECENTER_2F
+	def_warp_events
+	warp_event  4,  7, POKECENTER_2F, 4
+	warp_event  5,  7, POKECENTER_2F, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 4, 4, BGEVENT_RIGHT, MapTimeCapsuleSignpost1Script
-	bg_event 5, 4, BGEVENT_LEFT, MapTimeCapsuleSignpost1Script
+	def_bg_events
+	bg_event  4,  4, BGEVENT_RIGHT, TimeCapsuleConsoleScript
+	bg_event  5,  4, BGEVENT_LEFT, TimeCapsuleConsoleScript
 
-.ObjectEvents:
-	db 2
-	object_event 3, 4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ChrisScript_0x19351a, EVENT_GAVE_KURT_APRICORNS
-	object_event 6, 4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ChrisScript_0x19351a, EVENT_RECEIVED_BALLS_FROM_KURT
+	def_object_events
+	object_event  3,  4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, TimeCapsuleFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_1
+	object_event  6,  4, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, TimeCapsuleFriendScript, EVENT_TEMPORARY_UNTIL_MAP_RELOAD_2

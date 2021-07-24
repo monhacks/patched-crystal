@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const ECRUTEAKLUGIASPEECHHOUSE_GRAMPS
 	const ECRUTEAKLUGIASPEECHHOUSE_YOUNGSTER
 
 EcruteakLugiaSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 EcruteakLugiaSpeechHouseGrampsScript:
 	jumptextfaceplayer EcruteakLugiaSpeechHouseGrampsText
@@ -16,7 +14,7 @@ EcruteakLugiaSpeechHouseYoungsterScript:
 	jumptextfaceplayer EcruteakLugiaSpeechHouseYoungsterText
 
 LugiaSpeechHouseRadio:
-	jumpstd radio2
+	jumpstd Radio2Script
 
 EcruteakLugiaSpeechHouseGrampsText:
 	text "This happened when"
@@ -45,22 +43,17 @@ EcruteakLugiaSpeechHouseYoungsterText:
 	done
 
 EcruteakLugiaSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 3, 7, 7, ECRUTEAK_CITY
-	warp_def 4, 7, 7, ECRUTEAK_CITY
+	def_warp_events
+	warp_event  3,  7, ECRUTEAK_CITY, 7
+	warp_event  4,  7, ECRUTEAK_CITY, 7
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 2, 1, BGEVENT_READ, LugiaSpeechHouseRadio
+	def_bg_events
+	bg_event  2,  1, BGEVENT_READ, LugiaSpeechHouseRadio
 
-.ObjectEvents:
-	db 2
-	object_event 2, 3, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakLugiaSpeechHouseGrampsScript, -1
-	object_event 5, 4, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakLugiaSpeechHouseYoungsterScript, -1
+	def_object_events
+	object_event  2,  3, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakLugiaSpeechHouseGrampsScript, -1
+	object_event  5,  4, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakLugiaSpeechHouseYoungsterScript, -1

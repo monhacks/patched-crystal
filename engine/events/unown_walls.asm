@@ -1,18 +1,17 @@
-Special_HoOhChamber: ; 0x8addb
+HoOhChamber:
 	ld hl, wPartySpecies
 	ld a, [hl]
 	cp HO_OH ; is Ho-oh the first Pokémon in the party?
 	jr nz, .done ; if not, we're done
-	call GetMapDataPointer ; pointless?
+	call GetMapAttributesPointer ; pointless?
 	ld de, EVENT_WALL_OPENED_IN_HO_OH_CHAMBER
 	ld b, SET_FLAG
 	call EventFlagAction
 .done
 	ret
-; 0x8adef
 
-Special_OmanyteChamber: ; 8adef
-	call GetMapDataPointer ; pointless?
+OmanyteChamber:
+	call GetMapAttributesPointer ; pointless?
 	ld de, EVENT_WALL_OPENED_IN_OMANYTE_CHAMBER
 	ld b, CHECK_FLAG
 	call EventFlagAction
@@ -44,25 +43,24 @@ Special_OmanyteChamber: ; 8adef
 	jr nz, .loop
 
 .open
-	call GetMapDataPointer ; pointless?
+	call GetMapAttributesPointer ; pointless?
 	ld de, EVENT_WALL_OPENED_IN_OMANYTE_CHAMBER
 	ld b, SET_FLAG
 	call EventFlagAction
 
 .nope
 	ret
-; 8ae30
 
-SpecialAerodactylChamber: ; 8ae30
+SpecialAerodactylChamber:
 	push de
 	push bc
 
-	call GetMapDataPointer
+	call GetMapAttributesPointer
 	ld a, h
-	cp HIGH(RuinsOfAlphAerodactylChamber_MapData)
+	cp HIGH(RuinsOfAlphAerodactylChamber_MapAttributes)
 	jr nz, .nope
 	ld a, l
-	cp LOW(RuinsOfAlphAerodactylChamber_MapData)
+	cp LOW(RuinsOfAlphAerodactylChamber_MapAttributes)
 	jr nz, .nope
 
 	ld de, EVENT_WALL_OPENED_IN_AERODACTYL_CHAMBER
@@ -79,18 +77,17 @@ SpecialAerodactylChamber: ; 8ae30
 	pop bc
 	pop de
 	ret
-; 8ae4e
 
-SpecialKabutoChamber: ; 8ae4e
+SpecialKabutoChamber:
 	push hl
 	push de
 
-	call GetMapDataPointer
+	call GetMapAttributesPointer
 	ld a, h
-	cp HIGH(RuinsOfAlphKabutoChamber_MapData)
+	cp HIGH(RuinsOfAlphKabutoChamber_MapAttributes)
 	jr nz, .done
 	ld a, l
-	cp LOW(RuinsOfAlphKabutoChamber_MapData)
+	cp LOW(RuinsOfAlphKabutoChamber_MapAttributes)
 	jr nz, .done
 
 	ld de, EVENT_WALL_OPENED_IN_KABUTO_CHAMBER
@@ -101,11 +98,10 @@ SpecialKabutoChamber: ; 8ae4e
 	pop de
 	pop hl
 	ret
-; 8ae68
 
-Special_DisplayUnownWords: ; 8ae68
+DisplayUnownWords:
 	ld a, [wScriptVar]
-	ld hl, MenuDataHeaders_UnownWalls
+	ld hl, MenuHeaders_UnownWalls
 	and a
 	jr z, .load
 
@@ -117,9 +113,9 @@ Special_DisplayUnownWords: ; 8ae68
 	jr nz, .loop
 
 .load
-	call LoadMenuDataHeader
+	call LoadMenuHeader
 	xor a
-	ld [hBGMapMode], a
+	ldh [hBGMapMode], a
 	call MenuBox
 	call UpdateSprites
 	call ApplyTilemap
@@ -143,7 +139,7 @@ Special_DisplayUnownWords: ; 8ae68
 	jr nz, .loop2
 .copy
 	call _DisplayUnownWords_CopyWord
-	ld bc, wAttrMap - wTileMap
+	ld bc, wAttrmap - wTilemap
 	add hl, bc
 	call _DisplayUnownWords_FillAttr
 	call WaitBGMap2
@@ -151,11 +147,10 @@ Special_DisplayUnownWords: ; 8ae68
 	call PlayClickSFX
 	call CloseWindow
 	ret
-; 8aebc
 
-INCLUDE "data/unown_walls.asm"
+INCLUDE "data/events/unown_walls.asm"
 
-_DisplayUnownWords_FillAttr: ; 8aee9
+_DisplayUnownWords_FillAttr:
 	ld a, [de]
 	cp $ff
 	ret z
@@ -170,9 +165,8 @@ _DisplayUnownWords_FillAttr: ; 8aee9
 	inc hl
 	inc de
 	jr _DisplayUnownWords_FillAttr
-; 8aefd
 
-.PlaceSquare: ; 8aefd
+.PlaceSquare:
 	push hl
 	ld [hli], a
 	ld [hld], a
@@ -183,9 +177,8 @@ _DisplayUnownWords_FillAttr: ; 8aee9
 	ld [hl], a
 	pop hl
 	ret
-; 8af09
 
-_DisplayUnownWords_CopyWord: ; 8af09
+_DisplayUnownWords_CopyWord:
 	push hl
 	push de
 .word_loop
@@ -203,9 +196,8 @@ _DisplayUnownWords_CopyWord: ; 8af09
 	pop de
 	pop hl
 	ret
-; 8af1c
 
-.ConvertChar: ; 8af1c
+.ConvertChar:
 	push hl
 	ld a, c
 	cp $60
@@ -264,4 +256,3 @@ _DisplayUnownWords_CopyWord: ; 8af09
 	ld [hl], $2
 	pop hl
 	ret
-; 8af6b

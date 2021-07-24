@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const MRPOKEMONSHOUSE_GENTLEMAN
 	const MRPOKEMONSHOUSE_OAK
 
 MrPokemonsHouse_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .MeetMrPokemon
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .MeetMrPokemon ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .MeetMrPokemon:
-	priorityjump .MrPokemonEvent
+	prioritysjump .MrPokemonEvent
 	end
 
 .DummyScene:
@@ -20,7 +18,7 @@ MrPokemonsHouse_MapScripts:
 
 .MrPokemonEvent:
 	showemote EMOTE_SHOCK, MRPOKEMONSHOUSE_GENTLEMAN, 15
-	spriteface MRPOKEMONSHOUSE_GENTLEMAN, DOWN
+	turnobject MRPOKEMONSHOUSE_GENTLEMAN, DOWN
 	opentext
 	writetext MrPokemonIntroText1
 	waitbutton
@@ -28,7 +26,7 @@ MrPokemonsHouse_MapScripts:
 	applymovement PLAYER, MrPokemonsHouse_PlayerWalksToMrPokemon
 	opentext
 	writetext MrPokemonIntroText2
-	buttonsound
+	promptbutton
 	waitsfx
 	giveitem MYSTERY_EGG
 	writetext MrPokemonsHouse_GotEggText
@@ -38,16 +36,16 @@ MrPokemonsHouse_MapScripts:
 	setevent EVENT_GOT_MYSTERY_EGG_FROM_MR_POKEMON
 	blackoutmod CHERRYGROVE_CITY
 	writetext MrPokemonIntroText3
-	buttonsound
-	spriteface MRPOKEMONSHOUSE_GENTLEMAN, RIGHT
+	promptbutton
+	turnobject MRPOKEMONSHOUSE_GENTLEMAN, RIGHT
 	writetext MrPokemonIntroText4
-	buttonsound
-	spriteface MRPOKEMONSHOUSE_GENTLEMAN, DOWN
-	spriteface MRPOKEMONSHOUSE_OAK, LEFT
+	promptbutton
+	turnobject MRPOKEMONSHOUSE_GENTLEMAN, DOWN
+	turnobject MRPOKEMONSHOUSE_OAK, LEFT
 	writetext MrPokemonIntroText5
 	waitbutton
 	closetext
-	jump MrPokemonsHouse_OakScript
+	sjump MrPokemonsHouse_OakScript
 
 MrPokemonsHouse_MrPokemonScript:
 	faceplayer
@@ -74,7 +72,7 @@ MrPokemonsHouse_MrPokemonScript:
 	verbosegiveitem EXP_SHARE
 	iffalse .full
 	takeitem RED_SCALE
-	jump .AlwaysNewDiscoveries
+	sjump .AlwaysNewDiscoveries
 
 .refused
 	writetext MrPokemonText_Disappointed
@@ -86,10 +84,10 @@ MrPokemonsHouse_MrPokemonScript:
 MrPokemonsHouse_OakScript:
 	playmusic MUSIC_PROF_OAK
 	applymovement MRPOKEMONSHOUSE_OAK, MrPokemonsHouse_OakWalksToPlayer
-	spriteface PLAYER, RIGHT
+	turnobject PLAYER, RIGHT
 	opentext
 	writetext MrPokemonsHouse_OakText1
-	buttonsound
+	promptbutton
 	waitsfx
 	writetext MrPokemonsHouse_GetDexText
 	playsound SFX_ITEM
@@ -98,36 +96,36 @@ MrPokemonsHouse_OakScript:
 	writetext MrPokemonsHouse_OakText2
 	waitbutton
 	closetext
-	spriteface PLAYER, DOWN
+	turnobject PLAYER, DOWN
 	applymovement MRPOKEMONSHOUSE_OAK, MrPokemonsHouse_OakExits
 	playsound SFX_EXIT_BUILDING
 	disappear MRPOKEMONSHOUSE_OAK
 	waitsfx
 	special RestartMapMusic
 	pause 15
-	spriteface PLAYER, UP
+	turnobject PLAYER, UP
 	opentext
 	writetext MrPokemonsHouse_MrPokemonHealText
 	waitbutton
 	closetext
-	special Special_FadeBlackQuickly
+	special FadeBlackQuickly
 	special ReloadSpritesNoPalettes
 	playmusic MUSIC_HEAL
-	special Special_StubbedTrainerRankings_Healings
+	special StubbedTrainerRankings_Healings
 	special HealParty
 	pause 60
-	special Special_FadeInQuickly
+	special FadeInQuickly
 	special RestartMapMusic
 	opentext
 	writetext MrPokemonText_ImDependingOnYou
 	waitbutton
 	closetext
 	setevent EVENT_RIVAL_NEW_BARK_TOWN
-	setevent EVENT_KRISS_HOUSE_1F_NEIGHBOR
-	clearevent EVENT_KRISS_NEIGHBORS_HOUSE_NEIGHBOR
-	setscene 1
-	setmapscene CHERRYGROVE_CITY, 1
-	setmapscene ELMS_LAB, 3
+	setevent EVENT_PLAYERS_HOUSE_1F_NEIGHBOR
+	clearevent EVENT_PLAYERS_NEIGHBORS_HOUSE_NEIGHBOR
+	setscene SCENE_FINISHED
+	setmapscene CHERRYGROVE_CITY, SCENE_CHERRYGROVECITY_MEET_RIVAL
+	setmapscene ELMS_LAB, SCENE_ELMSLAB_MEET_OFFICER
 	specialphonecall SPECIALCALL_ROBBED
 	clearevent EVENT_COP_IN_ELMS_LAB
 	checkevent EVENT_GOT_TOTODILE_FROM_ELM
@@ -145,13 +143,13 @@ MrPokemonsHouse_OakScript:
 	setevent EVENT_CYNDAQUIL_POKEBALL_IN_ELMS_LAB
 	end
 
-MapMrPokemonsHouseSignpost1Script:
+MrPokemonsHouse_ForeignMagazines:
 	jumptext MrPokemonsHouse_ForeignMagazinesText
 
-MapMrPokemonsHouseSignpost3Script:
+MrPokemonsHouse_BrokenComputer:
 	jumptext MrPokemonsHouse_BrokenComputerText
 
-MapMrPokemonsHouseSignpost4Script:
+MrPokemonsHouse_StrangeCoins:
 	jumptext MrPokemonsHouse_StrangeCoinsText
 
 MrPokemonsHouse_PlayerWalksToMrPokemon:
@@ -373,26 +371,21 @@ MrPokemonsHouse_StrangeCoinsText:
 	done
 
 MrPokemonsHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 2, ROUTE_30
-	warp_def 3, 7, 2, ROUTE_30
+	def_warp_events
+	warp_event  2,  7, ROUTE_30, 2
+	warp_event  3,  7, ROUTE_30, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 5
-	bg_event 0, 1, BGEVENT_READ, MapMrPokemonsHouseSignpost1Script
-	bg_event 1, 1, BGEVENT_READ, MapMrPokemonsHouseSignpost1Script
-	bg_event 6, 1, BGEVENT_READ, MapMrPokemonsHouseSignpost3Script
-	bg_event 7, 1, BGEVENT_READ, MapMrPokemonsHouseSignpost3Script
-	bg_event 6, 4, BGEVENT_READ, MapMrPokemonsHouseSignpost4Script
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, MrPokemonsHouse_ForeignMagazines
+	bg_event  1,  1, BGEVENT_READ, MrPokemonsHouse_ForeignMagazines
+	bg_event  6,  1, BGEVENT_READ, MrPokemonsHouse_BrokenComputer
+	bg_event  7,  1, BGEVENT_READ, MrPokemonsHouse_BrokenComputer
+	bg_event  6,  4, BGEVENT_READ, MrPokemonsHouse_StrangeCoins
 
-.ObjectEvents:
-	db 2
-	object_event 3, 5, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MrPokemonsHouse_MrPokemonScript, -1
-	object_event 6, 5, SPRITE_OAK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MR_POKEMONS_HOUSE_OAK
+	def_object_events
+	object_event  3,  5, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MrPokemonsHouse_MrPokemonScript, -1
+	object_event  6,  5, SPRITE_OAK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MR_POKEMONS_HOUSE_OAK

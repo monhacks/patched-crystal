@@ -5,14 +5,15 @@ specialcall: MACRO
 	dba \3
 ENDM
 
-SpecialPhoneCallList: ; 90627
+SpecialPhoneCallList:
 ; entries correspond to SPECIALCALL_* constants
-	specialcall SpecialCallOnlyWhenOutside, PHONE_ELM, ElmPhoneScript2
-	specialcall SpecialCallOnlyWhenOutside, PHONE_ELM, ElmPhoneScript2
-	specialcall SpecialCallOnlyWhenOutside, PHONE_ELM, ElmPhoneScript2
-	specialcall SpecialCallOnlyWhenOutside, PHONE_ELM, ElmPhoneScript2
-	specialcall SpecialCallWhereverYouAre,  PHONE_ELM, ElmPhoneScript2
-	specialcall SpecialCallWhereverYouAre,  PHONE_OAK, BikeShopPhoneScript
-	specialcall SpecialCallWhereverYouAre,  PHONE_MOM, MomPhoneLectureScript
-	specialcall SpecialCallOnlyWhenOutside, PHONE_ELM, ElmPhoneScript2
-; 90657
+	table_width SPECIALCALL_SIZE, SpecialPhoneCallList
+	specialcall SpecialCallOnlyWhenOutside, PHONECONTACT_ELM,      ElmPhoneCallerScript
+	specialcall SpecialCallOnlyWhenOutside, PHONECONTACT_ELM,      ElmPhoneCallerScript
+	specialcall SpecialCallOnlyWhenOutside, PHONECONTACT_ELM,      ElmPhoneCallerScript
+	specialcall SpecialCallOnlyWhenOutside, PHONECONTACT_ELM,      ElmPhoneCallerScript
+	specialcall SpecialCallWhereverYouAre,  PHONECONTACT_ELM,      ElmPhoneCallerScript
+	specialcall SpecialCallWhereverYouAre,  PHONECONTACT_BIKESHOP, BikeShopPhoneCallerScript
+	specialcall SpecialCallWhereverYouAre,  PHONECONTACT_MOM,      MomPhoneLectureScript
+	specialcall SpecialCallOnlyWhenOutside, PHONECONTACT_ELM,      ElmPhoneCallerScript
+	assert_table_length NUM_SPECIALCALLS

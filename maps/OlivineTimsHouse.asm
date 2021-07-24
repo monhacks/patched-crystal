@@ -1,41 +1,34 @@
-const_value set 2
+	object_const_def
 	const OLIVINETIMSHOUSE_TIM
 
 OlivineTimsHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Tim:
 	faceplayer
 	opentext
-	trade NPCTRADE_TIM
+	trade NPC_TRADE_TIM
 	waitbutton
 	closetext
 	end
 
 TimsHouseBookshelf:
-	jumpstd magazinebookshelf
+	jumpstd MagazineBookshelfScript
 
 OlivineTimsHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 3, OLIVINE_CITY
-	warp_def 3, 7, 3, OLIVINE_CITY
+	def_warp_events
+	warp_event  2,  7, OLIVINE_CITY, 3
+	warp_event  3,  7, OLIVINE_CITY, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, TimsHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, TimsHouseBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, TimsHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, TimsHouseBookshelf
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Tim, -1
+	def_object_events
+	object_event  2,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Tim, -1

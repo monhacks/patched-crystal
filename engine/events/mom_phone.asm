@@ -1,11 +1,11 @@
-NUM_MOM_ITEMS_1 EQUS "((MomItems_1End - MomItems_1) / 8)"
-NUM_MOM_ITEMS_2 EQUS "((MomItems_2End - MomItems_2) / 8)"
+NUM_MOM_ITEMS_1 EQUS "((MomItems_1.End - MomItems_1) / 8)"
+NUM_MOM_ITEMS_2 EQUS "((MomItems_2.End - MomItems_2) / 8)"
 
-const_value = 1
+	const_def 1
 	const MOM_ITEM
 	const MOM_DOLL
 
-MomTriesToBuySomething:: ; fcfec
+MomTriesToBuySomething::
 	ld a, [wMapReentryScriptQueueFlag]
 	and a
 	ret nz
@@ -23,14 +23,12 @@ MomTriesToBuySomething:: ; fcfec
 	farcall LoadScriptBDE
 	scf
 	ret
-; fd00f
 
-.Script: ; 0xfd00f
+.Script:
 	callasm .ASMFunction
-	farjump Script_ReceivePhoneCall
-; 0xfd017
+	farsjump Script_ReceivePhoneCall
 
-.ASMFunction: ; fd017
+.ASMFunction:
 	call MomBuysItem_DeductFunds
 	call Mom_GetScriptPointer
 	ld a, [wWhichMomItemSet]
@@ -40,14 +38,14 @@ MomTriesToBuySomething:: ; fcfec
 	inc [hl]
 .ok
 	ld a, PHONE_MOM
-	ld [wCurrentCaller], a
-	ld bc, wEngineBuffer2
-	ld hl, 0
+	ld [wCurCaller], a
+	ld bc, wCallerContact
+	ld hl, PHONE_CONTACT_TRAINER_CLASS
 	add hl, bc
-	ld [hl], 0
+	ld [hl], TRAINER_NONE
 	inc hl
-	ld [hl], 1
-	ld hl, wPhoneScriptPointer - wEngineBuffer2
+	ld [hl], PHONE_MOM
+	ld hl, PHONE_CONTACT_SCRIPT2_BANK
 	add hl, bc
 	ld a, BANK(Mom_GetScriptPointer)
 	ld [hli], a
@@ -56,19 +54,18 @@ MomTriesToBuySomething:: ; fcfec
 	ld a, d
 	ld [hl], a
 	ret
-; fd044
 
-CheckBalance_MomItem2: ; fd044
+CheckBalance_MomItem2:
 	ld a, [wWhichMomItem]
 	cp NUM_MOM_ITEMS_2
 	jr nc, .nope
 	call GetItemFromMom
 	ld a, [hli]
-	ld [hMoneyTemp], a
+	ldh [hMoneyTemp], a
 	ld a, [hli]
-	ld [hMoneyTemp + 1], a
+	ldh [hMoneyTemp + 1], a
 	ld a, [hli]
-	ld [hMoneyTemp + 2], a
+	ldh [hMoneyTemp + 2], a
 	ld de, wMomsMoney
 	ld bc, hMoneyTemp
 	farcall CompareMoney
@@ -115,26 +112,23 @@ CheckBalance_MomItem2: ; fd044
 	ld bc, hMoneyTemp
 	farcall AddMoney
 	ret
-; fd0a6
 
-
-MomBuysItem_DeductFunds: ; fd0a6 (3f:50a6)
+MomBuysItem_DeductFunds:
 	call GetItemFromMom
 	ld de, 3 ; cost
 	add hl, de
 	ld a, [hli]
-	ld [hMoneyTemp], a
+	ldh [hMoneyTemp], a
 	ld a, [hli]
-	ld [hMoneyTemp + 1], a
+	ldh [hMoneyTemp + 1], a
 	ld a, [hli]
-	ld [hMoneyTemp + 2], a
+	ldh [hMoneyTemp + 2], a
 	ld de, wMomsMoney
 	ld bc, hMoneyTemp
 	farcall TakeMoney
 	ret
 
-
-Mom_GiveItemOrDoll: ; fd0c3
+Mom_GiveItemOrDoll:
 	call GetItemFromMom
 	ld de, 6 ; item type
 	add hl, de
@@ -152,14 +146,12 @@ Mom_GiveItemOrDoll: ; fd0c3
 	ld a, [hl]
 	ld [wCurItem], a
 	ld a, 1
-	ld [wItemQuantityChangeBuffer], a
-	ld hl, wPCItems
+	ld [wItemQuantityChange], a
+	ld hl, wNumPCItems
 	call ReceiveItem
 	ret
-; fd0eb
 
-
-Mom_GetScriptPointer: ; fd0eb (3f:50eb)
+Mom_GetScriptPointer:
 	call GetItemFromMom
 	ld de, 6 ; item type
 	add hl, de
@@ -169,26 +161,22 @@ Mom_GetScriptPointer: ; fd0eb (3f:50eb)
 	ret z
 	ld de, .DollScript
 	ret
-; fd0fd (3f:50fd)
 
-.ItemScript: ; 0xfd0fd
-	writetext _MomText_HiHowAreYou
-	writetext _MomText_FoundAnItem
-	writetext _MomText_BoughtWithYourMoney
-	writetext _MomText_ItsInPC
+.ItemScript:
+	writetext MomHiHowAreYouText
+	writetext MomFoundAnItemText
+	writetext MomBoughtWithYourMoneyText
+	writetext MomItsInPCText
 	end
-; 0xfd10a
 
-.DollScript: ; 0xfd10a
-	writetext _MomText_HiHowAreYou
-	writetext _MomText_FoundADoll
-	writetext _MomText_BoughtWithYourMoney
-	writetext _MomText_ItsInRoom
+.DollScript:
+	writetext MomHiHowAreYouText
+	writetext MomFoundADollText
+	writetext MomBoughtWithYourMoneyText
+	writetext MomItsInYourRoomText
 	end
-; 0xfd117
 
-
-GetItemFromMom: ; fd117
+GetItemFromMom:
 	ld a, [wWhichMomItemSet]
 	and a
 	jr z, .zero
@@ -213,52 +201,39 @@ rept 3 ; multiply hl by 8
 endr
 	add hl, de
 	ret
-; fd136
 
 INCLUDE "data/items/mom_phone.asm"
 
-	db 0, 0, 0 ; unused
+MomHiHowAreYouText:
+	text_far _MomHiHowAreYouText
+	text_end
 
-_MomText_HiHowAreYou: ; 0xfd1b1
-	; Hi,  ! How are you?
-	text_jump UnknownText_0x1bc615
-	db "@"
-; 0xfd1b6
+MomFoundAnItemText:
+	text_far _MomFoundAnItemText
+	text_end
 
-_MomText_FoundAnItem: ; 0xfd1b6
-	; I found a useful item shopping, so
-	text_jump UnknownText_0x1bc62a
-	db "@"
-; 0xfd1bb
+MomBoughtWithYourMoneyText:
+	text_far _MomBoughtWithYourMoneyText
+	text_end
 
-_MomText_BoughtWithYourMoney: ; 0xfd1bb
-	; I bought it with your money. Sorry!
-	text_jump UnknownText_0x1bc64e
-	db "@"
-; 0xfd1c0
+MomItsInPCText:
+	text_far _MomItsInPCText
+	text_end
 
-_MomText_ItsInPC: ; 0xfd1c0
-	; It's in your PC. You'll like it!
-	text_jump UnknownText_0x1bc673
-	db "@"
-; 0xfd1c5
+MomFoundADollText:
+	text_far _MomFoundADollText
+	text_end
 
-_MomText_FoundADoll: ; 0xfd1c5
-	; While shopping today, I saw this adorable doll, so
-	text_jump UnknownText_0x1bc693
-	db "@"
-; 0xfd1ca
+MomItsInYourRoomText:
+	text_far _MomItsInYourRoomText
+	text_end
 
-_MomText_ItsInRoom: ; 0xfd1ca
-	; It's in your room. You'll love it!
-	text_jump UnknownText_0x1bc6c7
-	db "@"
-; 0xfd1cf
 
-	db 0 ; unused
+DummyPredef3A_DummyData: ; unreferenced
+	db 0
 
-DummyPredef3A: ; fd1d0
+DummyPredef3A:
 	ret
-; fd1d1
 
-	ret ; unused
+DummyPredef3A_DummyFunction: ; unreferenced
+	ret

@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const ROUTE35_YOUNGSTER1
 	const ROUTE35_YOUNGSTER2
 	const ROUTE35_LASS1
@@ -12,17 +12,15 @@ const_value set 2
 	const ROUTE35_POKE_BALL
 
 Route35_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 TrainerBirdKeeperBryan:
-	trainer EVENT_BEAT_BIRD_KEEPER_BRYAN, BIRD_KEEPER, BRYAN, BirdKeeperBryanSeenText, BirdKeeperBryanBeatenText, 0, .Script
+	trainer BIRD_KEEPER, BRYAN, EVENT_BEAT_BIRD_KEEPER_BRYAN, BirdKeeperBryanSeenText, BirdKeeperBryanBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BirdKeeperBryanAfterBattleText
 	waitbutton
@@ -30,65 +28,65 @@ TrainerBirdKeeperBryan:
 	end
 
 TrainerJugglerIrwin:
-	trainer EVENT_BEAT_JUGGLER_IRWIN, JUGGLER, IRWIN1, JugglerIrwin1SeenText, JugglerIrwin1BeatenText, 0, .Script
+	trainer JUGGLER, IRWIN1, EVENT_BEAT_JUGGLER_IRWIN, JugglerIrwin1SeenText, JugglerIrwin1BeatenText, 0, .Script
 
 .Script:
-	writecode VAR_CALLERID, PHONE_JUGGLER_IRWIN
-	end_if_just_battled
+	loadvar VAR_CALLERID, PHONE_JUGGLER_IRWIN
+	endifjustbattled
 	opentext
 	checkcellnum PHONE_JUGGLER_IRWIN
 	iftrue Route35NumberAcceptedM
 	checkevent EVENT_IRWIN_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskedAlready
 	writetext JugglerIrwinAfterBattleText
-	buttonsound
+	promptbutton
 	setevent EVENT_IRWIN_ASKED_FOR_PHONE_NUMBER
 	scall Route35AskNumber1M
-	jump .AskForNumber
+	sjump .AskForNumber
 
 .AskedAlready:
 	scall Route35AskNumber2M
 .AskForNumber:
 	askforphonenumber PHONE_JUGGLER_IRWIN
-	if_equal PHONE_CONTACTS_FULL, Route35PhoneFullM
-	if_equal PHONE_CONTACT_REFUSED, Route35NumberDeclinedM
-	trainertotext JUGGLER, IRWIN1, MEM_BUFFER_0
+	ifequal PHONE_CONTACTS_FULL, Route35PhoneFullM
+	ifequal PHONE_CONTACT_REFUSED, Route35NumberDeclinedM
+	gettrainername STRING_BUFFER_3, JUGGLER, IRWIN1
 	scall Route35RegisteredNumberM
-	jump Route35NumberAcceptedM
+	sjump Route35NumberAcceptedM
 
 Route35AskNumber1M:
-	jumpstd asknumber1m
+	jumpstd AskNumber1MScript
 	end
 
 Route35AskNumber2M:
-	jumpstd asknumber2m
+	jumpstd AskNumber2MScript
 	end
 
 Route35RegisteredNumberM:
-	jumpstd registerednumberm
+	jumpstd RegisteredNumberMScript
 	end
 
 Route35NumberAcceptedM:
-	jumpstd numberacceptedm
+	jumpstd NumberAcceptedMScript
 	end
 
 Route35NumberDeclinedM:
-	jumpstd numberdeclinedm
+	jumpstd NumberDeclinedMScript
 	end
 
 Route35PhoneFullM:
-	jumpstd phonefullm
+	jumpstd PhoneFullMScript
 	end
 
 Route35RematchM:
-	jumpstd rematchm
+	jumpstd RematchMScript
 	end
 
 TrainerCamperIvan:
-	trainer EVENT_BEAT_CAMPER_IVAN, CAMPER, IVAN, CamperIvanSeenText, CamperIvanBeatenText, 0, .Script
+	trainer CAMPER, IVAN, EVENT_BEAT_CAMPER_IVAN, CamperIvanSeenText, CamperIvanBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext CamperIvanAfterBattleText
 	waitbutton
@@ -96,10 +94,10 @@ TrainerCamperIvan:
 	end
 
 TrainerCamperElliot:
-	trainer EVENT_BEAT_CAMPER_ELLIOT, CAMPER, ELLIOT, CamperElliotSeenText, CamperElliotBeatenText, 0, .Script
+	trainer CAMPER, ELLIOT, EVENT_BEAT_CAMPER_ELLIOT, CamperElliotSeenText, CamperElliotBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext CamperElliotAfterBattleText
 	waitbutton
@@ -107,10 +105,10 @@ TrainerCamperElliot:
 	end
 
 TrainerPicnickerBrooke:
-	trainer EVENT_BEAT_PICNICKER_BROOKE, PICNICKER, BROOKE, PicnickerBrookeSeenText, PicnickerBrookeBeatenText, 0, .Script
+	trainer PICNICKER, BROOKE, EVENT_BEAT_PICNICKER_BROOKE, PicnickerBrookeSeenText, PicnickerBrookeBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext PicnickerBrookeAfterBattleText
 	waitbutton
@@ -118,10 +116,10 @@ TrainerPicnickerBrooke:
 	end
 
 TrainerPicnickerKim:
-	trainer EVENT_BEAT_PICNICKER_KIM, PICNICKER, KIM, PicnickerKimSeenText, PicnickerKimBeatenText, 0, .Script
+	trainer PICNICKER, KIM, EVENT_BEAT_PICNICKER_KIM, PicnickerKimSeenText, PicnickerKimBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext PicnickerKimAfterBattleText
 	waitbutton
@@ -129,13 +127,13 @@ TrainerPicnickerKim:
 	end
 
 TrainerBugCatcherArnie:
-	trainer EVENT_BEAT_BUG_CATCHER_ARNIE, BUG_CATCHER, ARNIE1, BugCatcherArnieSeenText, BugCatcherArnieBeatenText, 0, .Script
+	trainer BUG_CATCHER, ARNIE1, EVENT_BEAT_BUG_CATCHER_ARNIE, BugCatcherArnieSeenText, BugCatcherArnieBeatenText, 0, .Script
 
 .Script:
-	writecode VAR_CALLERID, PHONE_BUG_CATCHER_ARNIE
-	end_if_just_battled
+	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_ARNIE
+	endifjustbattled
 	opentext
-	checkflag ENGINE_ARNIE
+	checkflag ENGINE_ARNIE_READY_FOR_REMATCH
 	iftrue .WantsBattle
 	checkflag ENGINE_YANMA_SWARM
 	iftrue .YanmaSwarming
@@ -144,30 +142,30 @@ TrainerBugCatcherArnie:
 	checkevent EVENT_ARNIE_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskedAlready
 	writetext BugCatcherArnieAfterBattleText
-	buttonsound
+	promptbutton
 	setevent EVENT_ARNIE_ASKED_FOR_PHONE_NUMBER
 	scall Route35AskNumber1M
-	jump .AskForNumber
+	sjump .AskForNumber
 
 .AskedAlready:
 	scall Route35AskNumber2M
 .AskForNumber:
 	askforphonenumber PHONE_BUG_CATCHER_ARNIE
-	if_equal PHONE_CONTACTS_FULL, Route35PhoneFullM
-	if_equal PHONE_CONTACT_REFUSED, Route35NumberDeclinedM
-	trainertotext BUG_CATCHER, ARNIE1, MEM_BUFFER_0
+	ifequal PHONE_CONTACTS_FULL, Route35PhoneFullM
+	ifequal PHONE_CONTACT_REFUSED, Route35NumberDeclinedM
+	gettrainername STRING_BUFFER_3, BUG_CATCHER, ARNIE1
 	scall Route35RegisteredNumberM
-	jump Route35NumberAcceptedM
+	sjump Route35NumberAcceptedM
 
 .WantsBattle:
 	scall Route35RematchM
 	winlosstext BugCatcherArnieBeatenText, 0
-	copybytetovar wArnieFightCount
-	if_equal 4, .Fight4
-	if_equal 3, .Fight3
-	if_equal 2, .Fight2
-	if_equal 1, .Fight1
-	if_equal 0, .LoadFight0
+	readmem wArnieFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
 .Fight4:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight4
@@ -184,39 +182,39 @@ TrainerBugCatcherArnie:
 	loadtrainer BUG_CATCHER, ARNIE1
 	startbattle
 	reloadmapafterbattle
-	loadvar wArnieFightCount, 1
-	clearflag ENGINE_ARNIE
+	loadmem wArnieFightCount, 1
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BUG_CATCHER, ARNIE2
 	startbattle
 	reloadmapafterbattle
-	loadvar wArnieFightCount, 2
-	clearflag ENGINE_ARNIE
+	loadmem wArnieFightCount, 2
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BUG_CATCHER, ARNIE3
 	startbattle
 	reloadmapafterbattle
-	loadvar wArnieFightCount, 3
-	clearflag ENGINE_ARNIE
+	loadmem wArnieFightCount, 3
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight3:
 	loadtrainer BUG_CATCHER, ARNIE4
 	startbattle
 	reloadmapafterbattle
-	loadvar wArnieFightCount, 4
-	clearflag ENGINE_ARNIE
+	loadmem wArnieFightCount, 4
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .LoadFight4:
 	loadtrainer BUG_CATCHER, ARNIE5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_ARNIE
+	clearflag ENGINE_ARNIE_READY_FOR_REMATCH
 	end
 
 .YanmaSwarming:
@@ -226,10 +224,10 @@ TrainerBugCatcherArnie:
 	end
 
 TrainerFirebreatherWalt:
-	trainer EVENT_BEAT_FIREBREATHER_WALT, FIREBREATHER, WALT, FirebreatherWaltSeenText, FirebreatherWaltBeatenText, 0, .Script
+	trainer FIREBREATHER, WALT, EVENT_BEAT_FIREBREATHER_WALT, FirebreatherWaltSeenText, FirebreatherWaltBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext FirebreatherWaltAfterBattleText
 	waitbutton
@@ -239,7 +237,7 @@ TrainerFirebreatherWalt:
 TrainerOfficerDirk:
 	faceplayer
 	opentext
-	checknite
+	checktime NITE
 	iffalse .NotNight
 	checkevent EVENT_BEAT_OFFICER_DIRK
 	iftrue .AfterBattle
@@ -273,7 +271,7 @@ Route35Sign:
 Route35TMRollout:
 	itemball TM_ROLLOUT
 
-FruitTreeScript_0x19ca7e:
+Route35FruitTree:
 	fruittree FRUITTREE_ROUTE_35
 
 CamperIvanSeenText:
@@ -463,33 +461,28 @@ Route35SignText:
 	done
 
 Route35_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 9, 33, 1, ROUTE_35_GOLDENROD_GATE
-	warp_def 10, 33, 2, ROUTE_35_GOLDENROD_GATE
-	warp_def 3, 5, 3, ROUTE_35_NATIONAL_PARK_GATE
+	def_warp_events
+	warp_event  9, 33, ROUTE_35_GOLDENROD_GATE, 1
+	warp_event 10, 33, ROUTE_35_GOLDENROD_GATE, 2
+	warp_event  3,  5, ROUTE_35_NATIONAL_PARK_GATE, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 1, 7, BGEVENT_READ, Route35Sign
+	def_bg_events
+	bg_event  1,  7, BGEVENT_READ, Route35Sign
 	bg_event 11, 31, BGEVENT_READ, Route35Sign
 
-.ObjectEvents:
-	db 11
-	object_event 4, 19, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 2, TrainerCamperIvan, -1
-	object_event 8, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperElliot, -1
-	object_event 7, 20, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerBrooke, -1
+	def_object_events
+	object_event  4, 19, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 2, TrainerCamperIvan, -1
+	object_event  8, 20, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerCamperElliot, -1
+	object_event  7, 20, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerPicnickerBrooke, -1
 	object_event 10, 26, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerPicnickerKim, -1
 	object_event 14, 28, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerBirdKeeperBryan, -1
-	object_event 2, 10, SPRITE_FISHER, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerFirebreatherWalt, -1
-	object_event 16, 7, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherArnie, -1
-	object_event 5, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerJugglerIrwin, -1
-	object_event 5, 6, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, TrainerOfficerDirk, -1
-	object_event 2, 25, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, FruitTreeScript_0x19ca7e, -1
-	object_event 13, 16, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route35TMRollout, EVENT_ROUTE_35_TM_ROLLOUT
+	object_event  2, 10, SPRITE_FISHER, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 2, TrainerFirebreatherWalt, -1
+	object_event 16,  7, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherArnie, -1
+	object_event  5, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerJugglerIrwin, -1
+	object_event  5,  6, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, TrainerOfficerDirk, -1
+	object_event  2, 25, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route35FruitTree, -1
+	object_event 13, 16, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route35TMRollout, EVENT_ROUTE_35_TM_ROLLOUT

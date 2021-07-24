@@ -1,35 +1,33 @@
-const_value set 2
+	object_const_def
 	const TRAINERHOUSEB1F_RECEPTIONIST
 	const TRAINERHOUSEB1F_CHRIS
 
 TrainerHouseB1F_MapScripts:
-.SceneScripts:
-	db 1
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .DummyScene ; SCENE_DEFAULT
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
 
 TrainerHouseReceptionistScript:
-	spriteface PLAYER, UP
+	turnobject PLAYER, UP
 	opentext
 	checkflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	iftrue .FoughtTooManyTimes
 	writetext TrainerHouseB1FIntroText
-	buttonsound
-	special Special_TrainerHouse
+	promptbutton
+	special TrainerHouse
 	iffalse .GetCal3Name
-	trainertotext CAL, CAL2, MEM_BUFFER_0
-	jump .GotName
+	gettrainername STRING_BUFFER_3, CAL, CAL2
+	sjump .GotName
 
 .GetCal3Name:
-	trainertotext CAL, CAL3, MEM_BUFFER_0
+	gettrainername STRING_BUFFER_3, CAL, CAL3
 .GotName:
 	writetext TrainerHouseB1FYourOpponentIsText
-	buttonsound
+	promptbutton
 	writetext TrainerHouseB1FAskWantToBattleText
 	yesorno
 	iffalse .Declined
@@ -42,7 +40,7 @@ TrainerHouseReceptionistScript:
 	writetext TrainerHouseB1FCalBeforeText
 	waitbutton
 	closetext
-	special Special_TrainerHouse
+	special TrainerHouse
 	iffalse .NoSpecialBattle
 	winlosstext TrainerHouseB1FCalBeatenText, 0
 	setlasttalked TRAINERHOUSEB1F_CHRIS
@@ -121,7 +119,7 @@ TrainerHouseB1FIntroText:
 	done
 
 TrainerHouseB1FYourOpponentIsText:
-	text_from_ram wStringBuffer3
+	text_ram wStringBuffer3
 	text " is your"
 	line "opponent today."
 	done
@@ -170,21 +168,16 @@ TrainerHouseB1FCalBeforeText:
 	done
 
 TrainerHouseB1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 9, 4, 3, TRAINER_HOUSE_1F
+	def_warp_events
+	warp_event  9,  4, TRAINER_HOUSE_1F, 3
 
-.CoordEvents:
-	db 1
-	coord_event 7, 3, 0, TrainerHouseReceptionistScript
+	def_coord_events
+	coord_event  7,  3, SCENE_DEFAULT, TrainerHouseReceptionistScript
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 7, 1, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
-	object_event 6, 11, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
+	def_object_events
+	object_event  7,  1, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1
+	object_event  6, 11, SPRITE_CHRIS, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1

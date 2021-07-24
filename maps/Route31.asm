@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const ROUTE31_FISHER
 	const ROUTE31_YOUNGSTER
 	const ROUTE31_BUG_CATCHER
@@ -8,30 +8,28 @@ const_value set 2
 	const ROUTE31_POKE_BALL2
 
 Route31_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .CheckMomCall
 
 .CheckMomCall:
 	checkevent EVENT_TALKED_TO_MOM_AFTER_MYSTERY_EGG_QUEST
 	iffalse .DoMomCall
-	return
+	endcallback
 
 .DoMomCall:
 	specialphonecall SPECIALCALL_WORRIED
-	return
+	endcallback
 
 TrainerBugCatcherWade1:
-	trainer EVENT_BEAT_BUG_CATCHER_WADE, BUG_CATCHER, WADE1, BugCatcherWade1SeenText, BugCatcherWade1BeatenText, 0, .Script
+	trainer BUG_CATCHER, WADE1, EVENT_BEAT_BUG_CATCHER_WADE, BugCatcherWade1SeenText, BugCatcherWade1BeatenText, 0, .Script
 
 .Script:
-	writecode VAR_CALLERID, PHONE_BUG_CATCHER_WADE
-	end_if_just_battled
+	loadvar VAR_CALLERID, PHONE_BUG_CATCHER_WADE
+	endifjustbattled
 	opentext
-	checkflag ENGINE_WADE
+	checkflag ENGINE_WADE_READY_FOR_REMATCH
 	iftrue .WadeRematch
 	checkflag ENGINE_WADE_HAS_ITEM
 	iftrue .WadeItem
@@ -43,27 +41,27 @@ TrainerBugCatcherWade1:
 	waitbutton
 	setevent EVENT_WADE_ASKED_FOR_PHONE_NUMBER
 	scall .AskPhoneNumberSTD
-	jump .Continue
+	sjump .Continue
 
 .AskAgain:
 	scall .AskAgainSTD
 .Continue:
 	askforphonenumber PHONE_BUG_CATCHER_WADE
-	if_equal PHONE_CONTACTS_FULL, .PhoneFullSTD
-	if_equal PHONE_CONTACT_REFUSED, .DeclinedNumberSTD
-	trainertotext BUG_CATCHER, WADE1, MEM_BUFFER_0
+	ifequal PHONE_CONTACTS_FULL, .PhoneFullSTD
+	ifequal PHONE_CONTACT_REFUSED, .DeclinedNumberSTD
+	gettrainername STRING_BUFFER_3, BUG_CATCHER, WADE1
 	scall .RegisterNumberSTD
-	jump .AcceptedNumberSTD
+	sjump .AcceptedNumberSTD
 
 .WadeRematch:
 	scall .RematchSTD
 	winlosstext BugCatcherWade1BeatenText, 0
-	copybytetovar wWadeFightCount
-	if_equal 4, .Fight4
-	if_equal 3, .Fight3
-	if_equal 2, .Fight2
-	if_equal 1, .Fight1
-	if_equal 0, .LoadFight0
+	readmem wWadeFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
 .Fight4:
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .LoadFight4
@@ -80,39 +78,39 @@ TrainerBugCatcherWade1:
 	loadtrainer BUG_CATCHER, WADE1
 	startbattle
 	reloadmapafterbattle
-	loadvar wWadeFightCount, 1
-	clearflag ENGINE_WADE
+	loadmem wWadeFightCount, 1
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer BUG_CATCHER, WADE2
 	startbattle
 	reloadmapafterbattle
-	loadvar wWadeFightCount, 2
-	clearflag ENGINE_WADE
+	loadmem wWadeFightCount, 2
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer BUG_CATCHER, WADE3
 	startbattle
 	reloadmapafterbattle
-	loadvar wWadeFightCount, 3
-	clearflag ENGINE_WADE
+	loadmem wWadeFightCount, 3
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight3:
 	loadtrainer BUG_CATCHER, WADE4
 	startbattle
 	reloadmapafterbattle
-	loadvar wWadeFightCount, 4
-	clearflag ENGINE_WADE
+	loadmem wWadeFightCount, 4
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .LoadFight4:
 	loadtrainer BUG_CATCHER, WADE5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_WADE
+	clearflag ENGINE_WADE_READY_FOR_REMATCH
 	end
 
 .WadeItem:
@@ -128,58 +126,58 @@ TrainerBugCatcherWade1:
 .Berry:
 	verbosegiveitem BERRY
 	iffalse .PackFull
-	jump .Done
+	sjump .Done
 .Psncureberry:
 	verbosegiveitem PSNCUREBERRY
 	iffalse .PackFull
-	jump .Done
+	sjump .Done
 .Przcureberry:
 	verbosegiveitem PRZCUREBERRY
 	iffalse .PackFull
-	jump .Done
+	sjump .Done
 .BitterBerry:
 	verbosegiveitem BITTER_BERRY
 	iffalse .PackFull
 .Done:
 	clearflag ENGINE_WADE_HAS_ITEM
-	jump .AcceptedNumberSTD
+	sjump .AcceptedNumberSTD
 .PackFull:
-	jump .PackFullSTD
+	sjump .PackFullSTD
 
 .AskPhoneNumberSTD:
-	jumpstd asknumber1m
+	jumpstd AskNumber1MScript
 	end
 
 .AskAgainSTD:
-	jumpstd asknumber2m
+	jumpstd AskNumber2MScript
 	end
 
 .RegisterNumberSTD:
-	jumpstd registerednumberm
+	jumpstd RegisteredNumberMScript
 	end
 
 .AcceptedNumberSTD:
-	jumpstd numberacceptedm
+	jumpstd NumberAcceptedMScript
 	end
 
 .DeclinedNumberSTD:
-	jumpstd numberdeclinedm
+	jumpstd NumberDeclinedMScript
 	end
 
 .PhoneFullSTD:
-	jumpstd phonefullm
+	jumpstd PhoneFullMScript
 	end
 
 .RematchSTD:
-	jumpstd rematchm
+	jumpstd RematchMScript
 	end
 
 .ItemSTD:
-	jumpstd giftm
+	jumpstd GiftMScript
 	end
 
 .PackFullSTD:
-	jumpstd packfullm
+	jumpstd PackFullMScript
 	end
 
 Route31MailRecipientScript:
@@ -196,17 +194,17 @@ Route31MailRecipientScript:
 
 .TryGiveKenya:
 	writetext Text_Route31SleepyManGotMail
-	buttonsound
-	checkpokeitem ReceivedSpearowMailText
-	if_equal POKEMAIL_WRONG_MAIL, .WrongMail
-	if_equal POKEMAIL_REFUSED, .Refused
-	if_equal POKEMAIL_NO_MAIL, .NoMail
-	if_equal POKEMAIL_LAST_MON, .LastMon
+	promptbutton
+	checkpokemail ReceivedSpearowMailText
+	ifequal POKEMAIL_WRONG_MAIL, .WrongMail
+	ifequal POKEMAIL_REFUSED, .Refused
+	ifequal POKEMAIL_NO_MAIL, .NoMail
+	ifequal POKEMAIL_LAST_MON, .LastMon
 	; POKEMAIL_CORRECT
 	writetext Text_Route31HandOverMailMon
-	buttonsound
+	promptbutton
 	writetext Text_Route31ReadingMail
-	buttonsound
+	promptbutton
 	setevent EVENT_GAVE_KENYA
 	verbosegiveitem TM_NIGHTMARE
 	iffalse .NoRoomForItems
@@ -418,29 +416,24 @@ DarkCaveSignText:
 	done
 
 Route31_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 4, 6, 3, ROUTE_31_VIOLET_GATE
-	warp_def 4, 7, 4, ROUTE_31_VIOLET_GATE
-	warp_def 34, 5, 1, DARK_CAVE_VIOLET_ENTRANCE
+	def_warp_events
+	warp_event  4,  6, ROUTE_31_VIOLET_GATE, 3
+	warp_event  4,  7, ROUTE_31_VIOLET_GATE, 4
+	warp_event 34,  5, DARK_CAVE_VIOLET_ENTRANCE, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 7, 5, BGEVENT_READ, Route31Sign
-	bg_event 31, 5, BGEVENT_READ, DarkCaveSign
+	def_bg_events
+	bg_event  7,  5, BGEVENT_READ, Route31Sign
+	bg_event 31,  5, BGEVENT_READ, DarkCaveSign
 
-.ObjectEvents:
-	db 7
-	object_event 17, 7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31MailRecipientScript, -1
-	object_event 9, 5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31YoungsterScript, -1
+	def_object_events
+	object_event 17,  7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31MailRecipientScript, -1
+	object_event  9,  5, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31YoungsterScript, -1
 	object_event 21, 13, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 5, TrainerBugCatcherWade1, -1
-	object_event 33, 8, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31CooltrainerMScript, -1
-	object_event 16, 7, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31FruitTree, -1
-	object_event 29, 5, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31Potion, EVENT_ROUTE_31_POTION
-	object_event 19, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31PokeBall, EVENT_ROUTE_31_POKE_BALL
+	object_event 33,  8, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31CooltrainerMScript, -1
+	object_event 16,  7, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route31FruitTree, -1
+	object_event 29,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31Potion, EVENT_ROUTE_31_POTION
+	object_event 19, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, Route31PokeBall, EVENT_ROUTE_31_POKE_BALL

@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const LAVENDERSPEECHHOUSE_POKEFAN_F
 
 LavenderSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 LavenderSpeechHousePokefanFScript:
 	jumptextfaceplayer LavenderSpeechHousePokefanFText
 
 LavenderSpeechHouseBookshelf:
-	jumpstd picturebookshelf
+	jumpstd PictureBookshelfScript
 
 LavenderSpeechHousePokefanFText:
 	text "LAVENDER is a"
@@ -29,22 +27,17 @@ LavenderSpeechHousePokefanFText:
 	done
 
 LavenderSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 3, LAVENDER_TOWN
-	warp_def 3, 7, 3, LAVENDER_TOWN
+	def_warp_events
+	warp_event  2,  7, LAVENDER_TOWN, 3
+	warp_event  3,  7, LAVENDER_TOWN, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, LavenderSpeechHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, LavenderSpeechHouseBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, LavenderSpeechHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, LavenderSpeechHouseBookshelf
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, LavenderSpeechHousePokefanFScript, -1
+	def_object_events
+	object_event  2,  3, SPRITE_POKEFAN_F, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, LavenderSpeechHousePokefanFScript, -1

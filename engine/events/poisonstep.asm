@@ -1,32 +1,32 @@
-DoPoisonStep:: ; 505da
+DoPoisonStep::
 	ld a, [wPartyCount]
 	and a
 	jr z, .no_faint
 
 	xor a
-	ld c, 7
-	ld hl, wEngineBuffer1
-.loop_clearEngineBuffer1
+	ld c, wPoisonStepDataEnd - wPoisonStepData
+	ld hl, wPoisonStepData
+.loop_clearPoisonStepData
 	ld [hli], a
 	dec c
-	jr nz, .loop_clearEngineBuffer1
+	jr nz, .loop_clearPoisonStepData
 
 	xor a
 	ld [wCurPartyMon], a
 .loop_check_poison
 	call .DamageMonIfPoisoned
 	jr nc, .not_poisoned
-; the output flag is stored in c, copy it to the ([wCurPartyMon] + 2)nd EngineBuffer
-; and set the corresponding flag in wEngineBuffer1
+; the output flag is stored in c, copy it to [wPoisonStepPartyFlags + [wCurPartyMon]]
+; and set the corresponding flag in wPoisonStepFlagSum
 	ld a, [wCurPartyMon]
 	ld e, a
 	ld d, 0
-	ld hl, wEngineBuffer2
+	ld hl, wPoisonStepPartyFlags
 	add hl, de
 	ld [hl], c
-	ld a, [wEngineBuffer1]
+	ld a, [wPoisonStepFlagSum]
 	or c
-	ld [wEngineBuffer1], a
+	ld [wPoisonStepFlagSum], a
 
 .not_poisoned
 	ld a, [wPartyCount]
@@ -35,10 +35,10 @@ DoPoisonStep:: ; 505da
 	cp [hl]
 	jr nz, .loop_check_poison
 
-	ld a, [wEngineBuffer1]
+	ld a, [wPoisonStepFlagSum]
 	and %10
 	jr nz, .someone_has_fainted
-	ld a, [wEngineBuffer1]
+	ld a, [wPoisonStepFlagSum]
 	and %01
 	jr z, .no_faint
 	call .PlayPoisonSFX
@@ -55,9 +55,8 @@ DoPoisonStep:: ; 505da
 .no_faint
 	xor a
 	ret
-; 5062e
 
-.DamageMonIfPoisoned: ; 5062e
+.DamageMonIfPoisoned:
 ; check if mon is poisoned, return if not
 	ld a, MON_STATUS
 	call GetPartyParamLocation
@@ -98,34 +97,30 @@ DoPoisonStep:: ; 505da
 	ld c, %01
 	scf
 	ret
-; 50658
 
-.PlayPoisonSFX: ; 50658
+.PlayPoisonSFX:
 	ld de, SFX_POISON
 	call PlaySFX
 	ld b, $2
 	predef LoadPoisonBGPals
 	call DelayFrame
 	ret
-; 50669
 
-.Script_MonFaintedToPoison: ; 50669
+.Script_MonFaintedToPoison:
 	callasm .PlayPoisonSFX
 	opentext
 	callasm .CheckWhitedOut
 	iffalse .whiteout
 	closetext
 	end
-; 50677
 
-.whiteout ; 50677
-	farjump Script_OverworldWhiteout
-; 5067b
+.whiteout
+	farsjump OverworldWhiteoutScript
 
-.CheckWhitedOut: ; 5067b
+.CheckWhitedOut:
 	xor a
 	ld [wCurPartyMon], a
-	ld de, wEngineBuffer2
+	ld de, wPoisonStepPartyFlags
 .party_loop
 	push de
 	ld a, [de]
@@ -133,7 +128,7 @@ DoPoisonStep:: ; 505da
 	jr z, .mon_not_fainted
 	ld c, HAPPINESS_POISONFAINT
 	farcall ChangeHappiness
-	farcall GetPartyNick
+	farcall GetPartyNickname
 	ld hl, .PoisonFaintText
 	call PrintText
 
@@ -145,18 +140,15 @@ DoPoisonStep:: ; 505da
 	ld a, [wPartyCount]
 	cp [hl]
 	jr nz, .party_loop
-	predef CheckPlayerPartyForFitPkmn
+	predef CheckPlayerPartyForFitMon
 	ld a, d
 	ld [wScriptVar], a
 	ret
-; 506b2
 
-.PoisonFaintText: ; 506b2
-	text_jump UnknownText_0x1c0acc
-	db "@"
-; 506b7
+.PoisonFaintText:
+	text_far _PoisonFaintText
+	text_end
 
-.PoisonWhiteOutText: ; 506b7
-	text_jump UnknownText_0x1c0ada
-	db "@"
-; 506bc
+.PoisonWhiteoutText: ; unreferenced
+	text_far _PoisonWhiteoutText
+	text_end

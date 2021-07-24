@@ -1,30 +1,28 @@
-const_value set 2
+	object_const_def
 	const ROUTE19FUCHSIAGATE_OFFICER
 
 Route19FuchsiaGate_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-OfficerScript_0x1ab3f6:
+Route19FuchsiaGateOfficerScript:
 	faceplayer
 	opentext
 	checkevent EVENT_CINNABAR_ROCKS_CLEARED
 	iftrue .RocksCleared
-	writetext UnknownText_0x1ab40a
+	writetext Route19FuchsiaGateOfficerText
 	waitbutton
 	closetext
 	end
 
 .RocksCleared:
-	writetext UnknownText_0x1ab48a
+	writetext Route19FuchsiaGateOfficerText_RocksCleared
 	waitbutton
 	closetext
 	end
 
-UnknownText_0x1ab40a:
+Route19FuchsiaGateOfficerText:
 	text "CINNABAR's volcano"
 	line "erupted."
 
@@ -37,7 +35,7 @@ UnknownText_0x1ab40a:
 	cont "are safe…"
 	done
 
-UnknownText_0x1ab48a:
+Route19FuchsiaGateOfficerText_RocksCleared:
 	text "No CINNABAR citi-"
 	line "zens were injured"
 
@@ -46,22 +44,17 @@ UnknownText_0x1ab48a:
 	done
 
 Route19FuchsiaGate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 0, 10, FUCHSIA_CITY
-	warp_def 5, 0, 11, FUCHSIA_CITY
-	warp_def 4, 7, 1, ROUTE_19
-	warp_def 5, 7, 1, ROUTE_19
+	def_warp_events
+	warp_event  4,  0, FUCHSIA_CITY, 10
+	warp_event  5,  0, FUCHSIA_CITY, 11
+	warp_event  4,  7, ROUTE_19, 1
+	warp_event  5,  7, ROUTE_19, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 0, 4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, OfficerScript_0x1ab3f6, -1
+	def_object_events
+	object_event  0,  4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route19FuchsiaGateOfficerScript, -1

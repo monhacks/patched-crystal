@@ -1,5 +1,5 @@
-AIChooseMove: ; 440ce
-; Score each move in wEnemyMonMoves starting from wBuffer1. Lower is better.
+AIChooseMove:
+; Score each move of wEnemyMonMoves in wEnemyAIMoveScores. Lower is better.
 ; Pick the move with the lowest score.
 
 ; Wildmons attack at random.
@@ -15,10 +15,9 @@ AIChooseMove: ; 440ce
 	farcall CheckEnemyLockedIn
 	ret nz
 
-
 ; The default score is 20. Unusable moves are given a score of 80.
 	ld a, 20
-	ld hl, wBuffer1
+	ld hl, wEnemyAIMoveScores
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
@@ -38,20 +37,20 @@ AIChooseMove: ; 440ce
 	inc hl
 	jr .CheckDisabledMove
 .ScoreDisabledMove:
-	ld hl, wBuffer1
+	ld hl, wEnemyAIMoveScores
 	ld b, 0
 	add hl, bc
 	ld [hl], 80
 
 ; Don't pick moves with 0 PP.
 .CheckPP:
-	ld hl, wBuffer1 - 1
+	ld hl, wEnemyAIMoveScores - 1
 	ld de, wEnemyMonPP
 	ld b, 0
 .CheckMovePP:
 	inc b
 	ld a, b
-	cp wEnemyMonMovesEnd - wEnemyMonMoves + 1
+	cp NUM_MOVES + 1
 	jr z, .ApplyLayers
 	inc hl
 	ld a, [de]
@@ -60,7 +59,6 @@ AIChooseMove: ; 440ce
 	jr nz, .CheckMovePP
 	ld [hl], 80
 	jr .CheckMovePP
-
 
 ; Apply AI scoring layers depending on the trainer class.
 .ApplyLayers:
@@ -119,9 +117,9 @@ AIChooseMove: ; 440ce
 
 ; Decrement the scores of all moves one by one until one reaches 0.
 .DecrementScores:
-	ld hl, wBuffer1
+	ld hl, wEnemyAIMoveScores
 	ld de, wEnemyMonMoves
-	ld c, wEnemyMonMovesEnd - wEnemyMonMoves
+	ld c, NUM_MOVES
 
 .DecrementNextScore:
 	; If the enemy has no moves, this will infinite.
@@ -154,7 +152,7 @@ AIChooseMove: ; 440ce
 	cp NUM_MOVES + 1
 	jr nz, .move_loop
 
-	ld hl, wBuffer1
+	ld hl, wEnemyAIMoveScores
 	ld de, wEnemyMonMoves
 	ld c, NUM_MOVES
 
@@ -184,7 +182,7 @@ AIChooseMove: ; 440ce
 
 ; Randomly choose one of the moves with a score of 1
 .ChooseMove:
-	ld hl, wBuffer1
+	ld hl, wEnemyAIMoveScores
 	call Random
 	maskbits NUM_MOVES
 	ld c, a
@@ -198,10 +196,9 @@ AIChooseMove: ; 440ce
 	ld a, c
 	ld [wCurEnemyMoveNum], a
 	ret
-; 441af
 
-
-AIScoringPointers: ; 441af
+AIScoringPointers:
+; entries correspond to AI_* constants
 	dw AI_Basic
 	dw AI_Setup
 	dw AI_Types
@@ -218,4 +215,3 @@ AIScoringPointers: ; 441af
 	dw AI_None
 	dw AI_None
 	dw AI_None
-; 441cf

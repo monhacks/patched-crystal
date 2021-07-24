@@ -1,38 +1,36 @@
-const_value set 2
+	object_const_def
 	const BATTLETOWEROUTSIDE_STANDING_YOUNGSTER
-	const BATTLETOWEROUTSIDE_BUENA
+	const BATTLETOWEROUTSIDE_BEAUTY
 	const BATTLETOWEROUTSIDE_SAILOR
 	const BATTLETOWEROUTSIDE_LASS
 
 BattleTowerOutside_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 2
+	def_callbacks
 	callback MAPCALLBACK_TILES, .Callback1
 	callback MAPCALLBACK_OBJECTS, .Callback2
 
 .Callback1:
-	return
+	endcallback
 
 .Callback2:
 	clearevent EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	return
+	endcallback
 
 BattleTowerOutsideYoungsterScript:
 	jumptextfaceplayer BattleTowerOutsideYoungsterText
 
-BattleTowerOutsideBuenaScript:
-	jumptextfaceplayer BattleTowerOutsideBuenaText
+BattleTowerOutsideBeautyScript:
+	jumptextfaceplayer BattleTowerOutsideBeautyText
 
 BattleTowerOutsideSailorScript:
 	jumptextfaceplayer BattleTowerOutsideSailorText
 
-MapBattleTowerOutsideSignpost0Script:
-	jumptext BattleTowerOutsideText_UltimateChallenge
+BattleTowerOutsideSign:
+	jumptext BattleTowerOutsideSignText
 
-BattleTowerOutsideUnusedText1:
+BattleTowerOutsideYoungsterText_NotYetOpen: ; unreferenced
 	text "Wow, the BATTLE"
 	line "TOWER is huge! My"
 
@@ -40,7 +38,7 @@ BattleTowerOutsideUnusedText1:
 	line "looking up at it."
 	done
 
-BattleTowerOutsideUnusedText2:
+BattleTowerOutsideYoungsterText_Mobile: ; unreferenced
 	text "Wow, the BATTLE"
 	line "TOWER is huge!"
 
@@ -63,7 +61,7 @@ BattleTowerOutsideYoungsterText:
 	cont "in there!"
 	done
 
-BattleTowerOutsideUnusedText3:
+BattleTowerOutsideBeautyText_NotYetOpen: ; unreferenced
 	text "What on earth do"
 	line "they do here?"
 
@@ -74,7 +72,7 @@ BattleTowerOutsideUnusedText3:
 	line "#MON battles."
 	done
 
-BattleTowerOutsideBuenaText:
+BattleTowerOutsideBeautyText:
 	text "You can use only"
 	line "three #MON."
 
@@ -85,7 +83,7 @@ BattleTowerOutsideBuenaText:
 	line "battle…"
 	done
 
-BattleTowerOutsideUnusedText4:
+BattleTowerOutsideSailorText_Mobile: ; unreferenced
 	text "Ehehehe…"
 	line "I sneaked out of"
 	cont "work to come here."
@@ -106,47 +104,45 @@ BattleTowerOutsideSailorText:
 	line "all. That I must!"
 	done
 
-BattleTowerOutsideText_BattleTower:
+BattleTowerOutsideSignText_NotYetOpen: ; unreferenced
+; originally shown when the Battle Tower was closed
 	text "BATTLE TOWER"
 	done
 
-BattleTowerOutsideText_UltimateChallenge:
+BattleTowerOutsideSignText:
 	text "BATTLE TOWER"
 
 	para "Take the Ultimate"
 	line "Trainer Challenge!"
 	done
 
-BattleTowerOutsideText_DoorsClosed:
+BattleTowerOutsideText_DoorsClosed: ; unreferenced
+; originally shown when the Battle Tower was closed
 	text "The BATTLE TOWER's"
 	line "doors are closed…"
 	done
 
-BattleTowerOutsideText_DoorsOpen:
+BattleTowerOutsideText_DoorsOpen: ; unreferenced
+; originally shown after the Battle Tower opened
 	text "It's open!"
 	done
 
 BattleTowerOutside_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 8, 21, 3, ROUTE_40_BATTLE_TOWER_GATE
-	warp_def 9, 21, 4, ROUTE_40_BATTLE_TOWER_GATE
-	warp_def 8, 9, 1, BATTLE_TOWER_1F
-	warp_def 9, 9, 2, BATTLE_TOWER_1F
+	def_warp_events
+	warp_event  8, 21, ROUTE_40_BATTLE_TOWER_GATE, 3
+	warp_event  9, 21, ROUTE_40_BATTLE_TOWER_GATE, 4
+	warp_event  8,  9, BATTLE_TOWER_1F, 1
+	warp_event  9,  9, BATTLE_TOWER_1F, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 10, 10, BGEVENT_READ, MapBattleTowerOutsideSignpost0Script
+	def_bg_events
+	bg_event 10, 10, BGEVENT_READ, BattleTowerOutsideSign
 
-.ObjectEvents:
-	db 4
-	object_event 6, 12, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideYoungsterScript, -1
-	object_event 13, 11, SPRITE_BUENA, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideBuenaScript, -1
+	def_object_events
+	object_event  6, 12, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideYoungsterScript, -1
+	object_event 13, 11, SPRITE_BEAUTY, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideBeautyScript, -1
 	object_event 12, 18, SPRITE_SAILOR, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BattleTowerOutsideSailorScript, EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
 	object_event 12, 24, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, ObjectEvent, -1

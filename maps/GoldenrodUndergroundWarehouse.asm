@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODUNDERGROUNDWAREHOUSE_ROCKET1
 	const GOLDENRODUNDERGROUNDWAREHOUSE_ROCKET2
 	const GOLDENRODUNDERGROUNDWAREHOUSE_ROCKET3
@@ -8,11 +8,9 @@ const_value set 2
 	const GOLDENRODUNDERGROUNDWAREHOUSE_POKE_BALL3
 
 GoldenrodUndergroundWarehouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .ResetSwitches
 
 .ResetSwitches:
@@ -31,15 +29,15 @@ GoldenrodUndergroundWarehouse_MapScripts:
 	clearevent EVENT_SWITCH_12
 	clearevent EVENT_SWITCH_13
 	clearevent EVENT_SWITCH_14
-	writebyte 0
-	copyvartobyte wUndergroundSwitchPositions
-	return
+	setval 0
+	writemem wUndergroundSwitchPositions
+	endcallback
 
 TrainerGruntM24:
-	trainer EVENT_BEAT_ROCKET_GRUNTM_24, GRUNTM, GRUNTM_24, GruntM24SeenText, GruntM24BeatenText, 0, .Script
+	trainer GRUNTM, GRUNTM_24, EVENT_BEAT_ROCKET_GRUNTM_24, GruntM24SeenText, GruntM24BeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GruntM24AfterBattleText
 	waitbutton
@@ -47,10 +45,10 @@ TrainerGruntM24:
 	end
 
 TrainerGruntM14:
-	trainer EVENT_BEAT_ROCKET_GRUNTM_14, GRUNTM, GRUNTM_14, GruntM14SeenText, GruntM14BeatenText, 0, .Script
+	trainer GRUNTM, GRUNTM_14, EVENT_BEAT_ROCKET_GRUNTM_14, GruntM14SeenText, GruntM14BeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GruntM14AfterBattleText
 	waitbutton
@@ -58,32 +56,32 @@ TrainerGruntM14:
 	end
 
 TrainerGruntM15:
-	trainer EVENT_BEAT_ROCKET_GRUNTM_15, GRUNTM, GRUNTM_15, GruntM15SeenText, GruntM15BeatenText, 0, .Script
+	trainer GRUNTM, GRUNTM_15, EVENT_BEAT_ROCKET_GRUNTM_15, GruntM15SeenText, GruntM15BeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GruntM15AfterBattleText
 	waitbutton
 	closetext
 	end
 
-GentlemanScript_0x7d9bf:
+GoldenrodUndergroundWarehouseDirectorScript:
 	faceplayer
 	opentext
 	checkevent EVENT_RECEIVED_CARD_KEY
-	iftrue UnknownScript_0x7d9de
-	writetext UnknownText_0x7dbc6
-	buttonsound
+	iftrue .GotCardKey
+	writetext DirectorIntroText
+	promptbutton
 	verbosegiveitem CARD_KEY
 	setevent EVENT_RECEIVED_CARD_KEY
 	setevent EVENT_GOLDENROD_DEPT_STORE_B1F_LAYOUT_1
 	clearevent EVENT_GOLDENROD_DEPT_STORE_B1F_LAYOUT_2
 	clearevent EVENT_GOLDENROD_DEPT_STORE_B1F_LAYOUT_3
-	writetext UnknownText_0x7dc5b
-	buttonsound
-UnknownScript_0x7d9de:
-	writetext UnknownText_0x7dc8d
+	writetext DirectorCardKeyText
+	promptbutton
+.GotCardKey:
+	writetext DirectorAfterText
 	waitbutton
 	closetext
 	end
@@ -159,7 +157,7 @@ GruntM15AfterBattleText:
 	cont "I'll remember you!"
 	done
 
-UnknownText_0x7dbc6:
+DirectorIntroText:
 	text "DIRECTOR: Who?"
 	line "What? You came to"
 	cont "rescue me?"
@@ -178,13 +176,13 @@ UnknownText_0x7dbc6:
 	line "CARD KEY."
 	done
 
-UnknownText_0x7dc5b:
+DirectorCardKeyText:
 	text "DIRECTOR: Use that"
 	line "to open the shut-"
 	cont "ters on 3F."
 	done
 
-UnknownText_0x7dc8d:
+DirectorAfterText:
 	text "I'm begging you to"
 	line "help."
 
@@ -211,27 +209,22 @@ UnknownText_0x7dc8d:
 	done
 
 GoldenrodUndergroundWarehouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 2, 12, 2, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES
-	warp_def 3, 12, 3, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES
-	warp_def 17, 2, 1, GOLDENROD_DEPT_STORE_B1F
+	def_warp_events
+	warp_event  2, 12, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES, 2
+	warp_event  3, 12, GOLDENROD_UNDERGROUND_SWITCH_ROOM_ENTRANCES, 3
+	warp_event 17,  2, GOLDENROD_DEPT_STORE_B1F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 7
-	object_event 9, 8, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM24, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
-	object_event 8, 15, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM14, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
-	object_event 14, 3, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerGruntM15, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
-	object_event 12, 8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GentlemanScript_0x7d9bf, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
-	object_event 18, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseMaxEther, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_MAX_ETHER
-	object_event 13, 9, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseTMSleepTalk, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_TM_SLEEP_TALK
-	object_event 2, 1, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseUltraBall, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_ULTRA_BALL
+	def_object_events
+	object_event  9,  8, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM24, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
+	object_event  8, 15, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 3, TrainerGruntM14, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
+	object_event 14,  3, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_TRAINER, 4, TrainerGruntM15, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
+	object_event 12,  8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodUndergroundWarehouseDirectorScript, EVENT_RADIO_TOWER_ROCKET_TAKEOVER
+	object_event 18, 15, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseMaxEther, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_MAX_ETHER
+	object_event 13,  9, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseTMSleepTalk, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_TM_SLEEP_TALK
+	object_event  2,  1, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, GoldenrodUndergroundWarehouseUltraBall, EVENT_GOLDENROD_UNDERGROUND_WAREHOUSE_ULTRA_BALL

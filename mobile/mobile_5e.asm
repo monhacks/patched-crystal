@@ -1,13 +1,29 @@
-MobileAdapterGFX::
-INCBIN "gfx/mobile/mobile_adapter.2bpp"
+MobileCardGFX::
+INCBIN "gfx/mobile/card.2bpp"
 
-Function17a68f:: ; 17a68f (5e:668f)
+ChrisSilhouetteGFX::
+INCBIN "gfx/mobile/chris_silhouette.2bpp"
+
+KrisSilhouetteGFX::
+INCBIN "gfx/mobile/kris_silhouette.2bpp"
+
+MobileCard2GFX::
+INCBIN "gfx/mobile/card_2.2bpp"
+
+CardLargeSpriteAndFolderGFX::
+INCBIN "gfx/mobile/card_large_sprite.2bpp"
+INCBIN "gfx/mobile/card_folder.2bpp"
+
+CardSpriteGFX::
+INCBIN "gfx/mobile/card_sprite.2bpp"
+
+Function17a68f::
 	call Function17a6a8
 	call Function17a751
 	ld hl, $d088
 	bit 5, [hl]
 	jr z, .asm_17a6a6
-	ld de, wStringBuffer1 ; $d073
+	ld de, wStringBuffer1
 	push de
 	call Function17a721
 	pop de
@@ -18,14 +34,14 @@ Function17a68f:: ; 17a68f (5e:668f)
 	scf
 	ret
 
-Function17a6a8: ; 17a6a8 (5e:66a8)
+Function17a6a8:
 	push de
 	push bc
-	ld hl, wStringBuffer2 ; $d086
+	ld hl, wStringBuffer2
 	ld bc, $a
 	xor a
 	call ByteFill
-	ld hl, wBuffer1
+	ld hl, wd1ea
 	ld bc, $10
 	ld a, $ff
 	call ByteFill
@@ -41,7 +57,7 @@ Function17a6a8: ; 17a6a8 (5e:66a8)
 	call Function17aba0
 	farcall Function106464
 	call Function17ac0c
-	farcall HDMATransferAttrMapAndTileMapToWRAMBank3
+	farcall HDMATransferAttrmapAndTilemapToWRAMBank3
 	call Function17abcf
 	farcall LoadOW_BGPal7
 	farcall Function49420
@@ -49,8 +65,8 @@ Function17a6a8: ; 17a6a8 (5e:66a8)
 	call DelayFrame
 	ret
 
-Function17a6f5: ; 17a6f5 (5e:66f5)
-	ld hl, wBuffer1
+Function17a6f5:
+	ld hl, wd1ea
 	ld c, $0
 	ld b, $8
 .asm_17a6fc
@@ -69,7 +85,7 @@ Function17a6f5: ; 17a6f5 (5e:66f5)
 	ld [$d08c], a
 	ret
 
-Function17a713: ; 17a713 (5e:6713)
+Function17a713:
 	and $f
 	cp $a
 	jr nc, .asm_17a71d
@@ -83,7 +99,7 @@ Function17a713: ; 17a713 (5e:6713)
 	scf
 	ret
 
-Function17a721: ; 17a721 (5e:6721)
+Function17a721:
 	push de
 	ld h, d
 	ld l, e
@@ -91,7 +107,7 @@ Function17a721: ; 17a721 (5e:6721)
 	ld a, $ff
 	call ByteFill
 	pop de
-	ld hl, wBuffer1
+	ld hl, wd1ea
 	ld b, $8
 .asm_17a732
 	ld c, $0
@@ -121,7 +137,7 @@ Function17a721: ; 17a721 (5e:6721)
 	ld [de], a
 	ret
 
-Function17a751: ; 17a751 (5e:6751)
+Function17a751:
 	xor a
 	ld [$d087], a
 .asm_17a755
@@ -137,53 +153,52 @@ Function17a751: ; 17a751 (5e:6751)
 	jr z, .asm_17a755
 	ret
 
-Function17a770: ; 17a770 (5e:6770)
-	ld a, [hOAMUpdate]
+Function17a770:
+	ldh a, [hOAMUpdate]
 	push af
 	ld a, $1
-	ld [hOAMUpdate], a
+	ldh [hOAMUpdate], a
 	call HideSprites
 	call Function17a9cb
 	pop af
-	ld [hOAMUpdate], a
+	ldh [hOAMUpdate], a
 	ret
 
-Function17a781: ; 17a781 (5e:6781)
-	ld a, [hInMenu]
+Function17a781:
+	ldh a, [hInMenu]
 	push af
 	ld a, $1
-	ld [hInMenu], a
+	ldh [hInMenu], a
 	call JoyTextDelay
 	pop af
-	ld [hInMenu], a
+	ldh [hInMenu], a
 	ret
 
-Function17a78f: ; 17a78f (5e:678f)
+Function17a78f:
 	ld hl, $d088
 	bit 7, [hl]
 	res 7, [hl]
 	jr nz, .asm_17a79f
-	farcall HDMATransferTileMapToWRAMBank3
+	farcall HDMATransferTilemapToWRAMBank3
 	ret
 
 .asm_17a79f
 	farcall ReloadMapPart
 	ret
-; 17a7a6 (5e:67a6)
 
-Function17a7a6: ; 17a7a6
+Function17a7a6: ; unreferenced
 	ld a, [$d087]
 	inc a
 	ld [$d087], a
 	ret
 
-Function17a7ae: ; 17a7ae (5e:67ae)
+Function17a7ae:
 	ld a, [$d087]
 	ld hl, Jumptable_17a7b6
 	rst JumpTable
 	ret
 
-Jumptable_17a7b6: ; 17a7b6 (5e:67b6)
+Jumptable_17a7b6:
 	dw Function17a7c2
 	dw Function17a7cd
 	dw Function17a7d8
@@ -191,22 +206,21 @@ Jumptable_17a7b6: ; 17a7b6 (5e:67b6)
 	dw Function17a81a
 	dw Function17a7f4
 
-
-Function17a7c2: ; 17a7c2 (5e:67c2)
+Function17a7c2:
 	ld a, $4
 	call Function17aad3
 	ld a, $1
 	ld [$d087], a
 	ret
 
-Function17a7cd: ; 17a7cd (5e:67cd)
+Function17a7cd:
 	call Function17a83c
 	call Function17a8ae
 	ret c
 	call Function17a848
 	ret
 
-Function17a7d8: ; 17a7d8 (5e:67d8)
+Function17a7d8:
 	call Function17a83c
 	call Function17a848
 	ld hl, $d08b
@@ -220,7 +234,7 @@ Function17a7d8: ; 17a7d8 (5e:67d8)
 	ld [$d087], a
 	ret
 
-Function17a7f4: ; 17a7f4 (5e:67f4)
+Function17a7f4:
 	ld hl, $d08b
 	dec [hl]
 	ret nz
@@ -228,7 +242,7 @@ Function17a7f4: ; 17a7f4 (5e:67f4)
 	set 7, [hl]
 	ret
 
-Function17a7ff: ; 17a7ff (5e:67ff)
+Function17a7ff:
 	ld hl, $d08b
 	dec [hl]
 	ret nz
@@ -242,10 +256,10 @@ Function17a7ff: ; 17a7ff (5e:67ff)
 	set 7, [hl]
 	ret
 
-Function17a81a: ; 17a81a (5e:681a)
+Function17a81a:
 	call IsSFXPlaying
 	ret nc
-	ld a, [hJoyPressed]
+	ldh a, [hJoyPressed]
 	and $3
 	ret z
 	call ExitMenu
@@ -259,17 +273,17 @@ Function17a81a: ; 17a81a (5e:681a)
 	ld [$d087], a
 	ret
 
-Function17a83c: ; 17a83c (5e:683c)
-	ld a, [hJoyLast]
+Function17a83c:
+	ldh a, [hJoyLast]
 	and $f0
 	ld c, a
-	ld a, [hJoyPressed]
+	ldh a, [hJoyPressed]
 	and $b
 	or c
 	ld c, a
 	ret
 
-Function17a848: ; 17a848 (5e:6848)
+Function17a848:
 	ld a, c
 	and $60
 	cp $60
@@ -345,7 +359,7 @@ Function17a848: ; 17a848 (5e:6848)
 	scf
 	ret
 
-Function17a8ae: ; 17a8ae (5e:68ae)
+Function17a8ae:
 	bit 1, c
 	jr nz, .asm_17a8bc
 	bit 0, c
@@ -377,7 +391,7 @@ Function17a8ae: ; 17a8ae (5e:68ae)
 	scf
 	ret
 
-Function17a8de: ; 17a8de (5e:68de)
+Function17a8de:
 	ld a, $2
 	call Function17aae0
 	ld a, [hl]
@@ -414,7 +428,7 @@ Function17a8de: ; 17a8de (5e:68de)
 	call Function17aa88
 	ret
 
-Function17a91e: ; 17a91e (5e:691e)
+Function17a91e:
 	ld a, [$d08c]
 	cp $7
 	jr c, .asm_17a92c
@@ -424,7 +438,7 @@ Function17a91e: ; 17a91e (5e:691e)
 	ret
 
 .asm_17a92c
-	call LoadStandardMenuDataHeader
+	call LoadStandardMenuHeader
 	call Function17a99e
 	ld hl, $d088
 	set 7, [hl]
@@ -435,15 +449,15 @@ Function17a91e: ; 17a91e (5e:691e)
 	scf
 	ret
 
-Function17a943: ; 17a943 (5e:6943)
+Function17a943:
 	ld a, [$d08c]
 	and a
 	jr z, .asm_17a95d
 	dec a
 	ld [$d08c], a
 	ld c, a
-	ld b, $0
-	ld hl, wBuffer1
+	ld b, 0
+	ld hl, wd1ea
 	add hl, bc
 	ld [hl], $ff
 	ld a, $2
@@ -457,15 +471,15 @@ Function17a943: ; 17a943 (5e:6943)
 	xor a
 	ret
 
-Function17a964: ; 17a964 (5e:6964)
+Function17a964:
 	ld a, [$d08c]
 	cp $10
 	jr nc, .asm_17a979
 	ld c, a
-	ld b, $0
+	ld b, 0
 	inc a
 	ld [$d08c], a
-	ld hl, wBuffer1
+	ld hl, wd1ea
 	add hl, bc
 	ld [hl], e
 	and a
@@ -475,12 +489,12 @@ Function17a964: ; 17a964 (5e:6964)
 	scf
 	ret
 
-Function17a97b: ; 17a97b (5e:697b)
+Function17a97b:
 	hlcoord 1, 1
 	lb bc, 2, 18
 	call ClearBox
 	hlcoord 3, 2
-	ld de, wBuffer1
+	ld de, wd1ea
 	ld a, [$d08c]
 	and a
 	ret z
@@ -499,7 +513,7 @@ Function17a97b: ; 17a97b (5e:697b)
 .asm_17a99d
 	ret
 
-Function17a99e: ; 17a99e (5e:699e)
+Function17a99e:
 	hlcoord 0, 12
 	ld b, $4
 	ld c, $12
@@ -508,16 +522,14 @@ Function17a99e: ; 17a99e (5e:699e)
 	ld de, String_17a9b2
 	call PlaceString
 	ret
-; 17a9b2 (5e:69b2)
 
-String_17a9b2: ; 17a9b2
+String_17a9b2:
 	db   "でんわばんごうが　ただしく"
 	next "はいって　いません！"
 	db   "@"
-; 17a9cb
 
-Function17a9cb: ; 17a9cb (5e:69cb)
-	ld de, wVirtualOAM ; $c400
+Function17a9cb:
+	ld de, wVirtualOAM
 	ld hl, $d088
 	bit 6, [hl]
 	jr nz, .bit_6_set
@@ -530,7 +542,7 @@ Function17a9cb: ; 17a9cb (5e:69cb)
 	call Function17a9e3
 	ret
 
-Function17a9e3: ; 17a9e3 (5e:69e3)
+Function17a9e3:
 	ld a, $3
 	ld [$d08e], a
 	ld hl, Unknown_17aa77
@@ -540,7 +552,7 @@ Function17a9e3: ; 17a9e3 (5e:69e3)
 	call Function17aa4a
 	ret
 
-Function17a9f5: ; 17a9f5 (5e:69f5)
+Function17a9f5:
 	ld a, [$d08c]
 	cp $10
 	ret nc
@@ -564,7 +576,7 @@ Function17a9f5: ; 17a9f5 (5e:69f5)
 	call Function17aa4a
 	ret
 
-Function17aa22: ; 17aa22 (5e:6a22)
+Function17aa22:
 	ld a, $0
 	ld [$d08e], a
 	push de
@@ -590,7 +602,7 @@ Function17aa22: ; 17aa22 (5e:6a22)
 	call Function17aa4a
 	ret
 
-Function17aa4a: ; 17aa4a (5e:6a4a)
+Function17aa4a:
 	ld [$d08d], a
 	ld a, b
 	add $8
@@ -623,33 +635,30 @@ Function17aa4a: ; 17aa4a (5e:6a4a)
 	dec a
 	jr nz, .loop
 	ret
-; 17aa72 (5e:6a72)
 
-Unknown_17aa72: ; 17aa72
+Unknown_17aa72:
 	db 1
 	db 0, 0, 0, 0
-; 17aa77
 
-Unknown_17aa77: ; 17aa77
+Unknown_17aa77:
 	db 4
 	db 0, 0, 0, 0
 	db 0, 8, 1, 0
 	db 8, 0, 2, 0
 	db 8, 8, 3, 0
-; 17aa88
 
-Function17aa88: ; 17aa88 (5e:6a88)
+Function17aa88:
 	jr c, asm_17aa91
 	ld de, SFX_SWITCH_POKEMON
 	call PlaySFX
 	ret
 
-asm_17aa91: ; 17aa91 (5e:6a91)
+asm_17aa91:
 	ld de, SFX_WRONG
 	call PlaySFX
 	ret
 
-Function17aa98: ; 17aa98 (5e:6a98)
+Function17aa98:
 	ld a, $5
 	ld [$d08b], a
 	call Function17aaa9
@@ -658,12 +667,12 @@ Function17aa98: ; 17aa98 (5e:6a98)
 	set 7, [hl]
 	ret
 
-Function17aaa9: ; 17aaa9 (5e:6aa9)
+Function17aaa9:
 	ld a, $3
 	call Function17aae3
 	ld c, a
-	ld b, $0
-	hlcoord 0, 0, wAttrMap
+	ld b, 0
+	hlcoord 0, 0, wAttrmap
 	add hl, bc
 	push hl
 	ld a, $4
@@ -673,7 +682,7 @@ Function17aaa9: ; 17aaa9 (5e:6aa9)
 	call AddNTimes
 	ret
 
-Function17aac3: ; 17aac3 (5e:6ac3)
+Function17aac3:
 	ld a, $b
 	push hl
 	ld [hli], a
@@ -685,24 +694,24 @@ Function17aac3: ; 17aac3 (5e:6ac3)
 	ld [hli], a
 	ret
 
-Function17aad0: ; 17aad0 (5e:6ad0)
+Function17aad0:
 	call Function17aae0
 
-Function17aad3: ; 17aad3 (5e:6ad3)
+Function17aad3:
 	ld [$d089], a
 	ret
 
-Function17aad7: ; 17aad7 (5e:6ad7)
+Function17aad7:
 	push af
 	ld a, [$d089]
 	ld [$d08a], a
 	pop af
 	ret
 
-Function17aae0: ; 17aae0 (5e:6ae0)
+Function17aae0:
 	call Function17aad7
 
-Function17aae3: ; 17aae3 (5e:6ae3)
+Function17aae3:
 	push af
 	ld a, [$d08a]
 	ld bc, $d
@@ -710,13 +719,12 @@ Function17aae3: ; 17aae3 (5e:6ae3)
 	call AddNTimes
 	pop af
 	ld c, a
-	ld b, $0
+	ld b, 0
 	add hl, bc
 	ld a, [hl]
 	ret
-; 17aaf7 (5e:6af7)
 
-Unknown_17aaf7: ; 17aaf7
+Unknown_17aaf7:
 	db $0, $0, $1, $6, $5, $9, $3, $2, $1, $2, $1, $2, $4
 	db $0, $0, $2, $9, $5, $a, $4, $0, $2, $a, $a, $3, $5
 	db $0, $0, $3, $c, $5, $b, $5, $1, $0, $1, $0, $4, $0
@@ -730,41 +738,40 @@ Unknown_17aaf7: ; 17aaf7
 	db $0, $0, $0, $9, $e, $7, $1, $9, $b, $6, $8, $1, $1
 	db $0, $0,$f1, $c, $e, $8, $2, $a, $c, $7, $c, $2, $c
 	db $0, $0,$f0,$10, $e, $c, $c, $b, $9, $b, $9, $b, $9
-; 17aba0
 
-Function17aba0: ; 17aba0 (5e:6ba0)
-	ld a, [rVBK]
+Function17aba0:
+	ldh a, [rVBK]
 	push af
 	ld a, $1
-	ld [rVBK], a
+	ldh [rVBK], a
 
 	ld hl, vTiles5 tile $00
-	ld de, GFX_17afa5
-	lb bc, BANK(GFX_17afa5), $80
+	ld de, DialpadGFX
+	lb bc, BANK(DialpadGFX), $80 ; includes first 4 tiles of DialpadCursorGFX
 	call Get2bpp
 
 	pop af
-	ld [rVBK], a
+	ldh [rVBK], a
 
 	ld hl, vTiles0 tile $00
-	ld de, GFX_17afa5 + $4c0
-	lb bc, BANK(GFX_17afa5), 5
+	ld de, DialpadCursorGFX
+	lb bc, BANK(DialpadCursorGFX), 5
 	call Get2bpp
 
 	ld hl, vTiles0 tile $05
-	ld de, GFX_11601a
-	lb bc, BANK(GFX_11601a), 4
+	ld de, MobileDialingGFX
+	lb bc, BANK(MobileDialingGFX), 4
 	call Get2bpp
 	ret
 
-Function17abcf: ; 17abcf (5e:6bcf)
-	ld a, [rSVBK]
+Function17abcf:
+	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wBGPals1)
-	ld [rSVBK], a
+	ldh [rSVBK], a
 
 	ld hl, Palette_17ac55
-	ld de, wBGPals1 ; $d000
+	ld de, wBGPals1
 	ld bc, 6 palettes
 	call CopyBytes
 
@@ -773,7 +780,7 @@ Function17abcf: ; 17abcf (5e:6bcf)
 	ld bc, 8 palettes
 	call CopyBytes
 
-	ld hl, GFX_17afa5 + $510
+	ld hl, Palette_17b4b5
 	ld de, wOBPals1 palette 1
 	ld bc, 2 palettes
 	call CopyBytes
@@ -785,10 +792,10 @@ Function17abcf: ; 17abcf (5e:6bcf)
 	call FarCopyBytes
 
 	pop af
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	ret
 
-Function17ac0c: ; 17ac0c (5e:6c0c)
+Function17ac0c:
 	call Function17ac1d
 	call Function17ac2a
 	hlcoord 0, 0
@@ -797,19 +804,19 @@ Function17ac0c: ; 17ac0c (5e:6c0c)
 	call Function17ac46
 	ret
 
-Function17ac1d: ; 17ac1d (5e:6c1d)
-	ld hl, Tilemap_17acd5
+Function17ac1d:
+	ld hl, DialpadTilemap
 	decoord 0, 4
 	ld bc, (SCREEN_HEIGHT - 4) * SCREEN_WIDTH
 	call CopyBytes
 	ret
 
-Function17ac2a: ; 17ac2a (5e:6c2a)
-	ld hl, Tilemap_17ae3d
-	decoord 0, 4, wAttrMap
+Function17ac2a:
+	ld hl, DialpadAttrmap
+	decoord 0, 4, wAttrmap
 	ld bc, (SCREEN_HEIGHT - 4) * SCREEN_WIDTH
 	call CopyBytes
-	hlcoord 0, 4, wAttrMap
+	hlcoord 0, 4, wAttrmap
 	ld bc, (SCREEN_HEIGHT - 4) * SCREEN_WIDTH
 .loop
 	ld a, [hl]
@@ -821,19 +828,18 @@ Function17ac2a: ; 17ac2a (5e:6c2a)
 	jr nz, .loop
 	ret
 
-Function17ac46: ; 17ac46 (5e:6c46)
+Function17ac46:
 	ld a, [$d088]
 	bit 4, a
 	jr nz, .bit_4_set
-	call TextBox
+	call Textbox
 	ret
 
 .bit_4_set
 	call Function3eea
 	ret
-; 17ac55 (5e:6c55)
 
-Palette_17ac55: ; 17ac55
+Palette_17ac55:
 	RGB  0,  0,  0
 	RGB  9, 10, 25
 	RGB 16, 19, 31
@@ -874,7 +880,7 @@ Palette_17ac55: ; 17ac55
 	RGB  0,  0,  0
 	RGB  0,  0,  0
 
-Palette_17ac95: ; 17ac95
+Palette_17ac95:
 	RGB 31, 31, 31
 	RGB  4,  3,  3
 	RGB 31, 13,  0
@@ -915,11 +921,21 @@ Palette_17ac95: ; 17ac95
 	RGB 27, 31,  0
 	RGB 31, 31,  0
 
-Tilemap_17acd5: ; 17acd5
-INCBIN "gfx/unknown/17acd5.tilemap"
+DialpadTilemap:
+INCBIN "gfx/mobile/dialpad.tilemap"
 
-Tilemap_17ae3d: ; 17ae3d
-INCBIN "gfx/unknown/17ae3d.tilemap"
+DialpadAttrmap:
+INCBIN "gfx/mobile/dialpad.attrmap"
 
-GFX_17afa5:: ; 17afa5
-INCBIN "gfx/unknown/17afa5.2bpp"
+DialpadGFX:
+INCBIN "gfx/mobile/dialpad.2bpp"
+
+DialpadCursorGFX:
+INCBIN "gfx/mobile/dialpad_cursor.2bpp"
+
+Palette_17b4b5:
+	RGB  2,  6, 10
+	RGB 24, 30, 29
+
+MobileCardListGFX::
+INCBIN "gfx/mobile/card_list.2bpp"

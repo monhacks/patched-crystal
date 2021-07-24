@@ -1,34 +1,27 @@
-const_value set 2
+	object_const_def
 	const WHIRLISLANDSW_POKE_BALL
 
 WhirlIslandSW_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 WhirlIslandSWUltraBall:
 	itemball ULTRA_BALL
 
 WhirlIslandSW_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 5
-	warp_def 5, 7, 3, ROUTE_41
-	warp_def 17, 3, 5, WHIRL_ISLAND_B1F
-	warp_def 3, 3, 4, WHIRL_ISLAND_B1F
-	warp_def 3, 15, 3, WHIRL_ISLAND_NW
-	warp_def 17, 15, 4, WHIRL_ISLAND_B2F
+	def_warp_events
+	warp_event  5,  7, ROUTE_41, 3
+	warp_event 17,  3, WHIRL_ISLAND_B1F, 5
+	warp_event  3,  3, WHIRL_ISLAND_B1F, 4
+	warp_event  3, 15, WHIRL_ISLAND_NW, 3
+	warp_event 17, 15, WHIRL_ISLAND_B2F, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 15, 2, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, WhirlIslandSWUltraBall, EVENT_WHIRL_ISLAND_SW_ULTRA_BALL
+	def_object_events
+	object_event 15,  2, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, WhirlIslandSWUltraBall, EVENT_WHIRL_ISLAND_SW_ULTRA_BALL

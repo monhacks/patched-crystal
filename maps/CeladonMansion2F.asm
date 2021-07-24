@@ -1,18 +1,16 @@
 CeladonMansion2F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 CeladonMansion2FComputer:
 	jumptext CeladonMansion2FComputerText
 
-CeladonMansion2FSign:
-	jumptext CeladonMansion2FSignText
+CeladonMansion2FMeetingRoomSign:
+	jumptext CeladonMansion2FMeetingRoomSignText
 
 CeladonMansion2FBookshelf:
-	jumpstd difficultbookshelf
+	jumpstd DifficultBookshelfScript
 
 CeladonMansion2FComputerText:
 	text "<PLAYER> turned on"
@@ -44,30 +42,25 @@ CeladonMansion2FComputerText:
 	para "…"
 	done
 
-CeladonMansion2FSignText:
+CeladonMansion2FMeetingRoomSignText:
 	text "GAME FREAK"
 	line "MEETING ROOM"
 	done
 
 CeladonMansion2F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 0, 4, CELADON_MANSION_1F
-	warp_def 1, 0, 2, CELADON_MANSION_3F
-	warp_def 6, 0, 3, CELADON_MANSION_3F
-	warp_def 7, 0, 5, CELADON_MANSION_1F
+	def_warp_events
+	warp_event  0,  0, CELADON_MANSION_1F, 4
+	warp_event  1,  0, CELADON_MANSION_3F, 2
+	warp_event  6,  0, CELADON_MANSION_3F, 3
+	warp_event  7,  0, CELADON_MANSION_1F, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 3
-	bg_event 0, 3, BGEVENT_READ, CeladonMansion2FComputer
-	bg_event 5, 8, BGEVENT_UP, CeladonMansion2FSign
-	bg_event 2, 3, BGEVENT_READ, CeladonMansion2FBookshelf
+	def_bg_events
+	bg_event  0,  3, BGEVENT_READ, CeladonMansion2FComputer
+	bg_event  5,  8, BGEVENT_UP, CeladonMansion2FMeetingRoomSign
+	bg_event  2,  3, BGEVENT_READ, CeladonMansion2FBookshelf
 
-.ObjectEvents:
-	db 0
+	def_object_events

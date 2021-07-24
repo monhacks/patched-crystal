@@ -1,4 +1,4 @@
-ReinitBattleAnimFrameset: ; ce7bf (33:67bf)
+ReinitBattleAnimFrameset:
 	ld hl, BATTLEANIMSTRUCT_FRAMESET_ID
 	add hl, bc
 	ld [hl], a
@@ -10,7 +10,7 @@ ReinitBattleAnimFrameset: ; ce7bf (33:67bf)
 	ld [hl], -1
 	ret
 
-GetBattleAnimFrame: ; ce7d1
+GetBattleAnimFrame:
 .loop
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
@@ -37,16 +37,16 @@ GetBattleAnimFrame: ; ce7d1
 	push af
 	ld a, [hl]
 	push hl
-	and $3f
+	and $ff ^ (Y_FLIP << 1 | X_FLIP << 1)
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld [hl], a
 	pop hl
 .okay
 	ld a, [hl]
-	and $c0
+	and Y_FLIP << 1 | X_FLIP << 1 ; The << 1 is compensated in the "frame" macro
 	srl a
-	ld [wBattleAnimTempAddSubFlags], a
+	ld [wBattleAnimTempFrameOAMFlags], a
 	pop af
 	ret
 
@@ -55,6 +55,7 @@ GetBattleAnimFrame: ; ce7d1
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld [hl], a
+
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
 	dec [hl]
@@ -66,15 +67,14 @@ GetBattleAnimFrame: ; ce7d1
 	ld hl, BATTLEANIMSTRUCT_DURATION
 	add hl, bc
 	ld [hl], a
+
 	dec a
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
 	ld [hl], a
 	jr .loop
 
-; ce823
-
-.GetPointer: ; ce823
+.GetPointer:
 	ld hl, BATTLEANIMSTRUCT_FRAMESET_ID
 	add hl, bc
 	ld e, [hl]
@@ -88,14 +88,12 @@ GetBattleAnimFrame: ; ce7d1
 	ld hl, BATTLEANIMSTRUCT_FRAME
 	add hl, bc
 	ld l, [hl]
-	ld h, $0
+	ld h, 0
 	add hl, hl
 	add hl, de
 	ret
 
-; ce83c
-
-GetBattleAnimOAMPointer: ; ce83c
+GetBattleAnimOAMPointer:
 	ld l, a
 	ld h, 0
 	ld de, BattleAnimOAMData
@@ -104,9 +102,7 @@ GetBattleAnimOAMPointer: ; ce83c
 	add hl, de
 	ret
 
-; ce846
-
-LoadBattleAnimObj: ; ce846 (33:6846)
+LoadBattleAnimGFX:
 	push hl
 	ld l, a
 	ld h, 0
@@ -127,4 +123,8 @@ LoadBattleAnimObj: ; ce846 (33:6846)
 	pop bc
 	ret
 
-; ce85e (33:685e)
+INCLUDE "data/battle_anims/framesets.asm"
+
+INCLUDE "data/battle_anims/oam.asm"
+
+INCLUDE "data/battle_anims/object_gfx.asm"

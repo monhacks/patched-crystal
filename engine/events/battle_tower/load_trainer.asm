@@ -1,29 +1,29 @@
-Function_LoadOpponentTrainerAndPokemons: ; 1f8000
-	ld a, [rSVBK]
+LoadOpponentTrainerAndPokemon:
+	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wBT_OTTrainer)
-	ld [rSVBK], a
+	ldh [rSVBK], a
 
 	; Fill wBT_OTTrainer with zeros
 	xor a
 	ld hl, wBT_OTTrainer
-	ld bc, wBT_OTTrainerEnd - wBT_OTTrainer
+	ld bc, BATTLE_TOWER_STRUCT_LENGTH
 	call ByteFill
 
 	; Write $ff into the Item-Slots
 	ld a, $ff
-	ld [wBT_OTPkmn1Item], a
-	ld [wBT_OTPkmn2Item], a
-	ld [wBT_OTPkmn3Item], a
+	ld [wBT_OTMon1Item], a
+	ld [wBT_OTMon2Item], a
+	ld [wBT_OTMon3Item], a
 
 	; Set wBT_OTTrainer as start address to write the following data to
 	ld de, wBT_OTTrainer
 
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	ld b, a
 .resample ; loop to find a random trainer
 	call Random
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	add b
 	ld b, a ; b contains the nr of the trainer
 if DEF(_CRYSTAL11)
@@ -32,14 +32,14 @@ if DEF(_CRYSTAL11)
 else
 ; Crystal 1.0 used the wrong constant here, so only the first 21
 ; trainers in BattleTowerTrainers can be sampled.
-	maskbits BATTLETOWER_NUM_UNIQUE_PKMN
-	cp BATTLETOWER_NUM_UNIQUE_PKMN
+	maskbits BATTLETOWER_NUM_UNIQUE_MON
+	cp BATTLETOWER_NUM_UNIQUE_MON
 endc
 	jr nc, .resample
 	ld b, a
 
 	ld a, BANK(sBTTrainers)
-	call GetSRAMBank
+	call OpenSRAM
 
 	ld c, BATTLETOWER_STREAK_LENGTH
 	ld hl, sBTTrainers
@@ -68,7 +68,7 @@ endc
 	ld bc, NAME_LENGTH
 	call CopyBytes
 
-	call Function_LoadRandomBattleTowerPkmn
+	call LoadRandomBattleTowerMon
 	pop af
 
 	ld hl, BattleTowerTrainerData
@@ -87,95 +87,94 @@ endc
 	jr nz, .copy_bt_trainer_data_loop
 
 	pop af
-	ld [rSVBK], a
+	ldh [rSVBK], a
 
 	ret
 
-
-Function_LoadRandomBattleTowerPkmn: ; 1f8081
+LoadRandomBattleTowerMon:
 	ld c, BATTLETOWER_PARTY_LENGTH
 .loop
 	push bc
-	ld a, BANK(sBTPkmnPrevTrainer1)
-	call GetSRAMBank
+	ld a, BANK(sBTMonOfTrainers)
+	call OpenSRAM
 
-.FindARandomBattleTowerPkmn:
-	; From Which LevelGroup are the Pkmn loaded
+.FindARandomBattleTowerMon:
+	; From Which LevelGroup are the mon loaded
 	; a = 1..10
 	ld a, [wBTChoiceOfLvlGroup]
 	dec a
 	ld hl, BattleTowerMons
-	ld bc, BattleTowerMons2 - BattleTowerMons1
+	ld bc, BATTLETOWER_NUM_UNIQUE_MON * NICKNAMED_MON_STRUCT_LENGTH
 	call AddNTimes
 
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	ld b, a
 .resample
 	call Random
-	ld a, [hRandomAdd]
+	ldh a, [hRandomAdd]
 	add b
 	ld b, a
-	maskbits BATTLETOWER_NUM_UNIQUE_PKMN
-	cp BATTLETOWER_NUM_UNIQUE_PKMN
+	maskbits BATTLETOWER_NUM_UNIQUE_MON
+	cp BATTLETOWER_NUM_UNIQUE_MON
 	jr nc, .resample
-	; in register 'a' is the chosen Pkmn of the LevelGroup
+	; in register 'a' is the chosen mon of the LevelGroup
 
-	; Check if Pkmn was already loaded before
+	; Check if mon was already loaded before
 	; Check current and the 2 previous teams
 	; includes check if item is double at the current team
-	ld bc, PARTYMON_STRUCT_LENGTH + MON_NAME_LENGTH
+	ld bc, NICKNAMED_MON_STRUCT_LENGTH
 	call AddNTimes
 	ld a, [hli]
 	ld b, a
 	ld a, [hld]
 	ld c, a
-	ld a, [wBT_OTPkmn1]
+	ld a, [wBT_OTMon1]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [wBT_OTPkmn1Item]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [wBT_OTMon1Item]
 	cp c
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [wBT_OTPkmn2]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [wBT_OTMon2]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [wBT_OTPkmn2Item]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [wBT_OTMon2Item]
 	cp c
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [wBT_OTPkmn3]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [wBT_OTMon3]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [wBT_OTPkmn3Item]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [wBT_OTMon3Item]
 	cp c
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevTrainer1]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevTrainer1]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevTrainer2]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevTrainer2]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevTrainer3]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevTrainer3]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevPrevTrainer1]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevPrevTrainer1]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevPrevTrainer2]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevPrevTrainer2]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
-	ld a, [sBTPkmnPrevPrevTrainer3]
+	jr z, .FindARandomBattleTowerMon
+	ld a, [sBTMonPrevPrevTrainer3]
 	cp b
-	jr z, .FindARandomBattleTowerPkmn
+	jr z, .FindARandomBattleTowerMon
 
-	ld bc, PARTYMON_STRUCT_LENGTH + MON_NAME_LENGTH
+	ld bc, NICKNAMED_MON_STRUCT_LENGTH
 	call CopyBytes
 
-	ld a, [wNamedObjectIndexBuffer]
+	ld a, [wNamedObjectIndex]
 	push af
 	push de
-	ld hl, - (PARTYMON_STRUCT_LENGTH + MON_NAME_LENGTH)
+	ld hl, -NICKNAMED_MON_STRUCT_LENGTH
 	add hl, de
 	ld a, [hl]
-	ld [wNamedObjectIndexBuffer], a
+	ld [wNamedObjectIndex], a
 	ld bc, PARTYMON_STRUCT_LENGTH
 	add hl, bc
 	push hl
@@ -188,26 +187,25 @@ Function_LoadRandomBattleTowerPkmn: ; 1f8081
 
 	pop de
 	pop af
-	ld [wNamedObjectIndexBuffer], a
+	ld [wNamedObjectIndex], a
 	pop bc
 	dec c
 	jp nz, .loop
 
-	ld a, [sBTPkmnPrevTrainer1]
-	ld [sBTPkmnPrevPrevTrainer1], a
-	ld a, [sBTPkmnPrevTrainer2]
-	ld [sBTPkmnPrevPrevTrainer2], a
-	ld a, [sBTPkmnPrevTrainer3]
-	ld [sBTPkmnPrevPrevTrainer3], a
-	ld a, [wBT_OTPkmn1]
-	ld [sBTPkmnPrevTrainer1], a
-	ld a, [wBT_OTPkmn2]
-	ld [sBTPkmnPrevTrainer2], a
-	ld a, [wBT_OTPkmn3]
-	ld [sBTPkmnPrevTrainer3], a
+	ld a, [sBTMonPrevTrainer1]
+	ld [sBTMonPrevPrevTrainer1], a
+	ld a, [sBTMonPrevTrainer2]
+	ld [sBTMonPrevPrevTrainer2], a
+	ld a, [sBTMonPrevTrainer3]
+	ld [sBTMonPrevPrevTrainer3], a
+	ld a, [wBT_OTMon1]
+	ld [sBTMonPrevTrainer1], a
+	ld a, [wBT_OTMon2]
+	ld [sBTMonPrevTrainer2], a
+	ld a, [wBT_OTMon3]
+	ld [sBTMonPrevTrainer3], a
 	call CloseSRAM
 	ret
-; 1f814e
 
 INCLUDE "data/battle_tower/classes.asm"
 

@@ -1,4 +1,4 @@
-Special_MoveTutor: ; 4925b
+MoveTutor:
 	call FadeToMenu
 	call ClearBGPalettes
 	call ClearScreen
@@ -6,9 +6,9 @@ Special_MoveTutor: ; 4925b
 	ld b, SCGB_PACKPALS
 	call GetSGBLayout
 	xor a
-	ld [wItemAttributeParamBuffer], a
+	ld [wItemAttributeValue], a
 	call .GetMoveTutorMove
-	ld [wd265], a
+	ld [wNamedObjectIndex], a
 	ld [wPutativeTMHMMove], a
 	call GetMoveName
 	call CopyName1
@@ -33,34 +33,34 @@ Special_MoveTutor: ; 4925b
 	call CloseSubmenu
 	ret
 
-.GetMoveTutorMove: ; 492a5
+.GetMoveTutorMove:
 	ld a, [wScriptVar]
 	cp MOVETUTOR_FLAMETHROWER
 	jr z, .flamethrower
 	cp MOVETUTOR_THUNDERBOLT
 	jr z, .thunderbolt
 	; MOVETUTOR_ICE_BEAM
-	ld a, ICE_BEAM
+	ld a, MT03_MOVE ; ICE_BEAM
 	ret
 
 .flamethrower
-	ld a, FLAMETHROWER
+	ld a, MT01_MOVE ; FLAMETHROWER
 	ret
 
 .thunderbolt
-	ld a, THUNDERBOLT
+	ld a, MT02_MOVE ; THUNDERBOLT
 	ret
 
-CheckCanLearnMoveTutorMove: ; 492b9
-	ld hl, .MenuDataHeader
-	call LoadMenuDataHeader
+CheckCanLearnMoveTutorMove:
+	ld hl, .MenuHeader
+	call LoadMenuHeader
 
 	predef CanLearnTMHMMove
 
 	push bc
 	ld a, [wCurPartyMon]
 	ld hl, wPartyMonNicknames
-	call GetNick
+	call GetNickname
 	pop bc
 
 	ld a, c
@@ -70,8 +70,8 @@ CheckCanLearnMoveTutorMove: ; 492b9
 	ld de, SFX_WRONG
 	call PlaySFX
 	pop de
-	ld a, BANK(Text_TMHMNotCompatible)
-	ld hl, Text_TMHMNotCompatible
+	ld a, BANK(TMHMNotCompatibleText)
+	ld hl, TMHMNotCompatibleText
 	call FarPrintText
 	jr .didnt_learn
 
@@ -98,6 +98,6 @@ CheckCanLearnMoveTutorMove: ; 492b9
 	scf
 	ret
 
-.MenuDataHeader: ; 0x4930a
+.MenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 0, 12, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1

@@ -1,5 +1,6 @@
-CreditsStrings:
+CreditsStringsPointers:
 ; entries correspond to constants/credits_constants.asm
+	table_width 2, CreditsStringsPointers
 	dw .SatoshiTajiri
 	dw .JunichiMasuda
 	dw .TetsuyaWatanabe
@@ -103,6 +104,7 @@ CreditsStrings:
 	dw .UsCoordination
 	dw .TextTranslation
 	dw .PaadTesting
+	assert_table_length NUM_CREDITS_STRINGS
 
 .SatoshiTajiri:       db "   SATOSHI TAJIRI@"         ; "たじり　さとし@"
 .JunichiMasuda:       db "   JUNICHI MASUDA@"         ; "ますだ　じゅんいち@"
@@ -188,7 +190,7 @@ CreditsStrings:
 .MonsterDesign:       db "   MONSTER DESIGN@"         ; "#　デザイン@"
 .GraphicsDesign:      db "  GRAPHICS DESIGN@"         ; "グラフィック　デザイン@"
 .Music:               db "       MUSIC@"              ; "おんがく@"
-.SoundEffects:        db "   SOUND EFFECTS@"          ; "サウンド　エフ→クト@"
+.SoundEffects:        db "   SOUND EFFECTS@"          ; "サウンド　エフェクト@"
 .GameDesign:          db "    GAME DESIGN@"           ; "ゲームデザイン@"
 .GameScenario:        db "   GAME SCENARIO@"          ; "シナりオ@"
 .ToolProgramming:     db "  TOOL PROGRAMMING@"        ; "ツール　プログラム@"
@@ -202,7 +204,7 @@ CreditsStrings:
 .ExecutiveProducer:   db " EXECUTIVE PRODUCER@"       ; "エグゼクティブ　プロデューサー@"
 .PokemonAnimation:    db " #MON ANIMATION@"           ; "#　アニメーション@"
 .PokedexText:         db "    #DEX TEXT@"             ; "ずかん　テキスト@"
-.MobilePrjLeader:     db " MOBILE PRJ. LEADER@"       ; "モバイルプロジ→クト　りーダー@"
+.MobilePrjLeader:     db " MOBILE PRJ. LEADER@"       ; "モバイルプロジェクト　りーダー@"
 .MobileSystemAd:      db " MOBILE SYSTEM AD.@"        ; "モバイル　システムアドバイザー@"
 .MobileStadiumDir:    db "MOBILE STADIUM DIR.@"       ; "モバイルスタジアム　ディレクター@"
 .Coordination:        db "    COORDINATION@"          ; "コーディネーター@"

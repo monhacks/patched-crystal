@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODDEPTSTOREROOF_CLERK
 	const GOLDENRODDEPTSTOREROOF_POKEFAN_F
 	const GOLDENRODDEPTSTOREROOF_FISHER
@@ -9,37 +9,35 @@ const_value set 2
 	const GOLDENRODDEPTSTOREROOF_BUG_CATCHER
 
 GoldenrodDeptStoreRoof_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 2
+	def_callbacks
 	callback MAPCALLBACK_TILES, .CheckSaleChangeBlock
 	callback MAPCALLBACK_OBJECTS, .CheckSaleChangeClerk
 
 .CheckSaleChangeBlock:
 	checkflag ENGINE_GOLDENROD_DEPT_STORE_SALE_IS_ON
 	iftrue .SaleIsOn
-	return
+	endcallback
 
 .SaleIsOn:
 	changeblock 0, 2, $3f ; cardboard boxes
 	changeblock 0, 4, $0f ; vendor booth
-	return
+	endcallback
 
 .CheckSaleChangeClerk:
 	checkflag ENGINE_GOLDENROD_DEPT_STORE_SALE_IS_ON
 	iftrue .ChangeClerk
 	setevent EVENT_GOLDENROD_SALE_OFF
 	clearevent EVENT_GOLDENROD_SALE_ON
-	return
+	endcallback
 
 .ChangeClerk:
 	clearevent EVENT_GOLDENROD_SALE_OFF
 	setevent EVENT_GOLDENROD_SALE_ON
-	return
+	endcallback
 
-ClerkScript_0x5673f:
+GoldenrodDeptStoreRoofClerkScript:
 	opentext
 	pokemart MARTTYPE_ROOFTOP, 0
 	closetext
@@ -48,29 +46,29 @@ ClerkScript_0x5673f:
 GoldenrodDeptStoreRoofPokefanFScript:
 	jumptextfaceplayer GoldenrodDeptStoreRoofPokefanFText
 
-FisherScript_0x56749:
+GoldenrodDeptStoreRoofFisherScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x567d2
+	writetext GoldenrodDeptStoreRoofFisherText
 	waitbutton
 	closetext
-	spriteface GOLDENRODDEPTSTOREROOF_FISHER, UP
+	turnobject GOLDENRODDEPTSTOREROOF_FISHER, UP
 	end
 
 GoldenrodDeptStoreRoofTwinScript:
 	jumptextfaceplayer GoldenrodDeptStoreRoofTwinText
 
-SuperNerdScript_0x56757:
+GoldenrodDeptStoreRoofSuperNerdScript:
 	opentext
-	writetext UnknownText_0x56867
+	writetext GoldenrodDeptStoreRoofSuperNerdOhWowText
 	waitbutton
 	closetext
-	spriteface GOLDENRODDEPTSTOREROOF_SUPER_NERD, UP
+	turnobject GOLDENRODDEPTSTOREROOF_SUPER_NERD, UP
 	opentext
-	writetext UnknownText_0x56871
+	writetext GoldenrodDeptStoreRoofSuperNerdQuitBotheringMeText
 	waitbutton
 	closetext
-	spriteface GOLDENRODDEPTSTOREROOF_SUPER_NERD, RIGHT
+	turnobject GOLDENRODDEPTSTOREROOF_SUPER_NERD, RIGHT
 	end
 
 GoldenrodDeptStoreRoofPokefanMScript:
@@ -104,7 +102,7 @@ GoldenrodDeptStoreRoofPokefanFText:
 	line "from shopping."
 	done
 
-UnknownText_0x567d2:
+GoldenrodDeptStoreRoofFisherText:
 	text "Pardon? Who says"
 	line "an adult can't get"
 	cont "into this?"
@@ -122,11 +120,11 @@ GoldenrodDeptStoreRoofTwinText:
 	cont "so often."
 	done
 
-UnknownText_0x56867:
+GoldenrodDeptStoreRoofSuperNerdOhWowText:
 	text "Oh, wow!"
 	done
 
-UnknownText_0x56871:
+GoldenrodDeptStoreRoofSuperNerdQuitBotheringMeText:
 	text "Will you quit"
 	line "bothering me?"
 	done
@@ -212,30 +210,25 @@ PokeDollVendingMachineText:
 	done
 
 GoldenrodDeptStoreRoof_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 13, 1, 3, GOLDENROD_DEPT_STORE_6F
+	def_warp_events
+	warp_event 13,  1, GOLDENROD_DEPT_STORE_6F, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 4
-	bg_event 15, 3, BGEVENT_RIGHT, Binoculars1
-	bg_event 15, 5, BGEVENT_RIGHT, Binoculars2
-	bg_event 15, 6, BGEVENT_RIGHT, Binoculars3
-	bg_event 3, 0, BGEVENT_UP, PokeDollVendingMachine
+	def_bg_events
+	bg_event 15,  3, BGEVENT_RIGHT, Binoculars1
+	bg_event 15,  5, BGEVENT_RIGHT, Binoculars2
+	bg_event 15,  6, BGEVENT_RIGHT, Binoculars3
+	bg_event  3,  0, BGEVENT_UP, PokeDollVendingMachine
 
-.ObjectEvents:
-	db 8
-	object_event 1, 4, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x5673f, EVENT_GOLDENROD_SALE_OFF
-	object_event 10, 3, SPRITE_POKEFAN_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofPokefanFScript, -1
-	object_event 2, 1, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, FisherScript_0x56749, -1
-	object_event 3, 4, SPRITE_TWIN, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofTwinScript, EVENT_GOLDENROD_SALE_ON
-	object_event 14, 6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, SuperNerdScript_0x56757, EVENT_GOLDENROD_SALE_ON
-	object_event 7, 0, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofPokefanMScript, EVENT_GOLDENROD_SALE_OFF
-	object_event 5, 3, SPRITE_TEACHER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofTeacherScript, EVENT_GOLDENROD_SALE_OFF
-	object_event 1, 6, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofBugCatcherScript, EVENT_GOLDENROD_SALE_OFF
+	def_object_events
+	object_event  1,  4, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofClerkScript, EVENT_GOLDENROD_SALE_OFF
+	object_event 10,  3, SPRITE_POKEFAN_F, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofPokefanFScript, -1
+	object_event  2,  1, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofFisherScript, -1
+	object_event  3,  4, SPRITE_TWIN, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofTwinScript, EVENT_GOLDENROD_SALE_ON
+	object_event 14,  6, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofSuperNerdScript, EVENT_GOLDENROD_SALE_ON
+	object_event  7,  0, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofPokefanMScript, EVENT_GOLDENROD_SALE_OFF
+	object_event  5,  3, SPRITE_TEACHER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofTeacherScript, EVENT_GOLDENROD_SALE_OFF
+	object_event  1,  6, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStoreRoofBugCatcherScript, EVENT_GOLDENROD_SALE_OFF

@@ -1,44 +1,41 @@
-const_value set 2
+	object_const_def
 	const ROUTE12SUPERRODHOUSE_FISHING_GURU
 
 Route12SuperRodHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-FishingGuruScript_0x7f484:
+Route12SuperRodHouseFishingGuruScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_SUPER_ROD
-	iftrue UnknownScript_0x7f4a0
-	writetext UnknownText_0x7f4af
+	iftrue .GotSuperRod
+	writetext OfferSuperRodText
 	yesorno
-	iffalse UnknownScript_0x7f4a6
-	writetext UnknownText_0x7f52f
-	buttonsound
+	iffalse .Refused
+	writetext GiveSuperRodText
+	promptbutton
 	verbosegiveitem SUPER_ROD
-	iffalse UnknownScript_0x7f4aa
+	iffalse .NoRoom
 	setevent EVENT_GOT_SUPER_ROD
-UnknownScript_0x7f4a0:
-	writetext UnknownText_0x7f57c
+.GotSuperRod:
+	writetext GaveSuperRodText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x7f4a6:
-	writetext UnknownText_0x7f5ec
+.Refused:
+	writetext DontWantSuperRodText
 	waitbutton
-UnknownScript_0x7f4aa:
+.NoRoom:
 	closetext
 	end
 
-SuperRodHouseBookshelf:
-; unused
-	jumpstd picturebookshelf
+SuperRodHouseBookshelf: ; unreferenced
+	jumpstd PictureBookshelfScript
 
-UnknownText_0x7f4af:
+OfferSuperRodText:
 	text "I'm the FISHING"
 	line "GURU's younger"
 	cont "brother."
@@ -53,7 +50,7 @@ UnknownText_0x7f4af:
 	line "right."
 	done
 
-UnknownText_0x7f52f:
+GiveSuperRodText:
 	text "Yes, yes. Just as"
 	line "I thought!"
 
@@ -62,7 +59,7 @@ UnknownText_0x7f52f:
 	cont "SUPER ROD."
 	done
 
-UnknownText_0x7f57c:
+GaveSuperRodText:
 	text "Try your hand at"
 	line "fishing wherever"
 	cont "there is water."
@@ -74,26 +71,21 @@ UnknownText_0x7f57c:
 	line "different RODS."
 	done
 
-UnknownText_0x7f5ec:
+DontWantSuperRodText:
 	text "Huh? My own eyes"
 	line "deceived me?"
 	done
 
 Route12SuperRodHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 1, ROUTE_12
-	warp_def 3, 7, 1, ROUTE_12
+	def_warp_events
+	warp_event  2,  7, ROUTE_12, 1
+	warp_event  3,  7, ROUTE_12, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 5, 3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, FishingGuruScript_0x7f484, -1
+	def_object_events
+	object_event  5,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route12SuperRodHouseFishingGuruScript, -1

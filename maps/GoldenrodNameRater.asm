@@ -1,47 +1,40 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODNAMERATER_NAME_RATER
 
 GoldenrodNameRater_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 GoldenrodNameRater:
 	faceplayer
 	opentext
-	special Special_NameRater
+	special NameRater
 	waitbutton
 	closetext
 	end
 
 GoldenrodNameRaterBookshelf:
-	jumpstd difficultbookshelf
+	jumpstd DifficultBookshelfScript
 
 GoldenrodNameRaterRadio:
-	jumpstd radio2
+	jumpstd Radio2Script
 
-INCLUDE "data/unused/sweet_honey_text.asm"
+INCLUDE "data/text/unused_sweet_honey.asm"
 
 GoldenrodNameRater_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 8, GOLDENROD_CITY
-	warp_def 3, 7, 8, GOLDENROD_CITY
+	def_warp_events
+	warp_event  2,  7, GOLDENROD_CITY, 8
+	warp_event  3,  7, GOLDENROD_CITY, 8
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 3
-	bg_event 0, 1, BGEVENT_READ, GoldenrodNameRaterBookshelf
-	bg_event 1, 1, BGEVENT_READ, GoldenrodNameRaterBookshelf
-	bg_event 7, 1, BGEVENT_READ, GoldenrodNameRaterRadio
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, GoldenrodNameRaterBookshelf
+	bg_event  1,  1, BGEVENT_READ, GoldenrodNameRaterBookshelf
+	bg_event  7,  1, BGEVENT_READ, GoldenrodNameRaterRadio
 
-.ObjectEvents:
-	db 1
-	object_event 2, 4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodNameRater, -1
+	def_object_events
+	object_event  2,  4, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 2, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodNameRater, -1

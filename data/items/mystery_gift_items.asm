@@ -1,4 +1,4 @@
-MysteryGiftItems: ; 2c725
+MysteryGiftItems:
 	db BERRY
 	db PRZCUREBERRY
 	db MINT_BERRY
@@ -36,5 +36,4 @@ MysteryGiftItems: ; 2c725
 	db RARE_CANDY
 	db BLUESKY_MAIL
 	db MIRAGE_MAIL
-MysteryGiftItemsEnd:
-; 2c74a
+.End

@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const LAVENDERNAMERATER_NAME_RATER
 
 LavenderNameRater_MapScripts:
-.SceneScripts:
-	db 1
+	def_scene_scripts
 	scene_script .DummyScene
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
@@ -15,29 +13,24 @@ LavenderNameRater_MapScripts:
 LavenderNameRater:
 	faceplayer
 	opentext
-	special Special_NameRater
+	special NameRater
 	waitbutton
 	closetext
 	end
 
-LavenderNameRaterUnusedBookshelf:
-	jumpstd difficultbookshelf
+LavenderNameRaterUnusedBookshelf: ; unreferenced
+	jumpstd DifficultBookshelfScript
 
 LavenderNameRater_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 4, LAVENDER_TOWN
-	warp_def 3, 7, 4, LAVENDER_TOWN
+	def_warp_events
+	warp_event  2,  7, LAVENDER_TOWN, 4
+	warp_event  3,  7, LAVENDER_TOWN, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, LavenderNameRater, -1
+	def_object_events
+	object_event  2,  3, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, LavenderNameRater, -1

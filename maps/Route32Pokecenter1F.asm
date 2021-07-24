@@ -1,43 +1,41 @@
-const_value set 2
+	object_const_def
 	const ROUTE32POKECENTER1F_NURSE
 	const ROUTE32POKECENTER1F_FISHING_GURU
 	const ROUTE32POKECENTER1F_COOLTRAINER_F
 
 Route32Pokecenter1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-NurseScript_0x69b52:
-	jumpstd pokecenternurse
+Route32Pokecenter1FNurseScript:
+	jumpstd PokecenterNurseScript
 
-FishingGuruScript_0x69b55:
+Route32Pokecenter1FFishingGuruScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_OLD_ROD
-	iftrue UnknownScript_0x69b7a
-	writetext UnknownText_0x69b83
+	iftrue .GotOldRod
+	writetext Route32Pokecenter1FFishingGuruText_Question
 	yesorno
-	iffalse UnknownScript_0x69b74
-	writetext UnknownText_0x69be8
-	buttonsound
+	iffalse .Refused
+	writetext Route32Pokecenter1FFishingGuruText_Yes
+	promptbutton
 	verbosegiveitem OLD_ROD
-	writetext UnknownText_0x69c1b
+	writetext Route32Pokecenter1FFishingGuruText_GiveOldRod
 	waitbutton
 	closetext
 	setevent EVENT_GOT_OLD_ROD
 	end
 
-UnknownScript_0x69b74:
-	writetext UnknownText_0x69c6c
+.Refused:
+	writetext Route32Pokecenter1FFishingGuruText_No
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x69b7a:
-	writetext UnknownText_0x69c8d
+.GotOldRod:
+	writetext Route32Pokecenter1FFishingGuruText_After
 	waitbutton
 	closetext
 	end
@@ -45,7 +43,7 @@ UnknownScript_0x69b7a:
 Route32Pokecenter1FCooltrainerFScript:
 	jumptextfaceplayer Route32Pokecenter1FCooltrainerFText
 
-UnknownText_0x69b83:
+Route32Pokecenter1FFishingGuruText_Question:
 	text "This is a great"
 	line "fishing spot."
 
@@ -57,7 +55,7 @@ UnknownText_0x69b83:
 	line "of my RODS?"
 	done
 
-UnknownText_0x69be8:
+Route32Pokecenter1FFishingGuruText_Yes:
 	text "Heh, that's good"
 	line "to hear."
 
@@ -65,7 +63,7 @@ UnknownText_0x69be8:
 	line "angler too!"
 	done
 
-UnknownText_0x69c1b:
+Route32Pokecenter1FFishingGuruText_GiveOldRod:
 	text "Fishing is great!"
 
 	para "If there's water,"
@@ -75,12 +73,12 @@ UnknownText_0x69c1b:
 	line "your ROD."
 	done
 
-UnknownText_0x69c6c:
+Route32Pokecenter1FFishingGuruText_No:
 	text "Oh. That's rather"
 	line "disappointing…"
 	done
 
-UnknownText_0x69c8d:
+Route32Pokecenter1FFishingGuruText_After:
 	text "Yo, kid. How are"
 	line "they biting?"
 	done
@@ -95,23 +93,18 @@ Route32Pokecenter1FCooltrainerFText:
 	done
 
 Route32Pokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 1, ROUTE_32
-	warp_def 4, 7, 1, ROUTE_32
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, ROUTE_32, 1
+	warp_event  4,  7, ROUTE_32, 1
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, NurseScript_0x69b52, -1
-	object_event 1, 4, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, FishingGuruScript_0x69b55, -1
-	object_event 6, 2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FCooltrainerFScript, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FNurseScript, -1
+	object_event  1,  4, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FFishingGuruScript, -1
+	object_event  6,  2, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route32Pokecenter1FCooltrainerFScript, -1

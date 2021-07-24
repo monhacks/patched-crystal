@@ -1,26 +1,24 @@
-const_value set 2
+	object_const_def
 	const MOUNTMOON_SILVER
 
 MountMoon_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .RivalEncounter
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .RivalEncounter ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .RivalEncounter:
-	priorityjump .RivalBattle
+	prioritysjump .RivalBattle
 	end
 
 .DummyScene:
 	end
 
 .RivalBattle:
-	spriteface PLAYER, RIGHT
+	turnobject PLAYER, RIGHT
 	showemote EMOTE_SHOCK, PLAYER, 15
-	special Special_FadeOutMusic
+	special FadeOutMusic
 	pause 15
 	applymovement MOUNTMOON_SILVER, MountMoonSilverMovementBefore
 	playmusic MUSIC_RIVAL_ENCOUNTER
@@ -38,7 +36,7 @@ MountMoon_MapScripts:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump .FinishBattle
+	sjump .FinishBattle
 
 .Totodile:
 	winlosstext MountMoonSilverTextWin, MountMoonSilverTextLoss
@@ -47,7 +45,7 @@ MountMoon_MapScripts:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump .FinishBattle
+	sjump .FinishBattle
 
 .Chikorita:
 	winlosstext MountMoonSilverTextWin, MountMoonSilverTextLoss
@@ -56,7 +54,7 @@ MountMoon_MapScripts:
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	jump .FinishBattle
+	sjump .FinishBattle
 
 .FinishBattle:
 	playmusic MUSIC_RIVAL_AFTER
@@ -66,7 +64,7 @@ MountMoon_MapScripts:
 	closetext
 	applymovement MOUNTMOON_SILVER, MountMoonSilverMovementAfter
 	disappear MOUNTMOON_SILVER
-	setscene 1
+	setscene SCENE_FINISHED
 	setevent EVENT_BEAT_RIVAL_IN_MT_MOON
 	playmapmusic
 	end
@@ -161,26 +159,21 @@ MountMoonSilverTextLoss:
 	done
 
 MountMoon_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 8
-	warp_def 3, 3, 1, ROUTE_3
-	warp_def 15, 15, 1, ROUTE_4
-	warp_def 13, 3, 7, MOUNT_MOON
-	warp_def 15, 11, 8, MOUNT_MOON
-	warp_def 25, 5, 1, MOUNT_MOON_SQUARE
-	warp_def 25, 15, 2, MOUNT_MOON_SQUARE
-	warp_def 25, 3, 3, MOUNT_MOON
-	warp_def 25, 13, 4, MOUNT_MOON
+	def_warp_events
+	warp_event  3,  3, ROUTE_3, 1
+	warp_event 15, 15, ROUTE_4, 1
+	warp_event 13,  3, MOUNT_MOON, 7
+	warp_event 15, 11, MOUNT_MOON, 8
+	warp_event 25,  5, MOUNT_MOON_SQUARE, 1
+	warp_event 25, 15, MOUNT_MOON_SQUARE, 2
+	warp_event 25,  3, MOUNT_MOON, 3
+	warp_event 25, 13, MOUNT_MOON, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 7, 3, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_RIVAL
+	def_object_events
+	object_event  7,  3, SPRITE_SILVER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_RIVAL

@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const SAFARIZONEWARDENSHOME_LASS
 
 SafariZoneWardensHome_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 WardensGranddaughter:
 	faceplayer
@@ -31,7 +29,7 @@ SafariZonePhoto:
 	jumptext SafariZonePhotoText
 
 WardensHomeBookshelf:
-	jumpstd picturebookshelf
+	jumpstd PictureBookshelfScript
 
 WardensGranddaughterText1:
 	text "My grandpa is the"
@@ -77,24 +75,19 @@ SafariZonePhotoText:
 	done
 
 SafariZoneWardensHome_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 6, FUCHSIA_CITY
-	warp_def 3, 7, 6, FUCHSIA_CITY
+	def_warp_events
+	warp_event  2,  7, FUCHSIA_CITY, 6
+	warp_event  3,  7, FUCHSIA_CITY, 6
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 4
-	bg_event 0, 1, BGEVENT_READ, WardensHomeBookshelf
-	bg_event 1, 1, BGEVENT_READ, WardensHomeBookshelf
-	bg_event 7, 0, BGEVENT_READ, WardenPhoto
-	bg_event 9, 0, BGEVENT_READ, SafariZonePhoto
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, WardensHomeBookshelf
+	bg_event  1,  1, BGEVENT_READ, WardensHomeBookshelf
+	bg_event  7,  0, BGEVENT_READ, WardenPhoto
+	bg_event  9,  0, BGEVENT_READ, SafariZonePhoto
 
-.ObjectEvents:
-	db 1
-	object_event 2, 4, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, WardensGranddaughter, -1
+	def_object_events
+	object_event  2,  4, SPRITE_LASS, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, WardensGranddaughter, -1

@@ -1,43 +1,41 @@
-Special_GiveParkBalls: ; 135db
+GiveParkBalls:
 	xor a
 	ld [wContestMon], a
-	ld a, 20
+	ld a, BUG_CONTEST_BALLS
 	ld [wParkBallsRemaining], a
 	farcall StartBugContestTimer
 	ret
 
-BugCatchingContestBattleScript:: ; 0x135eb
-	writecode VAR_BATTLETYPE, BATTLETYPE_CONTEST
+BugCatchingContestBattleScript::
+	loadvar VAR_BATTLETYPE, BATTLETYPE_CONTEST
 	randomwildmon
 	startbattle
 	reloadmapafterbattle
-	copybytetovar wParkBallsRemaining
+	readmem wParkBallsRemaining
 	iffalse BugCatchingContestOutOfBallsScript
 	end
 
-BugCatchingContestOverScript:: ; 0x135f8
+BugCatchingContestOverScript::
 	playsound SFX_ELEVATOR_END
 	opentext
-	writetext BugCatchingContestText_BeeepTimesUp
+	writetext BugCatchingContestTimeUpText
 	waitbutton
-	jump BugCatchingContestReturnToGateScript
+	sjump BugCatchingContestReturnToGateScript
 
-BugCatchingContestOutOfBallsScript: ; 0x13603
+BugCatchingContestOutOfBallsScript:
 	playsound SFX_ELEVATOR_END
 	opentext
-	writetext BugCatchingContestText_ContestIsOver
+	writetext BugCatchingContestIsOverText
 	waitbutton
 
-BugCatchingContestReturnToGateScript: ; 0x1360b
+BugCatchingContestReturnToGateScript:
 	closetext
-	jumpstd bugcontestresultswarp
+	jumpstd BugContestResultsWarpScript
 
-BugCatchingContestText_BeeepTimesUp: ; 0x1360f
-	; ANNOUNCER: BEEEP! Time's up!
-	text_jump UnknownText_0x1bd2ca
-	db "@"
+BugCatchingContestTimeUpText:
+	text_far _BugCatchingContestTimeUpText
+	text_end
 
-BugCatchingContestText_ContestIsOver: ; 0x13614
-	; ANNOUNCER: The Contest is over!
-	text_jump UnknownText_0x1bd2e7
-	db "@"
+BugCatchingContestIsOverText:
+	text_far _BugCatchingContestIsOverText
+	text_end

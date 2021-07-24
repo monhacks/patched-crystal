@@ -1,9 +1,7 @@
 Route22_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 VictoryRoadEntranceSign:
 	jumptext VictoryRoadEntranceSignText
@@ -16,19 +14,14 @@ VictoryRoadEntranceSignText:
 	done
 
 Route22_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 13, 5, 1, VICTORY_ROAD_GATE
+	def_warp_events
+	warp_event 13,  5, VICTORY_ROAD_GATE, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 15, 7, BGEVENT_READ, VictoryRoadEntranceSign
+	def_bg_events
+	bg_event 15,  7, BGEVENT_READ, VictoryRoadEntranceSign
 
-.ObjectEvents:
-	db 0
+	def_object_events

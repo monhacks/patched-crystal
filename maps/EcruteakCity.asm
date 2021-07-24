@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const ECRUTEAKCITY_GRAMPS1
 	const ECRUTEAKCITY_GRAMPS2
 	const ECRUTEAKCITY_LASS1
@@ -8,16 +8,14 @@ const_value set 2
 	const ECRUTEAKCITY_GRAMPS3
 
 EcruteakCity_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_NEWMAP, .FlyPoint
 
 .FlyPoint:
 	setflag ENGINE_FLYPOINT_ECRUTEAK
-	return
+	endcallback
 
 EcruteakCityGramps1Script:
 	jumptextfaceplayer EcruteakCityGramps1Text
@@ -28,37 +26,37 @@ EcruteakCityGramps2Script:
 EcruteakCityGramps3Script:
 	jumptextfaceplayer EcruteakCityGramps3Text
 
-EcruteakCityLassScript:
-	jumptextfaceplayer EcruteakCityLassText
+EcruteakCityLass1Script:
+	jumptextfaceplayer EcruteakCityLass1Text
 
-LassScript_0x1a4015:
+EcruteakCityLass2Script:
 	faceplayer
 	opentext
 	checkevent EVENT_RELEASED_THE_BEASTS
-	iftrue UnknownScript_0x1a4023
-	writetext UnknownText_0x1a421a
+	iftrue .ReleasedBeasts
+	writetext EcruteakCityLass2Text
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x1a4023:
-	writetext UnknownText_0x1a4269
+.ReleasedBeasts:
+	writetext EcruteakCityLass2Text_ReleasedBeasts
 	waitbutton
 	closetext
 	end
 
-FisherScript_0x1a4029:
+EcruteakCityFisherScript:
 	faceplayer
 	opentext
 	checkevent EVENT_JASMINE_RETURNED_TO_GYM
-	iftrue UnknownScript_0x1a4037
-	writetext UnknownText_0x1a42ac
+	iftrue .JasmineReturned
+	writetext EcruteakCityFisherText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x1a4037:
-	writetext UnknownText_0x1a4325
+.JasmineReturned:
+	writetext EcruteakCityFisherText_JasmineReturned
 	waitbutton
 	closetext
 	end
@@ -82,16 +80,15 @@ BurnedTowerSign:
 	jumptext BurnedTowerSignText
 
 EcruteakCityPokecenterSign:
-	jumpstd pokecentersign
+	jumpstd PokecenterSignScript
 
 EcruteakCityMartSign:
-	jumpstd martsign
+	jumpstd MartSignScript
 
 EcruteakCityHiddenHyperPotion:
-	hiddenitem EVENT_ECRUTEAK_CITY_HIDDEN_HYPER_POTION, HYPER_POTION
+	hiddenitem HYPER_POTION, EVENT_ECRUTEAK_CITY_HIDDEN_HYPER_POTION
 
-UnusedMissingDaughterText:
-; This text is neither used nor referenced in the final game.
+UnusedMissingDaughterText: ; unreferenced
 	text "Oh, no. Oh, no…"
 
 	para "My daughter is"
@@ -134,7 +131,7 @@ EcruteakCityGramps2Text:
 	cont "nice, I hear."
 	done
 
-EcruteakCityLassText:
+EcruteakCityLass1Text:
 	text "I'm going to prac-"
 	line "tice at the DANCE"
 
@@ -142,7 +139,7 @@ EcruteakCityLassText:
 	line "join me?"
 	done
 
-UnknownText_0x1a421a:
+EcruteakCityLass2Text:
 	text "The tower that"
 	line "used to be here…"
 
@@ -151,14 +148,14 @@ UnknownText_0x1a421a:
 	cont "taller."
 	done
 
-UnknownText_0x1a4269:
+EcruteakCityLass2Text_ReleasedBeasts:
 	text "Three big #MON"
 	line "ran off in differ-"
 	cont "ent directions."
 	cont "What were they?"
 	done
 
-UnknownText_0x1a42ac:
+EcruteakCityFisherText:
 	text "I heard a rumor"
 	line "about OLIVINE"
 	cont "LIGHTHOUSE."
@@ -171,7 +168,7 @@ UnknownText_0x1a42ac:
 	cont "are in trouble."
 	done
 
-UnknownText_0x1a4325:
+EcruteakCityFisherText_JasmineReturned:
 	text "The #MON at"
 	line "OLIVINE LIGHTHOUSE"
 	cont "has been cured."
@@ -260,47 +257,42 @@ BurnedTowerSignText:
 	done
 
 EcruteakCity_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 15
-	warp_def 35, 26, 1, ROUTE_42_ECRUTEAK_GATE
-	warp_def 35, 27, 2, ROUTE_42_ECRUTEAK_GATE
-	warp_def 18, 11, 1, ECRUTEAK_HOUSE
-	warp_def 20, 2, 1, WISE_TRIOS_ROOM
-	warp_def 20, 3, 2, WISE_TRIOS_ROOM
-	warp_def 23, 27, 1, ECRUTEAK_POKECENTER_1F
-	warp_def 5, 21, 1, ECRUTEAK_LUGIA_SPEECH_HOUSE
-	warp_def 23, 21, 1, DANCE_THEATRE
-	warp_def 29, 21, 2, ECRUTEAK_MART
-	warp_def 6, 27, 1, ECRUTEAK_GYM
-	warp_def 13, 27, 1, ECRUTEAK_ITEMFINDER_HOUSE
-	warp_def 37, 7, 1, TIN_TOWER_1F
-	warp_def 5, 5, 1, BURNED_TOWER_1F
-	warp_def 0, 18, 3, ROUTE_38_ECRUTEAK_GATE
-	warp_def 0, 19, 4, ROUTE_38_ECRUTEAK_GATE
+	def_warp_events
+	warp_event 35, 26, ROUTE_42_ECRUTEAK_GATE, 1
+	warp_event 35, 27, ROUTE_42_ECRUTEAK_GATE, 2
+	warp_event 18, 11, ECRUTEAK_TIN_TOWER_ENTRANCE, 1
+	warp_event 20,  2, WISE_TRIOS_ROOM, 1
+	warp_event 20,  3, WISE_TRIOS_ROOM, 2
+	warp_event 23, 27, ECRUTEAK_POKECENTER_1F, 1
+	warp_event  5, 21, ECRUTEAK_LUGIA_SPEECH_HOUSE, 1
+	warp_event 23, 21, DANCE_THEATRE, 1
+	warp_event 29, 21, ECRUTEAK_MART, 2
+	warp_event  6, 27, ECRUTEAK_GYM, 1
+	warp_event 13, 27, ECRUTEAK_ITEMFINDER_HOUSE, 1
+	warp_event 37,  7, TIN_TOWER_1F, 1
+	warp_event  5,  5, BURNED_TOWER_1F, 1
+	warp_event  0, 18, ROUTE_38_ECRUTEAK_GATE, 3
+	warp_event  0, 19, ROUTE_38_ECRUTEAK_GATE, 4
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 8
+	def_bg_events
 	bg_event 15, 21, BGEVENT_READ, EcruteakCitySign
 	bg_event 38, 10, BGEVENT_READ, TinTowerSign
-	bg_event 8, 28, BGEVENT_READ, EcruteakGymSign
+	bg_event  8, 28, BGEVENT_READ, EcruteakGymSign
 	bg_event 21, 21, BGEVENT_READ, EcruteakDanceTheaterSign
-	bg_event 2, 10, BGEVENT_READ, BurnedTowerSign
+	bg_event  2, 10, BGEVENT_READ, BurnedTowerSign
 	bg_event 24, 27, BGEVENT_READ, EcruteakCityPokecenterSign
 	bg_event 30, 21, BGEVENT_READ, EcruteakCityMartSign
 	bg_event 23, 14, BGEVENT_ITEM, EcruteakCityHiddenHyperPotion
 
-.ObjectEvents:
-	db 7
+	def_object_events
 	object_event 18, 15, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps1Script, -1
 	object_event 20, 21, SPRITE_GRAMPS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps2Script, -1
-	object_event 21, 29, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityLassScript, -1
-	object_event 3, 9, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, LassScript_0x1a4015, -1
-	object_event 9, 22, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, FisherScript_0x1a4029, -1
+	object_event 21, 29, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass1Script, -1
+	object_event  3,  9, SPRITE_LASS, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakCityLass2Script, -1
+	object_event  9, 22, SPRITE_FISHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityFisherScript, -1
 	object_event 10, 14, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakCityYoungsterScript, -1
-	object_event 3, 7, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps3Script, EVENT_ECRUTEAK_CITY_GRAMPS
+	object_event  3,  7, SPRITE_GRAMPS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakCityGramps3Script, EVENT_ECRUTEAK_CITY_GRAMPS

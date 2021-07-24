@@ -1,31 +1,29 @@
-BattleIntroSlidingPics: ; 4e980
-	ld a, [rSVBK]
+BattleIntroSlidingPics:
+	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wLYOverrides)
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	call .subfunction1
-	ld a, rSCX - $ff00
-	ld [hLCDCPointer], a
+	ld a, LOW(rSCX)
+	ldh [hLCDCPointer], a
 	call .subfunction2
 	xor a
-	ld [hLCDCPointer], a
+	ldh [hLCDCPointer], a
 	pop af
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	ret
-; 4e998
 
-.subfunction1 ; 4e998
+.subfunction1
 	call .subfunction4
 	ld a, $90
-	ld [hSCX], a
+	ldh [hSCX], a
 	ld a, %11100100
 	call DmgToCgbBGPals
 	lb de, %11100100, %11100100
 	call DmgToCgbObjPals
 	ret
-; 4e9ab
 
-.subfunction2 ; 4e9ab
+.subfunction2
 	ld d, $90
 	ld e, $72
 	ld a, $48
@@ -33,11 +31,11 @@ BattleIntroSlidingPics: ; 4e980
 .loop1
 	push af
 .loop2
-	ld a, [rLY]
+	ldh a, [rLY]
 	cp $60
 	jr c, .loop2
 	ld a, d
-	ld [hSCX], a
+	ldh [hSCX], a
 	call .subfunction5
 	inc e
 	inc e
@@ -57,9 +55,8 @@ BattleIntroSlidingPics: ; 4e980
 	dec a
 	jr nz, .loop1
 	ret
-; 4e9d6
 
-.subfunction3 ; 4e9d6
+.subfunction3
 	ld hl, wVirtualOAMSprite00XCoord
 	ld c, $12 ; 18
 	ld de, SPRITEOAMSTRUCT_LENGTH
@@ -70,17 +67,15 @@ BattleIntroSlidingPics: ; 4e980
 	dec c
 	jr nz, .loop3
 	ret
-; 4e9e5
 
-.subfunction4 ; 4e9e5
+.subfunction4
 	ld hl, wLYOverrides
 	ld a, $90
 	ld bc, SCREEN_HEIGHT_PX
 	call ByteFill
 	ret
-; 4e9f1
 
-.subfunction5 ; 4e9f1
+.subfunction5
 	ld hl, wLYOverrides
 	ld a, d
 	ld c, $3e ; 62
@@ -101,4 +96,3 @@ BattleIntroSlidingPics: ; 4e980
 	dec c
 	jr nz, .loop6
 	ret
-; 4ea0a

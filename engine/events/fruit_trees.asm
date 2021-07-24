@@ -1,81 +1,75 @@
-FruitTreeScript:: ; 44000
+FruitTreeScript::
 	callasm GetCurTreeFruit
 	opentext
-	copybytetovar wCurFruit
-	itemtotext USE_SCRIPT_VAR, MEM_BUFFER_0
+	readmem wCurFruit
+	getitemname STRING_BUFFER_3, USE_SCRIPT_VAR
 	writetext FruitBearingTreeText
-	buttonsound
+	promptbutton
 	callasm TryResetFruitTrees
 	callasm CheckFruitTree
 	iffalse .fruit
 	writetext NothingHereText
 	waitbutton
-	jump .end
+	sjump .end
 
 .fruit
 	writetext HeyItsFruitText
-	copybytetovar wCurFruit
+	readmem wCurFruit
 	giveitem ITEM_FROM_MEM
 	iffalse .packisfull
-	buttonsound
+	promptbutton
 	writetext ObtainedFruitText
 	callasm PickedFruitTree
 	specialsound
 	itemnotify
-	jump .end
+	sjump .end
 
 .packisfull
-	buttonsound
+	promptbutton
 	writetext FruitPackIsFullText
 	waitbutton
 
 .end
 	closetext
 	end
-; 44041
 
-GetCurTreeFruit: ; 44041
+GetCurTreeFruit:
 	ld a, [wCurFruitTree]
 	dec a
 	call GetFruitTreeItem
 	ld [wCurFruit], a
 	ret
-; 4404c
 
-TryResetFruitTrees: ; 4404c
-	ld hl, wDailyFlags
-	bit 4, [hl]
+TryResetFruitTrees:
+	ld hl, wDailyFlags1
+	bit DAILYFLAGS1_ALL_FRUIT_TREES_F, [hl]
 	ret nz
 	jp ResetFruitTrees
-; 44055
 
-CheckFruitTree: ; 44055
+CheckFruitTree:
 	ld b, 2
 	call GetFruitTreeFlag
 	ld a, c
 	ld [wScriptVar], a
 	ret
-; 4405f
 
-PickedFruitTree: ; 4405f
+PickedFruitTree:
 	farcall StubbedTrainerRankings_FruitPicked
 	ld b, 1
 	jp GetFruitTreeFlag
-; 4406a
 
-ResetFruitTrees: ; 4406a
+ResetFruitTrees:
 	xor a
 	ld hl, wFruitTreeFlags
 	ld [hli], a
 	ld [hli], a
 	ld [hli], a
 	ld [hl], a
-	ld hl, wDailyFlags
-	set 4, [hl]
+	ld hl, wDailyFlags1
+	set DAILYFLAGS1_ALL_FRUIT_TREES_F, [hl]
 	ret
-; 44078
 
-GetFruitTreeFlag: ; 44078
+GetFruitTreeFlag:
 	push hl
 	push de
 	ld a, [wCurFruitTree]
@@ -87,9 +81,8 @@ GetFruitTreeFlag: ; 44078
 	pop de
 	pop hl
 	ret
-; 4408a
 
-GetFruitTreeItem: ; 4408a
+GetFruitTreeItem:
 	push hl
 	push de
 	ld e, a
@@ -100,33 +93,25 @@ GetFruitTreeItem: ; 4408a
 	pop de
 	pop hl
 	ret
-; 44097
-
 
 INCLUDE "data/items/fruit_trees.asm"
 
+FruitBearingTreeText:
+	text_far _FruitBearingTreeText
+	text_end
 
-FruitBearingTreeText: ; 440b5
-	text_jump _FruitBearingTreeText
-	db "@"
-; 440ba
+HeyItsFruitText:
+	text_far _HeyItsFruitText
+	text_end
 
-HeyItsFruitText: ; 440ba
-	text_jump _HeyItsFruitText
-	db "@"
-; 440bf
+ObtainedFruitText:
+	text_far _ObtainedFruitText
+	text_end
 
-ObtainedFruitText: ; 440bf
-	text_jump _ObtainedFruitText
-	db "@"
-; 440c4
+FruitPackIsFullText:
+	text_far _FruitPackIsFullText
+	text_end
 
-FruitPackIsFullText: ; 440c4
-	text_jump _FruitPackIsFullText
-	db "@"
-; 440c9
-
-NothingHereText: ; 440c9
-	text_jump _NothingHereText
-	db "@"
-; 440ce
+NothingHereText:
+	text_far _NothingHereText
+	text_end

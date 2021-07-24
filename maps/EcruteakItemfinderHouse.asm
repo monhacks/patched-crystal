@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const ECRUTEAKITEMFINDERHOUSE_COOLTRAINER_M
 	const ECRUTEAKITEMFINDERHOUSE_POKEDEX
 
 EcruteakItemfinderHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 EcruteakItemfinderGuy:
 	faceplayer
@@ -18,7 +16,7 @@ EcruteakItemfinderGuy:
 	yesorno
 	iffalse .no
 	writetext EcruteakItemfinderTrueSpiritText
-	buttonsound
+	promptbutton
 	verbosegiveitem ITEMFINDER
 	setevent EVENT_GOT_ITEMFINDER
 .itemfinder:
@@ -55,7 +53,7 @@ EcruteakHistoryBook:
 	end
 
 ItemFinderHouseRadio:
-	jumpstd radio2
+	jumpstd Radio2Script
 
 EcruteakItemfinderAdventureText:
 	text "Ah. You're on an"
@@ -163,22 +161,17 @@ EcruteakThreeMonText:
 	done
 
 EcruteakItemfinderHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 3, 7, 11, ECRUTEAK_CITY
-	warp_def 4, 7, 11, ECRUTEAK_CITY
+	def_warp_events
+	warp_event  3,  7, ECRUTEAK_CITY, 11
+	warp_event  4,  7, ECRUTEAK_CITY, 11
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 2, 1, BGEVENT_READ, ItemFinderHouseRadio
+	def_bg_events
+	bg_event  2,  1, BGEVENT_READ, ItemFinderHouseRadio
 
-.ObjectEvents:
-	db 2
-	object_event 2, 3, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakItemfinderGuy, -1
-	object_event 3, 3, SPRITE_POKEDEX, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakHistoryBook, -1
+	def_object_events
+	object_event  2,  3, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, EcruteakItemfinderGuy, -1
+	object_event  3,  3, SPRITE_POKEDEX, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakHistoryBook, -1

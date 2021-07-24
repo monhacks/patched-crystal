@@ -1,21 +1,19 @@
 RuinsOfAlphOmanyteChamber_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .CheckWall
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .CheckWall ; SCENE_DEFAULT
+	scene_script .DummyScene ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_TILES, .HiddenDoors
 
 .CheckWall:
-	special Special_OmanyteChamber
+	special OmanyteChamber
 	checkevent EVENT_WALL_OPENED_IN_OMANYTE_CHAMBER
 	iftrue .OpenWall
 	end
 
 .OpenWall:
-	priorityjump .WallOpenScript
+	prioritysjump .WallOpenScript
 	end
 
 .DummyScene:
@@ -28,12 +26,12 @@ RuinsOfAlphOmanyteChamber_MapScripts:
 .WallOpen:
 	checkevent EVENT_SOLVED_OMANYTE_PUZZLE
 	iffalse .FloorClosed
-	return
+	endcallback
 
 .FloorClosed:
 	changeblock 2, 2, $01 ; left floor
 	changeblock 4, 2, $02 ; right floor
-	return
+	endcallback
 
 .WallOpenScript:
 	pause 30
@@ -44,23 +42,23 @@ RuinsOfAlphOmanyteChamber_MapScripts:
 	changeblock 4, 0, $30 ; open wall
 	reloadmappart
 	earthquake 50
-	setscene 1
+	setscene SCENE_FINISHED
 	closetext
 	end
 
-MapRuinsOfAlphOmanyteChamberSignpost2Script:
+RuinsOfAlphOmanyteChamberPuzzle:
 	refreshscreen
-	writebyte UNOWNPUZZLE_OMANYTE
-	special Special_UnownPuzzle
+	setval UNOWNPUZZLE_OMANYTE
+	special UnownPuzzle
 	closetext
-	iftrue UnknownScript_0x58c36
+	iftrue .PuzzleComplete
 	end
 
-UnknownScript_0x58c36:
+.PuzzleComplete:
 	setevent EVENT_RUINS_OF_ALPH_INNER_CHAMBER_TOURISTS
 	setevent EVENT_SOLVED_OMANYTE_PUZZLE
-	setflag ENGINE_UNLOCKED_UNOWNS_2
-	setmapscene RUINS_OF_ALPH_INNER_CHAMBER, 1
+	setflag ENGINE_UNLOCKED_UNOWNS_L_TO_R
+	setmapscene RUINS_OF_ALPH_INNER_CHAMBER, SCENE_RUINSOFALPHINNERCHAMBER_STRANGE_PRESENCE
 	earthquake 30
 	showemote EMOTE_SHOCK, PLAYER, 15
 	changeblock 2, 2, $18 ; left hole
@@ -68,75 +66,74 @@ UnknownScript_0x58c36:
 	reloadmappart
 	playsound SFX_STRENGTH
 	earthquake 80
-	applymovement PLAYER, MovementData_0x58c8c
+	applymovement PLAYER, RuinsOfAlphOmanyteChamberSkyfallTopMovement
 	playsound SFX_KINESIS
 	waitsfx
 	pause 20
 	warpcheck
 	end
 
-MapRuinsOfAlphOmanyteChamberSignpost1Script:
-	jumptext UnknownText_0x58d01
+RuinsOfAlphOmanyteChamberAncientReplica:
+	jumptext RuinsOfAlphOmanyteChamberAncientReplicaText
 
-MapRuinsOfAlphOmanyteChamberSignpost3Script:
-	jumptext UnknownText_0x58d26
+RuinsOfAlphOmanyteChamberDescriptionSign:
+	jumptext RuinsOfAlphOmanyteChamberDescriptionText
 
-MapRuinsOfAlphOmanyteChamberSignpost4Script:
+RuinsOfAlphOmanyteChamberWallPatternLeft:
 	opentext
-	writetext UnknownText_0x58c8e
-	writebyte UNOWNWORDS_WATER
-	special Special_DisplayUnownWords
+	writetext RuinsOfAlphOmanyteChamberWallPatternLeftText
+	setval UNOWNWORDS_WATER
+	special DisplayUnownWords
 	closetext
 	end
 
-MapRuinsOfAlphOmanyteChamberSignpost5Script:
+RuinsOfAlphOmanyteChamberWallPatternRight:
 	checkevent EVENT_WALL_OPENED_IN_OMANYTE_CHAMBER
-	iftrue UnknownScript_0x58c85
+	iftrue .WallOpen
 	opentext
-	writetext UnknownText_0x58cc0
-	writebyte UNOWNWORDS_WATER
-	special Special_DisplayUnownWords
+	writetext RuinsOfAlphOmanyteChamberWallPatternRightText
+	setval UNOWNWORDS_WATER
+	special DisplayUnownWords
 	closetext
 	end
 
-UnknownScript_0x58c85:
+.WallOpen:
 	opentext
-	writetext UnknownText_0x58ce1
+	writetext RuinsOfAlphOmanyteChamberWallHoleText
 	waitbutton
 	closetext
 	end
 
-MovementData_0x58c8c:
+RuinsOfAlphOmanyteChamberSkyfallTopMovement:
 	skyfall_top
 	step_end
 
-UnknownText_0x58c8e:
+RuinsOfAlphOmanyteChamberWallPatternLeftText:
 	text "Patterns appeared"
 	line "on the walls…"
 	done
 
-; unused
-UnusedText_0x58caf:
+RuinsOfAlphOmanyteChamberUnownText: ; unreferenced
 	text "It's UNOWN text!"
 	done
 
-UnknownText_0x58cc0:
+RuinsOfAlphOmanyteChamberWallPatternRightText:
 	text "Patterns appeared"
 	line "on the walls…"
 	done
 
-UnknownText_0x58ce1:
+RuinsOfAlphOmanyteChamberWallHoleText:
 	text "There's a big hole"
 	line "in the wall!"
 	done
 
-UnknownText_0x58d01:
+RuinsOfAlphOmanyteChamberAncientReplicaText:
 	text "It's a replica of"
 	line "an ancient #-"
 	cont "MON."
 	done
 
-UnknownText_0x58d26:
+RuinsOfAlphOmanyteChamberDescriptionText:
 	text "This #MON"
 	line "drifted in the"
 
@@ -145,28 +142,23 @@ UnknownText_0x58d26:
 	done
 
 RuinsOfAlphOmanyteChamber_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 5
-	warp_def 3, 9, 3, RUINS_OF_ALPH_OUTSIDE
-	warp_def 4, 9, 3, RUINS_OF_ALPH_OUTSIDE
-	warp_def 3, 3, 6, RUINS_OF_ALPH_INNER_CHAMBER
-	warp_def 4, 3, 7, RUINS_OF_ALPH_INNER_CHAMBER
-	warp_def 4, 0, 1, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM
+	def_warp_events
+	warp_event  3,  9, RUINS_OF_ALPH_OUTSIDE, 3
+	warp_event  4,  9, RUINS_OF_ALPH_OUTSIDE, 3
+	warp_event  3,  3, RUINS_OF_ALPH_INNER_CHAMBER, 6
+	warp_event  4,  3, RUINS_OF_ALPH_INNER_CHAMBER, 7
+	warp_event  4,  0, RUINS_OF_ALPH_OMANYTE_ITEM_ROOM, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 6
-	bg_event 2, 3, BGEVENT_READ, MapRuinsOfAlphOmanyteChamberSignpost1Script
-	bg_event 5, 3, BGEVENT_READ, MapRuinsOfAlphOmanyteChamberSignpost1Script
-	bg_event 3, 2, BGEVENT_UP, MapRuinsOfAlphOmanyteChamberSignpost2Script
-	bg_event 4, 2, BGEVENT_UP, MapRuinsOfAlphOmanyteChamberSignpost3Script
-	bg_event 3, 0, BGEVENT_UP, MapRuinsOfAlphOmanyteChamberSignpost4Script
-	bg_event 4, 0, BGEVENT_UP, MapRuinsOfAlphOmanyteChamberSignpost5Script
+	def_bg_events
+	bg_event  2,  3, BGEVENT_READ, RuinsOfAlphOmanyteChamberAncientReplica
+	bg_event  5,  3, BGEVENT_READ, RuinsOfAlphOmanyteChamberAncientReplica
+	bg_event  3,  2, BGEVENT_UP, RuinsOfAlphOmanyteChamberPuzzle
+	bg_event  4,  2, BGEVENT_UP, RuinsOfAlphOmanyteChamberDescriptionSign
+	bg_event  3,  0, BGEVENT_UP, RuinsOfAlphOmanyteChamberWallPatternLeft
+	bg_event  4,  0, BGEVENT_UP, RuinsOfAlphOmanyteChamberWallPatternRight
 
-.ObjectEvents:
-	db 0
+	def_object_events

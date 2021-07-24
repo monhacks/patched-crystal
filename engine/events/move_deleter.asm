@@ -1,9 +1,9 @@
-Special_MoveDeletion:
-	ld hl, .IntroText
+MoveDeletion:
+	ld hl, .DeleterIntroText
 	call PrintText
 	call YesNoBox
 	jr c, .declined
-	ld hl, .AskWhichMonText
+	ld hl, .DeleterAskWhichMonText
 	call PrintText
 	farcall SelectMonFromParty
 	jr c, .declined
@@ -17,9 +17,9 @@ Special_MoveDeletion:
 	ld a, [hl]
 	and a
 	jr z, .onlyonemove
-	ld hl, .AskWhichMoveText
+	ld hl, .DeleterAskWhichMoveText
 	call PrintText
-	call LoadStandardMenuDataHeader
+	call LoadStandardMenuHeader
 	farcall ChooseMoveToDelete
 	push af
 	call ReturnToMapWithSpeechTextbox
@@ -28,9 +28,9 @@ Special_MoveDeletion:
 	ld a, [wMenuCursorY]
 	push af
 	ld a, [wCurSpecies]
-	ld [wd265], a
+	ld [wNamedObjectIndex], a
 	call GetMoveName
-	ld hl, .ConfirmDeleteText
+	ld hl, .AskDeleteMoveText
 	call PrintText
 	call YesNoBox
 	pop bc
@@ -40,74 +40,58 @@ Special_MoveDeletion:
 	ld de, SFX_MOVE_DELETED
 	call PlaySFX
 	call WaitSFX
-	ld hl, .MoveDeletedText
+	ld hl, .DeleterForgotMoveText
 	call PrintText
 	ret
 
 .egg
-	ld hl, .EggText
+	ld hl, .MailEggText
 	call PrintText
 	ret
 
 .declined
-	ld hl, .DeclinedDeletionText
+	ld hl, .DeleterNoComeAgainText
 	call PrintText
 	ret
 
 .onlyonemove
-	ld hl, .OnlyOneMoveText
+	ld hl, .MoveKnowsOneText
 	call PrintText
 	ret
 
-.OnlyOneMoveText: ; 0x2c5d1
-	; That #MON knows only one move.
-	text_jump UnknownText_0x1c5eba
-	db "@"
-; 0x2c5d6
+.MoveKnowsOneText:
+	text_far _MoveKnowsOneText
+	text_end
 
-.ConfirmDeleteText: ; 0x2c5d6
-	; Oh, make it forget @ ?
-	text_jump UnknownText_0x1c5eda
-	db "@"
-; 0x2c5db
+.AskDeleteMoveText:
+	text_far _AskDeleteMoveText
+	text_end
 
-.MoveDeletedText: ; 0x2c5db
-	; Done! Your #MON forgot the move.
-	text_jump UnknownText_0x1c5ef5
-	db "@"
-; 0x2c5e0
+.DeleterForgotMoveText:
+	text_far _DeleterForgotMoveText
+	text_end
 
-.EggText: ; 0x2c5e0
-	; An EGG doesn't know any moves!
-	text_jump UnknownText_0x1c5f17
-	db "@"
-; 0x2c5e5
+.MailEggText:
+	text_far _DeleterEggText
+	text_end
 
-.DeclinedDeletionText: ; 0x2c5e5
-	; No? Come visit me again.
-	text_jump UnknownText_0x1c5f36
-	db "@"
-; 0x2c5ea
+.DeleterNoComeAgainText:
+	text_far _DeleterNoComeAgainText
+	text_end
 
-.AskWhichMoveText: ; 0x2c5ea
-	; Which move should it forget, then?
-	text_jump UnknownText_0x1c5f50
-	db "@"
-; 0x2c5ef
+.DeleterAskWhichMoveText:
+	text_far _DeleterAskWhichMoveText
+	text_end
 
-.IntroText: ; 0x2c5ef
-	; Um… Oh, yes, I'm the MOVE DELETER. I can make #MON forget moves. Shall I make a #MON forget?
-	text_jump UnknownText_0x1c5f74
-	db "@"
-; 0x2c5f4
+.DeleterIntroText:
+	text_far _DeleterIntroText
+	text_end
 
-.AskWhichMonText: ; 0x2c5f4
-	; Which #MON?
-	text_jump UnknownText_0x1c5fd1
-	db "@"
-; 0x2c5f9
+.DeleterAskWhichMonText:
+	text_far _DeleterAskWhichMonText
+	text_end
 
-.DeleteMove: ; 2c5f9
+.DeleteMove:
 	ld a, b
 	push bc
 	dec a

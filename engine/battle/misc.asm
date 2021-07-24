@@ -1,7 +1,7 @@
-_DisappearUser: ; fbd54
+_DisappearUser:
 	xor a
-	ld [hBGMapMode], a
-	ld a, [hBattleTurn]
+	ldh [hBGMapMode], a
+	ldh a, [hBattleTurn]
 	and a
 	jr z, .player
 	call GetEnemyFrontpicCoords
@@ -12,17 +12,17 @@ _DisappearUser: ; fbd54
 	call ClearBox
 	jr FinishAppearDisappearUser
 
-_AppearUserRaiseSub: ; fbd69 (3e:7d69)
+_AppearUserRaiseSub:
 	farcall BattleCommand_RaiseSubNoAnim
 	jr AppearUser
 
-_AppearUserLowerSub: ; fbd71 (3e:7d71)
+_AppearUserLowerSub:
 	farcall BattleCommand_LowerSubNoAnim
 
-AppearUser: ; fbd77 (3e:7d77)
+AppearUser:
 	xor a
-	ld [hBGMapMode], a
-	ld a, [hBattleTurn]
+	ldh [hBGMapMode], a
+	ldh a, [hBattleTurn]
 	and a
 	jr z, .player
 	call GetEnemyFrontpicCoords
@@ -32,36 +32,34 @@ AppearUser: ; fbd77 (3e:7d77)
 	call GetPlayerBackpicCoords
 	ld a, $31
 .okay
-	ld [hGraphicStartTile], a
+	ldh [hGraphicStartTile], a
 	predef PlaceGraphic
-FinishAppearDisappearUser: ; fbd91 (3e:7d91)
+FinishAppearDisappearUser:
 	ld a, $1
-	ld [hBGMapMode], a
+	ldh [hBGMapMode], a
 	ret
 
-GetEnemyFrontpicCoords: ; fbd96 (3e:7d96)
+GetEnemyFrontpicCoords:
 	hlcoord 12, 0
 	lb bc, 7, 7
 	ret
 
-GetPlayerBackpicCoords: ; fbd9d (3e:7d9d)
+GetPlayerBackpicCoords:
 	hlcoord 2, 6
 	lb bc, 6, 6
 	ret
 
-
-DoWeatherModifiers: ; fbda4
-
-	ld de, .WeatherTypeModifiers
+DoWeatherModifiers:
+	ld de, WeatherTypeModifiers
 	ld a, [wBattleWeather]
 	ld b, a
-	ld a, [wd265] ; move type
+	ld a, [wCurType]
 	ld c, a
 
 .CheckWeatherType:
 	ld a, [de]
 	inc de
-	cp $ff
+	cp -1
 	jr z, .done_weather_types
 
 	cp b
@@ -76,9 +74,8 @@ DoWeatherModifiers: ; fbda4
 	inc de
 	jr .CheckWeatherType
 
-
 .done_weather_types
-	ld de, .WeatherMoveModifiers
+	ld de, WeatherMoveModifiers
 
 	ld a, BATTLE_VARS_MOVE_EFFECT
 	call GetBattleVar
@@ -87,7 +84,7 @@ DoWeatherModifiers: ; fbda4
 .CheckWeatherMove:
 	ld a, [de]
 	inc de
-	cp $ff
+	cp -1
 	jr z, .done
 
 	cp b
@@ -104,32 +101,32 @@ DoWeatherModifiers: ; fbda4
 
 .ApplyModifier:
 	xor a
-	ld [hMultiplicand + 0], a
+	ldh [hMultiplicand + 0], a
 	ld hl, wCurDamage
 	ld a, [hli]
-	ld [hMultiplicand + 1], a
+	ldh [hMultiplicand + 1], a
 	ld a, [hl]
-	ld [hMultiplicand + 2], a
+	ldh [hMultiplicand + 2], a
 
 	inc de
 	ld a, [de]
-	ld [hMultiplier], a
+	ldh [hMultiplier], a
 
 	call Multiply
 
 	ld a, 10
-	ld [hDivisor], a
-	ld b, $4
+	ldh [hDivisor], a
+	ld b, 4
 	call Divide
 
-	ld a, [hQuotient + 0]
+	ldh a, [hQuotient + 1]
 	and a
 	ld bc, -1
 	jr nz, .Update
 
-	ld a, [hQuotient + 1]
+	ldh a, [hQuotient + 2]
 	ld b, a
-	ld a, [hQuotient + 2]
+	ldh a, [hQuotient + 3]
 	ld c, a
 	or b
 	jr nz, .Update
@@ -145,20 +142,9 @@ DoWeatherModifiers: ; fbda4
 .done
 	ret
 
-.WeatherTypeModifiers:
-	db WEATHER_RAIN, WATER, MORE_EFFECTIVE
-	db WEATHER_RAIN, FIRE,  NOT_VERY_EFFECTIVE
-	db WEATHER_SUN,  FIRE,  MORE_EFFECTIVE
-	db WEATHER_SUN,  WATER, NOT_VERY_EFFECTIVE
-	db -1 ; end
+INCLUDE "data/battle/weather_modifiers.asm"
 
-.WeatherMoveModifiers:
-	db WEATHER_RAIN, EFFECT_SOLARBEAM, NOT_VERY_EFFECTIVE
-	db -1 ; end
-; fbe24
-
-
-DoBadgeTypeBoosts: ; fbe24
+DoBadgeTypeBoosts:
 	ld a, [wLinkMode]
 	and a
 	ret nz
@@ -167,14 +153,14 @@ DoBadgeTypeBoosts: ; fbe24
 	and a
 	ret nz
 
-	ld a, [hBattleTurn]
+	ldh a, [hBattleTurn]
 	and a
 	ret nz
 
 	push de
 	push bc
 
-	ld hl, .BadgeTypes
+	ld hl, BadgeTypeBoosts
 
 	ld a, [wKantoBadges]
 	ld b, a
@@ -190,7 +176,7 @@ DoBadgeTypeBoosts: ; fbe24
 	rr c
 	jr nc, .NextBadge
 
-	ld a, [wd265] ; move type
+	ld a, [wCurType]
 	cp [hl]
 	jr z, .ApplyBoost
 
@@ -235,25 +221,4 @@ DoBadgeTypeBoosts: ; fbe24
 	pop de
 	ret
 
-.BadgeTypes:
-; entries correspond to wJohtoBadges constants
-	db FLYING   ; ZEPHYRBADGE
-	db BUG      ; HIVEBADGE
-	db NORMAL   ; PLAINBADGE
-	db GHOST    ; FOGBADGE
-	db STEEL    ; MINERALBADGE
-	db FIGHTING ; STORMBADGE
-	db ICE      ; GLACIERBADGE
-	db DRAGON   ; RISINGBADGE
-	; fallthrough
-; entries correspond to wKantoBadges constants
-	db ROCK     ; BOULDERBADGE
-	db WATER    ; CASCADEBADGE
-	db ELECTRIC ; THUNDERBADGE
-	db GRASS    ; RAINBOWBADGE
-	db POISON   ; SOULBADGE
-	db PSYCHIC  ; MARSHBADGE
-	db FIRE     ; VOLCANOBADGE
-	db GROUND   ; EARTHBADGE
-	db -1 ; end
-; fbe91
+INCLUDE "data/types/badge_type_boosts.asm"

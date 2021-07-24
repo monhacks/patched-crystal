@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const OLIVINEGOODRODHOUSE_FISHING_GURU
 
 OlivineGoodRodHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 GoodRodGuru:
 	faceplayer
@@ -17,7 +15,7 @@ GoodRodGuru:
 	yesorno
 	iffalse .DontWantIt
 	writetext GiveGoodRodText
-	buttonsound
+	promptbutton
 	verbosegiveitem GOOD_ROD
 	writetext GaveGoodRodText
 	waitbutton
@@ -37,9 +35,8 @@ GoodRodGuru:
 	closetext
 	end
 
-GoodRodHouseBookshelf:
-; unused
-	jumpstd picturebookshelf
+GoodRodHouseBookshelf: ; unreferenced
+	jumpstd PictureBookshelfScript
 
 OfferGoodRodText:
 	text "OLIVINE is on the"
@@ -83,20 +80,15 @@ HaveGoodRodText:
 	done
 
 OlivineGoodRodHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 6, OLIVINE_CITY
-	warp_def 3, 7, 6, OLIVINE_CITY
+	def_warp_events
+	warp_event  2,  7, OLIVINE_CITY, 6
+	warp_event  3,  7, OLIVINE_CITY, 6
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoodRodGuru, -1
+	def_object_events
+	object_event  2,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoodRodGuru, -1

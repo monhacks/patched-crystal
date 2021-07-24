@@ -1,5 +1,6 @@
-MoveDescriptions:: ; 2cb52
+MoveDescriptions::
 ; entries correspond to move ids (see constants/move_constants.asm)
+	table_width 2, MoveDescriptions
 	dw PoundDescription
 	dw KarateChopDescription
 	dw DoubleslapDescription
@@ -251,12 +252,13 @@ MoveDescriptions:: ; 2cb52
 	dw RockSmashDescription
 	dw WhirlpoolDescription
 	dw BeatUpDescription
+	assert_table_length NUM_ATTACKS
 	dw MoveFCDescription
 	dw MoveFDDescription
 	dw MoveFEDescription
 	dw MoveFFDescription
 	dw Move00Description
-; 2cd52
+	assert_table_length $100
 
 MoveFCDescription:
 MoveFDDescription:
@@ -836,6 +838,7 @@ LovelyKissDescription:
 SkyAttackDescription:
 	db   "1st turn: Prepare"
 	next "2nd turn: Attack@"
+
 TransformDescription:
 	db   "The user assumes"
 	next "the foe's guise.@"
@@ -1267,4 +1270,3 @@ WhirlpoolDescription:
 BeatUpDescription:
 	db   "Party #MON join"
 	next "in the attack.@"
-; 2ed44

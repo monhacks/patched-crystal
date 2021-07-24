@@ -1,33 +1,31 @@
-const_value set 2
+	object_const_def
 	const CIANWOODPHOTOSTUDIO_FISHING_GURU
 
 CianwoodPhotoStudio_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-FishingGuruScript_0x9e0e0:
+CianwoodPhotoStudioFishingGuruScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x9e0f9
+	writetext CianwoodPhotoStudioFishingGuruText_Question
 	yesorno
-	iffalse UnknownScript_0x9e0f3
-	writetext UnknownText_0x9e142
+	iffalse .Refused
+	writetext CianwoodPhotoStudioFishingGuruText_Yes
 	waitbutton
-	special Special_PhotoStudio
-	waitbutton
-	closetext
-	end
-
-UnknownScript_0x9e0f3:
-	writetext UnknownText_0x9e156
+	special PhotoStudio
 	waitbutton
 	closetext
 	end
 
-UnknownText_0x9e0f9:
+.Refused:
+	writetext CianwoodPhotoStudioFishingGuruText_No
+	waitbutton
+	closetext
+	end
+
+CianwoodPhotoStudioFishingGuruText_Question:
 	text "You have magnifi-"
 	line "cent #MON with"
 	cont "you."
@@ -36,11 +34,11 @@ UnknownText_0x9e0f9:
 	line "for a souvenir?"
 	done
 
-UnknownText_0x9e142:
+CianwoodPhotoStudioFishingGuruText_Yes:
 	text "OK! Big smile now!"
 	done
 
-UnknownText_0x9e156:
+CianwoodPhotoStudioFishingGuruText_No:
 	text "Oh, that's too"
 	line "bad. I thought it"
 
@@ -49,20 +47,15 @@ UnknownText_0x9e156:
 	done
 
 CianwoodPhotoStudio_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 5, CIANWOOD_CITY
-	warp_def 3, 7, 5, CIANWOOD_CITY
+	def_warp_events
+	warp_event  2,  7, CIANWOOD_CITY, 5
+	warp_event  3,  7, CIANWOOD_CITY, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, FishingGuruScript_0x9e0e0, -1
+	def_object_events
+	object_event  2,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CianwoodPhotoStudioFishingGuruScript, -1

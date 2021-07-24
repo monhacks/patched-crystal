@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const ROUTE40_OLIVINE_RIVAL1
 	const ROUTE40_OLIVINE_RIVAL2
 	const ROUTE40_SWIMMER_GIRL1
@@ -13,29 +13,27 @@ const_value set 2
 	const ROUTE40_STANDING_YOUNGSTER
 
 Route40_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .MonicaCallback
 
 .MonicaCallback:
 	clearevent EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	checkcode VAR_WEEKDAY
-	if_equal MONDAY, .MonicaAppears
+	readvar VAR_WEEKDAY
+	ifequal MONDAY, .MonicaAppears
 	disappear ROUTE40_MONICA
-	return
+	endcallback
 
 .MonicaAppears:
 	appear ROUTE40_MONICA
-	return
+	endcallback
 
 TrainerSwimmerfElaine:
-	trainer EVENT_BEAT_SWIMMERF_ELAINE, SWIMMERF, ELAINE, SwimmerfElaineSeenText, SwimmerfElaineBeatenText, 0, .Script
+	trainer SWIMMERF, ELAINE, EVENT_BEAT_SWIMMERF_ELAINE, SwimmerfElaineSeenText, SwimmerfElaineBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmerfElaineAfterBattleText
 	waitbutton
@@ -43,10 +41,10 @@ TrainerSwimmerfElaine:
 	end
 
 TrainerSwimmerfPaula:
-	trainer EVENT_BEAT_SWIMMERF_PAULA, SWIMMERF, PAULA, SwimmerfPaulaSeenText, SwimmerfPaulaBeatenText, 0, .Script
+	trainer SWIMMERF, PAULA, EVENT_BEAT_SWIMMERF_PAULA, SwimmerfPaulaSeenText, SwimmerfPaulaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmerfPaulaAfterBattleText
 	waitbutton
@@ -54,10 +52,10 @@ TrainerSwimmerfPaula:
 	end
 
 TrainerSwimmermSimon:
-	trainer EVENT_BEAT_SWIMMERM_SIMON, SWIMMERM, SIMON, SwimmermSimonSeenText, SwimmermSimonBeatenText, 0, .Script
+	trainer SWIMMERM, SIMON, EVENT_BEAT_SWIMMERM_SIMON, SwimmermSimonSeenText, SwimmermSimonBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmermSimonAfterBattleText
 	waitbutton
@@ -65,10 +63,10 @@ TrainerSwimmermSimon:
 	end
 
 TrainerSwimmermRandall:
-	trainer EVENT_BEAT_SWIMMERM_RANDALL, SWIMMERM, RANDALL, SwimmermRandallSeenText, SwimmermRandallBeatenText, 0, .Script
+	trainer SWIMMERM, RANDALL, EVENT_BEAT_SWIMMERM_RANDALL, SwimmermRandallSeenText, SwimmermRandallBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmermRandallAfterBattleText
 	waitbutton
@@ -78,13 +76,13 @@ TrainerSwimmermRandall:
 Route40Lass1Script:
 	jumptextfaceplayer Route40Lass1Text
 
-PokefanMScript_0x1a61c7:
-	special Special_Mobile_DummyReturnFalse
+Route40PokefanMScript:
+	special Mobile_DummyReturnFalse
 	iftrue .mobile
-	jumptextfaceplayer UnknownText_0x1a646a
+	jumptextfaceplayer Route40PokefanMText
 
 .mobile
-	jumptextfaceplayer UnknownText_0x1a649b
+	jumptextfaceplayer Route40PokefanMText_Mobile
 
 Route40Lass2Script:
 	jumptextfaceplayer Route40Lass2Text
@@ -97,16 +95,16 @@ MonicaScript:
 	opentext
 	checkevent EVENT_GOT_SHARP_BEAK_FROM_MONICA
 	iftrue .Monday
-	checkcode VAR_WEEKDAY
-	if_not_equal MONDAY, .NotMonday
+	readvar VAR_WEEKDAY
+	ifnotequal MONDAY, .NotMonday
 	checkevent EVENT_MET_MONICA_OF_MONDAY
 	iftrue .MetMonica
 	writetext MeetMonicaText
-	buttonsound
+	promptbutton
 	setevent EVENT_MET_MONICA_OF_MONDAY
 .MetMonica:
 	writetext MonicaGivesGiftText
-	buttonsound
+	promptbutton
 	verbosegiveitem SHARP_BEAK
 	iffalse .done
 	setevent EVENT_GOT_SHARP_BEAK_FROM_MONICA
@@ -132,12 +130,12 @@ Route40Sign:
 	jumptext Route40SignText
 
 Route40Rock:
-	jumpstd smashrock
+	jumpstd SmashRockScript
 
 Route40HiddenHyperPotion:
-	hiddenitem EVENT_ROUTE_40_HIDDEN_HYPER_POTION, HYPER_POTION
+	hiddenitem HYPER_POTION, EVENT_ROUTE_40_HIDDEN_HYPER_POTION
 
-MovementData_0x1a621c:
+Route40_StepRightUp6Movement: ; unreferenced
 	step RIGHT
 	step UP
 	step UP
@@ -147,7 +145,7 @@ MovementData_0x1a621c:
 	step UP
 	step_end
 
-MovementData_0x1a6224:
+Route40_StepUp5Movement: ; unreferenced
 	step UP
 	step UP
 	step UP
@@ -155,7 +153,7 @@ MovementData_0x1a6224:
 	step UP
 	step_end
 
-MovementData_0x1a622a:
+Route40_StepUp4Movement: ; unreferenced
 	step UP
 	step UP
 	step UP
@@ -243,14 +241,14 @@ Route40Lass1Text:
 	line "the sea."
 	done
 
-UnknownText_0x1a646a:
+Route40PokefanMText:
 	text "Hm! There's a big"
 	line "building up ahead!"
 
 	para "What is it?"
 	done
 
-UnknownText_0x1a649b:
+Route40PokefanMText_Mobile:
 	text "Hm! Look at all"
 	line "those serious-"
 	cont "looking trainers"
@@ -338,32 +336,27 @@ Route40SignText:
 	done
 
 Route40_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 9, 5, 1, ROUTE_40_BATTLE_TOWER_GATE
+	def_warp_events
+	warp_event  9,  5, ROUTE_40_BATTLE_TOWER_GATE, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
+	def_bg_events
 	bg_event 14, 10, BGEVENT_READ, Route40Sign
-	bg_event 7, 8, BGEVENT_ITEM, Route40HiddenHyperPotion
+	bg_event  7,  8, BGEVENT_ITEM, Route40HiddenHyperPotion
 
-.ObjectEvents:
-	db 12
+	def_object_events
 	object_event 14, 15, SPRITE_OLIVINE_RIVAL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 4, TrainerSwimmermSimon, -1
 	object_event 18, 30, SPRITE_OLIVINE_RIVAL, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 5, TrainerSwimmermRandall, -1
-	object_event 3, 19, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerSwimmerfElaine, -1
+	object_event  3, 19, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 4, TrainerSwimmerfElaine, -1
 	object_event 10, 25, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerSwimmerfPaula, -1
-	object_event 7, 11, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
-	object_event 6, 9, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
-	object_event 7, 8, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
+	object_event  7, 11, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
+	object_event  6,  9, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
+	object_event  7,  8, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Rock, -1
 	object_event 11, 13, SPRITE_LASS, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40Lass1Script, -1
-	object_event 8, 10, SPRITE_BUENA, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MonicaScript, EVENT_ROUTE_40_MONICA_OF_MONDAY
-	object_event 7, 6, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, PokefanMScript_0x1a61c7, -1
-	object_event 13, 4, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route40Lass2Script, -1
-	object_event 16, 9, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route40StandingYoungsterScript, EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
+	object_event  8, 10, SPRITE_BEAUTY, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MonicaScript, EVENT_ROUTE_40_MONICA_OF_MONDAY
+	object_event  7,  6, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route40PokefanMScript, -1
+	object_event 13,  4, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route40Lass2Script, -1
+	object_event 16,  9, SPRITE_STANDING_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route40StandingYoungsterScript, EVENT_BATTLE_TOWER_OUTSIDE_SAILOR

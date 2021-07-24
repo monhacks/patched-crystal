@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const CERULEANGYMBADGESPEECHHOUSE_POKEFAN_M
 
 CeruleanGymBadgeSpeechHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 CeruleanGymBadgeSpeechHousePokefanMScript:
 	jumptextfaceplayer CeruleanGymBadgeSpeechHousePokefanMText
@@ -17,20 +15,15 @@ CeruleanGymBadgeSpeechHousePokefanMText:
 	done
 
 CeruleanGymBadgeSpeechHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 1, CERULEAN_CITY
-	warp_def 3, 7, 1, CERULEAN_CITY
+	def_warp_events
+	warp_event  2,  7, CERULEAN_CITY, 1
+	warp_event  3,  7, CERULEAN_CITY, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 2, 3, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeruleanGymBadgeSpeechHousePokefanMScript, -1
+	def_object_events
+	object_event  2,  3, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeruleanGymBadgeSpeechHousePokefanMScript, -1

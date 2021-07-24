@@ -1,15 +1,4 @@
-AddNTimes:: ; 0x30fe
-; Add bc * a to hl.
-	and a
-	ret z
-.loop
-	add hl, bc
-	dec a
-	jr nz, .loop
-	ret
-; 0x3105
-
-SimpleMultiply:: ; 3105
+SimpleMultiply::
 ; Return a * c.
 	and a
 	ret z
@@ -23,10 +12,8 @@ SimpleMultiply:: ; 3105
 	jr nz, .loop
 	pop bc
 	ret
-; 3110
 
-
-SimpleDivide:: ; 3110
+SimpleDivide::
 ; Divide a by c. Return quotient b and remainder a.
 	ld b, 0
 .loop
@@ -36,10 +23,8 @@ SimpleDivide:: ; 3110
 	dec b
 	add c
 	ret
-; 3119
 
-
-Multiply:: ; 3119
+Multiply::
 ; Multiply hMultiplicand (3 bytes) by hMultiplier. Result in hProduct.
 ; All values are big endian.
 	push hl
@@ -50,10 +35,8 @@ Multiply:: ; 3119
 	pop bc
 	pop hl
 	ret
-; 3124
 
-
-Divide:: ; 3124
+Divide::
 ; Divide hDividend length b (max 4 bytes) by hDivisor. Result in hQuotient.
 ; All values are big endian.
 	push hl
@@ -64,15 +47,12 @@ Divide:: ; 3124
 	pop de
 	pop hl
 	ret
-; 3136
 
-
-SubtractSigned:: ; 3136
-; Return a - b, sign in carry.
+SubtractAbsolute:: ; unreferenced
+; Return |a - b|, sign in carry.
 	sub b
 	ret nc
 	cpl
 	add 1
 	scf
 	ret
-; 313d

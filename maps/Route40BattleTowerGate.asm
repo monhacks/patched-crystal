@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const ROUTE40BATTLETOWERGATE_ROCKER
 	const ROUTE40BATTLETOWERGATE_TWIN
 
 Route40BattleTowerGate_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 1
+	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .ShowSailor
 
 .ShowSailor:
 	clearevent EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	return
+	endcallback
 
 Route40BattleTowerGateRockerScript:
 	jumptextfaceplayer Route40BattleTowerGateRockerText
@@ -20,7 +18,7 @@ Route40BattleTowerGateRockerScript:
 Route40BattleTowerGateTwinScript:
 	jumptextfaceplayer Route40BattleTowerGateTwinText
 
-UnknownText_0x9f66f:
+Route40BattleTowerGateUnusedText1: ; unreferenced
 	text "Did you come to"
 	line "see the BATTLE"
 	cont "TOWER too?"
@@ -29,7 +27,7 @@ UnknownText_0x9f66f:
 	line "can't go in yet."
 	done
 
-UnknownText_0x9f6ba:
+Route40BattleTowerGateUnusedText2: ; unreferenced
 	text "BATTLE TOWER has"
 	line "opened."
 
@@ -51,7 +49,7 @@ Route40BattleTowerGateRockerText:
 	line "win special gifts."
 	done
 
-UnknownText_0x9f783:
+Route40BattleTowerGateUnusedText3: ; unreferenced
 	text "I'm going to train"
 	line "my #MON so I'll"
 
@@ -71,23 +69,18 @@ Route40BattleTowerGateTwinText:
 	done
 
 Route40BattleTowerGate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 7, 1, ROUTE_40
-	warp_def 5, 7, 1, ROUTE_40
-	warp_def 4, 0, 1, BATTLE_TOWER_OUTSIDE
-	warp_def 5, 0, 2, BATTLE_TOWER_OUTSIDE
+	def_warp_events
+	warp_event  4,  7, ROUTE_40, 1
+	warp_event  5,  7, ROUTE_40, 1
+	warp_event  4,  0, BATTLE_TOWER_OUTSIDE, 1
+	warp_event  5,  0, BATTLE_TOWER_OUTSIDE, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 3, 3, SPRITE_ROCKER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route40BattleTowerGateRockerScript, EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	object_event 7, 5, SPRITE_TWIN, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route40BattleTowerGateTwinScript, -1
+	def_object_events
+	object_event  3,  3, SPRITE_ROCKER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, Route40BattleTowerGateRockerScript, EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
+	object_event  7,  5, SPRITE_TWIN, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Route40BattleTowerGateTwinScript, -1

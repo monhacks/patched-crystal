@@ -1,12 +1,10 @@
-const_value set 2
+	object_const_def
 	const ROUTE5SAFFRONGATE_OFFICER
 
 Route5SaffronGate_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Route5SaffronGateOfficerScript:
 	jumptextfaceplayer Route5SaffronGateOfficerText
@@ -21,22 +19,17 @@ Route5SaffronGateOfficerText:
 	done
 
 Route5SaffronGate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 0, 2, ROUTE_5
-	warp_def 5, 0, 3, ROUTE_5
-	warp_def 4, 7, 9, SAFFRON_CITY
-	warp_def 5, 7, 9, SAFFRON_CITY
+	def_warp_events
+	warp_event  4,  0, ROUTE_5, 2
+	warp_event  5,  0, ROUTE_5, 3
+	warp_event  4,  7, SAFFRON_CITY, 9
+	warp_event  5,  7, SAFFRON_CITY, 9
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 0, 4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route5SaffronGateOfficerScript, -1
+	def_object_events
+	object_event  0,  4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route5SaffronGateOfficerScript, -1

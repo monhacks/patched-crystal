@@ -1,4 +1,4 @@
-ShowLinkBattleParticipants: ; 2ee18
+ShowLinkBattleParticipants:
 ; If we're not in a communications room,
 ; we don't need to be here.
 	ld a, [wLinkMode]
@@ -8,45 +8,45 @@ ShowLinkBattleParticipants: ; 2ee18
 	farcall _ShowLinkBattleParticipants
 	ld c, 150
 	call DelayFrames
-	call ClearTileMap
+	call ClearTilemap
 	call ClearSprites
 	ret
 
-FindFirstAliveMonAndStartBattle: ; 2ee2f
+FindFirstAliveMonAndStartBattle:
 	xor a
-	ld [hMapAnims], a
+	ldh [hMapAnims], a
 	call DelayFrame
-	ld b, 6
-	ld hl, wPartyMon1HP
-	ld de, PARTYMON_STRUCT_LENGTH - 1
+	;ld b, PARTY_LENGTH
+	;ld hl, wPartyMon1HP
+	;ld de, PARTYMON_STRUCT_LENGTH - 1
 
-.loop
-	ld a, [hli]
-	or [hl]
-	jr nz, .okay
-	add hl, de
-	dec b
-	jr nz, .loop
+;.loop
+	;ld a, [hli]
+	;or [hl]
+	;jr nz, .okay
+	;add hl, de
+	;dec b
+	;jr nz, .loop
 
-.okay
-	ld de, MON_LEVEL - MON_HP
-	add hl, de
-	ld a, [hl]
-	ld [wBattleMonLevel], a
+;.okay
+	;ld de, MON_LEVEL - MON_HP
+	;add hl, de
+	;ld a, [hl]
+	;ld [wBattleMonLevel], a
 	predef DoBattleTransition
 	farcall _LoadBattleFontsHPBar
 	ld a, 1
-	ld [hBGMapMode], a
+	ldh [hBGMapMode], a
 	call ClearSprites
-	call ClearTileMap
+	call ClearTilemap
 	xor a
-	ld [hBGMapMode], a
-	ld [hWY], a
-	ld [rWY], a
-	ld [hMapAnims], a
+	ldh [hBGMapMode], a
+	ldh [hWY], a
+	ldh [rWY], a
+	ldh [hMapAnims], a
 	ret
 
-PlayBattleMusic: ; 2ee6c
+PlayBattleMusic:
 	push hl
 	push de
 	push bc
@@ -154,7 +154,7 @@ PlayBattleMusic: ; 2ee6c
 	pop hl
 	ret
 
-ClearBattleRAM: ; 2ef18
+ClearBattleRAM:
 	xor a
 	ld [wBattlePlayerAction], a
 	ld [wBattleResult], a

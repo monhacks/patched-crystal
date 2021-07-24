@@ -1,4 +1,4 @@
-AI_SwitchOrTryItem: ; 38000
+AI_SwitchOrTryItem:
 	and a
 
 	ld a, [wBattleMode]
@@ -20,8 +20,9 @@ AI_SwitchOrTryItem: ; 38000
 	and a
 	jr nz, DontSwitch
 
+	; always load the first trainer class in wTrainerClass for Battle Tower trainers
 	ld hl, TrainerClassAttributes + TRNATTR_AI_ITEM_SWITCH
-	ld a, [wInBattleTowerBattle] ; always load the first trainer class in wTrainerClass for BattleTower-Trainers
+	ld a, [wInBattleTowerBattle]
 	and a
 	jr nz, .ok
 
@@ -29,6 +30,7 @@ AI_SwitchOrTryItem: ; 38000
 	dec a
 	ld bc, NUM_TRAINER_ATTRIBUTES
 	call AddNTimes
+
 .ok
 	bit SWITCH_OFTEN_F, [hl]
 	jp nz, SwitchOften
@@ -38,12 +40,11 @@ AI_SwitchOrTryItem: ; 38000
 	jp nz, SwitchSometimes
 	; fallthrough
 
-DontSwitch: ; 38041
+DontSwitch:
 	call AI_TryItem
 	ret
-; 38045
 
-SwitchOften: ; 38045
+SwitchOften:
 	callfar CheckAbleToSwitch
 	ld a, [wEnemySwitchMonParam]
 	and $f0
@@ -52,7 +53,7 @@ SwitchOften: ; 38045
 	cp $10
 	jr nz, .not_10
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jr c, .switch
 	jp DontSwitch
 .not_10
@@ -60,7 +61,7 @@ SwitchOften: ; 38045
 	cp $20
 	jr nz, .not_20
 	call Random
-	cp -1 + 79 percent
+	cp 79 percent - 1
 	jr c, .switch
 	jp DontSwitch
 .not_20
@@ -74,12 +75,11 @@ SwitchOften: ; 38045
 	ld a, [wEnemySwitchMonParam]
 	and $f
 	inc a
-	; In register 'a' is the number (1-6) of the Pkmn to switch to
+	; In register 'a' is the number (1-6) of the mon to switch to
 	ld [wEnemySwitchMonIndex], a
 	jp AI_TrySwitch
-; 38083
 
-SwitchRarely: ; 38083
+SwitchRarely:
 	callfar CheckAbleToSwitch
 	ld a, [wEnemySwitchMonParam]
 	and $f0
@@ -103,7 +103,7 @@ SwitchRarely: ; 38083
 
 	; $30
 	call Random
-	cp -1 + 79 percent
+	cp 79 percent - 1
 	jp c, DontSwitch
 
 .switch
@@ -112,9 +112,8 @@ SwitchRarely: ; 38083
 	inc a
 	ld [wEnemySwitchMonIndex], a
 	jp AI_TrySwitch
-; 380c1
 
-SwitchSometimes: ; 380c1
+SwitchSometimes:
 	callfar CheckAbleToSwitch
 	ld a, [wEnemySwitchMonParam]
 	and $f0
@@ -123,7 +122,7 @@ SwitchSometimes: ; 380c1
 	cp $10
 	jr nz, .not_10
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jr c, .switch
 	jp DontSwitch
 .not_10
@@ -131,14 +130,14 @@ SwitchSometimes: ; 380c1
 	cp $20
 	jr nz, .not_20
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jr c, .switch
 	jp DontSwitch
 .not_20
 
 	; $30
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jp c, DontSwitch
 
 .switch
@@ -147,18 +146,14 @@ SwitchSometimes: ; 380c1
 	inc a
 	ld [wEnemySwitchMonIndex], a
 	jp AI_TrySwitch
-; 380ff
 
-
-CheckSubstatusCantRun: ; 380ff
+CheckSubstatusCantRun: ; unreferenced
 	ld a, [wEnemySubStatus5]
 	bit SUBSTATUS_CANT_RUN, a
 	ret
-; 38105
 
-
-AI_TryItem: ; 38105
-	; items are not allowed in the BattleTower
+AI_TryItem:
+	; items are not allowed in the Battle Tower
 	ld a, [wInBattleTowerBattle]
 	and a
 	ret nz
@@ -220,7 +215,7 @@ AI_TryItem: ; 38105
 	inc hl
 	jr c, .loop
 
-.used_item
+; used item
 	xor a
 	ld [de], a
 	inc a
@@ -243,8 +238,7 @@ AI_TryItem: ; 38105
 	scf
 	ret
 
-
-.IsHighestLevel: ; 38170
+.IsHighestLevel:
 	ld a, [wOTPartyCount]
 	ld d, a
 	ld e, 0
@@ -267,17 +261,15 @@ AI_TryItem: ; 38105
 	cp e
 	jr nc, .yes
 
-.no
+.no ; unreferenced
 	and a
 	ret
 
 .yes
 	scf
 	ret
-; 38196
 
-
-AI_Items: ; 39196
+AI_Items:
 	dbw FULL_RESTORE, .FullRestore
 	dbw MAX_POTION,   .MaxPotion
 	dbw HYPER_POTION, .HyperPotion
@@ -292,16 +284,14 @@ AI_Items: ; 39196
 	dbw X_SPEED,      .XSpeed
 	dbw X_SPECIAL,    .XSpecial
 	db -1 ; end
-; 381be
 
-.FullHeal: ; 381be
+.FullHeal:
 	call .Status
 	jp c, .DontUse
 	call EnemyUsedFullHeal
 	jp .Use
-; 381ca
 
-.Status: ; 381ca (e:41ca)
+.Status:
 	ld a, [wEnemyMonStatus]
 	and a
 	jp z, .DontUse
@@ -313,7 +303,7 @@ AI_Items: ; 39196
 	bit ALWAYS_USE_F, a
 	jp nz, .Use
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jp c, .Use
 	jp .DontUse
 
@@ -325,16 +315,15 @@ AI_Items: ; 39196
 	cp 4
 	jr c, .FailToxicCheck
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jp c, .Use
 .FailToxicCheck:
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP
 	jp z, .DontUse
 	jp .Use
-; 38208
 
-.FullRestore: ; 38208
+.FullRestore:
 	call .HealItem
 	jp nc, .UseFullRestore
 	ld a, [bc]
@@ -346,15 +335,14 @@ AI_Items: ; 39196
 .UseFullRestore:
 	call EnemyUsedFullRestore
 	jp .Use
-; 38220
 
-.MaxPotion: ; 38220
+.MaxPotion:
 	call .HealItem
 	jp c, .DontUse
 	call EnemyUsedMaxPotion
 	jp .Use
 
-.HealItem: ; 3822c (e:422c)
+.HealItem:
 	ld a, [bc]
 	bit CONTEXT_USE_F, a
 	jr nz, .CheckHalfOrQuarterHP
@@ -366,56 +354,55 @@ AI_Items: ; 39196
 	callfar AICheckEnemyQuarterHP
 	jp nc, .UseHealItem
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jp c, .UseHealItem
 	jp .DontUse
 
-.CheckQuarterHP: ; 38254 (e:4254)
+.CheckQuarterHP:
 	callfar AICheckEnemyQuarterHP
 	jp c, .DontUse
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jp c, .DontUse
 	jr .UseHealItem
 
-.CheckHalfOrQuarterHP: ; 38267 (e:4267)
+.CheckHalfOrQuarterHP:
 	callfar AICheckEnemyHalfHP
 	jp c, .DontUse
 	callfar AICheckEnemyQuarterHP
 	jp nc, .UseHealItem
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jp nc, .DontUse
 
-.UseHealItem: ; 38281 (e:4281)
+.UseHealItem:
 	jp .Use
-; 38284
 
-.HyperPotion: ; 38284
+.HyperPotion:
 	call .HealItem
 	jp c, .DontUse
 	ld b, 200
 	call EnemyUsedHyperPotion
 	jp .Use
-; 38292 (e:4292)
 
-.SuperPotion: ; 38292
+.SuperPotion:
 	call .HealItem
 	jp c, .DontUse
 	ld b, 50
 	call EnemyUsedSuperPotion
 	jp .Use
-; 382a0
 
-.Potion: ; 382a0
+.Potion:
 	call .HealItem
 	jp c, .DontUse
 	ld b, 20
 	call EnemyUsedPotion
 	jp .Use
-; 382ae
 
-.asm_382ae ; This appears to be unused
+; Everything up to "End unused" is unused
+
+.UnusedHealItem: ; unreferenced
+; This has similar conditions to .HealItem
 	callfar AICheckEnemyMaxHP
 	jr c, .dont_use
 	push bc
@@ -442,7 +429,7 @@ AI_Items: ; 39196
 	bit UNKNOWN_USE_F, a
 	jp z, .Use
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jp c, .Use
 
 .dont_use
@@ -454,61 +441,55 @@ AI_Items: ; 39196
 	bit UNKNOWN_USE_F, a
 	jp z, .DontUse
 	call Random
-	cp 1 + 39 percent
+	cp 39 percent + 1
 	jp c, .Use
 	jp .DontUse
-; 382f9
 
-.XAccuracy: ; 382f9
+; End unused
+
+.XAccuracy:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedXAccuracy
 	jp .Use
-; 38305
 
-.GuardSpec: ; 38305
+.GuardSpec:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedGuardSpec
 	jp .Use
-; 38311
 
-.DireHit: ; 38311
+.DireHit:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedDireHit
 	jp .Use
-; 3831d (e:431d)
 
-.XAttack: ; 3831d
+.XAttack:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedXAttack
 	jp .Use
-; 38329
 
-.XDefend: ; 38329
+.XDefend:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedXDefend
 	jp .Use
-; 38335
 
-.XSpeed: ; 38335
+.XSpeed:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedXSpeed
 	jp .Use
-; 38341
 
-.XSpecial: ; 38341
+.XSpecial:
 	call .XItem
 	jp c, .DontUse
 	call EnemyUsedXSpecial
 	jp .Use
-; 3834d
 
-.XItem: ; 3834d (e:434d)
+.XItem:
 	ld a, [wEnemyTurnsTaken]
 	and a
 	jr nz, .notfirstturnout
@@ -516,13 +497,13 @@ AI_Items: ; 39196
 	bit ALWAYS_USE_F, a
 	jp nz, .Use
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jp c, .DontUse
 	ld a, [bc]
 	bit CONTEXT_USE_F, a
 	jp nz, .Use
 	call Random
-	cp 1 + 50 percent
+	cp 50 percent + 1
 	jp c, .DontUse
 	jp .Use
 .notfirstturnout
@@ -530,7 +511,7 @@ AI_Items: ; 39196
 	bit ALWAYS_USE_F, a
 	jp z, .DontUse
 	call Random
-	cp -1 + 20 percent
+	cp 20 percent - 1
 	jp nc, .DontUse
 	jp .Use
 
@@ -542,48 +523,47 @@ AI_Items: ; 39196
 	and a
 	ret
 
-
-AIUpdateHUD: ; 38387
+AIUpdateHUD:
 	call UpdateEnemyMonInParty
 	farcall UpdateEnemyHUD
 	ld a, $1
-	ld [hBGMapMode], a
+	ldh [hBGMapMode], a
 	ld hl, wEnemyItemState
 	dec [hl]
 	scf
 	ret
-; 3839a
 
-AIUsedItemSound: ; 3839a
+AIUsedItemSound:
 	push de
 	ld de, SFX_FULL_HEAL
 	call PlaySFX
 	pop de
 	ret
-; 383a3
 
-
-EnemyUsedFullHeal: ; 383a3 (e:43a3)
+EnemyUsedFullHeal:
 	call AIUsedItemSound
 	call AI_HealStatus
 	ld a, FULL_HEAL
+	ld [wCurEnemyItem], a
+	xor a
+	ld [wEnemyConfuseCount], a
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
 
-EnemyUsedMaxPotion: ; 383ae (e:43ae)
+EnemyUsedMaxPotion:
 	ld a, MAX_POTION
 	ld [wCurEnemyItem], a
 	jr FullRestoreContinue
 
-EnemyUsedFullRestore: ; 383b5 (e:43b5)
+EnemyUsedFullRestore:
 	call AI_HealStatus
 	ld a, FULL_RESTORE
 	ld [wCurEnemyItem], a
-	ld hl, wEnemySubStatus3
-	res SUBSTATUS_CONFUSED, [hl]
+	;ld hl, wEnemySubStatus3
+	;res SUBSTATUS_CONFUSED, [hl]
 	xor a
 	ld [wEnemyConfuseCount], a
 
-FullRestoreContinue: ; 383c6
+FullRestoreContinue:
 	ld de, wCurHPAnimOldHP
 	ld hl, wEnemyMonHP + 1
 	ld a, [hld]
@@ -603,23 +583,22 @@ FullRestoreContinue: ; 383c6
 	ld [wCurHPAnimMaxHP + 1], a
 	ld [wEnemyMonHP], a
 	jr EnemyPotionFinish
-; 383e8 (e:43e8)
 
-EnemyUsedPotion: ; 383e8
+EnemyUsedPotion:
 	ld a, POTION
 	ld b, 20
 	jr EnemyPotionContinue
 
-EnemyUsedSuperPotion: ; 383ee
+EnemyUsedSuperPotion:
 	ld a, SUPER_POTION
 	ld b, 50
 	jr EnemyPotionContinue
 
-EnemyUsedHyperPotion: ; 383f4 (e:43f4)
+EnemyUsedHyperPotion:
 	ld a, HYPER_POTION
 	ld b, 200
 
-EnemyPotionContinue: ; 383f8
+EnemyPotionContinue:
 	ld [wCurEnemyItem], a
 	ld hl, wEnemyMonHP + 1
 	ld a, [hl]
@@ -658,7 +637,7 @@ EnemyPotionContinue: ; 383f8
 	ld [hl], a
 	ld [wCurHPAnimNewHP + 1], a
 
-EnemyPotionFinish: ; 38436
+EnemyPotionFinish:
 	call PrintText_UsedItemOn
 	hlcoord 2, 2
 	xor a
@@ -667,8 +646,7 @@ EnemyPotionFinish: ; 38436
 	predef AnimateHPBar
 	jp AIUpdateHUD
 
-
-AI_TrySwitch: ; 3844b
+AI_TrySwitch:
 ; Determine whether the AI can switch based on how many Pokemon are still alive.
 ; If it can switch, it will.
 	ld a, [wOTPartyCount]
@@ -695,16 +673,15 @@ AI_TrySwitch: ; 3844b
 	jp nc, AI_Switch
 	and a
 	ret
-; 3846c
 
-AI_Switch: ; 3846c
+AI_Switch:
 	ld a, $1
 	ld [wEnemyIsSwitching], a
 	ld [wEnemyGoesFirst], a
 	ld hl, wEnemySubStatus4
 	res SUBSTATUS_RAGE, [hl]
 	xor a
-	ld [hBattleTurn], a
+	ldh [hBattleTurn], a
 	callfar PursuitSwitch
 
 	push af
@@ -720,7 +697,7 @@ AI_Switch: ; 3846c
 	pop af
 
 	jr c, .skiptext
-	ld hl, TextJump_EnemyWithdrew
+	ld hl, EnemyWithdrewText
 	call PrintText
 
 .skiptext
@@ -739,21 +716,18 @@ AI_Switch: ; 3846c
 	ret nz
 	scf
 	ret
-; 384d0
 
-TextJump_EnemyWithdrew: ; 384d0
-	text_jump Text_EnemyWithdrew
-	db "@"
-; 384d5
+EnemyWithdrewText:
+	text_far _EnemyWithdrewText
+	text_end
 
-Function384d5: ; This appears to be unused
+EnemyUsedFullHealRed: ; unreferenced
 	call AIUsedItemSound
 	call AI_HealStatus
 	ld a, FULL_HEAL_RED ; X_SPEED
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
-; 384e0
 
-AI_HealStatus: ; 384e0
+AI_HealStatus:
 	ld a, [wCurOTMon]
 	ld hl, wOTPartyMon1Status
 	ld bc, PARTYMON_STRUCT_LENGTH
@@ -761,51 +735,58 @@ AI_HealStatus: ; 384e0
 	xor a
 	ld [hl], a
 	ld [wEnemyMonStatus], a
-	; Bug: this should reset SUBSTATUS_NIGHTMARE too
-	; Uncomment the lines below to fix
+	; Bug: this should reset SUBSTATUS_NIGHTMARE
+	; Uncomment the 2 lines below to fix
 	ld hl, wEnemySubStatus1
 	res SUBSTATUS_NIGHTMARE, [hl]
+	; Bug: this should reset SUBSTATUS_CONFUSED
+	; Uncomment the 2 lines below to fix
+	ld hl, wEnemySubStatus3
+	res SUBSTATUS_CONFUSED, [hl]
 	ld hl, wEnemySubStatus5
 	res SUBSTATUS_TOXIC, [hl]
 	ret
-; 384f7
 
-EnemyUsedXAccuracy: ; 384f7
+EnemyUsedXAccuracy:
 	call AIUsedItemSound
 	ld hl, wEnemySubStatus4
 	set SUBSTATUS_X_ACCURACY, [hl]
 	ld a, X_ACCURACY
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
-; 38504
 
-EnemyUsedGuardSpec: ; 38504
+EnemyUsedGuardSpec:
 	call AIUsedItemSound
 	ld hl, wEnemySubStatus4
 	set SUBSTATUS_MIST, [hl]
 	ld a, GUARD_SPEC
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
-; 38511
 
-EnemyUsedDireHit: ; 38511
+EnemyUsedDireHit:
 	call AIUsedItemSound
 	ld hl, wEnemySubStatus4
 	set SUBSTATUS_FOCUS_ENERGY, [hl]
 	ld a, DIRE_HIT
 	jp PrintText_UsedItemOn_AND_AIUpdateHUD
-; 3851e
 
-Function3851e: ; This appears to be unused
-	ld [hDivisor], a
+AICheckEnemyFractionMaxHP: ; unreferenced
+; Input: a = divisor
+; Work: bc = [wEnemyMonMaxHP] / a
+; Work: de = [wEnemyMonHP]
+; Output:
+; -  c, nz if [wEnemyMonHP] > [wEnemyMonMaxHP] / a
+; - nc,  z if [wEnemyMonHP] = [wEnemyMonMaxHP] / a
+; - nc, nz if [wEnemyMonHP] < [wEnemyMonMaxHP] / a
+	ldh [hDivisor], a
 	ld hl, wEnemyMonMaxHP
 	ld a, [hli]
-	ld [hDividend], a
+	ldh [hDividend], a
 	ld a, [hl]
-	ld [hDividend + 1], a
+	ldh [hDividend + 1], a
 	ld b, 2
 	call Divide
-	ld a, [hQuotient + 2]
+	ldh a, [hQuotient + 3]
 	ld c, a
-	ld a, [hQuotient + 1]
+	ldh a, [hQuotient + 2]
 	ld b, a
 	ld hl, wEnemyMonHP + 1
 	ld a, [hld]
@@ -818,30 +799,25 @@ Function3851e: ; This appears to be unused
 	ld a, e
 	sub c
 	ret
-; 38541
 
-EnemyUsedXAttack: ; 38541
+EnemyUsedXAttack:
 	ld b, ATTACK
 	ld a, X_ATTACK
 	jr EnemyUsedXItem
-; 38547
 
-EnemyUsedXDefend: ; 38547
+EnemyUsedXDefend:
 	ld b, DEFENSE
 	ld a, X_DEFEND
 	jr EnemyUsedXItem
-; 3854d
 
-EnemyUsedXSpeed: ; 3854d
+EnemyUsedXSpeed:
 	ld b, SPEED
 	ld a, X_SPEED
 	jr EnemyUsedXItem
-; 38553
 
-EnemyUsedXSpecial: ; 38553
+EnemyUsedXSpecial:
 	ld b, SP_ATTACK
 	ld a, X_SPECIAL
-
 
 ; Parameter
 ; a = ITEM_CONSTANT
@@ -851,32 +827,27 @@ EnemyUsedXItem:
 	push bc
 	call PrintText_UsedItemOn
 	pop bc
-	farcall CheckIfStatCanBeRaised
+	farcall RaiseStat
 	jp AIUpdateHUD
-; 38568
-
 
 ; Parameter
 ; a = ITEM_CONSTANT
-PrintText_UsedItemOn_AND_AIUpdateHUD: ; 38568
+PrintText_UsedItemOn_AND_AIUpdateHUD:
 	ld [wCurEnemyItem], a
 	call PrintText_UsedItemOn
 	jp AIUpdateHUD
-; 38571
 
-PrintText_UsedItemOn: ; 38571
+PrintText_UsedItemOn:
 	ld a, [wCurEnemyItem]
-	ld [wd265], a
+	ld [wNamedObjectIndex], a
 	call GetItemName
 	ld hl, wStringBuffer1
 	ld de, wMonOrItemNameBuffer
 	ld bc, ITEM_NAME_LENGTH
 	call CopyBytes
-	ld hl, TextJump_EnemyUsedOn
+	ld hl, EnemyUsedOnText
 	jp PrintText
-; 3858c
 
-TextJump_EnemyUsedOn: ; 3858c
-	text_jump Text_EnemyUsedOn
-	db "@"
-; 38591
+EnemyUsedOnText:
+	text_far _EnemyUsedOnText
+	text_end

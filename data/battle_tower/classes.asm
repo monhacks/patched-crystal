@@ -1,7 +1,9 @@
-BattleTowerTrainers: ; 1f814e
+BattleTowerTrainers:
 ; The trainer class is not used in Crystal 1.0 due to a bug.
 ; Instead, the sixth character in the trainer's name is used.
 ; See BattleTowerText in engine/events/battle_tower/trainer_text.asm.
+	table_width (NAME_LENGTH - 1) + 1, BattleTowerTrainers
+	; name, class
 	db "HANSON@@@@", FISHER
 	db "SAWYER@@@@", POKEMANIAC
 	db "MASUDA@@@@", GUITARIST
@@ -23,6 +25,7 @@ BattleTowerTrainers: ; 1f814e
 	db "KAUFMAN@@@", SWIMMERM
 	db "LANCASTER@", SKIER
 	db "McMAHILL@@", CAMPER
+	assert_table_length BATTLETOWER_NUM_UNIQUE_MON
 ; The following can only be sampled in Crystal 1.1.
 	db "OBRIEN@@@@", GENTLEMAN
 	db "FROST@@@@@", BEAUTY
@@ -73,4 +76,4 @@ BattleTowerTrainers: ; 1f814e
 	db "DYKSTRA@@@", SWIMMERF
 	db "EATON@@@@@", BIKER
 	db "WONG@@@@@@", FIREBREATHER
-; 1f8450
+	assert_table_length BATTLETOWER_NUM_UNIQUE_TRAINERS

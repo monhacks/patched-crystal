@@ -1,8 +1,8 @@
 ; radio channel ids
 ; indexes for:
 ; - RadioChannelSongs (see data/radio/channel_music.asm)
-; - PlayRadioShow/RadioJumptable (see engine/radio.asm)
-; - RadioChannels (see engine/radio.asm)
+; - PlayRadioShow/RadioJumptable (see engine/pokegear/radio.asm)
+; - RadioChannels (see engine/pokegear/pokegear.asm)
 	const_def
 	const OAKS_POKEMON_TALK      ; 00
 	const POKEDEX_SHOW           ; 01
@@ -15,6 +15,7 @@
 	const POKE_FLUTE_RADIO       ; 08
 	const UNOWN_RADIO            ; 09
 	const EVOLUTION_RADIO        ; 0a
+NUM_RADIO_CHANNELS EQU const_value
 ; internal indexes for channel segments
 	const OAKS_POKEMON_TALK_2    ; 0b
 	const OAKS_POKEMON_TALK_3    ; 0c
@@ -93,11 +94,12 @@
 	const POKEDEX_SHOW_6         ; 55
 	const POKEDEX_SHOW_7         ; 56
 	const POKEDEX_SHOW_8         ; 57
+NUM_RADIO_SEGMENTS EQU const_value
 
-; PlayRadio.StationPointers indexes (see engine/pokegear.asm)
+; PlayRadioStationPointers indexes (see engine/pokegear/pokegear.asm)
 	const_def
 	const MAPRADIO_POKEMON_CHANNEL
-	const MAPRADIO_OAKS_MON_TALK
+	const MAPRADIO_OAKS_POKEMON_TALK
 	const MAPRADIO_POKEDEX_SHOW
 	const MAPRADIO_POKEMON_MUSIC
 	const MAPRADIO_LUCKY_CHANNEL
@@ -105,19 +107,23 @@
 	const MAPRADIO_PLACES_PEOPLE
 	const MAPRADIO_LETS_ALL_SING
 	const MAPRADIO_ROCKET
+NUM_MAP_RADIO_STATIONS EQU const_value
 
-; These tables in engine/radio.asm are all sized to a power of 2
+; These tables in engine/pokegear/radio.asm are all sized to a power of 2
 ; so there's no need for a rejection sampling loop
-NUM_OAKS_MON_TALK_ADVERBS    EQU 16 ; OaksPkmnTalk8.Adverbs
-NUM_OAKS_MON_TALK_ADJECTIVES EQU 16 ; OaksPkmnTalk9.Adjectives
-NUM_PNP_PEOPLE_ADJECTIVES    EQU 16 ; PeoplePlaces5.Adjectives
-NUM_PNP_PLACES_ADJECTIVES    EQU 16 ; PeoplePlaces7.Adjectives
+NUM_OAKS_POKEMON_TALK_ADVERBS    EQU 16 ; OaksPKMNTalk8.Adverbs
+NUM_OAKS_POKEMON_TALK_ADJECTIVES EQU 16 ; OaksPKMNTalk9.Adjectives
+NUM_PNP_PEOPLE_ADJECTIVES        EQU 16 ; PeoplePlaces5.Adjectives
+NUM_PNP_PLACES_ADJECTIVES        EQU 16 ; PeoplePlaces7.Adjectives
 
 ; BuenasPasswordTable sizes (see data/radio/buenas_passwords.asm)
 NUM_PASSWORD_CATEGORIES    EQU 11
 NUM_PASSWORDS_PER_CATEGORY EQU  3
 
-; GetBuenasPassword.StringFunctionJumpTable indexes (see engine/radio.asm)
+; BuenaPrizeItems size (see data/items/buena_prizes.asm)
+NUM_BUENA_PRIZES EQU 9
+
+; GetBuenasPassword.StringFunctionJumpTable indexes (see engine/pokegear/radio.asm)
 	const_def
 	const BUENA_MON
 	const BUENA_ITEM

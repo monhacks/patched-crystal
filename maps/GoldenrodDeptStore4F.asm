@@ -1,17 +1,15 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODDEPTSTORE4F_CLERK
 	const GOLDENRODDEPTSTORE4F_COOLTRAINER_M
 	const GOLDENRODDEPTSTORE4F_BUG_CATCHER
 	const GOLDENRODDEPTSTORE4F_GAMEBOY_KID
 
 GoldenrodDeptStore4F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-ClerkScript_0x55ee9:
+GoldenrodDeptStore4FClerkScript:
 	faceplayer
 	opentext
 	pokemart MARTTYPE_STANDARD, MART_GOLDENROD_4F
@@ -24,20 +22,20 @@ GoldenrodDeptStore4FCooltrainerMScript:
 GoldenrodDeptStore4FBugCatcherScript:
 	jumptextfaceplayer GoldenrodDeptStore4FBugCatcherText
 
-GameboyKidScript_0x55ef7:
+GoldenrodDeptStore4FGameboyKidScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x55f74
+	writetext GoldenrodDeptStore4FGameboyKidText
 	waitbutton
 	closetext
-	spriteface GOLDENRODDEPTSTORE4F_GAMEBOY_KID, DOWN
+	turnobject GOLDENRODDEPTSTORE4F_GAMEBOY_KID, DOWN
 	end
 
 GoldenrodDeptStore4FDirectory:
 	jumptext GoldenrodDeptStore4FDirectoryText
 
 GoldenrodDeptStore4FElevatorButton:
-	jumpstd elevatorbutton
+	jumpstd ElevatorButtonScript
 
 GoldenrodDeptStore4FCooltrainerMText:
 	text "Hey. I love strong"
@@ -53,7 +51,7 @@ GoldenrodDeptStore4FBugCatcherText:
 	line "#MON's DEFENSE."
 	done
 
-UnknownText_0x55f74:
+GoldenrodDeptStore4FGameboyKidText:
 	text "Some #MON"
 	line "evolve only by"
 
@@ -78,26 +76,21 @@ GoldenrodDeptStore4FDirectoryText:
 	done
 
 GoldenrodDeptStore4F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 12, 0, 1, GOLDENROD_DEPT_STORE_5F
-	warp_def 15, 0, 2, GOLDENROD_DEPT_STORE_3F
-	warp_def 2, 0, 1, GOLDENROD_DEPT_STORE_ELEVATOR
+	def_warp_events
+	warp_event 12,  0, GOLDENROD_DEPT_STORE_5F, 1
+	warp_event 15,  0, GOLDENROD_DEPT_STORE_3F, 2
+	warp_event  2,  0, GOLDENROD_DEPT_STORE_ELEVATOR, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 14, 0, BGEVENT_READ, GoldenrodDeptStore4FDirectory
-	bg_event 3, 0, BGEVENT_READ, GoldenrodDeptStore4FElevatorButton
+	def_bg_events
+	bg_event 14,  0, BGEVENT_READ, GoldenrodDeptStore4FDirectory
+	bg_event  3,  0, BGEVENT_READ, GoldenrodDeptStore4FElevatorButton
 
-.ObjectEvents:
-	db 4
-	object_event 13, 5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x55ee9, -1
-	object_event 11, 7, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FCooltrainerMScript, -1
-	object_event 7, 2, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FBugCatcherScript, -1
-	object_event 5, 1, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GameboyKidScript_0x55ef7, -1
+	def_object_events
+	object_event 13,  5, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FClerkScript, -1
+	object_event 11,  7, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FCooltrainerMScript, -1
+	object_event  7,  2, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FBugCatcherScript, -1
+	object_event  5,  1, SPRITE_GAMEBOY_KID, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodDeptStore4FGameboyKidScript, -1

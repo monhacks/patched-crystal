@@ -1,5 +1,6 @@
-PokedexDataPointerTable: ; 0x44378
+PokedexDataPointerTable:
 ; entries correspond to constants/pokemon_constants.asm
+	table_width 2, PokedexDataPointerTable
 	dw BulbasaurPokedexEntry
 	dw IvysaurPokedexEntry
 	dw VenusaurPokedexEntry
@@ -251,4 +252,4 @@ PokedexDataPointerTable: ; 0x44378
 	dw LugiaPokedexEntry
 	dw HoOhPokedexEntry
 	dw CelebiPokedexEntry
-; 0x4456e
+	assert_table_length NUM_POKEMON

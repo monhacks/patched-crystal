@@ -1,6 +1,6 @@
 ; Used by GetMobileOTTrainerClass
 
-MaleTrainers: ; 4e95d
+MaleTrainers:
 	db BURGLAR
 	db YOUNGSTER
 	db SCHOOLBOY
@@ -26,9 +26,9 @@ MaleTrainers: ; 4e95d
 	db SAGE
 	db BIKER
 	db SCIENTIST
-MaleTrainersEnd
+.End
 
-FemaleTrainers: ; 4e976
+FemaleTrainers:
 	db MEDIUM
 	db LASS
 	db BEAUTY
@@ -39,4 +39,4 @@ FemaleTrainers: ; 4e976
 	db KIMONO_GIRL
 	db POKEFANF
 	db COOLTRAINERF
-FemaleTrainersEnd
+.End

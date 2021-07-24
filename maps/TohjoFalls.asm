@@ -1,31 +1,24 @@
-const_value set 2
+	object_const_def
 	const TOHJOFALLS_POKE_BALL
 
 TohjoFalls_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 TohjoFallsMoonStone:
 	itemball MOON_STONE
 
 TohjoFalls_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 13, 15, 2, ROUTE_27
-	warp_def 25, 15, 3, ROUTE_27
+	def_warp_events
+	warp_event 13, 15, ROUTE_27, 2
+	warp_event 25, 15, ROUTE_27, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 2, 6, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TohjoFallsMoonStone, EVENT_TOHJO_FALLS_MOON_STONE
+	def_object_events
+	object_event  2,  6, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, TohjoFallsMoonStone, EVENT_TOHJO_FALLS_MOON_STONE

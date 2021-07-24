@@ -1,89 +1,87 @@
-const_value set 2
+	object_const_def
 	const CELADONMANSION3F_COOLTRAINER_M
-	const CELADONMANSION3F_GYM_GUY
+	const CELADONMANSION3F_GYM_GUIDE
 	const CELADONMANSION3F_SUPER_NERD
 	const CELADONMANSION3F_FISHER
 
 CeladonMansion3F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-CooltrainerMScript_0x71670:
+GameFreakGameDesignerScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x716ce
-	checkcode VAR_DEXCAUGHT
-	if_greater_than NUM_POKEMON - 2 - 1, UnknownScript_0x7167e ; ignore Mew and Celebi
+	writetext GameFreakGameDesignerText
+	readvar VAR_DEXCAUGHT
+	ifgreater NUM_POKEMON - 2 - 1, .CompletedPokedex ; ignore Mew and Celebi
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x7167e:
-	buttonsound
-	writetext UnknownText_0x71725
+.CompletedPokedex:
+	promptbutton
+	writetext GameFreakGameDesignerCompletedPokedexText
 	playsound SFX_DEX_FANFARE_230_PLUS
 	waitsfx
-	writetext UnknownText_0x71760
-	buttonsound
-	special Special_Diploma
-	writetext UnknownText_0x71763
+	writetext GameFreakGameDesignerPauseForDiplomaText
+	promptbutton
+	special Diploma
+	writetext GameFreakGameDesignerAfterDiplomaText
 	waitbutton
 	closetext
 	setevent EVENT_ENABLE_DIPLOMA_PRINTING
 	end
 
-GymGuyScript_0x71696:
+GameFreakGraphicArtistScript:
 	faceplayer
 	opentext
 	checkevent EVENT_ENABLE_DIPLOMA_PRINTING
-	iftrue UnknownScript_0x716a4
-	writetext UnknownText_0x717b4
+	iftrue .CanPrintDiploma
+	writetext GameFreakGraphicArtistText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x716a4:
-	writetext UnknownText_0x717d8
+.CanPrintDiploma:
+	writetext GameFreakGraphicArtistPrintDiplomaText
 	yesorno
-	iffalse UnknownScript_0x716b0
-	special Special_PrintDiploma
+	iffalse .Refused
+	special PrintDiploma
 	closetext
 	end
 
-UnknownScript_0x716b0:
-	writetext UnknownText_0x71830
+.Refused:
+	writetext GameFreakGraphicArtistRefusedText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x716b6:
-	writetext UnknownText_0x71863
+.CancelPrinting: ; unreferenced
+	writetext GameFreakGraphicArtistErrorText
 	waitbutton
 	closetext
 	end
 
-CeladonMansion3FSuperNerdScript:
-	jumptextfaceplayer CeladonMansion3FSuperNerdText
+GameFreakProgrammerScript:
+	jumptextfaceplayer GameFreakProgrammerText
 
-CeladonMansion3FFisherScript:
-	jumptextfaceplayer CeladonMansion3FFisherText
+GameFreakCharacterDesignerScript:
+	jumptextfaceplayer GameFreakCharacterDesignerText
 
-MapCeladonMansion3FSignpost0Script:
-	jumptext UnknownText_0x7190b
+CeladonMansion3FDevRoomSign:
+	jumptext CeladonMansion3FDevRoomSignText
 
-MapCeladonMansion3FSignpost1Script:
-	jumptext UnknownText_0x71928
+CeladonMansion3FDrawing:
+	jumptext CeladonMansion3FDrawingText
 
-MapCeladonMansion3FSignpost2Script:
-	jumptext UnknownText_0x71952
+CeladonMansion3FGameProgram:
+	jumptext CeladonMansion3FGameProgramText
 
-MapCeladonMansion3FSignpost3Script:
-	jumptext UnknownText_0x71996
+CeladonMansion3FReferenceMaterial:
+	jumptext CeladonMansion3FReferenceMaterialText
 
-UnknownText_0x716ce:
+GameFreakGameDesignerText:
 	text "Is that right?"
 
 	para "I'm the GAME"
@@ -94,7 +92,7 @@ UnknownText_0x716ce:
 	cont "but don't give up!"
 	done
 
-UnknownText_0x71725:
+GameFreakGameDesignerCompletedPokedexText:
 	text "Wow! Excellent!"
 	line "You completed your"
 	cont "#DEX!"
@@ -102,11 +100,11 @@ UnknownText_0x71725:
 	para "Congratulations!"
 	done
 
-UnknownText_0x71760:
+GameFreakGameDesignerPauseForDiplomaText:
 	text "…"
 	done
 
-UnknownText_0x71763:
+GameFreakGameDesignerAfterDiplomaText:
 	text "The GRAPHIC ARTIST"
 	line "will print out a"
 	cont "DIPLOMA for you."
@@ -115,14 +113,14 @@ UnknownText_0x71763:
 	line "it off."
 	done
 
-UnknownText_0x717b4:
+GameFreakGraphicArtistText:
 	text "I'm the GRAPHIC"
 	line "ARTIST."
 
 	para "I drew you!"
 	done
 
-UnknownText_0x717d8:
+GameFreakGraphicArtistPrintDiplomaText:
 	text "I'm the GRAPHIC"
 	line "ARTIST."
 
@@ -133,19 +131,19 @@ UnknownText_0x717d8:
 	line "out your DIPLOMA?"
 	done
 
-UnknownText_0x71830:
+GameFreakGraphicArtistRefusedText:
 	text "Give me a shout if"
 	line "you want your"
 	cont "DIPLOMA printed."
 	done
 
-UnknownText_0x71863:
+GameFreakGraphicArtistErrorText:
 	text "Something's wrong."
 	line "I'll have to can-"
 	cont "cel printing."
 	done
 
-CeladonMansion3FSuperNerdText:
+GameFreakProgrammerText:
 	text "Who, me? I'm the"
 	line "PROGRAMMER."
 
@@ -153,7 +151,7 @@ CeladonMansion3FSuperNerdText:
 	line "machines!"
 	done
 
-CeladonMansion3FFisherText:
+GameFreakCharacterDesignerText:
 	text "Aren't the TWINS"
 	line "adorable?"
 
@@ -163,18 +161,18 @@ CeladonMansion3FFisherText:
 	para "Oh, I love them!"
 	done
 
-UnknownText_0x7190b:
+CeladonMansion3FDevRoomSignText:
 	text "GAME FREAK"
 	line "DEVELOPMENT ROOM"
 	done
 
-UnknownText_0x71928:
+CeladonMansion3FDrawingText:
 	text "It's a detailed"
 	line "drawing of a"
 	cont "pretty girl."
 	done
 
-UnknownText_0x71952:
+CeladonMansion3FGameProgramText:
 	text "It's the game"
 	line "program. Messing"
 
@@ -182,7 +180,7 @@ UnknownText_0x71952:
 	line "a bug in the game!"
 	done
 
-UnknownText_0x71996:
+CeladonMansion3FReferenceMaterialText:
 	text "It's crammed with"
 	line "reference materi-"
 	cont "als. There's even"
@@ -190,29 +188,24 @@ UnknownText_0x71996:
 	done
 
 CeladonMansion3F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 0, 1, CELADON_MANSION_ROOF
-	warp_def 1, 0, 2, CELADON_MANSION_2F
-	warp_def 6, 0, 3, CELADON_MANSION_2F
-	warp_def 7, 0, 2, CELADON_MANSION_ROOF
+	def_warp_events
+	warp_event  0,  0, CELADON_MANSION_ROOF, 1
+	warp_event  1,  0, CELADON_MANSION_2F, 2
+	warp_event  6,  0, CELADON_MANSION_2F, 3
+	warp_event  7,  0, CELADON_MANSION_ROOF, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 4
-	bg_event 5, 8, BGEVENT_UP, MapCeladonMansion3FSignpost0Script
-	bg_event 4, 3, BGEVENT_UP, MapCeladonMansion3FSignpost1Script
-	bg_event 1, 6, BGEVENT_UP, MapCeladonMansion3FSignpost2Script
-	bg_event 1, 3, BGEVENT_UP, MapCeladonMansion3FSignpost3Script
+	def_bg_events
+	bg_event  5,  8, BGEVENT_UP, CeladonMansion3FDevRoomSign
+	bg_event  4,  3, BGEVENT_UP, CeladonMansion3FDrawing
+	bg_event  1,  6, BGEVENT_UP, CeladonMansion3FGameProgram
+	bg_event  1,  3, BGEVENT_UP, CeladonMansion3FReferenceMaterial
 
-.ObjectEvents:
-	db 4
-	object_event 3, 6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CooltrainerMScript_0x71670, -1
-	object_event 3, 4, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GymGuyScript_0x71696, -1
-	object_event 0, 7, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansion3FSuperNerdScript, -1
-	object_event 0, 4, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CeladonMansion3FFisherScript, -1
+	def_object_events
+	object_event  3,  6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GameFreakGameDesignerScript, -1
+	object_event  3,  4, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GameFreakGraphicArtistScript, -1
+	object_event  0,  7, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GameFreakProgrammerScript, -1
+	object_event  0,  4, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_UP, 2, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GameFreakCharacterDesignerScript, -1

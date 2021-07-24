@@ -1,257 +1,236 @@
-PushWindow:: ; 1c00
-	callfar _PushWindow
+ClearBGPalettes::
+	call ClearPalettes
+WaitBGMap::
+; Tell VBlank to update BG Map
+	ld a, 1 ; BG Map 0 tiles
+	ldh [hBGMapMode], a
+; Wait for it to do its magic
+	ld c, 4
+	call DelayFrames
 	ret
-; 1c07
 
-ExitMenu:: ; 0x1c07
+WaitBGMap2::
+	ldh a, [hCGB]
+	and a
+	jr z, .bg0
+
+	ld a, 2
+	ldh [hBGMapMode], a
+	ld c, 4
+	call DelayFrames
+
+.bg0
+	ld a, 1
+	ldh [hBGMapMode], a
+	ld c, 4
+	call DelayFrames
+	ret
+
+IsCGB::
+	ldh a, [hCGB]
+	and a
+	ret
+
+ApplyTilemap::
+	ldh a, [hCGB]
+	and a
+	jr z, .dmg
+
+	ld a, [wSpriteUpdatesEnabled]
+	cp 0
+	jr z, .dmg
+
+	ld a, 1
+	ldh [hBGMapMode], a
+	jr CopyTilemapAtOnce
+
+.dmg
+; WaitBGMap
+	ld a, 1
+	ldh [hBGMapMode], a
+	ld c, 4
+	call DelayFrames
+	ret
+
+CGBOnly_CopyTilemapAtOnce::
+	ldh a, [hCGB]
+	and a
+	jr z, WaitBGMap
+
+CopyTilemapAtOnce::
+	jr _CopyTilemapAtOnce
+
+CopyAttrmapAndTilemapToWRAMBank3: ; unreferenced
+	farcall HDMATransferAttrmapAndTilemapToWRAMBank3
+	ret
+
+_CopyTilemapAtOnce:
+	ldh a, [hBGMapMode]
 	push af
-	callfar _ExitMenu
-	pop af
-	ret
+	xor a
+	ldh [hBGMapMode], a
 
-InitVerticalMenuCursor:: ; 0x1c10
-	callfar _InitVerticalMenuCursor
-	ret
-
-CloseWindow:: ; 0x1c17
+	ldh a, [hMapAnims]
 	push af
-	call ExitMenu
-	call ApplyTilemap
-	call UpdateSprites
+	xor a
+	ldh [hMapAnims], a
+
+.wait
+	ldh a, [rLY]
+	cp $80 - 1
+	jr c, .wait
+
+	di
+	ld a, BANK(vBGMap2)
+	ldh [rVBK], a
+	hlcoord 0, 0, wAttrmap
+	call .CopyBGMapViaStack
+	ld a, BANK(vBGMap0)
+	ldh [rVBK], a
+	hlcoord 0, 0
+	call .CopyBGMapViaStack
+
+.wait2
+	ldh a, [rLY]
+	cp $80 - 1
+	jr c, .wait2
+	ei
+
 	pop af
+	ldh [hMapAnims], a
+	pop af
+	ldh [hBGMapMode], a
 	ret
 
-RestoreTileBackup:: ; 0x1c23
-	call MenuBoxCoord2Tile
-	call .copy
-	call MenuBoxCoord2Attr
-	call .copy
-	ret
-; 0x1c30
+.CopyBGMapViaStack:
+; Copy all tiles to vBGMap
+	ld [hSPBuffer], sp
+	ld sp, hl
+	ldh a, [hBGMapAddress + 1]
+	ld h, a
+	ld l, 0
+	ld a, SCREEN_HEIGHT
+	ldh [hTilesPerCycle], a
+	ld b, 1 << 1 ; not in v/hblank
+	ld c, LOW(rSTAT)
 
-.copy ; 0x1c30
-	call GetMenuBoxDims
-	inc b
-	inc c
-
-.row
-	push bc
-	push hl
-
-.col
-	ld a, [de]
-	ld [hli], a
-	dec de
-	dec c
-	jr nz, .col ; 0x1c3b $fa
-
-	pop hl
-	ld bc, SCREEN_WIDTH
-	add hl, bc
-	pop bc
-	dec b
-	jr nz, .row ; 0x1c44 $ef
-
-	ret
-
-PopWindow:: ; 0x1c47
-	ld b, $10
-	ld de, wMenuFlags
 .loop
-	ld a, [hld]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .loop ; 0x1c50 $fa
-	ret
-
-GetMenuBoxDims:: ; 0x1c53
-	ld a, [wMenuBorderTopCoord] ; top
-	ld b, a
-	ld a, [wMenuBorderBottomCoord] ; bottom
-	sub b
-	ld b, a
-	ld a, [wMenuBorderLeftCoord] ; left
-	ld c, a
-	ld a, [wMenuBorderRightCoord] ; right
-	sub c
-	ld c, a
-	ret
-; 0x1c66
-
-CopyMenuData2:: ; 1c66
-	push hl
-	push de
-	push bc
-	push af
-	ld hl, wMenuData2Pointer
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ld de, wMenuData2Flags
-	ld bc, wMenuData2End - wMenuData2Flags
-	call CopyBytes
-	pop af
-	pop bc
+rept SCREEN_WIDTH / 2
 	pop de
-	pop hl
-	ret
-; 1c7e
+; if in v/hblank, wait until not in v/hblank
+.loop\@
+	ldh a, [c]
+	and b
+	jr nz, .loop\@
+; load vBGMap
+	ld [hl], e
+	inc l
+	ld [hl], d
+	inc l
+endr
 
-GetWindowStackTop:: ; 1c7e
-	ld hl, wWindowStackPointer
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	inc hl
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	ret
-; 1c89
-
-PlaceVerticalMenuItems:: ; 1c89
-	call CopyMenuData2
-	ld hl, wMenuData2Pointer
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	call GetMenuTextStartCoord
-	call Coord2Tile ; hl now contains the tilemap address where we will start printing text.
-	inc de
-	ld a, [de] ; Number of items
-	inc de
-	ld b, a
-.loop
-	push bc
-	call PlaceString
-	inc de
-	ld bc, 2 * SCREEN_WIDTH
-	add hl, bc
-	pop bc
-	dec b
+	ld de, BG_MAP_WIDTH - SCREEN_WIDTH
+	add hl, de
+	ldh a, [hTilesPerCycle]
+	dec a
+	ldh [hTilesPerCycle], a
 	jr nz, .loop
 
-	ld a, [wMenuData2Flags]
-	bit 4, a
+	ldh a, [hSPBuffer]
+	ld l, a
+	ldh a, [hSPBuffer + 1]
+	ld h, a
+	ld sp, hl
+	ret
+
+SetPalettes::
+; Inits the Palettes
+; depending on the system the monochromes palettes or color palettes
+	ldh a, [hCGB]
+	and a
+	jr nz, .SetPalettesForGameBoyColor
+	ld a, %11100100
+	ldh [rBGP], a
+	ld a, %11010000
+	ldh [rOBP0], a
+	ldh [rOBP1], a
+	ret
+
+.SetPalettesForGameBoyColor:
+	push de
+	ld a, %11100100
+	call DmgToCgbBGPals
+	lb de, %11100100, %11100100
+	call DmgToCgbObjPals
+	pop de
+	ret
+
+ClearPalettes::
+; Make all palettes white
+
+; CGB: make all the palette colors white
+	ldh a, [hCGB]
+	and a
+	jr nz, .cgb
+
+; DMG: just change palettes to 0 (white)
+	xor a
+	ldh [rBGP], a
+	ldh [rOBP0], a
+	ldh [rOBP1], a
+	ret
+
+.cgb
+	ldh a, [rSVBK]
+	push af
+
+	ld a, BANK(wBGPals2)
+	ldh [rSVBK], a
+
+; Fill wBGPals2 and wOBPals2 with $ffff (white)
+	ld hl, wBGPals2
+	ld bc, 16 palettes
+	ld a, $ff
+	call ByteFill
+
+	pop af
+	ldh [rSVBK], a
+
+; Request palette update
+	ld a, TRUE
+	ldh [hCGBPalUpdate], a
+	ret
+
+GetMemSGBLayout::
+	ld b, SCGB_DEFAULT
+GetSGBLayout::
+; load sgb packets unless dmg
+
+	ldh a, [hCGB]
+	and a
+	jr nz, .sgb
+
+	ldh a, [hSGB]
+	and a
 	ret z
 
-	call MenuBoxCoord2Tile
-	ld a, [de]
-	ld c, a
-	inc de
-	ld b, $0
-	add hl, bc
-	jp PlaceString
-; 1cbb
+.sgb
+	predef_jump LoadSGBLayout
 
-MenuBox:: ; 1cbb
-	call MenuBoxCoord2Tile
-	call GetMenuBoxDims
-	dec b
-	dec c
-	jp TextBox
-; 1cc6
-
-GetMenuTextStartCoord:: ; 1cc6
-	ld a, [wMenuBorderTopCoord]
-	ld b, a
-	inc b
-	ld a, [wMenuBorderLeftCoord]
-	ld c, a
-	inc c
-; bit 6: if not set, leave extra room on top
-	ld a, [wMenuData2Flags]
-	bit 6, a
-	jr nz, .bit_6_set
-	inc b
-
-.bit_6_set
-; bit 7: if set, leave extra room on the left
-	ld a, [wMenuData2Flags]
-	bit 7, a
-	jr z, .bit_7_clear
-	inc c
-
-.bit_7_clear
+SetHPPal::
+; Set palette for hp bar pixel length e at hl.
+	call GetHPPal
+	ld [hl], d
 	ret
-; 1ce1
 
-ClearMenuBoxInterior:: ; 1ce1
-	call MenuBoxCoord2Tile
-	ld bc, SCREEN_WIDTH + 1
-	add hl, bc
-	call GetMenuBoxDims
-	dec b
-	dec c
-	call ClearBox
+GetHPPal::
+; Get palette for hp bar pixel length e in d.
+	ld d, HP_GREEN
+	ld a, e
+	cp (HP_BAR_LENGTH_PX * 50 / 100) ; 24
+	ret nc
+	inc d ; HP_YELLOW
+	cp (HP_BAR_LENGTH_PX * 21 / 100) ; 10
+	ret nc
+	inc d ; HP_RED
 	ret
-; 1cf1
-
-ClearWholeMenuBox:: ; 1cf1
-	call MenuBoxCoord2Tile
-	call GetMenuBoxDims
-	inc c
-	inc b
-	call ClearBox
-	ret
-; 1cfd
-
-
-MenuBoxCoord2Tile:: ; 1cfd
-	ld a, [wMenuBorderLeftCoord]
-	ld c, a
-	ld a, [wMenuBorderTopCoord]
-	ld b, a
-; 1d05
-
-
-Coord2Tile:: ; 1d05
-; Return the address of wTileMap(c, b) in hl.
-	xor a
-	ld h, a
-	ld l, b
-	ld a, c
-	ld b, h
-	ld c, l
-	add hl, hl
-	add hl, hl
-	add hl, bc
-	add hl, hl
-	add hl, hl
-	ld c, a
-	xor a
-	ld b, a
-	add hl, bc
-	bccoord 0, 0
-	add hl, bc
-	ret
-; 1d19
-
-MenuBoxCoord2Attr:: ; 1d19
-	ld a, [wMenuBorderLeftCoord]
-	ld c, a
-	ld a, [wMenuBorderTopCoord]
-	ld b, a
-
-Coord2Attr:: ; 1d21
-; Return the address of wAttrMap(c, b) in hl.
-	xor a
-	ld h, a
-	ld l, b
-	ld a, c
-	ld b, h
-	ld c, l
-	add hl, hl
-	add hl, hl
-	add hl, bc
-	add hl, hl
-	add hl, hl
-	ld c, a
-	xor a
-	ld b, a
-	add hl, bc
-	bccoord 0, 0, wAttrMap
-	add hl, bc
-	ret
-; 1d35

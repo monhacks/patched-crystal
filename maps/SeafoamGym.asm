@@ -1,48 +1,46 @@
-const_value set 2
+	object_const_def
 	const SEAFOAMGYM_BLAINE
-	const SEAFOAMGYM_GYM_GUY
+	const SEAFOAMGYM_GYM_GUIDE
 
 SeafoamGym_MapScripts:
-.SceneScripts:
-	db 1
+	def_scene_scripts
 	scene_script .DummyScene
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
 
-BlaineScript_0x1ab4fb:
+SeafoamGymBlaineScript:
 	faceplayer
 	opentext
 	checkflag ENGINE_VOLCANOBADGE
 	iftrue .FightDone
-	writetext UnknownText_0x1ab548
+	writetext BlaineIntroText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x1ab646, 0
+	winlosstext BlaineWinLossText, 0
 	loadtrainer BLAINE, BLAINE1
 	startbattle
 	iftrue .ReturnAfterBattle
-	appear SEAFOAMGYM_GYM_GUY
+	appear SEAFOAMGYM_GYM_GUIDE
 .ReturnAfterBattle:
 	reloadmapafterbattle
 	setevent EVENT_BEAT_BLAINE
 	opentext
-	writetext UnknownText_0x1ab683
+	writetext ReceivedVolcanoBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_VOLCANOBADGE
-	writetext UnknownText_0x1ab69d
+	writetext BlaineAfterBattleText
 	waitbutton
 	closetext
 	end
 
 .FightDone:
-	writetext UnknownText_0x1ab71c
+	writetext BlaineFightDoneText
 	yesorno
-	iftrue .BlaineRematch
+	iftrue .BlaineRematch;waitbutton
 	closetext
 	end
 
@@ -52,25 +50,25 @@ BlaineScript_0x1ab4fb:
 	startbattle
 	reloadmapafterbattle
 	end
-	
-SeafoamGymGuyScript:
+
+SeafoamGymGuideScript:			
 	faceplayer
 	opentext
-	checkevent EVENT_TALKED_TO_SEAFOAM_GYM_GUY_ONCE
-	iftrue .TalkedToSeafoamGymGuyScript
-	writetext SeafoamGymGuyWinText
+	checkevent EVENT_TALKED_TO_SEAFOAM_GYM_GUIDE_ONCE
+	iftrue .TalkedToSeafoamGymGuideScript
+	writetext SeafoamGymGuideWinText
 	waitbutton
 	closetext
-	setevent EVENT_TALKED_TO_SEAFOAM_GYM_GUY_ONCE
+	setevent EVENT_TALKED_TO_SEAFOAM_GYM_GUIDE_ONCE
 	end
 
-.TalkedToSeafoamGymGuyScript:
-	writetext SeafoamGymGuyWinText2
+.TalkedToSeafoamGymGuideScript:
+	writetext SeafoamGymGuideWinText2
 	waitbutton
 	closetext
 	end
 
-UnknownText_0x1ab548:
+BlaineIntroText:
 	text "BLAINE: Waaah!"
 
 	para "My GYM in CINNABAR"
@@ -98,7 +96,7 @@ UnknownText_0x1ab548:
 	line "have BURN HEAL!"
 	done
 
-UnknownText_0x1ab646:
+BlaineWinLossText:
 	text "BLAINE: Awesome."
 	line "I've burned out…"
 
@@ -106,12 +104,12 @@ UnknownText_0x1ab646:
 	line "VOLCANOBADGE!"
 	done
 
-UnknownText_0x1ab683:
+ReceivedVolcanoBadgeText:
 	text "<PLAYER> received"
 	line "VOLCANOBADGE."
 	done
 
-UnknownText_0x1ab69d:
+BlaineAfterBattleText:
 	text "BLAINE: I did lose"
 	line "this time, but I'm"
 
@@ -125,26 +123,25 @@ UnknownText_0x1ab69d:
 	line "a rematch."
 	done
 
-UnknownText_0x1ab71c:
+BlaineFightDoneText:
 	text "BLAINE: My fire"
 	line "#MON will be"
 
 	para "even stronger."
 	line "Just you watch!"
-	
 	para "We can show you"
 	line "our red-hot"
 	cont "fighting spirit"
 
-	para "right now!"
+	para "right now!"	  
 	done
 
 Blaine_RematchDefeat:
 	text "BLAINE: Our fire"
 	line "died out."
 	done
-
-SeafoamGymGuyWinText:
+	
+SeafoamGymGuideWinText:
 	text "Yo!"
 
 	para "… Huh? It's over"
@@ -165,7 +162,7 @@ SeafoamGymGuyWinText:
 	line "I knew you'd win!"
 	done
 
-SeafoamGymGuyWinText2:
+SeafoamGymGuideWinText2:
 	text "A #MON GYM can"
 	line "be anywhere as"
 
@@ -177,20 +174,15 @@ SeafoamGymGuyWinText2:
 	done
 
 SeafoamGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 5, 5, 1, ROUTE_20
+	def_warp_events
+	warp_event  5,  5, ROUTE_20, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 5, 2, SPRITE_BLAINE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, BlaineScript_0x1ab4fb, -1
-	object_event 6, 5, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SeafoamGymGuyScript, EVENT_SEAFOAM_GYM_GYM_GUY
+	def_object_events
+	object_event  5,  2, SPRITE_BLAINE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, SeafoamGymBlaineScript, -1
+	object_event  6,  5, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SeafoamGymGuideScript, EVENT_SEAFOAM_GYM_GYM_GUIDE

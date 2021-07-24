@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const NATIONALPARKBUGCONTEST_YOUNGSTER1
 	const NATIONALPARKBUGCONTEST_YOUNGSTER2
 	const NATIONALPARKBUGCONTEST_ROCKER
@@ -13,100 +13,98 @@ const_value set 2
 	const NATIONALPARKBUGCONTEST_POKE_BALL2
 
 NationalParkBugContest_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-YoungsterScript_0x5c8ec:
+BugCatchingContestant1AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5c94c
+	writetext BugCatchingContestant1AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c8f4:
+BugCatchingContestant2AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5c973
+	writetext BugCatchingContestant2AText
 	waitbutton
 	closetext
 	end
 
-RockerScript_0x5c8fc:
+BugCatchingContestant3AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5c9a3
+	writetext BugCatchingContestant3AText
 	waitbutton
 	closetext
 	end
 
-PokefanMScript_0x5c904:
+BugCatchingContestant4AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5c9cc
+	writetext BugCatchingContestant4AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c90c:
+BugCatchingContestant5AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5ca15
+	writetext BugCatchingContestant5AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c914:
+BugCatchingContestant6AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5ca52
+	writetext BugCatchingContestant6AText
 	waitbutton
 	closetext
 	end
 
-LassScript_0x5c91c:
+BugCatchingContestant7AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5ca8f
+	writetext BugCatchingContestant7AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c924:
+BugCatchingContestant8AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5cac8
+	writetext BugCatchingContestant8AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c92c:
+BugCatchingContestant9AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5cb25
+	writetext BugCatchingContestant9AText
 	waitbutton
 	closetext
 	end
 
-YoungsterScript_0x5c934:
+BugCatchingContestant10AScript:
 	faceplayer
 	opentext
-	writetext UnknownText_0x5cb64
+	writetext BugCatchingContestant10AText
 	waitbutton
 	closetext
 	end
 
-MapNationalParkBugContestSignpost0Script:
-	jumptext UnknownText_0x5cba7
+NationalParkBugContestRelaxationSquareSign:
+	jumptext NationalParkBugContestRelaxationSquareText
 
-MapNationalParkBugContestSignpost1Script:
-	jumptext UnknownText_0x5cbc8
+NationalParkBugContestBattleNoticeSign:
+	jumptext NationalParkBugContestBattleNoticeText
 
-MapNationalParkBugContestSignpost3Script:
-	jumptext UnknownText_0x5cc1d
+NationalParkBugContestTrainerTipsSign:
+	jumptext NationalParkBugContestTrainerTipsText
 
 NationalParkBugContestParlyzHeal:
 	itemball PARLYZ_HEAL
@@ -115,27 +113,27 @@ NationalParkBugContestTMDig:
 	itemball TM_DIG
 
 NationalParkBugContestHiddenFullHeal:
-	hiddenitem EVENT_NATIONAL_PARK_HIDDEN_FULL_HEAL, FULL_HEAL
+	hiddenitem FULL_HEAL, EVENT_NATIONAL_PARK_HIDDEN_FULL_HEAL
 
-UnknownText_0x5c94c:
+BugCatchingContestant1AText:
 	text "DON: I'm going to"
 	line "win! Don't bother"
 	cont "me."
 	done
 
-UnknownText_0x5c973:
+BugCatchingContestant2AText:
 	text "ED: My PARASECT"
 	line "puts #MON to"
 	cont "sleep with SPORE."
 	done
 
-UnknownText_0x5c9a3:
+BugCatchingContestant3AText:
 	text "NICK: I'm raising"
 	line "fast #MON for"
 	cont "battles."
 	done
 
-UnknownText_0x5c9cc:
+BugCatchingContestant4AText:
 	text "WILLIAM: I'm not"
 	line "concerned about"
 	cont "winning."
@@ -144,7 +142,7 @@ UnknownText_0x5c9cc:
 	line "for rare #MON."
 	done
 
-UnknownText_0x5ca15:
+BugCatchingContestant5AText:
 	text "BENNY: Ssh! You'll"
 	line "scare off SCYTHER."
 
@@ -152,7 +150,7 @@ UnknownText_0x5ca15:
 	line "later."
 	done
 
-UnknownText_0x5ca52:
+BugCatchingContestant6AText:
 	text "BARRY: You should"
 	line "weaken bug #MON"
 
@@ -160,7 +158,7 @@ UnknownText_0x5ca52:
 	line "a BALL."
 	done
 
-UnknownText_0x5ca8f:
+BugCatchingContestant7AText:
 	text "CINDY: I love bug"
 	line "#MON."
 
@@ -168,7 +166,7 @@ UnknownText_0x5ca8f:
 	line "like them too."
 	done
 
-UnknownText_0x5cac8:
+BugCatchingContestant8AText:
 	text "JOSH: I've been"
 	line "collecting bug"
 
@@ -179,7 +177,7 @@ UnknownText_0x5cac8:
 	line "going to lose!"
 	done
 
-UnknownText_0x5cb25:
+BugCatchingContestant9AText:
 	text "SAMUEL: If you've"
 	line "got the time to"
 
@@ -187,7 +185,7 @@ UnknownText_0x5cb25:
 	line "bug #MON."
 	done
 
-UnknownText_0x5cb64:
+BugCatchingContestant10AText:
 	text "KIPP: I've studied"
 	line "about bug #MON"
 	cont "a lot."
@@ -196,12 +194,12 @@ UnknownText_0x5cb64:
 	line "for sure."
 	done
 
-UnknownText_0x5cba7:
+NationalParkBugContestRelaxationSquareText:
 	text "RELAXATION SQUARE"
 	line "NATIONAL PARK"
 	done
 
-UnknownText_0x5cbc8:
+NationalParkBugContestBattleNoticeText:
 	text "What is this"
 	line "notice?"
 
@@ -212,7 +210,7 @@ UnknownText_0x5cbc8:
 	line "WARDEN'S OFFICE"
 	done
 
-UnknownText_0x5cc1d:
+NationalParkBugContestTrainerTipsText:
 	text "TRAINER TIPS"
 
 	para "Print out MAIL by"
@@ -221,37 +219,32 @@ UnknownText_0x5cc1d:
 	done
 
 NationalParkBugContest_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 33, 18, 1, ROUTE_36_NATIONAL_PARK_GATE
-	warp_def 33, 19, 1, ROUTE_36_NATIONAL_PARK_GATE
-	warp_def 10, 47, 1, ROUTE_35_NATIONAL_PARK_GATE
-	warp_def 11, 47, 1, ROUTE_35_NATIONAL_PARK_GATE
+	def_warp_events
+	warp_event 33, 18, ROUTE_36_NATIONAL_PARK_GATE, 1
+	warp_event 33, 19, ROUTE_36_NATIONAL_PARK_GATE, 1
+	warp_event 10, 47, ROUTE_35_NATIONAL_PARK_GATE, 1
+	warp_event 11, 47, ROUTE_35_NATIONAL_PARK_GATE, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 4
-	bg_event 14, 44, BGEVENT_READ, MapNationalParkBugContestSignpost0Script
-	bg_event 27, 31, BGEVENT_READ, MapNationalParkBugContestSignpost1Script
-	bg_event 6, 47, BGEVENT_ITEM, NationalParkBugContestHiddenFullHeal
-	bg_event 12, 4, BGEVENT_READ, MapNationalParkBugContestSignpost3Script
+	def_bg_events
+	bg_event 14, 44, BGEVENT_READ, NationalParkBugContestRelaxationSquareSign
+	bg_event 27, 31, BGEVENT_READ, NationalParkBugContestBattleNoticeSign
+	bg_event  6, 47, BGEVENT_ITEM, NationalParkBugContestHiddenFullHeal
+	bg_event 12,  4, BGEVENT_READ, NationalParkBugContestTrainerTipsSign
 
-.ObjectEvents:
-	db 12
-	object_event 19, 29, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c8ec, EVENT_BUG_CATCHING_CONTESTANT_1A
-	object_event 28, 22, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c8f4, EVENT_BUG_CATCHING_CONTESTANT_2A
-	object_event 9, 18, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, RockerScript_0x5c8fc, EVENT_BUG_CATCHING_CONTESTANT_3A
-	object_event 7, 13, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_UP_DOWN, 1, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, PokefanMScript_0x5c904, EVENT_BUG_CATCHING_CONTESTANT_4A
-	object_event 23, 9, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c90c, EVENT_BUG_CATCHING_CONTESTANT_5A
-	object_event 27, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c914, EVENT_BUG_CATCHING_CONTESTANT_6A
-	object_event 7, 23, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, LassScript_0x5c91c, EVENT_BUG_CATCHING_CONTESTANT_7A
-	object_event 11, 27, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c924, EVENT_BUG_CATCHING_CONTESTANT_8A
-	object_event 16, 8, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c92c, EVENT_BUG_CATCHING_CONTESTANT_9A
-	object_event 17, 34, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, YoungsterScript_0x5c934, EVENT_BUG_CATCHING_CONTESTANT_10A
-	object_event 35, 12, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, NationalParkBugContestParlyzHeal, EVENT_NATIONAL_PARK_PARLYZ_HEAL
-	object_event 1, 43, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, NationalParkBugContestTMDig, EVENT_NATIONAL_PARK_TM_DIG
+	def_object_events
+	object_event 19, 29, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant1AScript, EVENT_BUG_CATCHING_CONTESTANT_1A
+	object_event 28, 22, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 2, 2, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant2AScript, EVENT_BUG_CATCHING_CONTESTANT_2A
+	object_event  9, 18, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant3AScript, EVENT_BUG_CATCHING_CONTESTANT_3A
+	object_event  7, 13, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WALK_UP_DOWN, 1, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant4AScript, EVENT_BUG_CATCHING_CONTESTANT_4A
+	object_event 23,  9, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant5AScript, EVENT_BUG_CATCHING_CONTESTANT_5A
+	object_event 27, 13, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant6AScript, EVENT_BUG_CATCHING_CONTESTANT_6A
+	object_event  7, 23, SPRITE_LASS, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant7AScript, EVENT_BUG_CATCHING_CONTESTANT_7A
+	object_event 11, 27, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant8AScript, EVENT_BUG_CATCHING_CONTESTANT_8A
+	object_event 16,  8, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant9AScript, EVENT_BUG_CATCHING_CONTESTANT_9A
+	object_event 17, 34, SPRITE_YOUNGSTER, SPRITEMOVEDATA_WANDER, 3, 3, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, BugCatchingContestant10AScript, EVENT_BUG_CATCHING_CONTESTANT_10A
+	object_event 35, 12, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, NationalParkBugContestParlyzHeal, EVENT_NATIONAL_PARK_PARLYZ_HEAL
+	object_event  1, 43, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, NationalParkBugContestTMDig, EVENT_NATIONAL_PARK_TM_DIG

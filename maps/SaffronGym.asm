@@ -1,27 +1,25 @@
-const_value set 2
+	object_const_def
 	const SAFFRONGYM_SABRINA
 	const SAFFRONGYM_GRANNY1
 	const SAFFRONGYM_YOUNGSTER1
 	const SAFFRONGYM_GRANNY2
 	const SAFFRONGYM_YOUNGSTER2
-	const SAFFRONGYM_GYM_GUY
+	const SAFFRONGYM_GYM_GUIDE
 
 SaffronGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-SabrinaScript_0x189c2e:
+SaffronGymSabrinaScript:
 	faceplayer
 	opentext
 	checkflag ENGINE_MARSHBADGE
 	iftrue .FightDone
-	writetext UnknownText_0x189cdf
+	writetext SabrinaIntroText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x189df4, 0
+	winlosstext SabrinaWinLossText, 0
 	loadtrainer SABRINA, SABRINA1
 	startbattle
 	reloadmapafterbattle
@@ -31,19 +29,19 @@ SabrinaScript_0x189c2e:
 	setevent EVENT_BEAT_PSYCHIC_FRANKLIN
 	setevent EVENT_BEAT_PSYCHIC_JARED
 	opentext
-	writetext UnknownText_0x189e95
+	writetext ReceivedMarshBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_MARSHBADGE
-	writetext UnknownText_0x189ead
+	writetext SabrinaMarshBadgeText
 	waitbutton
 	closetext
 	end
 
 .FightDone:
-	writetext UnknownText_0x189f6c
+	writetext SabrinaFightDoneText
 	yesorno
-	iftrue .SabrinaRematch
+	iftrue .SabrinaRematch;waitbutton
 	closetext
 	end
 
@@ -52,13 +50,12 @@ SabrinaScript_0x189c2e:
 	loadtrainer SABRINA, 1
 	startbattle
 	reloadmapafterbattle
-	end
 	
 TrainerMediumRebecca:
-	trainer EVENT_BEAT_MEDIUM_REBECCA, MEDIUM, REBECCA, MediumRebeccaSeenText, MediumRebeccaBeatenText, 0, .Script
+	trainer MEDIUM, REBECCA, EVENT_BEAT_MEDIUM_REBECCA, MediumRebeccaSeenText, MediumRebeccaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext MediumRebeccaAfterBattleText
 	waitbutton
@@ -66,10 +63,10 @@ TrainerMediumRebecca:
 	end
 
 TrainerPsychicFranklin:
-	trainer EVENT_BEAT_PSYCHIC_FRANKLIN, PSYCHIC_T, FRANKLIN, PsychicFranklinSeenText, PsychicFranklinBeatenText, 0, .Script
+	trainer PSYCHIC_T, FRANKLIN, EVENT_BEAT_PSYCHIC_FRANKLIN, PsychicFranklinSeenText, PsychicFranklinBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext PsychicFranklinAfterBattleText
 	waitbutton
@@ -77,10 +74,10 @@ TrainerPsychicFranklin:
 	end
 
 TrainerMediumDoris:
-	trainer EVENT_BEAT_MEDIUM_DORIS, MEDIUM, DORIS, MediumDorisSeenText, MediumDorisBeatenText, 0, .Script
+	trainer MEDIUM, DORIS, EVENT_BEAT_MEDIUM_DORIS, MediumDorisSeenText, MediumDorisBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext MediumDorisAfterBattleText
 	waitbutton
@@ -88,28 +85,28 @@ TrainerMediumDoris:
 	end
 
 TrainerPsychicJared:
-	trainer EVENT_BEAT_PSYCHIC_JARED, PSYCHIC_T, JARED, PsychicJaredSeenText, PsychicJaredBeatenText, 0, .Script
+	trainer PSYCHIC_T, JARED, EVENT_BEAT_PSYCHIC_JARED, PsychicJaredSeenText, PsychicJaredBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext PsychicJaredAfterBattleText
 	waitbutton
 	closetext
 	end
 
-SaffronGymGuyScript:
+SaffronGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_SABRINA
-	iftrue .SaffronGymGuyWinScript
-	writetext SaffronGymGuyText
+	iftrue .SaffronGymGuideWinScript
+	writetext SaffronGymGuideText
 	waitbutton
 	closetext
 	end
 
-.SaffronGymGuyWinScript:
-	writetext SaffronGymGuyWinText
+.SaffronGymGuideWinScript:
+	writetext SaffronGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -117,12 +114,12 @@ SaffronGymGuyScript:
 SaffronGymStatue:
 	checkflag ENGINE_MARSHBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext SABRINA, SABRINA1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, SABRINA, SABRINA1
+	jumpstd GymStatue2Script
 
-UnknownText_0x189cdf:
+SabrinaIntroText:
 	text "SABRINA: I knew"
 	line "you were coming…"
 
@@ -148,7 +145,7 @@ UnknownText_0x189cdf:
 	cont "psychic powers!"
 	done
 
-UnknownText_0x189df4:
+SabrinaWinLossText:
 	text "SABRINA: Your"
 	line "power…"
 
@@ -166,12 +163,12 @@ UnknownText_0x189df4:
 	cont "MARSHBADGE."
 	done
 
-UnknownText_0x189e95:
+ReceivedMarshBadgeText:
 	text "<PLAYER> received"
 	line "MARSHBADGE."
 	done
 
-UnknownText_0x189ead:
+SabrinaMarshBadgeText:
 	text "SABRINA: MARSH-"
 	line "BADGE draws out"
 
@@ -189,7 +186,7 @@ UnknownText_0x189ead:
 	cont "beloved CHAMPION!"
 	done
 
-UnknownText_0x189f6c:
+SabrinaFightDoneText:
 	text "SABRINA: Your love"
 	line "for your #MON"
 
@@ -201,7 +198,6 @@ UnknownText_0x189f6c:
 
 	para "kind of psychic"
 	line "power…"
-	
 	para "How about you show"
 	line "me how strong this"
 	cont "power is?"
@@ -212,7 +208,7 @@ Sabrina_RematchDefeat:
 	line "power…"
 
 	para "It far exceeds"
-	line "what I foresaw…"
+	line "what I foresaw…"					  			 
 	done
 
 MediumRebeccaSeenText:
@@ -286,7 +282,7 @@ PsychicJaredAfterBattleText:
 	cont "SABRINA."
 	done
 
-SaffronGymGuyText:
+SaffronGymGuideText:
 	text "Yo, CHAMP in"
 	line "making!"
 
@@ -305,62 +301,57 @@ SaffronGymGuyText:
 	para "Good luck!"
 	done
 
-SaffronGymGuyWinText:
+SaffronGymGuideWinText:
 	text "That was another"
 	line "fantastic battle!"
 	done
 
 SaffronGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 32
-	warp_def 8, 17, 2, SAFFRON_CITY
-	warp_def 9, 17, 2, SAFFRON_CITY
-	warp_def 11, 15, 18, SAFFRON_GYM
-	warp_def 19, 15, 19, SAFFRON_GYM
-	warp_def 19, 11, 20, SAFFRON_GYM
-	warp_def 1, 11, 21, SAFFRON_GYM
-	warp_def 5, 3, 22, SAFFRON_GYM
-	warp_def 11, 5, 23, SAFFRON_GYM
-	warp_def 1, 15, 24, SAFFRON_GYM
-	warp_def 19, 3, 25, SAFFRON_GYM
-	warp_def 15, 17, 26, SAFFRON_GYM
-	warp_def 5, 17, 27, SAFFRON_GYM
-	warp_def 5, 9, 28, SAFFRON_GYM
-	warp_def 9, 3, 29, SAFFRON_GYM
-	warp_def 15, 9, 30, SAFFRON_GYM
-	warp_def 15, 5, 31, SAFFRON_GYM
-	warp_def 1, 5, 32, SAFFRON_GYM
-	warp_def 19, 17, 3, SAFFRON_GYM
-	warp_def 19, 9, 4, SAFFRON_GYM
-	warp_def 1, 9, 5, SAFFRON_GYM
-	warp_def 5, 5, 6, SAFFRON_GYM
-	warp_def 11, 3, 7, SAFFRON_GYM
-	warp_def 1, 17, 8, SAFFRON_GYM
-	warp_def 19, 5, 9, SAFFRON_GYM
-	warp_def 15, 15, 10, SAFFRON_GYM
-	warp_def 5, 15, 11, SAFFRON_GYM
-	warp_def 5, 11, 12, SAFFRON_GYM
-	warp_def 9, 5, 13, SAFFRON_GYM
-	warp_def 15, 11, 14, SAFFRON_GYM
-	warp_def 15, 3, 15, SAFFRON_GYM
-	warp_def 1, 3, 16, SAFFRON_GYM
-	warp_def 11, 9, 17, SAFFRON_GYM
+	def_warp_events
+	warp_event  8, 17, SAFFRON_CITY, 2
+	warp_event  9, 17, SAFFRON_CITY, 2
+	warp_event 11, 15, SAFFRON_GYM, 18
+	warp_event 19, 15, SAFFRON_GYM, 19
+	warp_event 19, 11, SAFFRON_GYM, 20
+	warp_event  1, 11, SAFFRON_GYM, 21
+	warp_event  5,  3, SAFFRON_GYM, 22
+	warp_event 11,  5, SAFFRON_GYM, 23
+	warp_event  1, 15, SAFFRON_GYM, 24
+	warp_event 19,  3, SAFFRON_GYM, 25
+	warp_event 15, 17, SAFFRON_GYM, 26
+	warp_event  5, 17, SAFFRON_GYM, 27
+	warp_event  5,  9, SAFFRON_GYM, 28
+	warp_event  9,  3, SAFFRON_GYM, 29
+	warp_event 15,  9, SAFFRON_GYM, 30
+	warp_event 15,  5, SAFFRON_GYM, 31
+	warp_event  1,  5, SAFFRON_GYM, 32
+	warp_event 19, 17, SAFFRON_GYM, 3
+	warp_event 19,  9, SAFFRON_GYM, 4
+	warp_event  1,  9, SAFFRON_GYM, 5
+	warp_event  5,  5, SAFFRON_GYM, 6
+	warp_event 11,  3, SAFFRON_GYM, 7
+	warp_event  1, 17, SAFFRON_GYM, 8
+	warp_event 19,  5, SAFFRON_GYM, 9
+	warp_event 15, 15, SAFFRON_GYM, 10
+	warp_event  5, 15, SAFFRON_GYM, 11
+	warp_event  5, 11, SAFFRON_GYM, 12
+	warp_event  9,  5, SAFFRON_GYM, 13
+	warp_event 15, 11, SAFFRON_GYM, 14
+	warp_event 15,  3, SAFFRON_GYM, 15
+	warp_event  1,  3, SAFFRON_GYM, 16
+	warp_event 11,  9, SAFFRON_GYM, 17
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 8, 15, BGEVENT_READ, SaffronGymStatue
+	def_bg_events
+	bg_event  8, 15, BGEVENT_READ, SaffronGymStatue
 
-.ObjectEvents:
-	db 6
-	object_event 9, 8, SPRITE_SABRINA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, SabrinaScript_0x189c2e, -1
+	def_object_events
+	object_event  9,  8, SPRITE_SABRINA, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, SaffronGymSabrinaScript, -1
 	object_event 17, 16, SPRITE_GRANNY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerMediumRebecca, -1
-	object_event 3, 16, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicFranklin, -1
-	object_event 3, 4, SPRITE_GRANNY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerMediumDoris, -1
-	object_event 17, 4, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPsychicJared, -1
-	object_event 9, 14, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SaffronGymGuyScript, -1
+	object_event  3, 16, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerPsychicFranklin, -1
+	object_event  3,  4, SPRITE_GRANNY, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerMediumDoris, -1
+	object_event 17,  4, SPRITE_YOUNGSTER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 2, TrainerPsychicJared, -1
+	object_event  9, 14, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, SaffronGymGuideScript, -1

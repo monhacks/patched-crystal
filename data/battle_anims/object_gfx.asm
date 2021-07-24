@@ -1,11 +1,12 @@
 anim_obj_gfx: MACRO
-; # tiles, label
-	db  \1
+; # tiles, gfx pointer
+	db \1
 	dba \2
 ENDM
 
-AnimObjGFX: ; cfcf6
+AnimObjGFX:
 ; entries correspond to ANIM_GFX_* constants
+	table_width 4, AnimObjGFX
 	anim_obj_gfx  0, AnimObj00GFX
 	anim_obj_gfx 21, AnimObjHitGFX
 	anim_obj_gfx  6, AnimObjCutGFX
@@ -48,4 +49,4 @@ AnimObjGFX: ; cfcf6
 	anim_obj_gfx 24, AnimObjAeroblastGFX
 	anim_obj_gfx  1, NULL
 	anim_obj_gfx  1, NULL
-; cfd9e
+	assert_table_length NUM_ANIM_GFX + 1

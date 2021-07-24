@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const CELADONCAFE_SUPER_NERD
 	const CELADONCAFE_FISHER1
 	const CELADONCAFE_FISHER2
@@ -6,11 +6,9 @@ const_value set 2
 	const CELADONCAFE_TEACHER
 
 CeladonCafe_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 CeladonCafeChef:
 	faceplayer
@@ -30,7 +28,7 @@ CeladonCafeFisher1:
 	writetext Fisher1Text_Concentration
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_FISHER1, LEFT
+	turnobject CELADONCAFE_FISHER1, LEFT
 	end
 
 CeladonCafeFisher2:
@@ -43,7 +41,7 @@ CeladonCafeFisher2:
 	writetext Fisher2Text_Quantity
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_FISHER2, RIGHT
+	turnobject CELADONCAFE_FISHER2, RIGHT
 	end
 
 CeladonCafeFisher3:
@@ -56,7 +54,7 @@ CeladonCafeFisher3:
 	writetext Fisher3Text_GoldenrodIsBest
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_FISHER3, RIGHT
+	turnobject CELADONCAFE_FISHER3, RIGHT
 	end
 
 CeladonCafeTeacher:
@@ -71,7 +69,7 @@ CeladonCafeTeacher:
 	writetext TeacherText_NoCoinCase
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_TEACHER, LEFT
+	turnobject CELADONCAFE_TEACHER, LEFT
 	end
 
 .HasCoinCase:
@@ -79,12 +77,12 @@ CeladonCafeTeacher:
 	writetext TeacherText_KeepEating
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_TEACHER, RIGHT
+	turnobject CELADONCAFE_TEACHER, RIGHT
 	opentext
 	writetext TeacherText_MoreChef
 	waitbutton
 	closetext
-	spriteface CELADONCAFE_TEACHER, LEFT
+	turnobject CELADONCAFE_TEACHER, LEFT
 	end
 
 EatathonContestPoster:
@@ -96,7 +94,7 @@ CeladonCafeTrashcan:
 	giveitem LEFTOVERS
 	iffalse .PackFull
 	opentext
-	itemtotext LEFTOVERS, MEM_BUFFER_0
+	getitemname STRING_BUFFER_3, LEFTOVERS
 	writetext FoundLeftoversText
 	playsound SFX_ITEM
 	waitsfx
@@ -107,16 +105,16 @@ CeladonCafeTrashcan:
 
 .PackFull:
 	opentext
-	itemtotext LEFTOVERS, MEM_BUFFER_0
+	getitemname STRING_BUFFER_3, LEFTOVERS
 	writetext FoundLeftoversText
-	buttonsound
+	promptbutton
 	writetext NoRoomForLeftoversText
 	waitbutton
 	closetext
 	end
 
 .TrashEmpty:
-	jumpstd trashcan
+	jumpstd TrashCanScript
 
 ChefText_Eatathon:
 	text "Hi!"
@@ -198,7 +196,7 @@ EatathonContestPosterText:
 FoundLeftoversText:
 	text "<PLAYER> found"
 	line "@"
-	text_from_ram wStringBuffer3
+	text_ram wStringBuffer3
 	text "!"
 	done
 
@@ -208,26 +206,21 @@ NoRoomForLeftoversText:
 	done
 
 CeladonCafe_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 6, 7, 9, CELADON_CITY
-	warp_def 7, 7, 9, CELADON_CITY
+	def_warp_events
+	warp_event  6,  7, CELADON_CITY, 9
+	warp_event  7,  7, CELADON_CITY, 9
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 5, 0, BGEVENT_READ, EatathonContestPoster
-	bg_event 7, 1, BGEVENT_READ, CeladonCafeTrashcan
+	def_bg_events
+	bg_event  5,  0, BGEVENT_READ, EatathonContestPoster
+	bg_event  7,  1, BGEVENT_READ, CeladonCafeTrashcan
 
-.ObjectEvents:
-	db 5
-	object_event 9, 3, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, CeladonCafeChef, -1
-	object_event 4, 6, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher1, -1
-	object_event 1, 7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher2, -1
-	object_event 1, 2, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher3, -1
-	object_event 4, 3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeTeacher, -1
+	def_object_events
+	object_event  9,  3, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, CeladonCafeChef, -1
+	object_event  4,  6, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher1, -1
+	object_event  1,  7, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher2, -1
+	object_event  1,  2, SPRITE_FISHER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeFisher3, -1
+	object_event  4,  3, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, CeladonCafeTeacher, -1

@@ -1,5 +1,6 @@
 EnvironmentColorsPointers:
 ; entries correspond to environment constants (see constants/map_data_constants.asm)
+	table_width 2, EnvironmentColorsPointers
 	dw .OutdoorColors ; unused
 	dw .OutdoorColors ; TOWN
 	dw .OutdoorColors ; ROUTE
@@ -8,8 +9,9 @@ EnvironmentColorsPointers:
 	dw .Env5Colors    ; ENVIRONMENT_5
 	dw .IndoorColors  ; GATE
 	dw .DungeonColors ; DUNGEON
+	assert_table_length NUM_ENVIRONMENTS + 1
 
-; Valid indices: $00 - $29
+; Valid indices: $00 - $29 (see gfx/tilesets/bg_tiles.pal)
 .OutdoorColors:
 	db $00, $01, $02, $28, $04, $05, $06, $07 ; morn
 	db $08, $09, $0a, $28, $0c, $0d, $0e, $0f ; day

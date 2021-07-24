@@ -1,5 +1,5 @@
-BuenaPrizeItems: ; 8b15e
-; there are NUM_BUENA_PRIZES items (see engine/events/buena.asm)
+BuenaPrizeItems:
+	table_width 2, BuenaPrizeItems
 	db ULTRA_BALL,   2
 	db FULL_RESTORE, 2
 	db NUGGET,       3
@@ -9,5 +9,4 @@ BuenaPrizeItems: ; 8b15e
 	db CARBOS,       5
 	db CALCIUM,      5
 	db HP_UP,        5
-BuenaPrizeItemsEnd:
-; 8b170
+	assert_table_length NUM_BUENA_PRIZES

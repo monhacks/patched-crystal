@@ -1,16 +1,14 @@
-const_value set 2
+	object_const_def
 	const ECRUTEAKMART_CLERK
 	const ECRUTEAKMART_SUPER_NERD
 	const ECRUTEAKMART_GRANNY
 
 EcruteakMart_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-ClerkScript_0x99c3b:
+EcruteakMartClerkScript:
 	opentext
 	pokemart MARTTYPE_STANDARD, MART_ECRUTEAK
 	closetext
@@ -46,22 +44,17 @@ EcruteakMartGrannyText:
 	done
 
 EcruteakMart_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 9, ECRUTEAK_CITY
-	warp_def 3, 7, 9, ECRUTEAK_CITY
+	def_warp_events
+	warp_event  2,  7, ECRUTEAK_CITY, 9
+	warp_event  3,  7, ECRUTEAK_CITY, 9
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 1, 3, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ClerkScript_0x99c3b, -1
-	object_event 5, 2, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakMartSuperNerdScript, -1
-	object_event 6, 6, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakMartGrannyScript, -1
+	def_object_events
+	object_event  1,  3, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakMartClerkScript, -1
+	object_event  5,  2, SPRITE_SUPER_NERD, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, EcruteakMartSuperNerdScript, -1
+	object_event  6,  6, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, EcruteakMartGrannyScript, -1

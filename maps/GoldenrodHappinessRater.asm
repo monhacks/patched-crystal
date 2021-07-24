@@ -1,60 +1,58 @@
-const_value set 2
+	object_const_def
 	const GOLDENRODHAPPINESSRATER_TEACHER
 	const GOLDENRODHAPPINESSRATER_POKEFAN_M
 	const GOLDENRODHAPPINESSRATER_TWIN
 
 GoldenrodHappinessRater_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-TeacherScript_0x54953:
+GoldenrodHappinessRaterTeacherScript:
 	faceplayer
 	opentext
-	special Special_GetFirstPokemonHappiness
-	writetext UnknownText_0x549a3
-	buttonsound
-	if_greater_than 250 - 1, UnknownScript_0x54973
-	if_greater_than 200 - 1, UnknownScript_0x54979
-	if_greater_than 150 - 1, UnknownScript_0x5497f
-	if_greater_than 100 - 1, UnknownScript_0x54985
-	if_greater_than  50 - 1, UnknownScript_0x5498b
-	jump UnknownScript_0x54991
+	special GetFirstPokemonHappiness
+	writetext GoldenrodHappinessRaterTeacherText
+	promptbutton
+	ifgreater 250 - 1, .LovesYouALot
+	ifgreater 200 - 1, .ReallyTrustsYou
+	ifgreater 150 - 1, .SortOfHappy
+	ifgreater 100 - 1, .QuiteCute
+	ifgreater  50 - 1, .NotUsedToYou
+	sjump .LooksMean
 
-UnknownScript_0x54973:
-	writetext UnknownText_0x549fc
+.LovesYouALot:
+	writetext GoldenrodHappinessRatingText_LovesYouALot
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x54979:
-	writetext UnknownText_0x54a2c
+.ReallyTrustsYou:
+	writetext GoldenrodHappinessRatingText_ReallyTrustsYou
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x5497f:
-	writetext UnknownText_0x54a5a
+.SortOfHappy:
+	writetext GoldenrodHappinessRatingText_SortOfHappy
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x54985:
-	writetext UnknownText_0x54a8e
+.QuiteCute:
+	writetext GoldenrodHappinessRatingText_QuiteCute
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x5498b:
-	writetext UnknownText_0x54a9f
+.NotUsedToYou:
+	writetext GoldenrodHappinessRatingText_NotUsedToYou
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x54991:
-	writetext UnknownText_0x54ad1
+.LooksMean:
+	writetext GoldenrodHappinessRatingText_LooksMean
 	waitbutton
 	closetext
 	end
@@ -66,12 +64,12 @@ GoldenrodHappinessRaterTwinScript:
 	jumptextfaceplayer GoldenrodHappinessRaterTwinText
 
 HappinessRatersHouseBookshelf:
-	jumpstd difficultbookshelf
+	jumpstd DifficultBookshelfScript
 
 HappinessRatersHouseRadio:
-	jumpstd radio2
+	jumpstd Radio2Script
 
-UnknownText_0x549a3:
+GoldenrodHappinessRaterTeacherText:
 	text "If you treat your"
 	line "#MON nicely,"
 
@@ -80,39 +78,39 @@ UnknownText_0x549a3:
 
 	para "Oh? Let me see"
 	line "your @"
-	text_from_ram wStringBuffer3
+	text_ram wStringBuffer3
 	text "…"
 	done
 
-UnknownText_0x549fc:
+GoldenrodHappinessRatingText_LovesYouALot:
 	text "It looks really"
 	line "happy! It must"
 	cont "love you a lot."
 	done
 
-UnknownText_0x54a2c:
+GoldenrodHappinessRatingText_ReallyTrustsYou:
 	text "I get the feeling"
 	line "that it really"
 	cont "trusts you."
 	done
 
-UnknownText_0x54a5a:
+GoldenrodHappinessRatingText_SortOfHappy:
 	text "It's friendly to-"
 	line "ward you. It looks"
 	cont "sort of happy."
 	done
 
-UnknownText_0x54a8e:
+GoldenrodHappinessRatingText_QuiteCute:
 	text "It's quite cute."
 	done
 
-UnknownText_0x54a9f:
+GoldenrodHappinessRatingText_NotUsedToYou:
 	text "You should treat"
 	line "it better. It's"
 	cont "not used to you."
 	done
 
-UnknownText_0x54ad1:
+GoldenrodHappinessRatingText_LooksMean:
 	text "It doesn't seem to"
 	line "like you at all."
 	cont "It looks mean."
@@ -137,25 +135,20 @@ GoldenrodHappinessRaterTwinText:
 	done
 
 GoldenrodHappinessRater_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 3, GOLDENROD_CITY
-	warp_def 3, 7, 3, GOLDENROD_CITY
+	def_warp_events
+	warp_event  2,  7, GOLDENROD_CITY, 3
+	warp_event  3,  7, GOLDENROD_CITY, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 3
-	bg_event 0, 1, BGEVENT_READ, HappinessRatersHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, HappinessRatersHouseBookshelf
-	bg_event 7, 1, BGEVENT_READ, HappinessRatersHouseRadio
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, HappinessRatersHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, HappinessRatersHouseBookshelf
+	bg_event  7,  1, BGEVENT_READ, HappinessRatersHouseRadio
 
-.ObjectEvents:
-	db 3
-	object_event 2, 4, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, TeacherScript_0x54953, -1
-	object_event 5, 3, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodHappinessRaterPokefanMScript, -1
-	object_event 5, 6, SPRITE_TWIN, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodHappinessRaterTwinScript, -1
+	def_object_events
+	object_event  2,  4, SPRITE_TEACHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodHappinessRaterTeacherScript, -1
+	object_event  5,  3, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, GoldenrodHappinessRaterPokefanMScript, -1
+	object_event  5,  6, SPRITE_TWIN, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, GoldenrodHappinessRaterTwinScript, -1

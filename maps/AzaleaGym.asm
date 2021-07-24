@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const AZALEAGYM_BUGSY
 	const AZALEAGYM_BUG_CATCHER1
 	const AZALEAGYM_BUG_CATCHER2
 	const AZALEAGYM_BUG_CATCHER3
 	const AZALEAGYM_TWIN1
 	const AZALEAGYM_TWIN2
-	const AZALEAGYM_GYM_GUY
+	const AZALEAGYM_GYM_GUIDE
 
 AzaleaGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 AzaleaGymBugsyScript:
 	faceplayer
@@ -32,7 +30,7 @@ AzaleaGymBugsyScript:
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_HIVEBADGE
-	checkcode VAR_BADGES
+	readvar VAR_BADGES
 	scall AzaleaGymActivateRockets
 .FightDone:
 	checkevent EVENT_GOT_TM49_FURY_CUTTER
@@ -42,7 +40,7 @@ AzaleaGymBugsyScript:
 	setevent EVENT_BEAT_BUG_CATCHER_AL
 	setevent EVENT_BEAT_BUG_CATCHER_JOSH
 	writetext BugsyText_HiveBadgeSpeech
-	buttonsound
+	promptbutton
 	verbosegiveitem TM_FURY_CUTTER
 	iffalse .NoRoomForFuryCutter
 	setevent EVENT_GOT_TM49_FURY_CUTTER
@@ -55,6 +53,7 @@ AzaleaGymBugsyScript:
 	writetext BugsyText_BugMonsAreDeep
 	yesorno
 	iftrue .BugsyRematch
+	
 .NoRoomForFuryCutter:
 	closetext
 	end
@@ -66,21 +65,21 @@ AzaleaGymBugsyScript:
 	reloadmapafterbattle
 
 AzaleaGymActivateRockets:
-	if_equal 7, .RadioTowerRockets
-	if_equal 6, .GoldenrodRockets
+	ifequal 7, .RadioTowerRockets
+	ifequal 6, .GoldenrodRockets
 	end
 
 .GoldenrodRockets:
-	jumpstd goldenrodrockets
+	jumpstd GoldenrodRocketsScript
 
 .RadioTowerRockets:
-	jumpstd radiotowerrockets
+	jumpstd RadioTowerRocketsScript
 
 TrainerTwinsAmyandmay1:
-	trainer EVENT_BEAT_TWINS_AMY_AND_MAY, TWINS, AMYANDMAY1, TwinsAmyandmay1SeenText, TwinsAmyandmay1BeatenText, 0, .AfterScript
+	trainer TWINS, AMYANDMAY1, EVENT_BEAT_TWINS_AMY_AND_MAY, TwinsAmyandmay1SeenText, TwinsAmyandmay1BeatenText, 0, .AfterScript
 
 .AfterScript:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext TwinsAmyandmay1AfterBattleText
 	waitbutton
@@ -88,10 +87,10 @@ TrainerTwinsAmyandmay1:
 	end
 
 TrainerTwinsAmyandmay2:
-	trainer EVENT_BEAT_TWINS_AMY_AND_MAY, TWINS, AMYANDMAY2, TwinsAmyandmay2SeenText, TwinsAmyandmay2BeatenText, 0, .AfterScript
+	trainer TWINS, AMYANDMAY2, EVENT_BEAT_TWINS_AMY_AND_MAY, TwinsAmyandmay2SeenText, TwinsAmyandmay2BeatenText, 0, .AfterScript
 
 .AfterScript:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext TwinsAmyandmay2AfterBattleText
 	waitbutton
@@ -99,10 +98,10 @@ TrainerTwinsAmyandmay2:
 	end
 
 TrainerBugCatcherBenny:
-	trainer EVENT_BEAT_BUG_CATCHER_BENNY, BUG_CATCHER, BUG_CATCHER_BENNY, BugCatcherBennySeenText, BugCatcherBennyBeatenText, 0, .AfterScript
+	trainer BUG_CATCHER, BUG_CATCHER_BENNY, EVENT_BEAT_BUG_CATCHER_BENNY, BugCatcherBennySeenText, BugCatcherBennyBeatenText, 0, .AfterScript
 
 .AfterScript:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BugCatcherBennyAfterBattleText
 	waitbutton
@@ -110,10 +109,10 @@ TrainerBugCatcherBenny:
 	end
 
 TrainerBugCatcherAl:
-	trainer EVENT_BEAT_BUG_CATCHER_AL, BUG_CATCHER, AL, BugCatcherAlSeenText, BugCatcherAlBeatenText, 0, .AfterScript
+	trainer BUG_CATCHER, AL, EVENT_BEAT_BUG_CATCHER_AL, BugCatcherAlSeenText, BugCatcherAlBeatenText, 0, .AfterScript
 
 .AfterScript:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BugCatcherAlAfterBattleText
 	waitbutton
@@ -121,29 +120,29 @@ TrainerBugCatcherAl:
 	end
 
 TrainerBugCatcherJosh:
-	trainer EVENT_BEAT_BUG_CATCHER_JOSH, BUG_CATCHER, JOSH, BugCatcherJoshSeenText, BugCatcherJoshBeatenText, 0, .AfterScript
+	trainer BUG_CATCHER, JOSH, EVENT_BEAT_BUG_CATCHER_JOSH, BugCatcherJoshSeenText, BugCatcherJoshBeatenText, 0, .AfterScript
 
 .AfterScript:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BugCatcherJoshAfterBattleText
 	waitbutton
 	closetext
 	end
 
-AzaleaGymGuyScript:
+AzaleaGymGuideScript:
 	faceplayer
 	checkevent EVENT_BEAT_BUGSY
-	iftrue .AzaleaGymGuyWinScript
+	iftrue .AzaleaGymGuideWinScript
 	opentext
-	writetext AzaleaGymGuyText
+	writetext AzaleaGymGuideText
 	waitbutton
 	closetext
 	end
 
-.AzaleaGymGuyWinScript:
+.AzaleaGymGuideWinScript:
 	opentext
-	writetext AzaleaGymGuyWinText
+	writetext AzaleaGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -151,10 +150,10 @@ AzaleaGymGuyScript:
 AzaleaGymStatue:
 	checkflag ENGINE_HIVEBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext BUGSY, BUGSY1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, BUGSY, BUGSY1
+	jumpstd GymStatue2Script
 
 BugsyText_INeverLose:
 	text "I'm BUGSY!"
@@ -237,23 +236,20 @@ BugsyText_BugMonsAreDeep:
 
 	para "Study your favor-"
 	line "ites thoroughly."
-	
 	para "Or we can have"
 	line "a rematch to"
 	
 	para "extend my research"
-	line "how about that?"
+	line "how about that?"				  			   
 	done
-	
 BugsyText_RematchDefeat:
 	text "Whoa, amazing!"
 	line "You're an expert"
-	cont "on #MON!"
+	cont "on #MON!"						
 
 	para "My research isn't"
 	line "complete yet."
-	done
-
+	done					 
 BugCatcherBennySeenText:
 	text "Bug #MON evolve"
 	line "young. So they get"
@@ -349,7 +345,7 @@ TwinsAmyandmay2AfterBattleText:
 	cont "a shame."
 	done
 
-AzaleaGymGuyText:
+AzaleaGymGuideText:
 	text "Yo, challenger!"
 
 	para "BUGSY's young, but"
@@ -371,7 +367,7 @@ AzaleaGymGuyText:
 	cont "tive too."
 	done
 
-AzaleaGymGuyWinText:
+AzaleaGymGuideWinText:
 	text "Well done! That"
 	line "was a great clash"
 
@@ -384,28 +380,23 @@ AzaleaGymGuyWinText:
 	done
 
 AzaleaGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 15, 5, AZALEA_TOWN
-	warp_def 5, 15, 5, AZALEA_TOWN
+	def_warp_events
+	warp_event  4, 15, AZALEA_TOWN, 5
+	warp_event  5, 15, AZALEA_TOWN, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 3, 13, BGEVENT_READ, AzaleaGymStatue
-	bg_event 6, 13, BGEVENT_READ, AzaleaGymStatue
+	def_bg_events
+	bg_event  3, 13, BGEVENT_READ, AzaleaGymStatue
+	bg_event  6, 13, BGEVENT_READ, AzaleaGymStatue
 
-.ObjectEvents:
-	db 7
-	object_event 5, 7, SPRITE_BUGSY, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, AzaleaGymBugsyScript, -1
-	object_event 5, 3, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerBugCatcherBenny, -1
-	object_event 8, 8, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherAl, -1
-	object_event 0, 2, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherJosh, -1
-	object_event 4, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay1, -1
-	object_event 5, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay2, -1
-	object_event 7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, AzaleaGymGuyScript, -1
+	def_object_events
+	object_event  5,  7, SPRITE_BUGSY, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, AzaleaGymBugsyScript, -1
+	object_event  5,  3, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerBugCatcherBenny, -1
+	object_event  8,  8, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherAl, -1
+	object_event  0,  2, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherJosh, -1
+	object_event  4, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay1, -1
+	object_event  5, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay2, -1
+	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, AzaleaGymGuideScript, -1

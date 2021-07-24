@@ -1,27 +1,25 @@
-const_value set 2
+	object_const_def
 	const ROUTE27SANDSTORMHOUSE_GRANNY
 
 Route27SandstormHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 SandstormHouseWoman:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_TM37_SANDSTORM
 	iftrue .AlreadyGotItem
-	special Special_GetFirstPokemonHappiness
+	special GetFirstPokemonHappiness
 	writetext SandstormHouseWomanText1
-	buttonsound
-	if_greater_than 150 - 1, .Loyal
-	jump .Disloyal
+	promptbutton
+	ifgreater 150 - 1, .Loyal
+	sjump .Disloyal
 
 .Loyal:
 	writetext SandstormHouseWomanLoyalText
-	buttonsound
+	promptbutton
 	verbosegiveitem TM_SANDSTORM
 	iffalse .Done
 	setevent EVENT_GOT_TM37_SANDSTORM
@@ -39,7 +37,7 @@ SandstormHouseWoman:
 	end
 
 SandstormHouseBookshelf:
-	jumpstd magazinebookshelf
+	jumpstd MagazineBookshelfScript
 
 SandstormHouseWomanText1:
 	text "Where are you off"
@@ -94,22 +92,17 @@ SandstormHouseWomanDisloyalText:
 	done
 
 Route27SandstormHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 1, ROUTE_27
-	warp_def 3, 7, 1, ROUTE_27
+	def_warp_events
+	warp_event  2,  7, ROUTE_27, 1
+	warp_event  3,  7, ROUTE_27, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 0, 1, BGEVENT_READ, SandstormHouseBookshelf
-	bg_event 1, 1, BGEVENT_READ, SandstormHouseBookshelf
+	def_bg_events
+	bg_event  0,  1, BGEVENT_READ, SandstormHouseBookshelf
+	bg_event  1,  1, BGEVENT_READ, SandstormHouseBookshelf
 
-.ObjectEvents:
-	db 1
-	object_event 2, 4, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SandstormHouseWoman, -1
+	def_object_events
+	object_event  2,  4, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SandstormHouseWoman, -1

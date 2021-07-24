@@ -1,24 +1,25 @@
-GROUP_N_A  EQU -1
-MAP_N_A    EQU -1
-GROUP_NONE EQU 0
-MAP_NONE   EQU 0
+MAPGROUP_N_A  EQU -1
+GROUP_N_A     EQU -1
+MAP_N_A       EQU -1
+MAPGROUP_NONE EQU 0
+GROUP_NONE    EQU 0
+MAP_NONE      EQU 0
 
-
-; map header struct members (see data/maps/definitions.asm)
-	const_def
-	const MAPDEF_MAPDATA_BANK ; 0
-	const MAPDEF_TILESET      ; 1
-	const MAPDEF_ENVIRONMENT  ; 2
-	const MAPDEF_MAPDATA      ; 3
-	const MAPDEF_MAPDATA_HI   ; 4
-	const MAPDEF_LOCATION     ; 5
-	const MAPDEF_MUSIC        ; 6
-	const MAPDEF_PALETTE      ; 7
-	const MAPDEF_FISHGROUP    ; 8
-NUM_MAPDEF_ATTRIBUTES EQU const_value
+; map struct members (see data/maps/maps.asm)
+rsreset
+MAP_MAPATTRIBUTES_BANK rb ; 0
+MAP_TILESET            rb ; 1
+MAP_ENVIRONMENT        rb ; 2
+MAP_MAPATTRIBUTES      rw ; 3
+MAP_LOCATION           rb ; 5
+MAP_MUSIC              rb ; 6
+MAP_PALETTE            rb ; 7
+MAP_FISHGROUP          rb ; 8
+MAP_LENGTH EQU _RS
 
 ; map environments (wEnvironment)
-const_value set 1
+; EnvironmentColorsPointers indexes (see data/maps/environment_colors.asm)
+	const_def 1
 	const TOWN
 	const ROUTE
 	const INDOOR
@@ -26,6 +27,7 @@ const_value set 1
 	const ENVIRONMENT_5
 	const GATE
 	const DUNGEON
+NUM_ENVIRONMENTS EQU const_value - 1
 
 ; map palettes (wEnvironment)
 	const_def
@@ -34,8 +36,9 @@ const_value set 1
 	const PALETTE_NITE
 	const PALETTE_MORN
 	const PALETTE_DARK
+NUM_MAP_PALETTES EQU const_value
 
-; fish groups
+; FishGroups indexes (see data/wild/fish.asm)
 	const_def
 	const FISHGROUP_NONE
 	const FISHGROUP_SHORE
@@ -51,7 +54,7 @@ const_value set 1
 	const FISHGROUP_QWILFISH
 	const FISHGROUP_REMORAID
 	const FISHGROUP_QWILFISH_NO_SWARM
-
+NUM_FISHGROUPS EQU const_value - 1
 
 ; connection directions (see data/maps/data.asm)
 	const_def
@@ -67,10 +70,8 @@ const_value set 1
 	shift_const SOUTH
 	shift_const NORTH
 
-
 ; SpawnPoints indexes (see data/maps/spawn_points.asm)
-const_value = -1
-	const SPAWN_N_A
+	const_def
 	const SPAWN_HOME
 	const SPAWN_DEBUG
 ; kanto
@@ -97,89 +98,44 @@ const_value = -1
 	const SPAWN_OLIVINE
 	const SPAWN_ECRUTEAK
 	const SPAWN_MAHOGANY
-	const SPAWN_LAKE
+	const SPAWN_LAKE_OF_RAGE
 	const SPAWN_BLACKTHORN
 	const SPAWN_MT_SILVER
 	const SPAWN_FAST_SHIP
 NUM_SPAWNS EQU const_value
 
+SPAWN_N_A EQU -1
 
-; outdoor sprite limits (see engine/overworld.asm)
-MAX_OUTDOOR_SPRITES EQU 23
-SPRITE_GFX_LIST_CAPACITY EQU $20
-
-
-; map_object struct members (see macros/wram.asm)
+; Flypoints indexes (see data/maps/flypoints.asm)
 	const_def
-	const MAPOBJECT_OBJECT_STRUCT_ID ; 0
-	const MAPOBJECT_SPRITE ; 1
-	const MAPOBJECT_Y_COORD ; 2
-	const MAPOBJECT_X_COORD ; 3
-	const MAPOBJECT_MOVEMENT ; 4
-	const MAPOBJECT_RADIUS ; 5
-	const MAPOBJECT_HOUR ; 6
-	const MAPOBJECT_TIMEOFDAY ; 7
-	const MAPOBJECT_COLOR ; 8
-	const MAPOBJECT_RANGE ; 9
-	const MAPOBJECT_SCRIPT_POINTER ; a
-	const MAPOBJECT_POINTER_HI ; b
-	const MAPOBJECT_EVENT_FLAG ; c
-	const MAPOBJECT_FLAG_HI ; d
-	const MAPOBJECT_E ; unused
-	const MAPOBJECT_F ; unused
-OBJECT_LENGTH EQU const_value
+; johto
+JOHTO_FLYPOINT EQU const_value
+	const FLY_NEW_BARK
+	const FLY_CHERRYGROVE
+	const FLY_VIOLET
+	const FLY_AZALEA
+	const FLY_GOLDENROD
+	const FLY_ECRUTEAK
+	const FLY_OLIVINE
+	const FLY_CIANWOOD
+	const FLY_MAHOGANY
+	const FLY_LAKE_OF_RAGE
+	const FLY_BLACKTHORN
+	const FLY_MT_SILVER
+; kanto
+KANTO_FLYPOINT EQU const_value
+	const FLY_PALLET
+	const FLY_VIRIDIAN
+	const FLY_PEWTER
+	const FLY_CERULEAN
+	const FLY_VERMILION
+	const FLY_ROCK_TUNNEL
+	const FLY_LAVENDER
+	const FLY_CELADON
+	const FLY_SAFFRON
+	const FLY_FUCHSIA
+	const FLY_CINNABAR
+	const FLY_INDIGO
+NUM_FLYPOINTS EQU const_value
 
-MAPOBJECT_SCREEN_HEIGHT EQU 11
-MAPOBJECT_SCREEN_WIDTH EQU 12
-
-
-; object_struct members (see macros/wram.asm)
-	const_def
-	const OBJECT_SPRITE              ; 00
-	const OBJECT_MAP_OBJECT_INDEX    ; 01
-	const OBJECT_SPRITE_TILE         ; 02
-	const OBJECT_MOVEMENTTYPE        ; 03
-	const OBJECT_FLAGS1              ; 04
-	const OBJECT_FLAGS2              ; 05
-	const OBJECT_PALETTE             ; 06
-	const OBJECT_DIRECTION_WALKING   ; 07
-	const OBJECT_FACING              ; 08
-	const OBJECT_STEP_TYPE           ; 09
-	const OBJECT_STEP_DURATION       ; 0a
-	const OBJECT_ACTION              ; 0b
-	const OBJECT_STEP_FRAME          ; 0c
-	const OBJECT_FACING_STEP         ; 0d
-	const OBJECT_NEXT_TILE           ; 0e
-	const OBJECT_STANDING_TILE       ; 0f
-	const OBJECT_NEXT_MAP_X          ; 10
-	const OBJECT_NEXT_MAP_Y          ; 11
-	const OBJECT_MAP_X               ; 12
-	const OBJECT_MAP_Y               ; 13
-	const OBJECT_INIT_X              ; 14
-	const OBJECT_INIT_Y              ; 15
-	const OBJECT_RADIUS              ; 16
-	const OBJECT_SPRITE_X            ; 17
-	const OBJECT_SPRITE_Y            ; 18
-	const OBJECT_SPRITE_X_OFFSET     ; 19
-	const OBJECT_SPRITE_Y_OFFSET     ; 1a
-	const OBJECT_MOVEMENT_BYTE_INDEX ; 1b
-	const OBJECT_1C                  ; 1c
-	const OBJECT_1D                  ; 1d
-	const OBJECT_1E                  ; 1e
-	const OBJECT_1F                  ; 1f
-	const OBJECT_RANGE               ; 20
-	; 21-27 are not used
-OBJECT_STRUCT_LENGTH EQU 40
-NUM_OBJECT_STRUCTS EQU 13 ; see wObjectStructs
-
-; object_struct OBJECT_FACING values
-OW_DOWN  EQU DOWN  << 2
-OW_UP    EQU UP    << 2
-OW_LEFT  EQU LEFT  << 2
-OW_RIGHT EQU RIGHT << 2
-
-; object_struct OBJECT_FLAGS1 bit flags
-INVISIBLE    EQU 0
-FIXED_FACING EQU 2
-SLIDING      EQU 3
-EMOTE_OBJECT EQU 7
+MAX_OUTDOOR_SPRITES EQU 23 ; see engine/overworld/overworld.asm

@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const CELADONMANSIONROOF_FISHER
 
 CeladonMansionRoof_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 CeladonMansionRoofFisherScript:
 	jumptextfaceplayer CeladonMansionRoofFisherText
 
-MapCeladonMansionRoofSignpost0Script:
-	jumptext UnknownText_0x71aa1
+CeladonMansionRoofGraffiti:
+	jumptext CeladonMansionRoofGraffitiText
 
 CeladonMansionRoofFisherText:
 	text "High places--I do"
@@ -25,7 +23,7 @@ CeladonMansionRoofFisherText:
 	line "me is smoke!"
 	done
 
-UnknownText_0x71aa1:
+CeladonMansionRoofGraffitiText:
 	text "There's graffiti"
 	line "on the wall…"
 
@@ -34,22 +32,17 @@ UnknownText_0x71aa1:
 	done
 
 CeladonMansionRoof_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 1, 1, 1, CELADON_MANSION_3F
-	warp_def 6, 1, 4, CELADON_MANSION_3F
-	warp_def 2, 5, 1, CELADON_MANSION_ROOF_HOUSE
+	def_warp_events
+	warp_event  1,  1, CELADON_MANSION_3F, 1
+	warp_event  6,  1, CELADON_MANSION_3F, 4
+	warp_event  2,  5, CELADON_MANSION_ROOF_HOUSE, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 6, 1, BGEVENT_LEFT, MapCeladonMansionRoofSignpost0Script
+	def_bg_events
+	bg_event  6,  1, BGEVENT_LEFT, CeladonMansionRoofGraffiti
 
-.ObjectEvents:
-	db 1
-	object_event 7, 5, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofFisherScript, -1
+	def_object_events
+	object_event  7,  5, SPRITE_FISHER, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofFisherScript, -1

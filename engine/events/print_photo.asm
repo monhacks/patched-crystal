@@ -1,5 +1,5 @@
-Special_PhotoStudio: ; 16dc7
-	ld hl, .Text_AskWhichMon
+PhotoStudio:
+	ld hl, .WhichMonPhotoText
 	call PrintText
 	farcall SelectMonFromParty
 	jr c, .cancel
@@ -7,55 +7,44 @@ Special_PhotoStudio: ; 16dc7
 	cp EGG
 	jr z, .egg
 
-	ld hl, .Text_HoldStill
+	ld hl, .HoldStillText
 	call PrintText
 	call DisableSpriteUpdates
 	farcall PrintPartymon
 	call ReturnToMapWithSpeechTextbox
-	ld a, [hPrinter]
+	ldh a, [hPrinter]
 	and a
 	jr nz, .cancel
-	ld hl, .Text_Presto
+	ld hl, .PrestoAllDoneText
 	jr .print_text
 
 .cancel
-	ld hl, .Text_NoPicture
+	ld hl, .NoPhotoText
 	jr .print_text
 
 .egg
-	ld hl, .Text_Egg
+	ld hl, .EggPhotoText
 
 .print_text
 	call PrintText
 	ret
-; 16e04
 
-.Text_AskWhichMon: ; 0x16e04
-	; Which #MON should I photo- graph?
-	text_jump UnknownText_0x1be024
-	db "@"
-; 0x16e09
+.WhichMonPhotoText:
+	text_far _WhichMonPhotoText
+	text_end
 
-.Text_HoldStill: ; 0x16e09
-	; All righty. Hold still for a bit.
-	text_jump UnknownText_0x1be047
-	db "@"
-; 0x16e0e
+.HoldStillText:
+	text_far _HoldStillText
+	text_end
 
-.Text_Presto: ; 0x16e0e
-	; Presto! All done. Come again, OK?
-	text_jump UnknownText_0x1be06a
-	db "@"
-; 0x16e13
+.PrestoAllDoneText:
+	text_far _PrestoAllDoneText
+	text_end
 
-.Text_NoPicture: ; 0x16e13
-	; Oh, no picture? Come again, OK?
-	text_jump UnknownText_0x1c0000
-	db "@"
-; 0x16e18
+.NoPhotoText:
+	text_far _NoPhotoText
+	text_end
 
-.Text_Egg: ; 0x16e18
-	; An EGG? My talent is worth more…
-	text_jump UnknownText_0x1c0021
-	db "@"
-; 0x16e1d
+.EggPhotoText:
+	text_far _EggPhotoText
+	text_end

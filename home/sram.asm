@@ -1,12 +1,26 @@
-GetSRAMBank:: ; 2fcb
-; load sram bank a
+OpenSRAM::
 ; if invalid bank, sram is disabled
 	cp NUM_SRAM_BANKS
-	jr c, OpenSRAM
+	jr c, .valid
+if DEF(_DEBUG)
+	push af
+	push bc
+	ld b, 1
+.loop
+	sla b
+	dec a
+	jr nz, .loop
+	ld a, BANK(sOpenedInvalidSRAM)
+	call OpenSRAM
+	ld a, [sOpenedInvalidSRAM]
+	or b
+	ld [sOpenedInvalidSRAM], a
+	pop bc
+	pop af
+endc
 	jr CloseSRAM
-; 2fd1
 
-OpenSRAM:: ; 2fd1
+.valid:
 ; switch to sram bank a
 	push af
 ; latch clock data
@@ -19,9 +33,8 @@ OpenSRAM:: ; 2fd1
 	pop af
 	ld [MBC3SRamBank], a
 	ret
-; 2fe1
 
-CloseSRAM:: ; 2fe1
+CloseSRAM::
 	push af
 	ld a, SRAM_DISABLE
 ; reset clock latch for next time
@@ -30,4 +43,3 @@ CloseSRAM:: ; 2fe1
 	ld [MBC3SRamEnable], a
 	pop af
 	ret
-; 2fec

@@ -1,69 +1,62 @@
-const_value set 2
+	object_const_def
 	const SILVERCAVEROOM3_RED
 
 SilverCaveRoom3_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Red:
-	special Special_FadeOutMusic
+	special FadeOutMusic
 	faceplayer
 	opentext
-	writetext .Text1
+	writetext RedSeenText
 	waitbutton
 	closetext
-	winlosstext .Text2, .Text2
+	winlosstext RedWinLossText, RedWinLossText
 	loadtrainer RED, RED1
 	startbattle
 	dontrestartmapmusic
 	reloadmapafterbattle
-	special Special_FadeOutMusic
+	special FadeOutMusic
 	opentext
-	writetext .Text3
+	writetext RedLeavesText
 	waitbutton
 	closetext
-	special Special_FadeBlackQuickly
+	special FadeBlackQuickly
 	special ReloadSpritesNoPalettes
 	disappear SILVERCAVEROOM3_RED
 	pause 15
-	special Special_FadeInQuickly
+	special FadeInQuickly
 	pause 30
 	special HealParty
 	refreshscreen
 	credits
 	end
 
-.Text1:
+RedSeenText:
 	text "<……>"
 	line "<……>"
 	done
 
-.Text2:
+RedWinLossText:
 	text "…"
 	done
 
-.Text3:
+RedLeavesText:
 	text "<……>"
 	line "<……>"
 	done
 
 SilverCaveRoom3_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 9, 33, 2, SILVER_CAVE_ROOM_2
+	def_warp_events
+	warp_event  9, 33, SILVER_CAVE_ROOM_2, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 9, 10, SPRITE_RED, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Red, EVENT_RED_IN_MT_SILVER
+	def_object_events
+	object_event  9, 10, SPRITE_RED, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Red, EVENT_RED_IN_MT_SILVER

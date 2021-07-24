@@ -1,21 +1,19 @@
-const_value set 2
-	const SLOWPOKEWELLB2F_GYM_GUY
+	object_const_def
+	const SLOWPOKEWELLB2F_GYM_GUIDE
 	const SLOWPOKEWELLB2F_POKE_BALL
 
 SlowpokeWellB2F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-GymGuyScript_0x5ad0b:
+SlowpokeWellB2FGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_KINGS_ROCK_IN_SLOWPOKE_WELL
 	iftrue .GotKingsRock
-	writetext UnknownText_0x5ad2a
-	buttonsound
+	writetext SlowpokeWellB2FGymGuideText
+	promptbutton
 	verbosegiveitem KINGS_ROCK
 	iffalse .NoRoom
 	setevent EVENT_GOT_KINGS_ROCK_IN_SLOWPOKE_WELL
@@ -24,7 +22,7 @@ GymGuyScript_0x5ad0b:
 	end
 
 .GotKingsRock:
-	writetext UnknownText_0x5adf2
+	writetext SlowpokeWellB2FGymGuideText_GotKingsRock
 	waitbutton
 	closetext
 	end
@@ -32,7 +30,7 @@ GymGuyScript_0x5ad0b:
 SlowpokeWellB2FTMRainDance:
 	itemball TM_RAIN_DANCE
 
-UnknownText_0x5ad2a:
+SlowpokeWellB2FGymGuideText:
 	text "I'm waiting to see"
 	line "SLOWPOKE's moment"
 	cont "of evolution."
@@ -52,7 +50,7 @@ UnknownText_0x5ad2a:
 	cont "you."
 	done
 
-UnknownText_0x5adf2:
+SlowpokeWellB2FGymGuideText_GotKingsRock:
 	text "I'm going to be"
 	line "like SLOWPOKE."
 
@@ -62,20 +60,15 @@ UnknownText_0x5adf2:
 	done
 
 SlowpokeWellB2F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 9, 11, 2, SLOWPOKE_WELL_B1F
+	def_warp_events
+	warp_event  9, 11, SLOWPOKE_WELL_B1F, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 2
-	object_event 5, 4, SPRITE_GYM_GUY, SPRITEMOVEDATA_WANDER, 1, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 1, GymGuyScript_0x5ad0b, -1
-	object_event 15, 5, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, SlowpokeWellB2FTMRainDance, EVENT_SLOWPOKE_WELL_B2F_TM_RAIN_DANCE
+	def_object_events
+	object_event  5,  4, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_WANDER, 1, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 1, SlowpokeWellB2FGymGuideScript, -1
+	object_event 15,  5, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, SlowpokeWellB2FTMRainDance, EVENT_SLOWPOKE_WELL_B2F_TM_RAIN_DANCE

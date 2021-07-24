@@ -1,14 +1,12 @@
-const_value set 2
+	object_const_def
 	const DARKCAVEBLACKTHORNENTRANCE_PHARMACIST
 	const DARKCAVEBLACKTHORNENTRANCE_POKE_BALL1
 	const DARKCAVEBLACKTHORNENTRANCE_POKE_BALL2
 
 DarkCaveBlackthornEntrance_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 DarkCaveBlackthornEntrancePharmacistScript:
 	faceplayer
@@ -16,7 +14,7 @@ DarkCaveBlackthornEntrancePharmacistScript:
 	checkevent EVENT_GOT_BLACKGLASSES_IN_DARK_CAVE
 	iftrue .GotBlackglasses
 	writetext DarkCaveBlackthornEntrancePharmacistText1
-	buttonsound
+	promptbutton
 	verbosegiveitem BLACKGLASSES
 	iffalse .PackFull
 	setevent EVENT_GOT_BLACKGLASSES_IN_DARK_CAVE
@@ -62,22 +60,17 @@ DarkCaveBlackthornEntrancePharmacistText2:
 	done
 
 DarkCaveBlackthornEntrance_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 23, 3, 1, ROUTE_45
-	warp_def 3, 25, 2, DARK_CAVE_VIOLET_ENTRANCE
+	def_warp_events
+	warp_event 23,  3, ROUTE_45, 1
+	warp_event  3, 25, DARK_CAVE_VIOLET_ENTRANCE, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 7, 3, SPRITE_PHARMACIST, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DarkCaveBlackthornEntrancePharmacistScript, -1
-	object_event 21, 24, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, DarkCaveBlackthornEntranceRevive, EVENT_DARK_CAVE_BLACKTHORN_ENTRANCE_REVIVE
-	object_event 7, 22, SPRITE_POKE_BALL, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, DarkCaveBlackthornEntranceTMSnore, EVENT_DARK_CAVE_BLACKTHORN_ENTRANCE_TM_SNORE
+	def_object_events
+	object_event  7,  3, SPRITE_PHARMACIST, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DarkCaveBlackthornEntrancePharmacistScript, -1
+	object_event 21, 24, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, DarkCaveBlackthornEntranceRevive, EVENT_DARK_CAVE_BLACKTHORN_ENTRANCE_REVIVE
+	object_event  7, 22, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, DarkCaveBlackthornEntranceTMSnore, EVENT_DARK_CAVE_BLACKTHORN_ENTRANCE_TM_SNORE

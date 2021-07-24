@@ -1,26 +1,24 @@
-const_value set 2
+	object_const_def
 	const VERMILIONGYM_SURGE
 	const VERMILIONGYM_GENTLEMAN
 	const VERMILIONGYM_ROCKER
 	const VERMILIONGYM_SUPER_NERD
-	const VERMILIONGYM_GYM_GUY
+	const VERMILIONGYM_GYM_GUIDE
 
 VermilionGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-SurgeScript_0x1920a5:
+VermilionGymSurgeScript:
 	faceplayer
 	opentext
 	checkflag ENGINE_THUNDERBADGE
 	iftrue .FightDone
-	writetext UnknownText_0x192142
+	writetext LtSurgeIntroText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x192238, 0
+	winlosstext LtSurgeWinLossText, 0
 	loadtrainer LT_SURGE, LT_SURGE1
 	startbattle
 	reloadmapafterbattle
@@ -29,19 +27,19 @@ SurgeScript_0x1920a5:
 	setevent EVENT_BEAT_GUITARIST_VINCENT
 	setevent EVENT_BEAT_JUGGLER_HORTON
 	opentext
-	writetext UnknownText_0x192277
+	writetext ReceivedThunderBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_THUNDERBADGE
-	writetext UnknownText_0x192291
+	writetext LtSurgeThunderBadgeText
 	waitbutton
 	closetext
 	end
 
 .FightDone:
-	writetext UnknownText_0x192303
+	writetext LtSurgeFightDoneText
 	yesorno
-	iftrue .SurgeRematch
+	iftrue .SurgeRematch;waitbutton
 	closetext
 	end
 
@@ -50,13 +48,12 @@ SurgeScript_0x1920a5:
 	loadtrainer LT_SURGE, 1
 	startbattle
 	reloadmapafterbattle
-	end
 	
 TrainerGentlemanGregory:
-	trainer EVENT_BEAT_GENTLEMAN_GREGORY, GENTLEMAN, GREGORY, GentlemanGregorySeenText, GentlemanGregoryBeatenText, 0, .Script
+	trainer GENTLEMAN, GREGORY, EVENT_BEAT_GENTLEMAN_GREGORY, GentlemanGregorySeenText, GentlemanGregoryBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GentlemanGregoryAfterBattleText
 	waitbutton
@@ -64,10 +61,10 @@ TrainerGentlemanGregory:
 	end
 
 TrainerGuitaristVincent:
-	trainer EVENT_BEAT_GUITARIST_VINCENT, GUITARIST, VINCENT, GuitaristVincentSeenText, GuitaristVincentBeatenText, 0, .Script
+	trainer GUITARIST, VINCENT, EVENT_BEAT_GUITARIST_VINCENT, GuitaristVincentSeenText, GuitaristVincentBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext GuitaristVincentAfterBattleText
 	waitbutton
@@ -75,44 +72,44 @@ TrainerGuitaristVincent:
 	end
 
 TrainerJugglerHorton:
-	trainer EVENT_BEAT_JUGGLER_HORTON, JUGGLER, HORTON, JugglerHortonSeenText, JugglerHortonBeatenText, 0, .Script
+	trainer JUGGLER, HORTON, EVENT_BEAT_JUGGLER_HORTON, JugglerHortonSeenText, JugglerHortonBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext JugglerHortonAfterBattleText
 	waitbutton
 	closetext
 	end
 
-VermilionGymGuyScript:
+VermilionGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_LTSURGE
-	iftrue .VermilionGymGuyWinScript
-	writetext VermilionGymGuyText
+	iftrue .VermilionGymGuideWinScript
+	writetext VermilionGymGuideText
 	waitbutton
 	closetext
 	end
 
-.VermilionGymGuyWinScript:
-	writetext VermilionGymGuyWinText
+.VermilionGymGuideWinScript:
+	writetext VermilionGymGuideWinText
 	waitbutton
 	closetext
 	end
 
-MapVermilionGymSignpost14Script:
-	jumptext UnknownText_0x19261e
+VermilionGymTrashCan:
+	jumptext VermilionGymTrashCanText
 
 VermilionGymStatue:
 	checkflag ENGINE_THUNDERBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext LT_SURGE, LT_SURGE1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, LT_SURGE, LT_SURGE1
+	jumpstd GymStatue2Script
 
-UnknownText_0x192142:
+LtSurgeIntroText:
 	text "SURGE: Hey, you"
 	line "little tyke!"
 
@@ -135,7 +132,7 @@ UnknownText_0x192142:
 	cont "enemies in war!"
 	done
 
-UnknownText_0x192238:
+LtSurgeWinLossText:
 	text "SURGE: Arrrgh!"
 	line "You are strong!"
 
@@ -143,12 +140,12 @@ UnknownText_0x192238:
 	line "THUNDERBADGE!"
 	done
 
-UnknownText_0x192277:
+ReceivedThunderBadgeText:
 	text "<PLAYER> received"
 	line "THUNDERBADGE."
 	done
 
-UnknownText_0x192291:
+LtSurgeThunderBadgeText:
 	text "SURGE: THUNDER-"
 	line "BADGE increases"
 	cont "#MON's speed. "
@@ -160,14 +157,14 @@ UnknownText_0x192291:
 	line "proudly, hear?"
 	done
 
-UnknownText_0x192303:
+LtSurgeFightDoneText:
 	text "SURGE: Hey, kid!"
 	line "Still slugging and"
 	cont "chugging away?"
 
 	para "My #MON and I"
 	line "are still at it!"
-	
+
 	para "How about yours,"
 	line "show me what you"
 	cont "got!"
@@ -175,7 +172,7 @@ UnknownText_0x192303:
 
 Surge_RematchDefeat:
 	text "You're still"
-	line "holding up kid!"
+	line "holding up kid!"	
 	done
 
 GentlemanGregorySeenText:
@@ -242,7 +239,7 @@ JugglerHortonAfterBattleText:
 	line "LT.SURGE is tough."
 	done
 
-VermilionGymGuyText:
+VermilionGymGuideText:
 	text "Yo! CHAMP in"
 	line "making!"
 
@@ -264,7 +261,7 @@ VermilionGymGuyText:
 	cont "LT.SURGE."
 	done
 
-VermilionGymGuyWinText:
+VermilionGymGuideWinText:
 	text "Whew! That was an"
 	line "electrifying bout!"
 
@@ -272,47 +269,42 @@ VermilionGymGuyWinText:
 	line "nervous."
 	done
 
-UnknownText_0x19261e:
+VermilionGymTrashCanText:
 	text "Nope! Nothing here"
 	line "but trash."
 	done
 
 VermilionGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 17, 7, VERMILION_CITY
-	warp_def 5, 17, 7, VERMILION_CITY
+	def_warp_events
+	warp_event  4, 17, VERMILION_CITY, 7
+	warp_event  5, 17, VERMILION_CITY, 7
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 17
-	bg_event 1, 7, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 3, 7, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 5, 7, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 7, 7, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 9, 7, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 1, 9, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 3, 9, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 5, 9, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 7, 9, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 9, 9, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 1, 11, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 3, 11, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 5, 11, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 7, 11, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 9, 11, BGEVENT_READ, MapVermilionGymSignpost14Script
-	bg_event 3, 15, BGEVENT_READ, VermilionGymStatue
-	bg_event 6, 15, BGEVENT_READ, VermilionGymStatue
+	def_bg_events
+	bg_event  1,  7, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  3,  7, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  5,  7, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  7,  7, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  9,  7, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  1,  9, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  3,  9, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  5,  9, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  7,  9, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  9,  9, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  1, 11, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  3, 11, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  5, 11, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  7, 11, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  9, 11, BGEVENT_READ, VermilionGymTrashCan
+	bg_event  3, 15, BGEVENT_READ, VermilionGymStatue
+	bg_event  6, 15, BGEVENT_READ, VermilionGymStatue
 
-.ObjectEvents:
-	db 5
-	object_event 5, 2, SPRITE_SURGE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, SurgeScript_0x1920a5, -1
-	object_event 8, 8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerGentlemanGregory, -1
-	object_event 4, 7, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 3, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerGuitaristVincent, -1
-	object_event 0, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerJugglerHorton, -1
-	object_event 7, 15, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 1, VermilionGymGuyScript, -1
+	def_object_events
+	object_event  5,  2, SPRITE_SURGE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, VermilionGymSurgeScript, -1
+	object_event  8,  8, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerGentlemanGregory, -1
+	object_event  4,  7, SPRITE_ROCKER, SPRITEMOVEDATA_STANDING_DOWN, 3, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerGuitaristVincent, -1
+	object_event  0, 10, SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 4, TrainerJugglerHorton, -1
+	object_event  7, 15, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 1, VermilionGymGuideScript, -1

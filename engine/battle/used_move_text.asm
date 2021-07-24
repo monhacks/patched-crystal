@@ -1,15 +1,13 @@
-DisplayUsedMoveText: ; 105db0
-; battle command 03
+DisplayUsedMoveText:
 	ld hl, UsedMoveText
-	call BattleTextBox
+	call BattleTextbox
 	jp WaitBGMap
-; 105db9
 
-UsedMoveText: ; 105db9
-; this is a stream of text and asm from 105db9 to 105ef6
-	text_jump _ActorNameText
-	start_asm
-	ld a, [hBattleTurn]
+UsedMoveText:
+	text_far _ActorNameText
+	text_asm
+
+	ldh a, [hBattleTurn]
 	and a
 	jr nz, .start
 
@@ -27,7 +25,7 @@ UsedMoveText: ; 105db9
 
 	ld a, BATTLE_VARS_MOVE_ANIM
 	call GetBattleVar
-	ld [wd265], a
+	ld [wMoveGrammar], a
 
 	push hl
 	farcall CheckUserIsCharging
@@ -35,15 +33,14 @@ UsedMoveText: ; 105db9
 	jr nz, .grammar
 
 	; update last move
-	ld a, [wd265]
+	ld a, [wMoveGrammar]
 	ld [hl], a
 	ld [de], a
 
 .grammar
-	call GetMoveGrammar
-; wd265 now contains MoveGrammar
+	call GetMoveGrammar ; convert move id to grammar index
 
-; everything except 'instead' made redundant in localization
+; everything except 'CheckObedience' made redundant in localization
 
 	; check obedience
 	ld a, [wAlreadyDisobeyed]
@@ -52,24 +49,22 @@ UsedMoveText: ; 105db9
 	ret nz
 
 	; check move grammar
-	ld a, [wd265]
+	ld a, [wMoveGrammar]
 	cp $3
 	ld hl, UsedMove2Text
 	ret c
 	ld hl, UsedMove1Text
 	ret
-; 105e04
 
-UsedMove1Text: ; 105e04
-	text_jump _UsedMove1Text
-	start_asm
+UsedMove1Text:
+	text_far _UsedMove1Text
+	text_asm
 	jr UsedMoveText_CheckObedience
-; 105e0b
 
-UsedMove2Text: ; 105e0b
-	text_jump _UsedMove2Text
-	start_asm
-UsedMoveText_CheckObedience: ; 105e10
+UsedMove2Text:
+	text_far _UsedMove2Text
+	text_asm
+UsedMoveText_CheckObedience:
 ; check obedience
 	ld a, [wAlreadyDisobeyed]
 	and a
@@ -77,31 +72,29 @@ UsedMoveText_CheckObedience: ; 105e10
 ; print "instead,"
 	ld hl, .UsedInsteadText
 	ret
-; 105e1a
 
 .UsedInsteadText:
-	text_jump _UsedInsteadText
-	start_asm
+	text_far _UsedInsteadText
+	text_asm
 .GetMoveNameText:
 	ld hl, MoveNameText
 	ret
-; 105e23
 
-MoveNameText: ; 105e23
-	text_jump _MoveNameText
-	start_asm
+MoveNameText:
+	text_far _MoveNameText
+	text_asm
 ; get start address
 	ld hl, .endusedmovetexts
 
 ; get move id
-	ld a, [wd265]
+	ld a, [wMoveGrammar]
 
 ; 2-byte pointer
 	add a
 
 ; seek
 	push bc
-	ld b, $0
+	ld b, 0
 	ld c, a
 	add hl, bc
 	pop bc
@@ -111,46 +104,43 @@ MoveNameText: ; 105e23
 	ld h, [hl]
 	ld l, a
 	ret
-; 105e39
 
-.endusedmovetexts ; 105e39
+.endusedmovetexts
+; entries correspond to MoveGrammar sets
 	dw EndUsedMove1Text
 	dw EndUsedMove2Text
 	dw EndUsedMove3Text
 	dw EndUsedMove4Text
 	dw EndUsedMove5Text
-; 105e43
 
-EndUsedMove1Text: ; 105e43
-	text_jump _EndUsedMove1Text
-	db "@"
-; 105e48
-EndUsedMove2Text: ; 105e48
-	text_jump _EndUsedMove2Text
-	db "@"
-; 105e4d
-EndUsedMove3Text: ; 105e4d
-	text_jump _EndUsedMove3Text
-	db "@"
-; 105e52
-EndUsedMove4Text: ; 105e52
-	text_jump _EndUsedMove4Text
-	db "@"
-; 105e57
-EndUsedMove5Text: ; 105e57
-	text_jump _EndUsedMove5Text
-	db "@"
-; 105e5c
+EndUsedMove1Text:
+	text_far _EndUsedMove1Text
+	text_end
 
+EndUsedMove2Text:
+	text_far _EndUsedMove2Text
+	text_end
 
-GetMoveGrammar: ; 105e5c
-; store move grammar type in wd265
+EndUsedMove3Text:
+	text_far _EndUsedMove3Text
+	text_end
+
+EndUsedMove4Text:
+	text_far _EndUsedMove4Text
+	text_end
+
+EndUsedMove5Text:
+	text_far _EndUsedMove5Text
+	text_end
+
+GetMoveGrammar:
+; store move grammar type in wMoveGrammar
 
 	push bc
-; c = move id
-	ld a, [wd265]
-	ld c, a
-	ld b, $0
+; wMoveGrammar contains move id
+	ld a, [wMoveGrammar]
+	ld c, a ; move id
+	ld b, 0 ; grammar index
 
 ; read grammar table
 	ld hl, MoveGrammar
@@ -170,19 +160,17 @@ GetMoveGrammar: ; 105e5c
 	jr .loop
 
 .end
-; wd265 now contains move grammar
+; wMoveGrammar now contains move grammar
 	ld a, b
-	ld [wd265], a
+	ld [wMoveGrammar], a
 
 ; we're done
 	pop bc
 	ret
-; 105e7a
 
 INCLUDE "data/moves/grammar.asm"
 
-
-UpdateUsedMoves: ; 105ed0
+UpdateUsedMoves:
 ; append move a to wPlayerUsedMoves unless it has already been used
 
 	push bc
@@ -236,4 +224,3 @@ UpdateUsedMoves: ; 105ed0
 ; list updated
 	pop bc
 	ret
-; 105ef6

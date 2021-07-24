@@ -1,71 +1,69 @@
-const_value set 2
+	object_const_def
 	const BATTLETOWERHALLWAY_RECEPTIONIST
 
 BattleTowerHallway_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .Scene0
-	scene_script .Scene1
+	def_scene_scripts
+	scene_script .Scene0 ; SCENE_DEFAULT
+	scene_script .Scene1 ; SCENE_FINISHED
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .Scene0:
-	priorityjump .ChooseBattleRoom
-	setscene 1
+	prioritysjump .ChooseBattleRoom
+	setscene SCENE_FINISHED
 .Scene1:
 	end
 
 .ChooseBattleRoom:
 	follow BATTLETOWERHALLWAY_RECEPTIONIST, PLAYER
 	callasm .asm_load_battle_room
-	jump .WalkToChosenBattleRoom
+	sjump .WalkToChosenBattleRoom
 
 .asm_load_battle_room
-	ld a, [rSVBK]
+	ldh a, [rSVBK]
 	push af
 
 	ld a, BANK(wBTChoiceOfLvlGroup)
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	ld a, [wBTChoiceOfLvlGroup]
 	ld [wScriptVar], a
 
 	pop af
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	ret
 
 ; enter different rooms for different levels to battle against
 ; at least it should look like that
 ; because all warps lead to the same room
-.WalkToChosenBattleRoom: ; 0x9f5dc
-	if_equal 3, .L30L40
-	if_equal 4, .L30L40
-	if_equal 5, .L50L60
-	if_equal 6, .L50L60
-	if_equal 7, .L70L80
-	if_equal 8, .L70L80
-	if_equal 9, .L90L100
-	if_equal 10, .L90L100
+.WalkToChosenBattleRoom:
+	ifequal 3, .L30L40
+	ifequal 4, .L30L40
+	ifequal 5, .L50L60
+	ifequal 6, .L50L60
+	ifequal 7, .L70L80
+	ifequal 8, .L70L80
+	ifequal 9, .L90L100
+	ifequal 10, .L90L100
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo1020Room
-	jump .EnterBattleRoom
+	sjump .EnterBattleRoom
 
-.L30L40: ; 0x9f603
+.L30L40:
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo3040Room
-	jump .EnterBattleRoom
+	sjump .EnterBattleRoom
 
-.L50L60: ; 0x9f60a
+.L50L60:
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo5060Room
-	jump .EnterBattleRoom
+	sjump .EnterBattleRoom
 
-.L70L80: ; 0x9f611
+.L70L80:
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo7080Room
-	jump .EnterBattleRoom
+	sjump .EnterBattleRoom
 
-.L90L100: ; 0x9f618
+.L90L100:
 	applymovement BATTLETOWERHALLWAY_RECEPTIONIST, MovementData_BattleTowerHallwayWalkTo90100Room
-	jump .EnterBattleRoom
+	sjump .EnterBattleRoom
 
-.EnterBattleRoom: ; 0x9f61f
+.EnterBattleRoom:
 	faceobject PLAYER, BATTLETOWERHALLWAY_RECEPTIONIST
 	opentext
 	writetext Text_PleaseStepThisWay
@@ -77,24 +75,19 @@ BattleTowerHallway_MapScripts:
 	end
 
 BattleTowerHallway_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 6
-	warp_def 11, 1, 1, BATTLE_TOWER_ELEVATOR
-	warp_def 5, 0, 1, BATTLE_TOWER_BATTLE_ROOM
-	warp_def 7, 0, 1, BATTLE_TOWER_BATTLE_ROOM
-	warp_def 9, 0, 1, BATTLE_TOWER_BATTLE_ROOM
-	warp_def 13, 0, 1, BATTLE_TOWER_BATTLE_ROOM
-	warp_def 15, 0, 1, BATTLE_TOWER_BATTLE_ROOM
+	def_warp_events
+	warp_event 11,  1, BATTLE_TOWER_ELEVATOR, 1
+	warp_event  5,  0, BATTLE_TOWER_BATTLE_ROOM, 1
+	warp_event  7,  0, BATTLE_TOWER_BATTLE_ROOM, 1
+	warp_event  9,  0, BATTLE_TOWER_BATTLE_ROOM, 1
+	warp_event 13,  0, BATTLE_TOWER_BATTLE_ROOM, 1
+	warp_event 15,  0, BATTLE_TOWER_BATTLE_ROOM, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 11, 2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BattleTowerHallway_MapEvents, -1
+	def_object_events
+	object_event 11,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BattleTowerHallway_MapEvents, -1

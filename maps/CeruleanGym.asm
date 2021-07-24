@@ -1,72 +1,70 @@
-const_value set 2
+	object_const_def
 	const CERULEANGYM_ROCKET
 	const CERULEANGYM_MISTY
 	const CERULEANGYM_SWIMMER_GIRL1
 	const CERULEANGYM_SWIMMER_GIRL2
 	const CERULEANGYM_SWIMMER_GUY
-	const CERULEANGYM_GYM_GUY
+	const CERULEANGYM_GYM_GUIDE
 
 CeruleanGym_MapScripts:
-.SceneScripts:
-	db 2
-	scene_script .DummyScene0
-	scene_script .GruntRunsOut
+	def_scene_scripts
+	scene_script .DummyScene0 ; SCENE_CERULEANGYM_NOTHING
+	scene_script .GruntRunsOut ; SCENE_CERULEANGYM_GRUNT_RUNS_OUT
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene0:
 	end
 
 .GruntRunsOut:
-	priorityjump .GruntRunsOutScript
+	prioritysjump .GruntRunsOutScript
 	end
 
 .GruntRunsOutScript:
-	applymovement CERULEANGYM_ROCKET, MovementData_0x1884e3
+	applymovement CERULEANGYM_ROCKET, CeruleanGymGruntRunsDownMovement
 	playsound SFX_TACKLE
-	applymovement CERULEANGYM_ROCKET, MovementData_0x1884eb
+	applymovement CERULEANGYM_ROCKET, CeruleanGymGruntRunsIntoYouMovement
 	playmusic MUSIC_ROCKET_ENCOUNTER
 	opentext
-	writetext UnknownText_0x1884fb
+	writetext CeruleanGymGruntIntroText
 	waitbutton
 	closetext
 	showemote EMOTE_SHOCK, CERULEANGYM_ROCKET, 15
-	applymovement CERULEANGYM_ROCKET, MovementData_0x1884f7
+	applymovement CERULEANGYM_ROCKET, CeruleanGymGruntBacksAwayMovement
 	opentext
-	writetext UnknownText_0x188574
+	writetext CeruleanGymGruntBigMistakeText
 	waitbutton
 	closetext
-	applymovement CERULEANGYM_ROCKET, MovementData_0x1884f5
+	applymovement CERULEANGYM_ROCKET, CeruleanGymGruntMovesCloseMovement
 	opentext
-	writetext UnknownText_0x1885a5
+	writetext CeruleanGymGruntByeText
 	waitbutton
 	closetext
-	applymovement CERULEANGYM_ROCKET, MovementData_0x1884e8
+	applymovement CERULEANGYM_ROCKET, CeruleanGymGruntRunsOutMovement
 	playsound SFX_EXIT_BUILDING
 	disappear CERULEANGYM_ROCKET
 	setevent EVENT_MET_ROCKET_GRUNT_AT_CERULEAN_GYM
 	clearevent EVENT_ROUTE_24_ROCKET
 	clearevent EVENT_ROUTE_25_MISTY_BOYFRIEND
-	setscene 0
-	setmapscene ROUTE_25, 1
-	setmapscene POWER_PLANT, 0
+	setscene SCENE_CERULEANGYM_NOTHING
+	setmapscene ROUTE_25, SCENE_ROUTE25_MISTYS_DATE
+	setmapscene POWER_PLANT, SCENE_POWERPLANT_NOTHING
 	waitsfx
 	special RestartMapMusic
 	pause 15
-	spriteface PLAYER, DOWN
+	turnobject PLAYER, DOWN
 	pause 15
 	end
 
-MistyScript_0x188432:
+CeruleanGymMistyScript:
 	faceplayer
 	opentext
 	checkflag ENGINE_CASCADEBADGE
 	iftrue .FightDone
-	writetext UnknownText_0x188674
+	writetext MistyIntroText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x18870c, 0
+	winlosstext MistyWinLossText, 0
 	loadtrainer MISTY, MISTY1
 	startbattle
 	reloadmapafterbattle
@@ -75,14 +73,14 @@ MistyScript_0x188432:
 	setevent EVENT_BEAT_SWIMMERF_BRIANA
 	setevent EVENT_BEAT_SWIMMERM_PARKER
 	opentext
-	writetext UnknownText_0x188768
+	writetext ReceivedCascadeBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_CASCADEBADGE
 .FightDone:
-	writetext UnknownText_0x188782
+	writetext MistyFightDoneText
 	yesorno
-	iftrue .MistyRematch
+	iftrue .MistyRematch;waitbutton
 	closetext
 	end
 
@@ -91,14 +89,12 @@ MistyScript_0x188432:
 	loadtrainer MISTY, 1
 	startbattle
 	reloadmapafterbattle
-	end
-	
-	
+	end			  
 TrainerSwimmerfDiana:
-	trainer EVENT_BEAT_SWIMMERF_DIANA, SWIMMERF, DIANA, SwimmerfDianaSeenText, SwimmerfDianaBeatenText, 0, .Script
+	trainer SWIMMERF, DIANA, EVENT_BEAT_SWIMMERF_DIANA, SwimmerfDianaSeenText, SwimmerfDianaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmerfDianaAfterBattleText
 	waitbutton
@@ -106,10 +102,10 @@ TrainerSwimmerfDiana:
 	end
 
 TrainerSwimmerfBriana:
-	trainer EVENT_BEAT_SWIMMERF_BRIANA, SWIMMERF, BRIANA, SwimmerfBrianaSeenText, SwimmerfBrianaBeatenText, 0, .Script
+	trainer SWIMMERF, BRIANA, EVENT_BEAT_SWIMMERF_BRIANA, SwimmerfBrianaSeenText, SwimmerfBrianaBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmerfBrianaAfterBattleText
 	waitbutton
@@ -117,40 +113,40 @@ TrainerSwimmerfBriana:
 	end
 
 TrainerSwimmermParker:
-	trainer EVENT_BEAT_SWIMMERM_PARKER, SWIMMERM, PARKER, SwimmermParkerSeenText, SwimmermParkerBeatenText, 0, .Script
+	trainer SWIMMERM, PARKER, EVENT_BEAT_SWIMMERM_PARKER, SwimmermParkerSeenText, SwimmermParkerBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext SwimmermParkerAfterBattleText
 	waitbutton
 	closetext
 	end
 
-CeruleanGymGuyScript:
+CeruleanGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_MISTY
-	iftrue .CeruleanGymGuyWinScript
-	writetext CeruleanGymGuyText
+	iftrue .CeruleanGymGuideWinScript
+	writetext CeruleanGymGuideText
 	waitbutton
 	closetext
 	end
 
-.CeruleanGymGuyWinScript:
-	writetext CeruleanGymGuyWinText
+.CeruleanGymGuideWinScript:
+	writetext CeruleanGymGuideWinText
 	waitbutton
 	closetext
 	end
 
 CeruleanGymHiddenMachinePart:
-	hiddenitem EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM, MACHINE_PART
+	hiddenitem MACHINE_PART, EVENT_FOUND_MACHINE_PART_IN_CERULEAN_GYM
 
 CeruleanGymStatue1:
 	checkevent EVENT_TRAINERS_IN_CERULEAN_GYM
 	iffalse CeruleanGymStatue
 	opentext
-	writetext CeruleanGymNote1
+	writetext CeruleanGymNote1Text
 	waitbutton
 	closetext
 	end
@@ -159,7 +155,7 @@ CeruleanGymStatue2:
 	checkevent EVENT_TRAINERS_IN_CERULEAN_GYM
 	iffalse CeruleanGymStatue
 	opentext
-	writetext CeruleanGymNote2
+	writetext CeruleanGymNote2Text
 	waitbutton
 	closetext
 	end
@@ -167,24 +163,24 @@ CeruleanGymStatue2:
 CeruleanGymStatue:
 	checkflag ENGINE_CASCADEBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext MISTY, MISTY1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, MISTY, MISTY1
+	jumpstd GymStatue2Script
 
-MovementData_0x1884e3:
+CeruleanGymGruntRunsDownMovement:
 	big_step DOWN
 	big_step DOWN
 	big_step DOWN
 	big_step DOWN
 	step_end
 
-MovementData_0x1884e8:
+CeruleanGymGruntRunsOutMovement:
 	big_step RIGHT
 	big_step DOWN
 	step_end
 
-MovementData_0x1884eb:
+CeruleanGymGruntRunsIntoYouMovement:
 	fix_facing
 	set_sliding
 	jump_step UP
@@ -196,17 +192,17 @@ MovementData_0x1884eb:
 	step DOWN
 	step_end
 
-MovementData_0x1884f5:
+CeruleanGymGruntMovesCloseMovement:
 	big_step DOWN
 	step_end
 
-MovementData_0x1884f7:
+CeruleanGymGruntBacksAwayMovement:
 	fix_facing
 	slow_step UP
 	remove_fixed_facing
 	step_end
 
-UnknownText_0x1884fb:
+CeruleanGymGruntIntroText:
 	text "Oops! I so sorry!"
 	line "You not hurt,"
 	cont "okay?"
@@ -218,13 +214,13 @@ UnknownText_0x1884fb:
 	cont "seen by somebody."
 	done
 
-UnknownText_0x188574:
+CeruleanGymGruntBigMistakeText:
 	text "Oh no! You seen"
 	line "me already! I make"
 	cont "big mistake!"
 	done
 
-UnknownText_0x1885a5:
+CeruleanGymGruntByeText:
 	text "Hey, you! Forget"
 	line "you see me, okay?"
 
@@ -237,19 +233,19 @@ UnknownText_0x1885a5:
 	para "Bye-bye a go-go!"
 	done
 
-CeruleanGymNote1:
+CeruleanGymNote1Text:
 	text "Sorry, I'll be out"
 	line "for a while."
 	cont "MISTY, GYM LEADER"
 	done
 
-CeruleanGymNote2:
+CeruleanGymNote2Text:
 	text "Since MISTY's out,"
 	line "we'll be away too."
 	cont "GYM TRAINERS"
 	done
 
-UnknownText_0x188674:
+MistyIntroText:
 	text "MISTY: I was ex-"
 	line "pecting you, you"
 	cont "pest!"
@@ -265,7 +261,7 @@ UnknownText_0x188674:
 	line "#MON are tough!"
 	done
 
-UnknownText_0x18870c:
+MistyWinLossText:
 	text "MISTY: You really"
 	line "are good…"
 
@@ -276,12 +272,12 @@ UnknownText_0x18870c:
 	line "CASCADEBADGE."
 	done
 
-UnknownText_0x188768:
+ReceivedCascadeBadgeText:
 	text "<PLAYER> received"
 	line "CASCADEBADGE."
 	done
 
-UnknownText_0x188782:
+MistyFightDoneText:
 	text "MISTY: Are there"
 	line "many strong train-"
 	cont "ers in JOHTO? Like"
@@ -292,12 +288,11 @@ UnknownText_0x188782:
 
 	para "I can battle some"
 	line "skilled trainers."
-	
 	para "But I can always"
 	line "battle you."
 	cont "How about a"
 	
-	para "rematch?"
+	para "rematch?"								
 	done
 
 Misty_RematchDefeat:
@@ -306,8 +301,8 @@ Misty_RematchDefeat:
 
 	para "Dont get cocky"
 	line "pest!"
-	done
-
+	done					
+	
 SwimmerfDianaSeenText:
 	text "Sorry about being"
 	line "away. Let's get on"
@@ -365,7 +360,7 @@ SwimmermParkerAfterBattleText:
 	cont "you'll be crushed!"
 	done
 
-CeruleanGymGuyText:
+CeruleanGymGuideText:
 	text "Yo! CHAMP in"
 	line "making!"
 
@@ -376,7 +371,7 @@ CeruleanGymGuyText:
 	line "He-he-he."
 	done
 
-CeruleanGymGuyWinText:
+CeruleanGymGuideWinText:
 	text "Hoo, you showed me"
 	line "how tough you are."
 
@@ -386,28 +381,23 @@ CeruleanGymGuyWinText:
 	done
 
 CeruleanGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 15, 5, CERULEAN_CITY
-	warp_def 5, 15, 5, CERULEAN_CITY
+	def_warp_events
+	warp_event  4, 15, CERULEAN_CITY, 5
+	warp_event  5, 15, CERULEAN_CITY, 5
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 3
-	bg_event 3, 8, BGEVENT_ITEM, CeruleanGymHiddenMachinePart
-	bg_event 2, 13, BGEVENT_READ, CeruleanGymStatue1
-	bg_event 6, 13, BGEVENT_READ, CeruleanGymStatue2
+	def_bg_events
+	bg_event  3,  8, BGEVENT_ITEM, CeruleanGymHiddenMachinePart
+	bg_event  2, 13, BGEVENT_READ, CeruleanGymStatue1
+	bg_event  6, 13, BGEVENT_READ, CeruleanGymStatue2
 
-.ObjectEvents:
-	db 6
-	object_event 4, 10, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_CERULEAN_GYM_ROCKET
-	object_event 5, 3, SPRITE_MISTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MistyScript_0x188432, EVENT_TRAINERS_IN_CERULEAN_GYM
-	object_event 4, 6, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerSwimmerfDiana, EVENT_TRAINERS_IN_CERULEAN_GYM
-	object_event 1, 9, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerSwimmerfBriana, EVENT_TRAINERS_IN_CERULEAN_GYM
-	object_event 8, 9, SPRITE_SWIMMER_GUY, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerSwimmermParker, EVENT_TRAINERS_IN_CERULEAN_GYM
-	object_event 7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeruleanGymGuyScript, EVENT_TRAINERS_IN_CERULEAN_GYM
+	def_object_events
+	object_event  4, 10, SPRITE_ROCKET, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_CERULEAN_GYM_ROCKET
+	object_event  5,  3, SPRITE_MISTY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, CeruleanGymMistyScript, EVENT_TRAINERS_IN_CERULEAN_GYM
+	object_event  4,  6, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 3, TrainerSwimmerfDiana, EVENT_TRAINERS_IN_CERULEAN_GYM
+	object_event  1,  9, SPRITE_SWIMMER_GIRL, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 1, TrainerSwimmerfBriana, EVENT_TRAINERS_IN_CERULEAN_GYM
+	object_event  8,  9, SPRITE_SWIMMER_GUY, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 3, TrainerSwimmermParker, EVENT_TRAINERS_IN_CERULEAN_GYM
+	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, CeruleanGymGuideScript, EVENT_TRAINERS_IN_CERULEAN_GYM

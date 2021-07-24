@@ -1,4 +1,4 @@
-const_value set 2
+	object_const_def
 	const DANCETHEATRE_KIMONO_GIRL1
 	const DANCETHEATRE_KIMONO_GIRL2
 	const DANCETHEATRE_KIMONO_GIRL3
@@ -10,28 +10,26 @@ const_value set 2
 	const DANCETHEATRE_GRANNY
 
 DanceTheatre_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-TrainerKimonoGirlNaoko2:
-	trainer EVENT_BEAT_KIMONO_GIRL_NAOKO, KIMONO_GIRL, NAOKO2, KimonoGirlNaoko2SeenText, KimonoGirlNaoko2BeatenText, 0, .Script
+TrainerKimonoGirlNaoko:
+	trainer KIMONO_GIRL, NAOKO, EVENT_BEAT_KIMONO_GIRL_NAOKO, KimonoGirlNaokoSeenText, KimonoGirlNaokoBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
-	writetext KimonoGirlNaoko2AfterBattleText
+	writetext KimonoGirlNaokoAfterBattleText
 	waitbutton
 	closetext
 	end
 
 TrainerKimonoGirlSayo:
-	trainer EVENT_BEAT_KIMONO_GIRL_SAYO, KIMONO_GIRL, SAYO, KimonoGirlSayoSeenText, KimonoGirlSayoBeatenText, 0, .Script
+	trainer KIMONO_GIRL, SAYO, EVENT_BEAT_KIMONO_GIRL_SAYO, KimonoGirlSayoSeenText, KimonoGirlSayoBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext KimonoGirlSayoAfterBattleText
 	waitbutton
@@ -39,10 +37,10 @@ TrainerKimonoGirlSayo:
 	end
 
 TrainerKimonoGirlZuki:
-	trainer EVENT_BEAT_KIMONO_GIRL_ZUKI, KIMONO_GIRL, ZUKI, KimonoGirlZukiSeenText, KimonoGirlZukiBeatenText, 0, .Script
+	trainer KIMONO_GIRL, ZUKI, EVENT_BEAT_KIMONO_GIRL_ZUKI, KimonoGirlZukiSeenText, KimonoGirlZukiBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext KimonoGirlZukiAfterBattleText
 	waitbutton
@@ -50,10 +48,10 @@ TrainerKimonoGirlZuki:
 	end
 
 TrainerKimonoGirlKuni:
-	trainer EVENT_BEAT_KIMONO_GIRL_KUNI, KIMONO_GIRL, KUNI, KimonoGirlKuniSeenText, KimonoGirlKuniBeatenText, 0, .Script
+	trainer KIMONO_GIRL, KUNI, EVENT_BEAT_KIMONO_GIRL_KUNI, KimonoGirlKuniSeenText, KimonoGirlKuniBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext KimonoGirlKuniAfterBattleText
 	waitbutton
@@ -61,10 +59,10 @@ TrainerKimonoGirlKuni:
 	end
 
 TrainerKimonoGirlMiki:
-	trainer EVENT_BEAT_KIMONO_GIRL_MIKI, KIMONO_GIRL, MIKI, KimonoGirlMikiSeenText, KimonoGirlMikiBeatenText, 0, .Script
+	trainer KIMONO_GIRL, MIKI, EVENT_BEAT_KIMONO_GIRL_MIKI, KimonoGirlMikiSeenText, KimonoGirlMikiBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext KimonoGirlMikiAfterBattleText
 	waitbutton
@@ -75,7 +73,7 @@ DanceTheaterSurfGuy:
 	faceplayer
 	opentext
 	writetext SurfGuyNeverLeftAScratchText
-	buttonsound
+	promptbutton
 	checkevent EVENT_GOT_HM03_SURF
 	iftrue SurfGuyAlreadyGaveSurf
 	checkevent EVENT_BEAT_KIMONO_GIRL_NAOKO
@@ -88,7 +86,7 @@ DanceTheaterSurfGuy:
 	iffalse .KimonoGirlsUndefeated
 	checkevent EVENT_BEAT_KIMONO_GIRL_MIKI
 	iffalse .KimonoGirlsUndefeated
-	jump .GetSurf
+	sjump .GetSurf
 
 .KimonoGirlsUndefeated:
 	checkflag ENGINE_PLAYER_IS_FEMALE
@@ -106,7 +104,7 @@ DanceTheaterSurfGuy:
 
 .GetSurf:
 	writetext SurfGuyLikeADanceText
-	buttonsound
+	promptbutton
 	verbosegiveitem HM_SURF
 	setevent EVENT_GOT_HM03_SURF
 	writetext SurfGuySurfExplanationText
@@ -134,21 +132,21 @@ DanceTheatreCooltrainerMScript:
 DanceTheatreGrannyScript:
 	jumptextfaceplayer DanceTheatreGrannyText
 
-MapDanceTheatreSignpost1Script:
-	jumptext FancyPanelText
+DanceTheatreFancyPanel:
+	jumptext DanceTheatreFancyPanelText
 
-KimonoGirlNaoko2SeenText:
+KimonoGirlNaokoSeenText:
 	text "You have lovely"
 	line "#MON. May I see"
 	cont "them in battle?"
 	done
 
-KimonoGirlNaoko2BeatenText:
+KimonoGirlNaokoBeatenText:
 	text "Oh, you are very"
 	line "strong."
 	done
 
-KimonoGirlNaoko2AfterBattleText:
+KimonoGirlNaokoAfterBattleText:
 	text "I enjoyed that"
 	line "bout. I would like"
 	cont "to see you again."
@@ -331,37 +329,32 @@ DanceTheatreGrannyText:
 	cont "thing is possible."
 	done
 
-FancyPanelText:
+DanceTheatreFancyPanelText:
 	text "It's a fancy panel"
 	line "that's decorated"
 	cont "with flowers."
 	done
 
 DanceTheatre_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 5, 13, 8, ECRUTEAK_CITY
-	warp_def 6, 13, 8, ECRUTEAK_CITY
+	def_warp_events
+	warp_event  5, 13, ECRUTEAK_CITY, 8
+	warp_event  6, 13, ECRUTEAK_CITY, 8
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 5, 6, BGEVENT_UP, MapDanceTheatreSignpost1Script
-	bg_event 6, 6, BGEVENT_UP, MapDanceTheatreSignpost1Script
+	def_bg_events
+	bg_event  5,  6, BGEVENT_UP, DanceTheatreFancyPanel
+	bg_event  6,  6, BGEVENT_UP, DanceTheatreFancyPanel
 
-.ObjectEvents:
-	db 9
-	object_event 0, 2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlNaoko2, -1
-	object_event 2, 1, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlSayo, -1
-	object_event 6, 2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlZuki, -1
-	object_event 9, 1, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlKuni, -1
-	object_event 11, 2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlMiki, -1
-	object_event 7, 10, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DanceTheaterSurfGuy, -1
-	object_event 6, 8, SPRITE_RHYDON, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, DanceTheaterRhydon, -1
+	def_object_events
+	object_event  0,  2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINCOUNTERCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlNaoko, -1
+	object_event  2,  1, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlSayo, -1
+	object_event  6,  2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlZuki, -1
+	object_event  9,  1, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlKuni, -1
+	object_event 11,  2, SPRITE_KIMONO_GIRL, SPRITEMOVEDATA_SPINCLOCKWISE, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_TRAINER, 0, TrainerKimonoGirlMiki, -1
+	object_event  7, 10, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DanceTheaterSurfGuy, -1
+	object_event  6,  8, SPRITE_RHYDON, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, DanceTheaterRhydon, -1
 	object_event 10, 10, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, DanceTheatreCooltrainerMScript, -1
-	object_event 3, 6, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DanceTheatreGrannyScript, -1
+	object_event  3,  6, SPRITE_GRANNY, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, DanceTheatreGrannyScript, -1

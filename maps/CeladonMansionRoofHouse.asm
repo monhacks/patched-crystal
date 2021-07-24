@@ -1,46 +1,44 @@
-const_value set 2
+	object_const_def
 	const CELADONMANSIONROOFHOUSE_PHARMACIST
 
 CeladonMansionRoofHouse_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-PharmacistScript_0x71afd:
+CeladonMansionRoofHousePharmacistScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_TM03_CURSE
-	iftrue UnknownScript_0x71b21
-	writetext UnknownText_0x71b27
-	buttonsound
-	checknite
-	iftrue UnknownScript_0x71b14
-	writetext UnknownText_0x71b4a
+	iftrue .GotCurse
+	writetext CeladonMansionRoofHousePharmacistIntroText
+	promptbutton
+	checktime NITE
+	iftrue .Night
+	writetext CeladonMansionRoofHousePharmacistNotNightText
 	waitbutton
 	closetext
 	end
 
-UnknownScript_0x71b14:
-	writetext UnknownText_0x71ba3
-	buttonsound
+.Night:
+	writetext CeladonMansionRoofHousePharmacistStoryText
+	promptbutton
 	verbosegiveitem TM_CURSE
-	iffalse UnknownScript_0x71b25
+	iffalse .NoRoom
 	setevent EVENT_GOT_TM03_CURSE
-UnknownScript_0x71b21:
-	writetext UnknownText_0x71db3
+.GotCurse:
+	writetext CeladonMansionRoofHousePharmacistCurseText
 	waitbutton
-UnknownScript_0x71b25:
+.NoRoom:
 	closetext
 	end
 
-UnknownText_0x71b27:
+CeladonMansionRoofHousePharmacistIntroText:
 	text "Let me recount a"
 	line "terrifying tale…"
 	done
 
-UnknownText_0x71b4a:
+CeladonMansionRoofHousePharmacistNotNightText:
 	text "Then again, it's"
 	line "not as scary while"
 
@@ -51,7 +49,7 @@ UnknownText_0x71b4a:
 	line "sunset, OK?"
 	done
 
-UnknownText_0x71ba3:
+CeladonMansionRoofHousePharmacistStoryText:
 	text "Once upon a time,"
 	line "there was a little"
 
@@ -106,7 +104,7 @@ UnknownText_0x71ba3:
 	cont "take this--TM03!"
 	done
 
-UnknownText_0x71db3:
+CeladonMansionRoofHousePharmacistCurseText:
 	text "TM03 is CURSE."
 
 	para "It's a terrifying"
@@ -117,20 +115,15 @@ UnknownText_0x71db3:
 	done
 
 CeladonMansionRoofHouse_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 3, CELADON_MANSION_ROOF
-	warp_def 3, 7, 3, CELADON_MANSION_ROOF
+	def_warp_events
+	warp_event  2,  7, CELADON_MANSION_ROOF, 3
+	warp_event  3,  7, CELADON_MANSION_ROOF, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 3, 2, SPRITE_PHARMACIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 2, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, PharmacistScript_0x71afd, -1
+	def_object_events
+	object_event  3,  2, SPRITE_PHARMACIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 2, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, CeladonMansionRoofHousePharmacistScript, -1

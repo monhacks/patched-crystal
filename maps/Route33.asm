@@ -1,26 +1,24 @@
-const_value set 2
+	object_const_def
 	const ROUTE33_POKEFAN_M
 	const ROUTE33_LASS
 	const ROUTE33_FRUIT_TREE
 
 Route33_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 Route33LassScript:
 	jumptextfaceplayer Route33LassText
 
 TrainerHikerAnthony:
-	trainer EVENT_BEAT_HIKER_ANTHONY, HIKER, ANTHONY2, HikerAnthony2SeenText, HikerAnthony2BeatenText, 0, .Script
+	trainer HIKER, ANTHONY2, EVENT_BEAT_HIKER_ANTHONY, HikerAnthony2SeenText, HikerAnthony2BeatenText, 0, .Script
 
 .Script:
-	writecode VAR_CALLERID, PHONE_HIKER_ANTHONY
-	end_if_just_battled
+	loadvar VAR_CALLERID, PHONE_HIKER_ANTHONY
+	endifjustbattled
 	opentext
-	checkflag ENGINE_ANTHONY
+	checkflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	iftrue .Rematch
 	checkflag ENGINE_DUNSPARCE_SWARM
 	iftrue .Swarm
@@ -29,30 +27,30 @@ TrainerHikerAnthony:
 	checkevent EVENT_ANTHONY_ASKED_FOR_PHONE_NUMBER
 	iftrue .AskAgain
 	writetext HikerAnthony2AfterText
-	buttonsound
+	promptbutton
 	setevent EVENT_ANTHONY_ASKED_FOR_PHONE_NUMBER
 	scall .AskNumber1
-	jump .AskForPhoneNumber
+	sjump .AskForPhoneNumber
 
 .AskAgain:
 	scall .AskNumber2
 .AskForPhoneNumber:
 	askforphonenumber PHONE_HIKER_ANTHONY
-	if_equal PHONE_CONTACTS_FULL, .PhoneFull
-	if_equal PHONE_CONTACT_REFUSED, .NumberDeclined
-	trainertotext HIKER, ANTHONY2, MEM_BUFFER_0
+	ifequal PHONE_CONTACTS_FULL, .PhoneFull
+	ifequal PHONE_CONTACT_REFUSED, .NumberDeclined
+	gettrainername STRING_BUFFER_3, HIKER, ANTHONY2
 	scall .RegisteredNumber
-	jump .NumberAccepted
+	sjump .NumberAccepted
 
 .Rematch:
 	scall .RematchStd
 	winlosstext HikerAnthony2BeatenText, 0
-	copybytetovar wAnthonyFightCount
-	if_equal 4, .Fight4
-	if_equal 3, .Fight3
-	if_equal 2, .Fight2
-	if_equal 1, .Fight1
-	if_equal 0, .LoadFight0
+	readmem wAnthonyFightCount
+	ifequal 4, .Fight4
+	ifequal 3, .Fight3
+	ifequal 2, .Fight2
+	ifequal 1, .Fight1
+	ifequal 0, .LoadFight0
 .Fight4:
 	checkevent EVENT_RESTORED_POWER_TO_KANTO
 	iftrue .LoadFight4
@@ -69,39 +67,39 @@ TrainerHikerAnthony:
 	loadtrainer HIKER, ANTHONY2
 	startbattle
 	reloadmapafterbattle
-	loadvar wAnthonyFightCount, 1
-	clearflag ENGINE_ANTHONY
+	loadmem wAnthonyFightCount, 1
+	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	end
 
 .LoadFight1:
 	loadtrainer HIKER, ANTHONY1
 	startbattle
 	reloadmapafterbattle
-	loadvar wAnthonyFightCount, 2
-	clearflag ENGINE_ANTHONY
+	loadmem wAnthonyFightCount, 2
+	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	end
 
 .LoadFight2:
 	loadtrainer HIKER, ANTHONY3
 	startbattle
 	reloadmapafterbattle
-	loadvar wAnthonyFightCount, 3
-	clearflag ENGINE_ANTHONY
+	loadmem wAnthonyFightCount, 3
+	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	end
 
 .LoadFight3:
 	loadtrainer HIKER, ANTHONY4
 	startbattle
 	reloadmapafterbattle
-	loadvar wAnthonyFightCount, 4
-	clearflag ENGINE_ANTHONY
+	loadmem wAnthonyFightCount, 4
+	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	end
 
 .LoadFight4:
 	loadtrainer HIKER, ANTHONY5
 	startbattle
 	reloadmapafterbattle
-	clearflag ENGINE_ANTHONY
+	clearflag ENGINE_ANTHONY_READY_FOR_REMATCH
 	end
 
 .Swarm:
@@ -111,37 +109,37 @@ TrainerHikerAnthony:
 	end
 
 .AskNumber1:
-	jumpstd asknumber1m
+	jumpstd AskNumber1MScript
 	end
 
 .AskNumber2:
-	jumpstd asknumber2m
+	jumpstd AskNumber2MScript
 	end
 
 .RegisteredNumber:
-	jumpstd registerednumberm
+	jumpstd RegisteredNumberMScript
 	end
 
 .NumberAccepted:
-	jumpstd numberacceptedm
+	jumpstd NumberAcceptedMScript
 	end
 
 .NumberDeclined:
-	jumpstd numberdeclinedm
+	jumpstd NumberDeclinedMScript
 	end
 
 .PhoneFull:
-	jumpstd phonefullm
+	jumpstd PhoneFullMScript
 	end
 
 .RematchStd:
-	jumpstd rematchm
+	jumpstd RematchMScript
 	end
 
 Route33Sign:
 	jumptext Route33SignText
 
-Route33FruitTreeScript:
+Route33FruitTree:
 	fruittree FRUITTREE_ROUTE_33
 
 HikerAnthony2SeenText:
@@ -195,22 +193,17 @@ Route33SignText:
 	done
 
 Route33_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 1
-	warp_def 11, 9, 3, UNION_CAVE_1F
+	def_warp_events
+	warp_event 11,  9, UNION_CAVE_1F, 3
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
+	def_bg_events
 	bg_event 11, 11, BGEVENT_READ, Route33Sign
 
-.ObjectEvents:
-	db 3
-	object_event 6, 13, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerAnthony, -1
+	def_object_events
+	object_event  6, 13, SPRITE_POKEFAN_M, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerHikerAnthony, -1
 	object_event 13, 16, SPRITE_LASS, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route33LassScript, -1
-	object_event 14, 16, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_ITEM_TREE, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route33FruitTreeScript, -1
+	object_event 14, 16, SPRITE_FRUIT_TREE, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, Route33FruitTree, -1

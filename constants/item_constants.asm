@@ -3,7 +3,7 @@
 ; - ItemNames (see data/items/names.asm)
 ; - ItemDescriptions (see data/items/descriptions.asm)
 ; - ItemAttributes (see data/items/attributes.asm)
-; - ItemEffects (see engine/item_effects.asm)
+; - ItemEffects (see engine/items/item_effects.asm)
 	const_def
 	const NO_ITEM      ; 00
 	const MASTER_BALL  ; 01
@@ -103,7 +103,7 @@
 	const MYSTIC_WATER ; 5f
 	const TWISTEDSPOON ; 60
 	const WHT_APRICORN ; 61
-	const BLACKBELT    ; 62
+	const BLACKBELT_I  ; 62
 	const BLK_APRICORN ; 63
 	const ITEM_64      ; 64
 	const PNK_APRICORN ; 65
@@ -196,31 +196,27 @@
 	const MUSIC_MAIL   ; bc
 	const MIRAGE_MAIL  ; bd
 	const ITEM_BE      ; be
+NUM_ITEMS EQU const_value - 1
+
+__tmhm_value__ = 1
+
+add_tmnum: MACRO
+\1_TMNUM EQU __tmhm_value__
+__tmhm_value__ = __tmhm_value__ + 1
+ENDM
 
 add_tm: MACRO
-if !DEF(TM01)
-TM01 = const_value
-	enum_start 1
-endc
-	define _\@_1, "TM_\1"
-	const _\@_1
-	enum \1_TMNUM
-ENDM
-
-add_hm: MACRO
-if !DEF(HM01)
-HM01 = const_value
-endc
-	define _\@_1, "HM_\1"
-	const _\@_1
-	enum \1_TMNUM
-ENDM
-
-add_mt: MACRO
-	enum \1_TMNUM
+; Defines three constants:
+; - TM_\1: the item id, starting at $bf
+; - \1_TMNUM: the learnable TM/HM flag, starting at 1
+; - TM##_MOVE: alias for the move id, equal to the value of \1
+	const TM_\1
+TM{02d:__tmhm_value__}_MOVE = \1
+	add_tmnum \1
 ENDM
 
 ; see data/moves/tmhm_moves.asm for moves
+TM01 EQU const_value
 	add_tm DYNAMICPUNCH ; bf
 	add_tm HEADBUTT     ; c0
 	add_tm CURSE        ; c1
@@ -273,8 +269,20 @@ ENDM
 	add_tm FIRE_PUNCH   ; f0
 	add_tm FURY_CUTTER  ; f1
 	add_tm NIGHTMARE    ; f2
-NUM_TMS = const_value - TM01 - 2 ; discount ITEM_C3 and ITEM_DC
+NUM_TMS EQU __tmhm_value__ - 1
 
+add_hm: MACRO
+; Defines three constants:
+; - HM_\1: the item id, starting at $f3
+; - \1_TMNUM: the learnable TM/HM flag, starting at 51
+; - HM##_MOVE: alias for the move id, equal to the value of \1
+	const HM_\1
+HM_VALUE = __tmhm_value__ - NUM_TMS
+HM{02d:HM_VALUE}_MOVE = \1
+	add_tmnum \1
+ENDM
+
+HM01 EQU const_value
 	add_hm CUT          ; f3
 	add_hm FLY          ; f4
 	add_hm SURF         ; f5
@@ -282,13 +290,26 @@ NUM_TMS = const_value - TM01 - 2 ; discount ITEM_C3 and ITEM_DC
 	add_hm FLASH        ; f7
 	add_hm WHIRLPOOL    ; f8
 	add_hm WATERFALL    ; f9
-NUM_HMS = const_value - HM01
-	const ITEM_FA       ; fa
+NUM_HMS EQU __tmhm_value__ - NUM_TMS - 1
 
+add_mt: MACRO
+; Defines two constants:
+; - \1_TMNUM: the learnable TM/HM flag, starting at 58
+; - MT##_MOVE: alias for the move id, equal to the value of \1
+MT_VALUE = __tmhm_value__ - NUM_TMS - NUM_HMS
+MT{02d:MT_VALUE}_MOVE = \1
+	add_tmnum \1
+ENDM
+
+MT01 EQU const_value
 	add_mt FLAMETHROWER
 	add_mt THUNDERBOLT
 	add_mt ICE_BEAM
-NUM_TM_HM_TUTOR = __enum__ +- 1
+NUM_TUTORS = __tmhm_value__ - NUM_TMS - NUM_HMS - 1
+
+NUM_TM_HM_TUTOR EQU NUM_TMS + NUM_HMS + NUM_TUTORS
+
+	const ITEM_FA       ; fa
 
 USE_SCRIPT_VAR EQU $00
 ITEM_FROM_MEM  EQU $ff

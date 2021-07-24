@@ -1,4 +1,4 @@
-Function3e32:: ; 3e32
+Function3e32::
 ; Mobile
 	cp $2
 	ld [$c988], a
@@ -20,16 +20,15 @@ Function3e32:: ; 3e32
 .okay
 	ld hl, $c822
 	set 6, [hl]
-	ld a, [hROMBank]
+	ldh a, [hROMBank]
 	push af
 	ld a, BANK(Function110030)
 	ld [$c981], a
 	rst Bankswitch
 
 	jp Function110030
-; 3e60
 
-Function3e60:: ; 3e60
+Function3e60::
 ; Return from Function110030
 	ld [$c986], a
 	ld a, l
@@ -50,10 +49,9 @@ Function3e60:: ; 3e60
 	ld l, a
 	ld a, [$c986]
 	ret
-; 3e80
 
-MobileReceive:: ; 3e80
-	ld a, [hROMBank]
+MobileReceive::
+	ldh a, [hROMBank]
 	push af
 	ld a, BANK(_MobileReceive)
 	ld [$c981], a
@@ -66,26 +64,24 @@ MobileReceive:: ; 3e80
 	rst Bankswitch
 
 	ret
-; 3e93
 
-
-Timer:: ; 3e93
+MobileTimer::
 	push af
 	push bc
 	push de
 	push hl
 
-	ld a, [hMobile]
+	ldh a, [hMobile]
 	and a
 	jr z, .pop_ret
 
 	xor a
-	ld [rTAC], a
+	ldh [rTAC], a
 
 ; Turn off timer interrupt
-	ld a, [rIF]
+	ldh a, [rIF]
 	and 1 << VBLANK | 1 << LCD_STAT | 1 << SERIAL | 1 << JOYPAD
-	ld [rIF], a
+	ldh [rIF], a
 
 	ld a, [$c86a]
 	or a
@@ -93,13 +89,13 @@ Timer:: ; 3e93
 
 	ld a, [$c822]
 	bit 1, a
-	jr nz, .skip_Timer
+	jr nz, .skip_timer
 
-	ld a, [rSC]
+	ldh a, [rSC]
 	and 1 << rSC_ON
-	jr nz, .skip_Timer
+	jr nz, .skip_timer
 
-	ld a, [hROMBank]
+	ldh a, [hROMBank]
 	push af
 	ld a, BANK(_Timer)
 	ld [$c981], a
@@ -112,12 +108,12 @@ Timer:: ; 3e93
 	ld [$c981], a
 	rst Bankswitch
 
-.skip_Timer
-	ld a, [rTMA]
-	ld [rTIMA], a
+.skip_timer
+	ldh a, [rTMA]
+	ldh [rTIMA], a
 
 	ld a, 1 << rTAC_ON | rTAC_65536_HZ
-	ld [rTAC], a
+	ldh [rTAC], a
 
 .pop_ret
 	pop hl
@@ -125,11 +121,10 @@ Timer:: ; 3e93
 	pop bc
 	pop af
 	reti
-; 3ed7
 
-Unreferenced_Function3ed7:: ; 3ed7
+Function3ed7:: ; unreferenced
 	ld [$dc02], a
-	ld a, [hROMBank]
+	ldh a, [hROMBank]
 	push af
 	ld a, BANK(Function114243)
 	rst Bankswitch
@@ -141,12 +136,11 @@ Unreferenced_Function3ed7:: ; 3ed7
 
 	ld a, [$dc02]
 	ret
-; 3eea
 
-Function3eea:: ; 3eea
+Function3eea::
 	push hl
 	push bc
-	ld de, wAttrMap - wTileMap
+	ld de, wAttrmap - wTilemap
 	add hl, de
 	inc b
 	inc b
@@ -157,23 +151,21 @@ Function3eea:: ; 3eea
 	pop hl
 	call MobileHome_PlaceBox
 	ret
-; 3efd
 
-Unreferenced_Function3efd:: ; 3efd
+Function3efd:: ; unreferenced
 	push hl
 	hlcoord 0, 12
 	ld b, 4
 	ld c, 18
 	call .fill_attr
 	pop hl
-	call PrintTextBoxText
+	call PrintTextboxText
 	ret
-; 3f0d
 
 .fill_attr
 	push hl
 	push bc
-	ld de, wAttrMap - wTileMap
+	ld de, wAttrmap - wTilemap
 	add hl, de
 	inc b
 	inc b
@@ -182,12 +174,11 @@ Unreferenced_Function3efd:: ; 3efd
 	call Function3f35
 	pop bc
 	pop hl
-	call TextBoxBorder
+	call TextboxBorder
 	ret
-; 3f20
 
-Function3f20:: ; 3f20
-	hlcoord 0, 0, wAttrMap
+Function3f20::
+	hlcoord 0, 0, wAttrmap
 	ld b,  6
 	ld c, 20
 	call Function3f35
@@ -196,9 +187,8 @@ Function3f20:: ; 3f20
 	ld c, 18
 	call MobileHome_PlaceBox
 	ret
-; 3f35
 
-Function3f35:: ; 3f35
+Function3f35::
 	ld a, 6
 	ld de, SCREEN_WIDTH
 .row
@@ -214,9 +204,8 @@ Function3f35:: ; 3f35
 	dec b
 	jr nz, .row
 	ret
-; 3f47
 
-MobileHome_PlaceBox: ; 3f47
+MobileHome_PlaceBox:
 	push bc
 	call .FillTop
 	pop bc
@@ -228,7 +217,6 @@ MobileHome_PlaceBox: ; 3f47
 	jr nz, .RowLoop
 	call .FillBottom
 	ret
-; 3f58
 
 .FillTop:
 	ld a, $63
@@ -260,18 +248,16 @@ MobileHome_PlaceBox: ; 3f47
 	ld de, SCREEN_WIDTH
 	add hl, de
 	ret
-; 3f7c
 
-Function3f7c:: ; 3f7c
+Function3f7c::
 	call MenuBoxCoord2Tile
 	call GetMenuBoxDims
 	dec b
 	dec c
 	call Function3eea
 	ret
-; 3f88
 
-Function3f88:: ; 3f88
+Function3f88::
 	ld hl, wDecompressScratch
 	ld b, 0
 .row
@@ -290,9 +276,8 @@ Function3f88:: ; 3f88
 	dec c
 	jr nz, .row
 	ret
-; 3f9f
 
-Function3f9f:: ; 3f9f
+Function3f9f::
 	ld hl, wDecompressScratch
 .row
 	push bc
@@ -311,4 +296,3 @@ Function3f9f:: ; 3f9f
 	dec c
 	jr nz, .row
 	ret
-; 3fb5

@@ -1,26 +1,24 @@
-const_value set 2
+	object_const_def
 	const OLIVINECAFE_SAILOR1
 	const OLIVINECAFE_FISHING_GURU
 	const OLIVINECAFE_SAILOR2
 
 OlivineCafe_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-SailorScript_0x9c8c1:
+OlivineCafeStrengthSailorScript:
 	faceplayer
 	opentext
 	checkevent EVENT_GOT_HM04_STRENGTH
-	iftrue UnknownScript_0x9c8d3
-	writetext UnknownText_0x9c8df
-	buttonsound
+	iftrue .GotStrength
+	writetext OlivineCafeStrengthSailorText
+	promptbutton
 	verbosegiveitem HM_STRENGTH
 	setevent EVENT_GOT_HM04_STRENGTH
-UnknownScript_0x9c8d3:
-	writetext UnknownText_0x9c965
+.GotStrength:
+	writetext OlivineCafeStrengthSailorText_GotStrength
 	waitbutton
 	closetext
 	end
@@ -31,7 +29,7 @@ OlivineCafeFishingGuruScript:
 OlivineCafeSailorScript:
 	jumptextfaceplayer OlivineCafeSailorText
 
-UnknownText_0x9c8df:
+OlivineCafeStrengthSailorText:
 	text "Hah! Your #MON"
 	line "sure look like"
 	cont "lightweights!"
@@ -45,7 +43,7 @@ UnknownText_0x9c8df:
 	cont "STRENGTH!"
 	done
 
-UnknownText_0x9c965:
+OlivineCafeStrengthSailorText_GotStrength:
 	text "On the sea, the"
 	line "only thing you can"
 
@@ -79,22 +77,17 @@ OlivineCafeSailorText:
 	done
 
 OlivineCafe_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 2, 7, 7, OLIVINE_CITY
-	warp_def 3, 7, 7, OLIVINE_CITY
+	def_warp_events
+	warp_event  2,  7, OLIVINE_CITY, 7
+	warp_event  3,  7, OLIVINE_CITY, 7
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 3
-	object_event 4, 3, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, SailorScript_0x9c8c1, -1
-	object_event 7, 3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeFishingGuruScript, -1
-	object_event 6, 6, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeSailorScript, -1
+	def_object_events
+	object_event  4,  3, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeStrengthSailorScript, -1
+	object_event  7,  3, SPRITE_FISHING_GURU, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeFishingGuruScript, -1
+	object_event  6,  6, SPRITE_SAILOR, SPRITEMOVEDATA_STANDING_UP, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, OlivineCafeSailorScript, -1

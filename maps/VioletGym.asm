@@ -1,57 +1,55 @@
-const_value set 2
+	object_const_def
 	const VIOLETGYM_FALKNER
 	const VIOLETGYM_YOUNGSTER1
 	const VIOLETGYM_YOUNGSTER2
-	const VIOLETGYM_GYM_GUY
+	const VIOLETGYM_GYM_GUIDE
 
 VioletGym_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-FalknerScript_0x683c2:
+VioletGymFalknerScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_FALKNER
 	iftrue .FightDone
-	writetext UnknownText_0x68473
+	writetext FalknerIntroText
 	waitbutton
 	closetext
-	winlosstext UnknownText_0x6854a, 0
+	winlosstext FalknerWinLossText, 0
 	loadtrainer FALKNER, FALKNER1
 	startbattle
 	reloadmapafterbattle
 	setevent EVENT_BEAT_FALKNER
 	opentext
-	writetext UnknownText_0x685af
+	writetext ReceivedZephyrBadgeText
 	playsound SFX_GET_BADGE
 	waitsfx
 	setflag ENGINE_ZEPHYRBADGE
-	checkcode VAR_BADGES
+	readvar VAR_BADGES
 	scall VioletGymActivateRockets
 .FightDone:
 	checkevent EVENT_GOT_TM31_MUD_SLAP
 	iftrue .SpeechAfterTM
 	setevent EVENT_BEAT_BIRD_KEEPER_ROD
 	setevent EVENT_BEAT_BIRD_KEEPER_ABE
-	setmapscene ELMS_LAB, 2
+	setmapscene ELMS_LAB, SCENE_ELMSLAB_NOTHING
 	specialphonecall SPECIALCALL_ASSISTANT
-	writetext UnknownText_0x685c8
-	buttonsound
+	writetext FalknerZephyrBadgeText
+	promptbutton
 	verbosegiveitem TM_MUD_SLAP
 	iffalse .NoRoomForMudSlap
 	setevent EVENT_GOT_TM31_MUD_SLAP
-	writetext UnknownText_0x68648
+	writetext FalknerTMMudSlapText
 	waitbutton
 	closetext
 	end
 
 .SpeechAfterTM:
-	writetext UnknownText_0x68735
+	writetext FalknerFightDoneText
 	yesorno
-	iftrue .FalknerRematch
+	iftrue .FalknerRematch;waitbutton
 .NoRoomForMudSlap:
 	closetext
 	end
@@ -63,21 +61,21 @@ FalknerScript_0x683c2:
 	reloadmapafterbattle
 	
 VioletGymActivateRockets:
-	if_equal 7, .RadioTowerRockets
-	if_equal 6, .GoldenrodRockets
+	ifequal 7, .RadioTowerRockets
+	ifequal 6, .GoldenrodRockets
 	end
 
 .GoldenrodRockets:
-	jumpstd goldenrodrockets
+	jumpstd GoldenrodRocketsScript
 
 .RadioTowerRockets:
-	jumpstd radiotowerrockets
+	jumpstd RadioTowerRocketsScript
 
 TrainerBirdKeeperRod:
-	trainer EVENT_BEAT_BIRD_KEEPER_ROD, BIRD_KEEPER, ROD, BirdKeeperRodSeenText, BirdKeeperRodBeatenText, 0, .Script
+	trainer BIRD_KEEPER, ROD, EVENT_BEAT_BIRD_KEEPER_ROD, BirdKeeperRodSeenText, BirdKeeperRodBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BirdKeeperRodAfterBattleText
 	waitbutton
@@ -85,28 +83,28 @@ TrainerBirdKeeperRod:
 	end
 
 TrainerBirdKeeperAbe:
-	trainer EVENT_BEAT_BIRD_KEEPER_ABE, BIRD_KEEPER, ABE, BirdKeeperAbeSeenText, BirdKeeperAbeBeatenText, 0, .Script
+	trainer BIRD_KEEPER, ABE, EVENT_BEAT_BIRD_KEEPER_ABE, BirdKeeperAbeSeenText, BirdKeeperAbeBeatenText, 0, .Script
 
 .Script:
-	end_if_just_battled
+	endifjustbattled
 	opentext
 	writetext BirdKeeperAbeAfterBattleText
 	waitbutton
 	closetext
 	end
 
-VioletGymGuyScript:
+VioletGymGuideScript:
 	faceplayer
 	opentext
 	checkevent EVENT_BEAT_FALKNER
-	iftrue .VioletGymGuyWinScript
-	writetext VioletGymGuyText
+	iftrue .VioletGymGuideWinScript
+	writetext VioletGymGuideText
 	waitbutton
 	closetext
 	end
 
-.VioletGymGuyWinScript:
-	writetext VioletGymGuyWinText
+.VioletGymGuideWinScript:
+	writetext VioletGymGuideWinText
 	waitbutton
 	closetext
 	end
@@ -114,12 +112,12 @@ VioletGymGuyScript:
 VioletGymStatue:
 	checkflag ENGINE_ZEPHYRBADGE
 	iftrue .Beaten
-	jumpstd gymstatue1
+	jumpstd GymStatue1Script
 .Beaten:
-	trainertotext FALKNER, FALKNER1, MEM_BUFFER_1
-	jumpstd gymstatue2
+	gettrainername STRING_BUFFER_4, FALKNER, FALKNER1
+	jumpstd GymStatue2Script
 
-UnknownText_0x68473:
+FalknerIntroText:
 	text "I'm FALKNER, the"
 	line "VIOLET #MON GYM"
 	cont "leader!"
@@ -142,7 +140,7 @@ UnknownText_0x68473:
 	line "#MON!"
 	done
 
-UnknownText_0x6854a:
+FalknerWinLossText:
 	text "…Darn! My dad's"
 	line "cherished bird"
 	cont "#MON…"
@@ -155,12 +153,12 @@ UnknownText_0x6854a:
 	cont "ZEPHYRBADGE."
 	done
 
-UnknownText_0x685af:
+ReceivedZephyrBadgeText:
 	text "<PLAYER> received"
 	line "ZEPHYRBADGE."
 	done
 
-UnknownText_0x685c8:
+FalknerZephyrBadgeText:
 	text "ZEPHYRBADGE"
 	line "raises the attack"
 	cont "power of #MON."
@@ -175,7 +173,7 @@ UnknownText_0x685c8:
 	line "too."
 	done
 
-UnknownText_0x68648:
+FalknerTMMudSlapText:
 	text "By using a TM, a"
 	line "#MON will"
 
@@ -185,9 +183,10 @@ UnknownText_0x68648:
 	;para "Think before you"
 	;line "act--a TM can be"
 	;cont "used only once."
+
 	para "Do not worry you"
 	line "can use a TM as"
-	cont "much as you want."
+	cont "much as you want."				   
 	
 	para "TM31 contains"
 	line "MUD-SLAP."
@@ -203,7 +202,7 @@ UnknownText_0x68648:
 	cont "and offensive."
 	done
 
-UnknownText_0x68735:
+FalknerFightDoneText:
 	text "There are #MON"
 	line "GYMS in cities and"
 	cont "towns ahead."
@@ -217,16 +216,15 @@ UnknownText_0x68735:
 
 	para "the greatest bird"
 	line "master!"
-	
 	para "On the other hand"
 	line "we can have a test"
 
 	para "of skill right now"
-	done
+	done					 
 
 Falkner_RematchDefeat:
 	text "Darn! im still not"
-	line "good enough…"
+	line "good enough…"	  
 	done
 
 BirdKeeperRodSeenText:
@@ -272,7 +270,7 @@ BirdKeeperAbeAfterBattleText:
 	cont "rookie trainer…"
 	done
 
-VioletGymGuyText:
+VioletGymGuideText:
 	text "Hey! I'm no train-"
 	line "er but I can give"
 	cont "some advice!"
@@ -293,7 +291,7 @@ VioletGymGuyText:
 	line "this in mind."
 	done
 
-VioletGymGuyWinText:
+VioletGymGuideWinText:
 	text "Nice battle! Keep"
 	line "it up, and you'll"
 
@@ -302,25 +300,20 @@ VioletGymGuyWinText:
 	done
 
 VioletGym_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 4, 15, 2, VIOLET_CITY
-	warp_def 5, 15, 2, VIOLET_CITY
+	def_warp_events
+	warp_event  4, 15, VIOLET_CITY, 2
+	warp_event  5, 15, VIOLET_CITY, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 2
-	bg_event 3, 13, BGEVENT_READ, VioletGymStatue
-	bg_event 6, 13, BGEVENT_READ, VioletGymStatue
+	def_bg_events
+	bg_event  3, 13, BGEVENT_READ, VioletGymStatue
+	bg_event  6, 13, BGEVENT_READ, VioletGymStatue
 
-.ObjectEvents:
-	db 4
-	object_event 5, 1, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, FalknerScript_0x683c2, -1
-	object_event 7, 6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
-	object_event 2, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
-	object_event 7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuyScript, -1
+	def_object_events
+	object_event  5,  1, SPRITE_FALKNER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, VioletGymFalknerScript, -1
+	object_event  7,  6, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_LEFT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperRod, -1
+	object_event  2, 10, SPRITE_YOUNGSTER, SPRITEMOVEDATA_STANDING_RIGHT, 2, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_TRAINER, 3, TrainerBirdKeeperAbe, -1
+	object_event  7, 13, SPRITE_GYM_GUIDE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, VioletGymGuideScript, -1

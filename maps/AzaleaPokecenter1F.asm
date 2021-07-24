@@ -1,22 +1,20 @@
-const_value set 2
+	object_const_def
 	const AZALEAPOKECENTER1F_NURSE
 	const AZALEAPOKECENTER1F_GENTLEMAN
 	const AZALEAPOKECENTER1F_FISHING_GURU
 	const AZALEAPOKECENTER1F_POKEFAN_F
 
 AzaleaPokecenter1F_MapScripts:
-.SceneScripts:
-	db 1
+	def_scene_scripts
 	scene_script .DummyScene
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
 
 AzaleaPokecenter1FNurseScript:
-	jumpstd pokecenternurse
+	jumpstd PokecenterNurseScript
 
 AzaleaPokecenter1FGentlemanScript:
 	jumptextfaceplayer AzaleaPokecenter1FGentlemanText
@@ -38,7 +36,7 @@ AzaleaPokecenter1FGentlemanText:
 	line "fainted."
 	done
 
-AzaleaPokecenter1FUnusedText:
+AzaleaPokecenter1FUnusedText: ; unreferenced
 	text "This BILL guy"
 	line "created the system"
 
@@ -77,24 +75,19 @@ AzaleaPokecenter1FPokefanFText:
 	done
 
 AzaleaPokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 1, AZALEA_TOWN
-	warp_def 4, 7, 1, AZALEA_TOWN
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, AZALEA_TOWN, 1
+	warp_event  4,  7, AZALEA_TOWN, 1
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 4
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FNurseScript, -1
-	object_event 9, 6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FGentlemanScript, -1
-	object_event 6, 1, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FFishingGuruScript, -1
-	object_event 1, 4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_WANDER, 1, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FPokefanFScript, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FNurseScript, -1
+	object_event  9,  6, SPRITE_GENTLEMAN, SPRITEMOVEDATA_WALK_UP_DOWN, 0, 1, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FGentlemanScript, -1
+	object_event  6,  1, SPRITE_FISHING_GURU, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FFishingGuruScript, -1
+	object_event  1,  4, SPRITE_POKEFAN_F, SPRITEMOVEDATA_WANDER, 1, 2, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, AzaleaPokecenter1FPokefanFScript, -1

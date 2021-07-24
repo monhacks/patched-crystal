@@ -1,18 +1,16 @@
-const_value set 2
+	object_const_def
 	const BLACKTHORNPOKECENTER1F_NURSE
 	const BLACKTHORNPOKECENTER1F_GENTLEMAN
 	const BLACKTHORNPOKECENTER1F_TWIN
 	const BLACKTHORNPOKECENTER1F_COOLTRAINER_M
 
 BlackthornPokecenter1F_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 BlackthornPokecenter1FNurseScript:
-	jumpstd pokecenternurse
+	jumpstd PokecenterNurseScript
 
 BlackthornPokecenter1FGentlemanScript:
 	jumptextfaceplayer BlackthornPokecenter1FGentlemanText
@@ -21,7 +19,7 @@ BlackthornPokecenter1FTwinScript:
 	jumptextfaceplayer BlackthornPokecenter1FTwinText
 
 BlackthornPokecenter1FCooltrainerMScript:
-	jumpstd happinesschecknpc
+	jumpstd HappinessCheckScript
 
 BlackthornPokecenter1FGentlemanText:
 	text "Deep inside far-"
@@ -50,24 +48,19 @@ BlackthornPokecenter1FTwinText:
 	done
 
 BlackthornPokecenter1F_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 3
-	warp_def 3, 7, 5, BLACKTHORN_CITY
-	warp_def 4, 7, 5, BLACKTHORN_CITY
-	warp_def 0, 7, 1, POKECENTER_2F
+	def_warp_events
+	warp_event  3,  7, BLACKTHORN_CITY, 5
+	warp_event  4,  7, BLACKTHORN_CITY, 5
+	warp_event  0,  7, POKECENTER_2F, 1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 4
-	object_event 3, 1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FNurseScript, -1
-	object_event 5, 3, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FGentlemanScript, -1
-	object_event 1, 4, SPRITE_TWIN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FTwinScript, -1
-	object_event 7, 6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FCooltrainerMScript, -1
+	def_object_events
+	object_event  3,  1, SPRITE_NURSE, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FNurseScript, -1
+	object_event  5,  3, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FGentlemanScript, -1
+	object_event  1,  4, SPRITE_TWIN, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FTwinScript, -1
+	object_event  7,  6, SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_WALK_LEFT_RIGHT, 1, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, BlackthornPokecenter1FCooltrainerMScript, -1

@@ -1,8 +1,9 @@
 ; Crystal does not support SGB, so this is unused.
 
-MapGroupRoofSGBPalInds: ; 8a45
+MapGroupRoofSGBPalInds:
 ; entries correspond to map groups
-	db PREDEFPAL_00
+	table_width 1, MapGroupRoofSGBPalInds
+	db PREDEFPAL_ROUTES
 	db PREDEFPAL_OLIVINE
 	db PREDEFPAL_MAHOGANY
 	db PREDEFPAL_DUNGEONS
@@ -29,4 +30,4 @@ MapGroupRoofSGBPalInds: ; 8a45
 	db PREDEFPAL_NEW_BARK
 	db PREDEFPAL_SAFFRON
 	db PREDEFPAL_CHERRYGROVE
-; 8a60
+	assert_table_length NUM_MAP_GROUPS + 1

@@ -1,13 +1,11 @@
 GoldenrodDeptStoreElevator_MapScripts:
-.SceneScripts:
-	db 0
+	def_scene_scripts
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
-MapGoldenrodDeptStoreElevatorSignpost0Script:
+GoldenrodDeptStoreElevatorScript:
 	opentext
-	elevator Elevator_0x566e0
+	elevator GoldenrodDeptStoreElevatorData
 	closetext
 	iffalse .Done
 	pause 5
@@ -43,7 +41,7 @@ MapGoldenrodDeptStoreElevatorSignpost0Script:
 .Done:
 	end
 
-Elevator_0x566e0:
+GoldenrodDeptStoreElevatorData:
 	db 7 ; floors
 	elevfloor FLOOR_B1F, 2, GOLDENROD_DEPT_STORE_B1F
 	elevfloor FLOOR_1F,  4, GOLDENROD_DEPT_STORE_1F
@@ -55,20 +53,15 @@ Elevator_0x566e0:
 	db -1 ; end
 
 GoldenrodDeptStoreElevator_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 2
-	warp_def 1, 3, -1, GOLDENROD_DEPT_STORE_1F
-	warp_def 2, 3, -1, GOLDENROD_DEPT_STORE_1F
+	def_warp_events
+	warp_event  1,  3, GOLDENROD_DEPT_STORE_1F, -1
+	warp_event  2,  3, GOLDENROD_DEPT_STORE_1F, -1
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 1
-	bg_event 3, 0, BGEVENT_READ, MapGoldenrodDeptStoreElevatorSignpost0Script
+	def_bg_events
+	bg_event  3,  0, BGEVENT_READ, GoldenrodDeptStoreElevatorScript
 
-.ObjectEvents:
-	db 0
+	def_object_events

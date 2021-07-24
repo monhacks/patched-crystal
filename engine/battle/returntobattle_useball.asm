@@ -1,6 +1,6 @@
-_ReturnToBattle_UseBall: ; 2715c
+_ReturnToBattle_UseBall:
 	call ClearBGPalettes
-	call ClearTileMap
+	call ClearTilemap
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jr z, .gettutorialbackpic
@@ -14,6 +14,6 @@ _ReturnToBattle_UseBall: ; 2715c
 	farcall _LoadBattleFontsHPBar
 	call GetMemSGBLayout
 	call CloseWindow
-	call LoadStandardMenuDataHeader
+	call LoadStandardMenuHeader
 	call WaitBGMap
 	jp SetPalettes

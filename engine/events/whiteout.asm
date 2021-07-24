@@ -1,16 +1,15 @@
-Script_BattleWhiteout:: ; 0x124c1
+Script_BattleWhiteout::
 	callasm BattleBGMap
-	jump Script_Whiteout
-; 0x124c8
+	sjump Script_Whiteout
 
-Script_OverworldWhiteout:: ; 0x124c8
+OverworldWhiteoutScript::
 	refreshscreen
 	callasm OverworldBGMap
 
-Script_Whiteout: ; 0x124ce
+Script_Whiteout:
 	writetext .WhitedOutText
 	waitbutton
-	special Special_FadeOutPalettes
+	special FadeOutPalettes
 	pause 40
 	special HealParty
 	checkflag ENGINE_BUG_CONTEST_TIMER
@@ -18,37 +17,32 @@ Script_Whiteout: ; 0x124ce
 	callasm HalveMoney
 	callasm GetWhiteoutSpawn
 	farscall Script_AbortBugContest
-	special Special_WarpToSpawnPoint
+	special WarpToSpawnPoint
 	newloadmap MAPSETUP_WARP
-	end_all
+	endall
 
 .bug_contest
-	jumpstd bugcontestresultswarp
-; 0x124f5
+	jumpstd BugContestResultsWarpScript
 
-.WhitedOutText: ; 0x124f5
-	; is out of useable #MON!  whited out!
-	text_jump UnknownText_0x1c0a4e
-	db "@"
-; 0x124fa
+.WhitedOutText:
+	text_far _WhitedOutText
+	text_end
 
-OverworldBGMap: ; 124fa
+OverworldBGMap:
 	call ClearPalettes
 	call ClearScreen
 	call WaitBGMap2
 	call HideSprites
 	call RotateThreePalettesLeft
 	ret
-; 1250a
 
-BattleBGMap: ; 1250a
+BattleBGMap:
 	ld b, SCGB_BATTLE_GRAYSCALE
 	call GetSGBLayout
 	call SetPalettes
 	ret
-; 12513
 
-HalveMoney: ; 12513
+HalveMoney:
 	farcall StubbedTrainerRankings_WhiteOuts
 
 ; Halve the player's money.
@@ -63,10 +57,8 @@ HalveMoney: ; 12513
 	rra
 	ld [hl], a
 	ret
-; 12527
 
-
-GetWhiteoutSpawn: ; 12527
+GetWhiteoutSpawn:
 	ld a, [wLastSpawnMapGroup]
 	ld d, a
 	ld a, [wLastSpawnMapNumber]
@@ -79,4 +71,3 @@ GetWhiteoutSpawn: ; 12527
 .yes
 	ld [wDefaultSpawnpoint], a
 	ret
-; 1253d

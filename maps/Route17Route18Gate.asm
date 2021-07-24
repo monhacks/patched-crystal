@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const ROUTE17ROUTE18GATE_OFFICER
 
 Route17Route18Gate_MapScripts:
-.SceneScripts:
-	db 1
-	scene_script .DummyScene
+	def_scene_scripts
+	scene_script .DummyScene ; SCENE_DEFAULT
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
@@ -15,22 +13,22 @@ Route17Route18Gate_MapScripts:
 Route17Route18GateOfficerScript:
 	jumptextfaceplayer Route17Route18GateOfficerText
 
-UnknownScript_0x73611:
+Route17Route18GateBicycleCheck:
 	checkitem BICYCLE
-	iffalse UnknownScript_0x73617
+	iffalse .NoBicycle
 	end
 
-UnknownScript_0x73617:
+.NoBicycle:
 	showemote EMOTE_SHOCK, ROUTE17ROUTE18GATE_OFFICER, 15
-	spriteface PLAYER, UP
+	turnobject PLAYER, UP
 	opentext
-	writetext UnknownText_0x7364d
+	writetext Route17Route18GateCannotPassText
 	waitbutton
 	closetext
-	applymovement PLAYER, MovementData_0x73629
+	applymovement PLAYER, Route17Route18GateCannotPassMovement
 	end
 
-MovementData_0x73629:
+Route17Route18GateCannotPassMovement:
 	step RIGHT
 	turn_head LEFT
 	step_end
@@ -40,7 +38,7 @@ Route17Route18GateOfficerText:
 	line "Uphill Starts Here"
 	done
 
-UnknownText_0x7364d:
+Route17Route18GateCannotPassText:
 	text "Hang on! Don't you"
 	line "have a BICYCLE?"
 
@@ -52,24 +50,19 @@ UnknownText_0x7364d:
 	done
 
 Route17Route18Gate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 0, 4, 1, ROUTE_17
-	warp_def 0, 5, 2, ROUTE_17
-	warp_def 9, 4, 1, ROUTE_18
-	warp_def 9, 5, 2, ROUTE_18
+	def_warp_events
+	warp_event  0,  4, ROUTE_17, 1
+	warp_event  0,  5, ROUTE_17, 2
+	warp_event  9,  4, ROUTE_18, 1
+	warp_event  9,  5, ROUTE_18, 2
 
-.CoordEvents:
-	db 2
-	coord_event 5, 4, 0, UnknownScript_0x73611
-	coord_event 5, 5, 0, UnknownScript_0x73611
+	def_coord_events
+	coord_event  5,  4, SCENE_DEFAULT, Route17Route18GateBicycleCheck
+	coord_event  5,  5, SCENE_DEFAULT, Route17Route18GateBicycleCheck
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 5, 2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route17Route18GateOfficerScript, -1
+	def_object_events
+	object_event  5,  2, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route17Route18GateOfficerScript, -1

@@ -1,16 +1,15 @@
-SweetScentFromMenu: ; 506bc
+SweetScentFromMenu:
 	ld hl, .SweetScent
 	call QueueScript
 	ld a, $1
 	ld [wFieldMoveSucceeded], a
 	ret
-; 506c8
 
-.SweetScent: ; 0x506c8
+.SweetScent:
 	reloadmappart
 	special UpdateTimePals
-	callasm GetPartyNick
-	writetext UnknownText_0x50726
+	callasm GetPartyNickname
+	writetext UseSweetScentText
 	waitbutton
 	callasm SweetScentEncounter
 	iffalse SweetScentNothing
@@ -20,24 +19,21 @@ SweetScentFromMenu: ; 506bc
 	startbattle
 	reloadmapafterbattle
 	end
-; 0x506e5
 
-.BugCatchingContest: ; 0x506e5
-	farjump BugCatchingContestBattleScript
-; 0x506e9
+.BugCatchingContest:
+	farsjump BugCatchingContestBattleScript
 
-SweetScentNothing: ; 0x506e9
-	writetext UnknownText_0x5072b
+SweetScentNothing:
+	writetext SweetScentNothingText
 	waitbutton
 	closetext
 	end
-; 0x506ef
 
-SweetScentEncounter: ; 506ef
+SweetScentEncounter:
 	farcall CanUseSweetScent
 	jr nc, .no_battle
 	ld hl, wStatusFlags2
-	bit 2, [hl]
+	bit STATUSFLAGS2_BUG_CONTEST_TIMER_F, [hl]
 	jr nz, .not_in_bug_contest
 	farcall GetMapEncounterRate
 	ld a, b
@@ -60,16 +56,11 @@ SweetScentEncounter: ; 506ef
 	ld [wScriptVar], a
 	ld [wBattleType], a
 	ret
-; 50726
 
-UnknownText_0x50726: ; 0x50726
-	; used SWEET SCENT!
-	text_jump UnknownText_0x1c0b03
-	db "@"
-; 0x5072b
+UseSweetScentText:
+	text_far _UseSweetScentText
+	text_end
 
-UnknownText_0x5072b: ; 0x5072b
-	; Looks like there's nothing here…
-	text_jump UnknownText_0x1c0b1a
-	db "@"
-; 0x50730
+SweetScentNothingText:
+	text_far _SweetScentNothingText
+	text_end

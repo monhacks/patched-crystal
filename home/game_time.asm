@@ -1,4 +1,4 @@
-ResetGameTime:: ; 208a
+ResetGameTime::
 	xor a
 	ld [wGameTimeCap], a
 	ld [wGameTimeHours], a
@@ -7,30 +7,24 @@ ResetGameTime:: ; 208a
 	ld [wGameTimeSeconds], a
 	ld [wGameTimeFrames], a
 	ret
-; 209e
 
-
-GameTimer:: ; 209e
-
+GameTimer::
 	nop
 
-	ld a, [rSVBK]
+	ldh a, [rSVBK]
 	push af
 	ld a, BANK(wGameTime)
-	ld [rSVBK], a
+	ldh [rSVBK], a
 
-	call UpdateGameTimer
+	call .Function
 
 	pop af
-	ld [rSVBK], a
+	ldh [rSVBK], a
 	ret
-; 20ad
 
-
-UpdateGameTimer:: ; 20ad
+.Function:
 ; Increment the game timer by one frame.
 ; The game timer is capped at 999:59:59.00.
-
 
 ; Don't update if game logic is paused.
 	ld a, [wGameLogicPaused]
@@ -38,15 +32,14 @@ UpdateGameTimer:: ; 20ad
 	ret nz
 
 ; Is the timer paused?
-	ld hl, wGameTimerPause
-	bit 0, [hl]
+	ld hl, wGameTimerPaused
+	bit GAME_TIMER_PAUSED_F, [hl]
 	ret z
 
 ; Is the timer already capped?
 	ld hl, wGameTimeCap
 	bit 0, [hl]
 	ret nz
-
 
 ; +1 frame
 	ld hl, wGameTimeFrames
@@ -58,7 +51,6 @@ UpdateGameTimer:: ; 20ad
 
 	ld [hl], a
 	ret
-
 
 .second
 	xor a
@@ -75,7 +67,6 @@ UpdateGameTimer:: ; 20ad
 	ld [hl], a
 	ret
 
-
 .minute
 	xor a
 	ld [hl], a
@@ -91,7 +82,6 @@ UpdateGameTimer:: ; 20ad
 	ld [hl], a
 	ret
 
-
 .hour
 	xor a
 	ld [hl], a
@@ -102,7 +92,6 @@ UpdateGameTimer:: ; 20ad
 	ld a, [wGameTimeHours + 1]
 	ld l, a
 	inc hl
-
 
 ; Cap the timer after 1000 hours.
 	ld a, h
@@ -121,11 +110,9 @@ UpdateGameTimer:: ; 20ad
 	ld [wGameTimeSeconds], a
 	ret
 
-
 .ok
 	ld a, h
 	ld [wGameTimeHours], a
 	ld a, l
 	ld [wGameTimeHours + 1], a
 	ret
-; 210f

@@ -1,13 +1,11 @@
-const_value set 2
+	object_const_def
 	const ROUTE6SAFFRONGATE_OFFICER
 
 Route6SaffronGate_MapScripts:
-.SceneScripts:
-	db 1
+	def_scene_scripts
 	scene_script .DummyScene
 
-.MapCallbacks:
-	db 0
+	def_callbacks
 
 .DummyScene:
 	end
@@ -58,22 +56,17 @@ Route6SaffronGuardMagnetTrainText:
 	done
 
 Route6SaffronGate_MapEvents:
-	; filler
-	db 0, 0
+	db 0, 0 ; filler
 
-.Warps:
-	db 4
-	warp_def 4, 0, 12, SAFFRON_CITY
-	warp_def 5, 0, 13, SAFFRON_CITY
-	warp_def 4, 7, 2, ROUTE_6
-	warp_def 5, 7, 2, ROUTE_6
+	def_warp_events
+	warp_event  4,  0, SAFFRON_CITY, 12
+	warp_event  5,  0, SAFFRON_CITY, 13
+	warp_event  4,  7, ROUTE_6, 2
+	warp_event  5,  7, ROUTE_6, 2
 
-.CoordEvents:
-	db 0
+	def_coord_events
 
-.BGEvents:
-	db 0
+	def_bg_events
 
-.ObjectEvents:
-	db 1
-	object_event 0, 4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route6SaffronGuardScript, -1
+	def_object_events
+	object_event  0,  4, SPRITE_OFFICER, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Route6SaffronGuardScript, -1

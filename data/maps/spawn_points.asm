@@ -1,13 +1,14 @@
 spawn: MACRO
 ; map, x, y
-	map \1
+	map_id \1
 	db \2, \3
 ENDM
 
-SpawnPoints: ; 0x152ab
+SpawnPoints:
 ; entries correspond to SPAWN_* constants
+	table_width 4, SpawnPoints
 
-	spawn KRISS_HOUSE_2F,              3,  3
+	spawn PLAYERS_HOUSE_2F,            3,  3
 	spawn VIRIDIAN_POKECENTER_1F,      5,  3
 
 	spawn PALLET_TOWN,                 5,  6
@@ -37,5 +38,7 @@ SpawnPoints: ; 0x152ab
 	spawn BLACKTHORN_CITY,            21, 30
 	spawn SILVER_CAVE_OUTSIDE,        23, 20
 	spawn FAST_SHIP_CABINS_SW_SSW_NW,  6,  2
+
 	spawn N_A,                        -1, -1
-; 1531f
+
+	assert_table_length NUM_SPAWNS + 1
