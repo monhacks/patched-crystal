@@ -9,13 +9,19 @@ Changelog
 
 ~~~Retail~~~
 
+~~2.0~~
+
+Ported all the changes/fixes to the latest code
+
+A new trainer is unlocked at the Goldenrod Game Corner once you get Mew. When you beat him, he will provide experience farming battles.
+
 ~~1.0~~
 
 Fixed a bug where ScriptCall can overflow wScriptStack and crash
 
 Fixed a bug where LoadSpriteGFX does not limit the capacity of UsedSprites
 
-Fixed a bug where ChooseWildEncounter doesn't really validate the wild Pokémon species
+Fixed a bug where ChooseWildEncounter doesn't really validate the wild PokÃ©mon species
 
 Fixed arbitrary code execution via TryObjectEvent
 
@@ -68,13 +74,13 @@ Fixed the bugs of the followind items: Thick Club, Light Ball, Metal Powder
 
 Fixed a bug with moves that lower Defense can do so after breaking a Substitute
 
-Fixed a bug where a Disabled but PP Up–enhanced move may not trigger Struggle
+Fixed a bug where a Disabled but PP Upâ€“enhanced move may not trigger Struggle
 
 Fixed a bug where Beat Up could desynchronize link battles
 
 Fixed a bug where Present damage is incorrect in link battles
 
-Fixed a bug where the AI encourages Mean Look if its own Pokémon is badly poisoned
+Fixed a bug where the AI encourages Mean Look if its own PokÃ©mon is badly poisoned
 
 Fixed a bug where the NPC use of Full Heal or Full Restore does not cure Nightmare status
 
@@ -96,7 +102,7 @@ Fixed a bug where Team Rocket battle music was not used for Executives or Scient
 
 Fixed a bug where No bump noise would trigger if standing on tile $3E
 
-Fixed a bug where Playing Entei's Pokédex cry can distort Raikou's and Suicune's
+Fixed a bug where Playing Entei's PokÃ©dex cry can distort Raikou's and Suicune's
 
 ~~0.9~~
 
