@@ -239,8 +239,8 @@ KRIS EQU __trainer_class__
 	const REENA2
 	const REENA3
 	const CARA
-	const SYLVIA
-	const SYLVIA2
+	const ROSE
+	const ROSE2
 
 	trainerclass BEAUTY ; 1d
 	const VICTORIA

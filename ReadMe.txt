@@ -9,6 +9,22 @@ Changelog
 
 ~~~Retail~~~
 
+
+~~2.1~~
+
+Removed the experience farming trainer until further notice
+
+Re-included all of the evolutionary stones in the Goldenrod Department Store
+
+The trainer which gives you Mew now has a different name and dialog
+
+You can no longer acquire TMs you already own
+
+Morning/Day/Nite times are reverted back to the originals
+
+TM09 (Psych Up) and Twisted Spoon removed from the Mahogany mart and instead placed in the Saffron one
+
+
 ~~2.0~~
 
 Ported all the changes/fixes to the latest code

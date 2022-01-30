@@ -1,5 +1,5 @@
 	object_const_def
-	const MOUNTMOONSQUARE_SYLVIA
+	const MOUNTMOONSQUARE_ROSE
 	const MOUNTMOONSQUARE_FAIRY1
 	const MOUNTMOONSQUARE_FAIRY2
 	const MOUNTMOONSQUARE_ROCK
@@ -23,35 +23,35 @@ MountMoonSquare_MapScripts:
 	disappear MOUNTMOONSQUARE_ROCK
 	endcallback
 
-.Sylvia
+.Rose
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .Appear
 	jump .NoAppear
 	
 .Appear
-	appear MOUNTMOONSQUARE_SYLVIA
+	appear MOUNTMOONSQUARE_ROSE
 	endcallback
 	
 .NoAppear
-	disappear MOUNTMOONSQUARE_SYLVIA
+	disappear MOUNTMOONSQUARE_ROSE
 	endcallback
 
 
-Sylvia:
+Rose:
 	faceplayer
 	opentext
-	checkevent EVENT_GOT_MEW_FROM_SYLVIA
+	checkevent EVENT_GOT_MEW_FROM_ROSE
 	iftrue GotMew
-	checkevent EVENT_BEAT_COOLTRAINER_SYLVIA
+	checkevent EVENT_BEAT_COOLTRAINER_ROSE
 	iftrue Defeated
-	writetext SylviaEncounterText
+	writetext RoseEncounterText
 	waitbutton
 	closetext
-	winlosstext SylviaDefeatedText, 0
-	loadtrainer COOLTRAINERF, SYLVIA
+	winlosstext RoseDefeatedText, 0
+	loadtrainer COOLTRAINERF, ROSE
 	startbattle
 	reloadmapafterbattle
-	setevent EVENT_BEAT_COOLTRAINER_SYLVIA
+	setevent EVENT_BEAT_COOLTRAINER_ROSE
 	opentext
 Defeated:
 	writetext DefeatedText
@@ -63,11 +63,11 @@ Defeated:
 	playsound SFX_CAUGHT_MON
 	waitsfx
 	givepoke MEW, 5
-	setevent EVENT_GOT_MEW_FROM_SYLVIA
+	setevent EVENT_GOT_MEW_FROM_ROSE
 GotMew:
 	writetext GotMewText
 	yesorno
-	iftrue SylviaRematch
+	iftrue RoseRematch
 	closetext
 	end
 	
@@ -77,9 +77,9 @@ FullParty:
 	closetext
 	end
 	
-SylviaRematch:
-	winlosstext SylviaDefeatedText, 0
-	loadtrainer COOLTRAINERF, SYLVIA2
+RoseRematch:
+	winlosstext RoseDefeatedText, 0
+	loadtrainer COOLTRAINERF, ROSE2
 	startbattle
 	reloadmapafterbattle
 	opentext
@@ -88,11 +88,9 @@ SylviaRematch:
 	end
 	
 RematchDefeat:
-	text "Oh, it seems that"
-	
-	para "you're getting"
-	line "better and better."
-	cont "Keep it up!"
+	text "Your bond between"
+	line "your #MON"
+	cont "holds strong."
 	done
 	
 GotMewText:
@@ -111,42 +109,58 @@ DefeatedText:
 	text "Your skills are"
 	line "quite impressive."
 	
-	para"I think you"
+	para "I think you"
 	line "deserve this"
 	cont "reward."
+	
+	para "It's a very"
+	line "rare #MON."
+	cont "I think it"
+	
+	para "will help you"
+	line "on your journey."
 	done
 	
 FullPartyText:
-	text "Oh, your party is"
+	text "Your party is"
 	cont "full."
 	done
 	
-SylviaEncounterText:
-	text "Oh, hello there."
+RoseEncounterText:
+	text "Hello there."
 	
 	para "You seem like"
 	line "quite the #MON"
 	cont "trainer."
 	
-	para "But I bet you're"
-	line "not as strong as"
-	cont "my boyfriend!"
+	para "ROSE: My name is"
+	cont "ROSE."
 	
-	para "Care to prove me"
-	line "wrong?"
+	para "I come from a"
+	line "different region"
+	cont "to learn more"
+	
+	para "about the elusive"
+	line "moon #MON."
+	
+	para "Either way im"
+	line "always looking for"
+	cont "greater challenges"
+	
+	para "I hope you're"
+	line "ready."
 	done
 	
-SylviaDefeatedText:
-	text "Oh, you're way"
-	line "better than i"
-	cont "thought."
-	para "Congratulations!"
+RoseDefeatedText:
+	text "That's quite"
+	line "impressive."
 	done
 	
 RewardText:
 	text "<PLAYER> received"
 	line "MEW."
 	done
+	
 ClefairyDance:
 	checkflag ENGINE_MT_MOON_SQUARE_CLEFAIRY
 	iftrue .NoDancing
@@ -271,7 +285,7 @@ MountMoonSquare_MapEvents:
 	bg_event 17,  7, BGEVENT_READ, DontLitterSign
 
 	def_object_events
-	object_event 22, 6, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Sylvia, -1
+	object_event 22, 6, SPRITE_COOLTRAINER_F, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Rose, -1
 	object_event  6,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  7, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MtMoonSquareRock, EVENT_MT_MOON_SQUARE_ROCK

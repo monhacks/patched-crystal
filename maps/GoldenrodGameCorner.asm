@@ -26,20 +26,20 @@ GoldenrodGameCorner_MapScripts:
 
 	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .MoveTutor
-	callback MAPCALLBACK_OBJECTS, .Johnny
+	;callback MAPCALLBACK_OBJECTS, .Johnny
 	;callback MAPCALLBACK_OBJECTS, .MoveReminderScript
 
-.Johnny
-	checkevent EVENT_GOT_MEW_FROM_SYLVIA
-	iffalse .NoAppear
+;.Johnny
+	;checkevent EVENT_GOT_MEW_FROM_SYLVIA
+	;iffalse .NoAppear
 	
-.Appear
-	appear GOLDENRODGAMECORNER_JOHNNY
-	endcallback
+;.Appear
+	;appear GOLDENRODGAMECORNER_JOHNNY
+	;endcallback
 
-.NoAppear
-	disappear GOLDENRODGAMECORNER_JOHNNY
-	endcallback
+;.NoAppear
+	;disappear GOLDENRODGAMECORNER_JOHNNY
+	;endcallback
 	
 ;.MoveReminderScript
 	;checkevent EVENT_BEAT_ELITE_FOUR
@@ -78,39 +78,39 @@ MoveTutorInsideScript:
 	end
 	
 	
-Johnny:
-	faceplayer
-	opentext
-	checkevent EVENT_JOHNNY_DEFEATED
-	iftrue ExperienceFarming
-	iffalse FirstBattle
-	end
+;Johnny:
+	;faceplayer
+	;opentext
+	;checkevent EVENT_JOHNNY_DEFEATED
+	;iftrue ExperienceFarming
+	;iffalse FirstBattle
+	;end
 	
 	
-ExperienceFarming:
-	writetext JohnnyRematchText
-	yesorno
-	iftrue JohnnyRematch
-	closetext
-	end
+;ExperienceFarming:
+	;writetext JohnnyRematchText
+	;yesorno
+	;iftrue JohnnyRematch
+	;closetext
+	;end
 	
-FirstBattle:
-	writetext JohnnyEncounterText
-	waitbutton
-	closetext
-	winlosstext	JohnnyDefeatedText, 0
-	loadtrainer SUPER_NERD, JOHNNY1
-	startbattle
-	reloadmapafterbattle
-	setevent EVENT_JOHNNY_DEFEATED
-	end
+;FirstBattle:
+	;writetext JohnnyEncounterText
+	;waitbutton
+	;closetext
+	;winlosstext	JohnnyDefeatedText, 0
+	;loadtrainer SUPER_NERD, JOHNNY1
+	;startbattle
+	;reloadmapafterbattle
+	;setevent EVENT_JOHNNY_DEFEATED
+	;end
 	
-JohnnyRematch:
-	winlosstext	JohnnyRematchDefeatedText, 0
-	loadtrainer SUPER_NERD, JOHNNY2
-	startbattle
-	reloadmapafterbattle
-	end
+;JohnnyRematch:
+	;winlosstext	JohnnyRematchDefeatedText, 0
+	;loadtrainer SUPER_NERD, JOHNNY2
+	;startbattle
+	;reloadmapafterbattle
+	;end
 
 
 GoldenrodGameCornerCoinVendorScript:
@@ -135,6 +135,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerPrizeVendor_CancelPurchaseScript
 
 .Thunder:
+	checkitem TM_THUNDER
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM25_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_THUNDER
@@ -146,6 +148,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerTMVendor_FinishScript
 
 .Blizzard:
+	checkitem TM_BLIZZARD
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM14_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_BLIZZARD
@@ -157,6 +161,8 @@ GoldenrodGameCornerTMVendor_LoopScript:
 	sjump GoldenrodGameCornerTMVendor_FinishScript
 
 .FireBlast:
+	checkitem TM_FIRE_BLAST
+	iftrue GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript
 	checkcoins GOLDENRODGAMECORNER_TM38_COINS
 	ifequal HAVE_LESS, GoldenrodGameCornerPrizeVendor_NotEnoughCoinsScript
 	getitemname STRING_BUFFER_3, TM_FIRE_BLAST
@@ -176,6 +182,11 @@ GoldenrodGameCornerTMVendor_FinishScript:
 	waitsfx
 	playsound SFX_TRANSACTION
 	writetext GoldenrodGameCornerPrizeVendorHereYouGoText
+	waitbutton
+	sjump GoldenrodGameCornerTMVendor_LoopScript
+	
+GoldenrodGameCornerPrizeVendor_AlreadyHaveTMScript:
+	writetext GoldenrodGameCornerPrizeVendorAlreadyHaveTMText
 	waitbutton
 	sjump GoldenrodGameCornerTMVendor_LoopScript
 
@@ -438,56 +449,56 @@ GoldenrodGameCornerCardFlipMachineScript:
 	;line "it any moves."
 	;done
 	
-JohnnyEncounterText:
-	text "Hello there."
+;JohnnyEncounterText:
+	;text "Hello there."
 	
-	para "It's nice to see"
-	line "a new face around"
-	cont "here."
+	;para "It's nice to see"
+	;line "a new face around"
+	;cont "here."
 	
-	para "JOHNNY: My name is"
-	line "JOHNNY. My spec-"
-	cont "ialty is computers"
+	;para "JOHNNY: My name is"
+	;line "JOHNNY. My spec-"
+	;cont "ialty is computers"
 	
-	para "and #MON."
+	;para "and #MON."
 	
-	para "You met my girl-"
-	line "friend SYLVIA?"
+	;para "You met my girl-"
+	;line "friend SYLVIA?"
 	
-	para "You must be quite"
-	line "the #MON trainer."
+	;para "You must be quite"
+	;line "the #MON trainer."
 	
-	para "How about youshow"
-	line "me your skills?"
-	done
+	;para "How about youshow"
+	;line "me your skills?"
+	;done
 
-JohnnyDefeatedText:
-	text "I am truly amazed by"
-	line "by your skill."
+;JohnnyDefeatedText:
+	;text "I am truly amazed by"
+	;line "by your skill."
 	
-	para "I think you deserve"
-	line "a reward. From now"
-	cont "on i can help you"
+	;para "I think you deserve"
+	;line "a reward. From now"
+	;cont "on i can help you"
 	
-	para "train your #MON with"
-	line "my special team, all"
-	cont "you gotta do is ask!"
-	done
+	;para "train your #MON with"
+	;line "my special team, all"
+	;cont "you gotta do is ask!"
+	;done
 
-JohnnyRematchText:
-	text "Hello <PLAYER>."
+;JohnnyRematchText:
+	;text "Hello <PLAYER>."
 	
-	para "You're a pretty good"
-	line "trainer, but your"
-	cont "#MON can always use"
+	;para "You're a pretty good"
+	;line "trainer, but your"
+	;cont "#MON can always use"
 	
-	para "more training."
-	line "So how about it?"
-	done
+	;para "more training."
+	;line "So how about it?"
+	;done
 	
-JohnnyRematchDefeatedText:
-	text "Good work once again!"
-	done
+;JohnnyRematchDefeatedText:
+	;text "Good work once again!"
+	;done
 
 GoldenrodGameCornerPrizeVendorIntroText:
 	text "Welcome!"
@@ -510,6 +521,11 @@ GoldenrodGameCornerPrizeVendorConfirmPrizeText:
 
 GoldenrodGameCornerPrizeVendorHereYouGoText:
 	text "Here you go!"
+	done
+	
+GoldenrodGameCornerPrizeVendorAlreadyHaveTMText:
+	text "But you already"
+	line "have that TM!"
 	done
 
 GoldenrodGameCornerPrizeVendorNeedMoreCoinsText:
@@ -689,7 +705,7 @@ GoldenrodGameCorner_MapEvents:
 	bg_event 12,  1, BGEVENT_LEFT, GoldenrodGameCornerLeftTheirDrinkScript
 
 	def_object_events
-	object_event 10, 1,	 SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Johnny, -1
+	;object_event 10, 1,	 SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Johnny, -1
 	object_event  3,  2, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerCoinVendorScript, -1
 	object_event 16,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerTMVendorScript, -1
 	object_event 18,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPrizeMonVendorScript, -1

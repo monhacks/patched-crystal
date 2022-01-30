@@ -102,7 +102,7 @@ MartGoldenrod2F1:
 	db -1 ; end
 
 MartGoldenrod2F2:
-	db 8 ; # items
+	db 14 ; # items
 	db POKE_BALL
 	db GREAT_BALL
 	db ESCAPE_ROPE
@@ -111,6 +111,12 @@ MartGoldenrod2F2:
 	db FULL_HEAL
 	db POKE_DOLL
 	db FLOWER_MAIL
+	db SUN_STONE
+	db MOON_STONE
+	db FIRE_STONE
+	db WATER_STONE
+	db THUNDERSTONE
+	db LEAF_STONE
 	db -1 ; end
 
 MartGoldenrod3F:
@@ -214,7 +220,7 @@ MartMahogany2:
 	db -1 ; end
 
 MartBlackthorn:
-	db 9 ; # items
+	db 10 ; # items
 	db GREAT_BALL
 	db ULTRA_BALL
 	db HYPER_POTION
@@ -224,6 +230,7 @@ MartBlackthorn:
 	db MAX_REPEL
 	db X_DEFEND
 	db X_ATTACK
+	db SCOPE_LENS
 	db -1 ; end
 
 MartViridian:
@@ -360,7 +367,7 @@ MartFuchsia:
 	db -1 ; end
 
 MartSaffron:
-	db 8 ; # items
+	db 10 ; # items
 	db GREAT_BALL
 	db ULTRA_BALL
 	db HYPER_POTION
@@ -368,6 +375,8 @@ MartSaffron:
 	db FULL_HEAL
 	db X_ATTACK
 	db X_DEFEND
+	db TWISTEDSPOON
+	db PSYCH_UP
 	db FLOWER_MAIL
 	db -1 ; end
 

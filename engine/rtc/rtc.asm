@@ -48,17 +48,17 @@ GetTimeOfDay::
 TimesOfDay:
 ; hours for the time of day
 ; 0400-0959 morn | 1000-1759 day | 1800-0359 nite
-	;db MORN_HOUR, NITE_F
-	;db DAY_HOUR,  MORN_F
-	;db NITE_HOUR, DAY_F
-	;db MAX_HOUR,  NITE_F
-	;db -1, MORN_F
-
-	db 06, NITE_F
-	db 13, MORN_F
-	db 20, DAY_F
-	db 24, NITE_F
+	db MORN_HOUR, NITE_F
+	db DAY_HOUR,  MORN_F
+	db NITE_HOUR, DAY_F
+	db MAX_HOUR,  NITE_F
 	db -1, MORN_F
+
+	;db 06, NITE_F
+	;db 13, MORN_F
+	;db 20, DAY_F
+	;db 24, NITE_F
+	;db -1, MORN_F
 	
 BetaTimesOfDay: ; unreferenced
 	db 20, NITE_F
