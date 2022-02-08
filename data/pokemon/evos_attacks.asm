@@ -545,8 +545,8 @@ ZubatEvosAttacks:
 	db 0 ; no more level-up moves
 
 GolbatEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
-	db EVOLVE_LEVEL, 35, CROBAT						
+	db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
+	;db EVOLVE_LEVEL, 35, CROBAT						
 	db 0 ; no more evolutions
 	db 1, SCREECH
 	db 1, LEECH_LIFE
@@ -1540,8 +1540,8 @@ RhydonEvosAttacks:
 	db 0 ; no more level-up moves
 
 ChanseyEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, BLISSEY
-	db EVOLVE_LEVEL, 40, BLISSEY						 
+	db EVOLVE_HAPPINESS, TR_ANYTIME, BLISSEY
+	;db EVOLVE_LEVEL, 40, BLISSEY						 
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 5, GROWL
@@ -2361,8 +2361,8 @@ LanturnEvosAttacks:
 	db 0 ; no more level-up moves
 
 PichuEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, PIKACHU
-	db EVOLVE_LEVEL, 15, PIKACHU						 
+	db EVOLVE_HAPPINESS, TR_ANYTIME, PIKACHU
+	;db EVOLVE_LEVEL, 15, PIKACHU						 
 	db 0 ; no more evolutions
 	db 1, THUNDERSHOCK
 	db 1, CHARM
@@ -2372,8 +2372,8 @@ PichuEvosAttacks:
 	db 0 ; no more level-up moves
 
 CleffaEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, CLEFAIRY
-	db EVOLVE_LEVEL, 15, CLEFAIRY					  
+	db EVOLVE_HAPPINESS, TR_ANYTIME, CLEFAIRY
+	;db EVOLVE_LEVEL, 15, CLEFAIRY					  
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 1, CHARM
@@ -2383,8 +2383,8 @@ CleffaEvosAttacks:
 	db 0 ; no more level-up moves
 
 IgglybuffEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, JIGGLYPUFF
-	db EVOLVE_LEVEL, 15, JIGGLYPUFF						
+	db EVOLVE_HAPPINESS, TR_ANYTIME, JIGGLYPUFF
+	;db EVOLVE_LEVEL, 15, JIGGLYPUFF						
 	db 0 ; no more evolutions
 	db 1, SING
 	db 1, CHARM
@@ -2394,8 +2394,8 @@ IgglybuffEvosAttacks:
 	db 0 ; no more level-up moves
 
 TogepiEvosAttacks:
-	;db EVOLVE_HAPPINESS, TR_ANYTIME, TOGETIC
-	db EVOLVE_LEVEL, 30, TOGETIC						 
+	db EVOLVE_HAPPINESS, TR_ANYTIME, TOGETIC
+	;db EVOLVE_LEVEL, 30, TOGETIC						 
 	db 0 ; no more evolutions
 	db 1, GROWL
 	db 1, CHARM
