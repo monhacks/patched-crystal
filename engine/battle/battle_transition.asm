@@ -210,10 +210,6 @@ TRANS_STRONGER_F EQU 0 ; bit set in TRANS_CAVE_STRONGER and TRANS_NO_CAVE_STRONG
 TRANS_NO_CAVE_F EQU 1 ; bit set in TRANS_NO_CAVE and TRANS_NO_CAVE_STRONGER
 
 StartTrainerBattle_DetermineWhichAnimation:
-; The screen flashes a different number of times depending on the level of
-; your lead Pokemon relative to the opponent's.
-; BUG: wBattleMonLevel and wEnemyMonLevel are not set at this point, so whatever
-; values happen to be there will determine the animation.
 	ld a, [wOtherTrainerClass]
 	and a
 	jr z, .wild
@@ -236,10 +232,8 @@ StartTrainerBattle_DetermineWhichAnimation:
 	ld de, MON_LEVEL - MON_HP - 1
 	add hl, de
 	ld de, 0
-	;ld a, [wBattleMonLevel]
 	ld a, [hl]
 	add 3
-	;ld hl, wEnemyMonLevel
 	ld hl, wCurPartyLevel
 	cp [hl]
 	jr nc, .not_stronger

@@ -26,7 +26,7 @@ VictoryRoad_MapScripts:
     iftrue .NoAppear
 	checkitem CLEAR_BELL
 	iftrue .Appear
-	jump .NoAppear
+	sjump .NoAppear
 	
 .Appear
 	appear VICTORYROAD_MOLTRES

@@ -24,7 +24,7 @@ pokecrystal_au_obj      := $(rom_obj:.o=_au.o)
 pokecrystal_debug_obj   := $(rom_obj:.o=_debug.o)
 pokecrystal11_debug_obj := $(rom_obj:.o=11_debug.o)
 patched-crystal_obj       := $(rom_obj:.o=11.o)
-patched-crystal_debug_obj := $(rom_obj:.o=11_debug.o)
+patched-crystal_debug_obj := $(rom_obj:.o=11_debug.o)										 
 
 
 ### Build tools
@@ -45,7 +45,7 @@ RGBLINK ?= $(RGBDS)rgblink
 ### Build targets
 
 .SUFFIXES:
-.PHONY: all crystal crystal11 crystal_au crystal_debug crystal11_debug patched-crystal patched-crystal-debug clean tidy compare tools
+.PHONY: all crystal crystal11 crystal_au crystal_debug crystal11_debug patched-crystal patched-crystal-debug  clean tidy compare tools
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
@@ -57,7 +57,7 @@ crystal_au:      pokecrystal_au.gbc
 crystal_debug:   pokecrystal_debug.gbc
 crystal11_debug: pokecrystal11_debug.gbc
 patched-crystal: patched-crystal.gbc
-patched-crystal-debug: patched-crystal-debug.gbc
+patched-crystal-debug: patched-crystal-debug.gbc							
 
 clean: tidy
 	find gfx \( -name "*.[12]bpp" -o -name "*.lz" -o -name "*.gbcpal" -o -name "*.sgb.tilemap" \) -delete
@@ -74,7 +74,7 @@ tools:
 	$(MAKE) -C tools/
 
 
-RGBASMFLAGS = -L -Weverything
+RGBASMFLAGS = -L -Weverything -Wnumeric-string=2 -Wtruncation=1
 # Create a sym/map for debug purposes if `make` run with `DEBUG=1`
 ifeq ($(DEBUG),1)
 RGBASMFLAGS += -E
@@ -119,13 +119,13 @@ pokecrystal_au_opt      = -Cjv -t PM_CRYSTAL -i BYTU -n 0 -k 01 -l 0x33 -m 0x10 
 pokecrystal_debug_opt   = -Cjv -t PM_CRYSTAL -i BYTE -n 0 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal11_debug_opt = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 patched-crystal_opt 	= -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
-patched-crystal-debug_opt = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
+patched-crystal-debug_opt = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0														   
 
 pokecrystal_base         = us
 pokecrystal11_base       = us
 patched-crystal_base       = us
 pokecrystal_au_base      = us
-patched-crystal-debug_base   = dbg
+patched-crystal-debug_base   = dbg  
 pokecrystal_debug_base   = dbg
 pokecrystal11_debug_base = dbg
 

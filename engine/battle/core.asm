@@ -157,6 +157,11 @@ WildFled_EnemyFled_LinkBattleCanceled:
 	ret
 
 BattleTurn:
+	ldh a, [hInMenu]
+	push af
+	ld a, 1 ; or "xor a" for the value 0
+	ldh [hInMenu], a
+
 .loop
 	call Stubbed_Increments5_a89a
 	call CheckContestBattleOver
@@ -226,6 +231,8 @@ BattleTurn:
 	jp .loop
 
 .quit
+	pop af
+	ldh [hInMenu], a
 	ret
 
 Stubbed_Increments5_a89a:
@@ -300,7 +307,7 @@ HasAnyoneFainted:
 	ret
 
 CheckFaint_PlayerThenEnemy:
-	.faint_loop
+.faint_loop
 	call .Function
 	ret c
 	call HasAnyoneFainted
@@ -332,7 +339,7 @@ CheckFaint_PlayerThenEnemy:
 	ret
 
 CheckFaint_EnemyThenPlayer:
-	.faint_loop
+.faint_loop
 	call .Function
 	ret c
 	call HasAnyoneFainted
@@ -414,9 +421,9 @@ HandleBerserkGene:
 	set SUBSTATUS_CONFUSED, [hl]
 	ldh a, [hBattleTurn]
 	and a
-	ld hl, wEnemyConfuseCount
-	jr z, .set_confuse_count
 	ld hl, wPlayerConfuseCount
+	jr z, .set_confuse_count
+	ld hl, wEnemyConfuseCount
 .set_confuse_count
 	call BattleRandom
 	and %11
@@ -3896,7 +3903,7 @@ InitBattleMon:
 	ld bc, MON_DVS - MON_ID
 	add hl, bc
 	ld de, wBattleMonDVs
-	ld bc, MON_PKRUS - MON_DVS
+	ld bc, MON_POKERUS - MON_DVS
 	call CopyBytes
 	inc hl
 	inc hl
@@ -3982,7 +3989,7 @@ InitEnemyMon:
 	ld bc, MON_DVS - MON_ID
 	add hl, bc
 	ld de, wEnemyMonDVs
-	ld bc, MON_PKRUS - MON_DVS
+	ld bc, MON_POKERUS - MON_DVS
 	call CopyBytes
 	inc hl
 	inc hl
@@ -4011,9 +4018,11 @@ InitEnemyMon:
 	inc de
 	ld a, [hl]
 	ld [de], a
+	; The enemy mon's base Sp. Def isn't needed since its base
+	; Sp. Atk is also used to calculate Sp. Def stat experience.
 	ld hl, wBaseStats
 	ld de, wEnemyMonBaseStats
-	ld b, 5
+	ld b, NUM_STATS - 1
 .loop
 	ld a, [hli]
 	ld [de], a
@@ -4226,10 +4235,6 @@ PursuitSwitch:
 	call UpdateFaintedPlayerMon
 	pop af
 	ld [wCurBattleMon], a
-	;ld c, a
-	;ld hl, wBattleParticipantsNotFainted
-	;ld b, RESET_FLAG
-	;predef SmallFarFlagAction
 	call PlayerMonFaintedAnimation
 	ld hl, BattleText_MonFainted
 	jr .done_fainted
@@ -5794,8 +5799,7 @@ CheckPlayerHasUsableMoves:
 	jr .loop
 
 .done
-	; Bug: this will result in a move with PP Up confusing the game.
-	and PP_MASK ;a ; should be "and PP_MASK"
+	and PP_MASK
 	ret nz
 
 .force_struggle
@@ -6200,7 +6204,6 @@ LoadEnemyMon:
 
 ; No reason to keep going if length > 1536 mm (i.e. if HIGH(length) > 6 feet)
 	ld a, [wMagikarpLength]
-	;cp HIGH(1536) ; should be "cp 5", since 1536 mm = 5'0", but HIGH(1536) = 6
 	cp 5
 	jr nz, .CheckMagikarpArea
 
@@ -6210,7 +6213,6 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1616 mm (i.e. if LOW(length) >= 4 inches)
 	ld a, [wMagikarpLength + 1]
-	;cp LOW(1616) ; should be "cp 4", since 1616 mm = 5'4", but LOW(1616) = 80
 	cp 4
 	jr nc, .GenerateDVs
 
@@ -6220,24 +6222,10 @@ LoadEnemyMon:
 	jr c, .CheckMagikarpArea
 ; Try again if length >= 1600 mm (i.e. if LOW(length) >= 3 inches)
 	ld a, [wMagikarpLength + 1]
-	;cp LOW(1600) ; should be "cp 3", since 1600 mm = 5'3", but LOW(1600) = 64
 	cp 3
 	jr nc, .GenerateDVs
 
 .CheckMagikarpArea:
-; The "jr z" checks are supposed to be "jr nz".
-
-; Instead, all maps in GROUP_LAKE_OF_RAGE (Mahogany area)
-; and Routes 20 and 44 are treated as Lake of Rage.
-
-; This also means Lake of Rage Magikarp can be smaller than ones
-; caught elsewhere rather than the other way around.
-
-; Intended behavior enforces a minimum size at Lake of Rage.
-; The real behavior prevents a minimum size in the Lake of Rage area.
-
-; Moreover, due to the check not being translated to feet+inches, all Magikarp
-; smaller than 4'0" may be caught by the filter, a lot more than intended.
 	ld a, [wMapGroup]
 	cp GROUP_LAKE_OF_RAGE
 	jr nz, .Happiness
@@ -6404,10 +6392,11 @@ LoadEnemyMon:
 	call CopyBytes
 
 .Finish:
-; Only the first five base stats are copied..
+; Copy the first five base stats (the enemy mon's base Sp. Atk
+; is also used to calculate Sp. Def stat experience)
 	ld hl, wBaseStats
 	ld de, wEnemyMonBaseStats
-	ld b, wBaseSpecialDefense - wBaseStats
+	ld b, NUM_STATS - 1
 .loop
 	ld a, [hli]
 	ld [de], a
@@ -6853,9 +6842,6 @@ BadgeStatBoosts:
 	srl b
 	dec c
 	jr nz, .CheckBadge
-; Check GlacierBadge again for Special Defense.
-; This check is buggy because it assumes that a is set by the "ld a, b" in the above loop,
-; but it can actually be overwritten by the call to BoostStat.
 	srl a
 	call c, BoostStat
 	ret
@@ -7076,7 +7062,7 @@ GiveExperiencePoints:
 .no_carry_stat_exp
 	push hl
 	push bc
-	ld a, MON_PKRUS
+	ld a, MON_POKERUS
 	call GetPartyParamLocation
 	ld a, [hl]
 	and a
@@ -7676,7 +7662,7 @@ SendOutMonText:
 	ld hl, GoMonText
 	jr z, .skip_to_textbox
 
-	; compute enemy helth remaining as a percentage
+	; compute enemy health remaining as a percentage
 	xor a
 	ldh [hMultiplicand + 0], a
 	ld hl, wEnemyMonHP
@@ -7686,16 +7672,22 @@ SendOutMonText:
 	ld a, [hl]
 	ld [wEnemyHPAtTimeOfPlayerSwitch + 1], a
 	ldh [hMultiplicand + 2], a
-	ld a, 25
-	ldh [hMultiplier], a
-	call Multiply
 	ld hl, wEnemyMonMaxHP
 	ld a, [hli]
 	ld b, [hl]
-	srl a
+	ld c, 100
+	and a
+	jr z, .shift_done
+.shift
+	rra
 	rr b
-	srl a
-	rr b
+	srl c
+	and a
+	jr nz, .shift
+.shift_done
+	ld a, c
+	ldh [hMultiplier], a
+	call Multiply
 	ld a, b
 	ld b, 4
 	ldh [hDivisor], a
@@ -7751,10 +7743,10 @@ WithdrawMonText:
 .WithdrawMonText:
 	text_far _BattleMonNickCommaText
 	text_asm
-; Print text to withdraw mon
-; depending on HP the message is different
+; Depending on the HP lost since the enemy mon was sent out, the game prints a different text
 	push de
 	push bc
+	; compute enemy health lost as a percentage
 	ld hl, wEnemyMonHP + 1
 	ld de, wEnemyHPAtTimeOfPlayerSwitch + 1
 	ld b, [hl]
@@ -7767,16 +7759,22 @@ WithdrawMonText:
 	ld a, [de]
 	sbc b
 	ldh [hMultiplicand + 1], a
-	ld a, 25
-	ldh [hMultiplier], a
-	call Multiply
 	ld hl, wEnemyMonMaxHP
 	ld a, [hli]
 	ld b, [hl]
-	srl a
+	ld c, 100
+	and a
+	jr z, .shift_done
+.shift
+	rra
 	rr b
-	srl a
-	rr b
+	srl c
+	and a
+	jr nz, .shift
+.shift_done
+	ld a, c
+	ldh [hMultiplier], a
+	call Multiply
 	ld a, b
 	ld b, 4
 	ldh [hDivisor], a

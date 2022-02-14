@@ -38,7 +38,7 @@ ItemEffects:
 	dw EvoStoneEffect      ; FIRE_STONE
 	dw EvoStoneEffect      ; THUNDERSTONE
 	dw EvoStoneEffect      ; WATER_STONE
-	dw NoEffect            ; ITEM_19
+	dw EvoStoneEffect	   ;NoEffect            ; ITEM_19
 	dw VitaminEffect       ; HP_UP
 	dw VitaminEffect       ; PROTEIN
 	dw VitaminEffect       ; IRON
@@ -213,7 +213,7 @@ PokeBallEffect:
 	ld a, [wBattleMode]
 	dec a
 	jp nz, UseBallInTrainerBattle
-
+	
 	ld a, [wBattleType]
 	cp BATTLETYPE_TUTORIAL
 	jr z, .room_in_party
@@ -232,8 +232,6 @@ PokeBallEffect:
 .room_in_party
 	xor a
 	ld [wWildMon], a
-	;ld a, [wCurItem]
-	;cp PARK_BALL
 	ld a, [wBattleType]
 	cp BATTLETYPE_CONTEST
 	call nz, ReturnToBattle_UseBall
@@ -340,11 +338,6 @@ PokeBallEffect:
 	jr nz, .statuscheck
 	ld a, 1
 .statuscheck
-; This routine is buggy. It was intended that SLP and FRZ provide a higher
-; catch rate than BRN/PSN/PAR, which in turn provide a higher catch rate than
-; no status effect at all. But instead, it makes BRN/PSN/PAR provide no
-; benefit.
-; Uncomment the line below to fix this.
 	ld b, a
 	ld a, [wEnemyMonStatus]
 	and 1 << FRZ | SLP
@@ -362,9 +355,6 @@ PokeBallEffect:
 	ld a, $ff
 .max_1
 
-	; BUG: farcall overwrites a, and GetItemHeldEffect takes b anyway.
-	; This is probably the reason the HELD_CATCH_CHANCE effect is never used.
-	; Uncomment the line below to fix.
 	ld d, a
 	push de
 	ld a, [wBattleMonItem]
@@ -456,17 +446,9 @@ PokeBallEffect:
 ; caught as a Ditto, even if it was something else like Mew.
 ; To fix, do not set [wTempEnemyMonSpecies] to DITTO.
 	bit SUBSTATUS_TRANSFORMED, a
-	;jr nz, .ditto
-	;jr .not_ditto
 	jr nz, .load_data
 
-;.ditto
-	;ld a, DITTO
-	;ld [wTempEnemyMonSpecies], a
-	;jr .load_data
-
-;.not_ditto
-	;set SUBSTATUS_TRANSFORMED, [hl]
+.ditto
 	ld hl, wEnemyBackupDVs
 	ld a, [wEnemyMonDVs]
 	ld [hli], a
@@ -938,13 +920,11 @@ MoonBallMultiplier:
 	inc hl
 	inc hl
 
-; Moon Stone's constant from Pokémon Red is used.
-; No Pokémon evolve with Burn Heal,
-; so Moon Balls always have a catch rate of 1×.
+
 	push bc
 	ld a, BANK("Evolutions and Attacks")
 	call GetFarByte
-	cp MOON_STONE ; BURN_HEAL
+	cp MOON_STONE
 	pop bc
 	ret nz
 
@@ -1003,7 +983,7 @@ LoveBallMultiplier:
 	pop de
 	cp d
 	pop bc
-	ret z ; for the intended effect, this should be "ret z"
+	ret z
 
 	sla b
 	jr c, .max
@@ -1041,7 +1021,7 @@ FastBallMultiplier:
 	cp -1
 	jr z, .next
 	cp c
-	jr nz, .loop ; for the intended effect, this should be "jr nz, .loop"
+	jr nz, .loop
 	sla b
 	jr c, .max
 
@@ -2196,7 +2176,7 @@ PokeFluteEffect:
 	xor a
 	ld [wPokeFluteCuredSleep], a
 
-	ld b, $ff ^ SLP
+	ld b, ~SLP
 
 	ld hl, wPartyMon1Status
 	call .CureSleep

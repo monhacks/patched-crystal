@@ -1,7 +1,5 @@
 This is list of encounters that are added and/or adjusted and how certain pokemon evolve now.
 
-NOTE: Some common encounters like rattata were replaced, keep in mind that you can still find all pokemon in places you already know of
-
 
 ~~Improved Encounters~~
 
@@ -107,38 +105,14 @@ Mew is now given as a reward by defeating a trainer at Mt. Moon Square
 
 ***These methods are subject to change***
 
-Haunter evolves into Gengar at level 35
-
-Machoke evolves into Machamp at level 35
-
-Graveler evolves into Golem at level 35
-
-Kadabra evolves into Alakazam at level 35
+Haunter, Machoke, Graveler, Kadabra, Seadra, Onix, Scyther evolve by using a Link Cord
 
 Eevee evolves into Espeon by using a Sun Stone
 
 Eevee evolves into Umbreon by using a Moon Stone
 
-Seadra evolves into Kingdra at level 40
-
-Onix evolves into Steelix at level 35
-
-Scyther evolves into Scizor at level 25
-
 Slowpoke evolves into Slowking by using a Water Stone
 
 Poliwhirl evolves into Politoed at level 30
 
-Porygon evolves into Porygon2 at level 30
-
-Golbat evolves into Crobat at level 35
-
-Chansey evolves into Blissey at level 40
-
-Pichu evolves into Pikachu at level 15
-
-Cleffa evolves into Clefairy at level 15
-
-Igglypuff evolves into Jigglypuff at level 15
-
-Togepi evolves into Togetic at level 30
+Porygon evolves into Porygon2 by using Up-grade

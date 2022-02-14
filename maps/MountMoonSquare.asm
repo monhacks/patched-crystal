@@ -26,7 +26,7 @@ MountMoonSquare_MapScripts:
 .Rose
 	checkevent EVENT_BEAT_ELITE_FOUR
 	iftrue .Appear
-	jump .NoAppear
+	sjump .NoAppear
 	
 .Appear
 	appear MOUNTMOONSQUARE_ROSE

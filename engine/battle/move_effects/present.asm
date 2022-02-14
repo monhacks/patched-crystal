@@ -1,21 +1,15 @@
 BattleCommand_Present:
 ; present
 
-	;ld a, [wLinkMode]
-	;cp LINK_COLOSSEUM
-	;jr z, .colosseum_skippush
+	ld a, [wLinkMode]
 	push bc
 	push de
-;.colosseum_skippush
 
 	call BattleCommand_Stab
 
-	;ld a, [wLinkMode]
-	;cp LINK_COLOSSEUM
-	;jr z, .colosseum_skippop
+	ld a, [wLinkMode]
 	pop de
 	pop bc
-;.colosseum_skippop
 
 	ld a, [wTypeMatchup]
 	and a

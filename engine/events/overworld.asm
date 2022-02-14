@@ -412,9 +412,7 @@ UsedSurfScript:
 
 	special UpdatePlayerSprite
 	special PlayMapMusic
-; step into the water (slow_step DIR, step_end)
 	special SurfStartStep
-	;applymovement PLAYER, wMovementBuffer
 	end
 
 .stubbed_fn
@@ -1322,7 +1320,7 @@ TryRockSmashFromMenu:
 	call GetFacingObject
 	jr c, .no_rock
 	ld a, d
-	cp $18
+	cp SPRITEMOVEDATA_SMASHABLE_ROCK
 	jr nz, .no_rock
 
 	ld hl, RockSmashFromMenuScript

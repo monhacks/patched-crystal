@@ -15,7 +15,7 @@ RockTunnelB1F_MapScripts:
     iftrue .NoAppear
 	checkitem CLEAR_BELL
 	iftrue .Appear
-	jump .NoAppear
+	sjump .NoAppear
 	
 	
 .Appear

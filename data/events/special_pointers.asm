@@ -120,7 +120,7 @@ SpecialsPointers::
 	add_special FadeOutMusic
 	add_special Diploma
 	add_special PrintDiploma
-	
+
 ; Crystal only
 	add_special Function11ac3e
 	add_special Function11b444
@@ -145,7 +145,6 @@ SpecialsPointers::
 	add_special Function101225
 	add_special Function101231
 	add_special MoveTutor
-	;add_special MoveReminder
 	add_special OmanyteChamber
 	add_special Function11c1ab
 	add_special BattleTowerAction
@@ -180,7 +179,7 @@ SpecialsPointers::
 	add_special AskRememberPassword
 	add_special LoadMapPalettes
 	add_special UnusedFindItemInPCOrBag
-	
+
 	add_special InitialSetDSTFlag
 	add_special InitialClearDSTFlag
 	add_special UnusedDummySpecial ; unused

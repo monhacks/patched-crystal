@@ -478,7 +478,7 @@ _EvolvingText::
 _MartHowManyText::
 	text "How many?"
 	done
-	
+
 AlreadyHaveTMText::
 	text "You already have"
 	line "that TM."

@@ -2,12 +2,36 @@ Pokemon Patched Crystal
 
 This hack aims to fix the generation 2 bugs and add certain tweaks but still retain the original gameplay and features.
 
-This hack is .gbc ready, just load it on an emulator and play. Feel free to contact me for any suggestions or bugs that you might find.
+Feel free to contact me for any suggestions or bugs that you might find.
+
+Discord: UberMedic7#7182
 
 
 Changelog
 
 ~~~Retail~~~
+
+~~3.0~~
+
+Updated to the latest repo of pokecrystal (as of 14/02/2022)
+
+Fixed a bug where using Surf to travel through water would crash the game
+
+Times of day changed back again to the values bellow:
+Morning: 06:00 - 12:59
+Day: 13:00 - 19:59
+Night: 20:00 - 05:59
+
+Evolutionary stones along with a new item the "Link Cord" can now be bought at
+the Goldenrod Department Store 4F
+
+Link Cord acts as an evolutionary stone to evolve the following pokemon:
+Haunter, Machoke, Graveler, Kadabra, Seadra, Onix, Scyther
+
+Up-grade now acts as an evolutionary stone too to evolve Porygon into Porygon2
+and it can now be bought at Saffron Mart
+
+Pichu, Cleffa, Igglypuff and Togepi, Golbat and Chansey now evolve via happiness again
 
 
 ~~2.1~~

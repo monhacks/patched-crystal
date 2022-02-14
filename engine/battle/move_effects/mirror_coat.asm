@@ -37,11 +37,10 @@ BattleCommand_MirrorCoat:
 	cp SPECIAL
 	ret c
 
-	; BUG: Move should fail with all non-damaging battle actions
 	ld hl, wCurDamage
 	ld a, [hli]
 	or [hl]
-	jr z, .failed ;ret z
+	jr z, .failed
 
 	ld a, [hl]
 	add a

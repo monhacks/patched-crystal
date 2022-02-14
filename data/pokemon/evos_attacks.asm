@@ -546,7 +546,6 @@ ZubatEvosAttacks:
 
 GolbatEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, CROBAT
-	;db EVOLVE_LEVEL, 35, CROBAT						
 	db 0 ; no more evolutions
 	db 1, SCREECH
 	db 1, LEECH_LIFE
@@ -838,8 +837,7 @@ AbraEvosAttacks:
 	db 0 ; no more level-up moves
 
 KadabraEvosAttacks:
-	;db EVOLVE_TRADE, -1, ALAKAZAM
-	db EVOLVE_LEVEL, 35, ALAKAZAM						  
+	db EVOLVE_ITEM, LINK_CORD, ALAKAZAM
 	db 0 ; no more evolutions
 	db 1, TELEPORT
 	db 1, KINESIS
@@ -883,8 +881,7 @@ MachopEvosAttacks:
 	db 0 ; no more level-up moves
 
 MachokeEvosAttacks:
-	;db EVOLVE_TRADE, -1, MACHAMP
-	db EVOLVE_LEVEL, 35, MACHAMP						 
+	db EVOLVE_ITEM, LINK_CORD, MACHAMP
 	db 0 ; no more evolutions
 	db 1, LOW_KICK
 	db 1, LEER
@@ -998,8 +995,7 @@ GeodudeEvosAttacks:
 	db 0 ; no more level-up moves
 
 GravelerEvosAttacks:
-	;db EVOLVE_TRADE, -1, GOLEM
-	db EVOLVE_LEVEL, 35, GOLEM					   
+	db EVOLVE_ITEM, LINK_CORD, GOLEM
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, DEFENSE_CURL
@@ -1063,8 +1059,7 @@ RapidashEvosAttacks:
 
 SlowpokeEvosAttacks:
 	db EVOLVE_LEVEL, 37, SLOWBRO
-	;db EVOLVE_TRADE, KINGS_ROCK, SLOWKING
-	db EVOLVE_ITEM, WATER_STONE, SLOWKING								  
+	db EVOLVE_ITEM, WATER_STONE, SLOWKING
 	db 0 ; no more evolutions
 	db 1, CURSE
 	db 1, TACKLE
@@ -1254,8 +1249,7 @@ GastlyEvosAttacks:
 	db 0 ; no more level-up moves
 
 HaunterEvosAttacks:
-	;db EVOLVE_TRADE, -1, GENGAR
-	db EVOLVE_LEVEL, 35, GENGAR						
+	db EVOLVE_ITEM, LINK_CORD, GENGAR
 	db 0 ; no more evolutions
 	db 1, HYPNOSIS
 	db 1, LICK
@@ -1284,8 +1278,7 @@ GengarEvosAttacks:
 	db 0 ; no more level-up moves
 
 OnixEvosAttacks:
-	;db EVOLVE_TRADE, METAL_COAT, STEELIX
-	db EVOLVE_LEVEL, 35, STEELIX						 
+	db EVOLVE_ITEM, LINK_CORD, STEELIX
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, SCREECH
@@ -1541,7 +1534,6 @@ RhydonEvosAttacks:
 
 ChanseyEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, BLISSEY
-	;db EVOLVE_LEVEL, 40, BLISSEY						 
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 5, GROWL
@@ -1596,8 +1588,7 @@ HorseaEvosAttacks:
 	db 0 ; no more level-up moves
 
 SeadraEvosAttacks:
-	;db EVOLVE_TRADE, DRAGON_SCALE, KINGDRA
-	db EVOLVE_LEVEL, 40, KINGDRA						 
+	db EVOLVE_ITEM, LINK_CORD, KINGDRA
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 1, SMOKESCREEN
@@ -1679,8 +1670,7 @@ MrMimeEvosAttacks:
 	db 0 ; no more level-up moves
 
 ScytherEvosAttacks:
-	;db EVOLVE_TRADE, METAL_COAT, SCIZOR
-	db EVOLVE_LEVEL, 25, SCIZOR						
+	db EVOLVE_ITEM, LINK_CORD, SCIZOR
 	db 0 ; no more evolutions
 	db 1, QUICK_ATTACK
 	db 1, LEER
@@ -1808,10 +1798,8 @@ EeveeEvosAttacks:
 	db EVOLVE_ITEM, THUNDERSTONE, JOLTEON
 	db EVOLVE_ITEM, WATER_STONE, VAPOREON
 	db EVOLVE_ITEM, FIRE_STONE, FLAREON
-	;db EVOLVE_HAPPINESS, TR_MORNDAY, ESPEON
 	db EVOLVE_ITEM, SUN_STONE, ESPEON
-	;db EVOLVE_HAPPINESS, TR_NITE, UMBREON
-	db EVOLVE_ITEM, MOON_STONE, UMBREON					
+	db EVOLVE_ITEM, MOON_STONE, UMBREON
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, TAIL_WHIP
@@ -1866,8 +1854,7 @@ FlareonEvosAttacks:
 	db 0 ; no more level-up moves
 
 PorygonEvosAttacks:
-	;db EVOLVE_TRADE, UP_GRADE, PORYGON2
-	db EVOLVE_LEVEL, 30, PORYGON2						  
+	db EVOLVE_ITEM, UP_GRADE, PORYGON2
 	db 0 ; no more evolutions
 	db 1, CONVERSION2
 	db 1, TACKLE
@@ -2362,7 +2349,6 @@ LanturnEvosAttacks:
 
 PichuEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, PIKACHU
-	;db EVOLVE_LEVEL, 15, PIKACHU						 
 	db 0 ; no more evolutions
 	db 1, THUNDERSHOCK
 	db 1, CHARM
@@ -2373,7 +2359,6 @@ PichuEvosAttacks:
 
 CleffaEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, CLEFAIRY
-	;db EVOLVE_LEVEL, 15, CLEFAIRY					  
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 1, CHARM
@@ -2384,7 +2369,6 @@ CleffaEvosAttacks:
 
 IgglybuffEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, JIGGLYPUFF
-	;db EVOLVE_LEVEL, 15, JIGGLYPUFF						
 	db 0 ; no more evolutions
 	db 1, SING
 	db 1, CHARM
@@ -2395,7 +2379,6 @@ IgglybuffEvosAttacks:
 
 TogepiEvosAttacks:
 	db EVOLVE_HAPPINESS, TR_ANYTIME, TOGETIC
-	;db EVOLVE_LEVEL, 30, TOGETIC						 
 	db 0 ; no more evolutions
 	db 1, GROWL
 	db 1, CHARM
@@ -3343,7 +3326,7 @@ LugiaEvosAttacks:
 	db 33, RECOVER
 	db 44, HYDRO_PUMP
 	db 55, RAIN_DANCE
-	db 60, AEROBLAST			 
+	db 60, AEROBLAST
 	db 66, SWIFT
 	db 77, WHIRLWIND
 	db 88, ANCIENTPOWER
@@ -3358,7 +3341,7 @@ HoOhEvosAttacks:
 	db 33, RECOVER
 	db 44, FIRE_BLAST
 	db 55, SUNNY_DAY
-	db 60, SACRED_FIRE			   
+	db 60, SACRED_FIRE
 	db 66, SWIFT
 	db 77, WHIRLWIND
 	db 88, ANCIENTPOWER

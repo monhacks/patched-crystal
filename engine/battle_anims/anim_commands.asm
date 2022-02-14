@@ -245,7 +245,7 @@ BattleAnim_ClearOAM:
 	ld c, NUM_SPRITE_OAM_STRUCTS
 .loop
 	ld a, [hl]
-	and $ff ^ (PALETTE_MASK | VRAM_BANK_1) ; zeros out the palette bits
+	and ~(PALETTE_MASK | VRAM_BANK_1) ; zeros out the palette bits
 	assert PAL_BATTLE_OB_ENEMY == 0
 	ld [hli], a
 rept SPRITEOAMSTRUCT_LENGTH - 1
@@ -649,9 +649,8 @@ BattleAnimCmd_ResetObp0:
 	ret
 
 BattleAnimCmd_ClearObjs:
-; BUG: This function only clears the first 6⅔ objects
 	ld hl, wActiveAnimObjects
-	ld a, NUM_ANIM_OBJECTS * BATTLEANIMSTRUCT_LENGTH ;ld a, $a0 ; should be NUM_ANIM_OBJECTS * BATTLEANIMSTRUCT_LENGTH
+	ld a, NUM_ANIM_OBJECTS * BATTLEANIMSTRUCT_LENGTH
 .loop
 	ld [hl], 0
 	inc hl

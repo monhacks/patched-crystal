@@ -6,7 +6,6 @@ GOLDENRODGAMECORNER_CUBONE_COINS    EQU 800
 GOLDENRODGAMECORNER_WOBBUFFET_COINS EQU 1500
 
 	object_const_def
-	const GOLDENRODGAMECORNER_JOHNNY
 	const GOLDENRODGAMECORNER_CLERK
 	const GOLDENRODGAMECORNER_RECEPTIONIST1
 	const GOLDENRODGAMECORNER_RECEPTIONIST2
@@ -19,35 +18,12 @@ GOLDENRODGAMECORNER_WOBBUFFET_COINS EQU 1500
 	const GOLDENRODGAMECORNER_GENTLEMAN
 	const GOLDENRODGAMECORNER_POKEFAN_M2
 	const GOLDENRODGAMECORNER_MOVETUTOR
-	;const GOLDENRODGAMECORNER_MOVEREMINDER
 
 GoldenrodGameCorner_MapScripts:
 	def_scene_scripts
 
 	def_callbacks
 	callback MAPCALLBACK_OBJECTS, .MoveTutor
-	;callback MAPCALLBACK_OBJECTS, .Johnny
-	;callback MAPCALLBACK_OBJECTS, .MoveReminderScript
-
-;.Johnny
-	;checkevent EVENT_GOT_MEW_FROM_SYLVIA
-	;iffalse .NoAppear
-	
-;.Appear
-	;appear GOLDENRODGAMECORNER_JOHNNY
-	;endcallback
-
-;.NoAppear
-	;disappear GOLDENRODGAMECORNER_JOHNNY
-	;endcallback
-	
-;.MoveReminderScript
-	;checkevent EVENT_BEAT_ELITE_FOUR
-	;iffalse .nope
-	
-;.nope
-	;disappear GOLDENRODGAMECORNER_MOVEREMINDER
-	;endcallback
 
 .MoveTutor:
 	checkevent EVENT_BEAT_ELITE_FOUR
@@ -76,42 +52,6 @@ MoveTutorInsideScript:
 	closetext
 	turnobject GOLDENRODGAMECORNER_MOVETUTOR, RIGHT
 	end
-	
-	
-;Johnny:
-	;faceplayer
-	;opentext
-	;checkevent EVENT_JOHNNY_DEFEATED
-	;iftrue ExperienceFarming
-	;iffalse FirstBattle
-	;end
-	
-	
-;ExperienceFarming:
-	;writetext JohnnyRematchText
-	;yesorno
-	;iftrue JohnnyRematch
-	;closetext
-	;end
-	
-;FirstBattle:
-	;writetext JohnnyEncounterText
-	;waitbutton
-	;closetext
-	;winlosstext	JohnnyDefeatedText, 0
-	;loadtrainer SUPER_NERD, JOHNNY1
-	;startbattle
-	;reloadmapafterbattle
-	;setevent EVENT_JOHNNY_DEFEATED
-	;end
-	
-;JohnnyRematch:
-	;winlosstext	JohnnyRematchDefeatedText, 0
-	;loadtrainer SUPER_NERD, JOHNNY2
-	;startbattle
-	;reloadmapafterbattle
-	;end
-
 
 GoldenrodGameCornerCoinVendorScript:
 	jumpstd GameCornerCoinVendorScript
@@ -389,116 +329,6 @@ GoldenrodGameCornerCardFlipMachineScript:
 	special CardFlip
 	closetext
 	end
-	
-	
-;MoveReminder:
-	;faceplayer
-	;opentext
-	;writetext MoveReminderIntroText
-	;waitbutton
-	;yesorno
-	;iffalse .refused
-	;setval NO_MOVE ; to toggle move relearner
-	;writetext MoveReminderWhichMonText
-	;waitbutton
-	;special MoveReminder
-	;end
-
-;.refused
-	;jumptextfaceplayer MoveReminderRefusedText
-	
-;MoveReminderIntroText:
-	;text "Hello, i am the"
-	;line "Move Reminder."
-	
-	;para "I can help your"
-	;line "#MON remember"
-	;cont "old moves."
-	
-	;para "Do you want me"
-	;line "to do that?"
-	;done
-	
-;MoveReminderWhichMonText:
-	;text "Which #MON do"
-	;line "do you choose?"
-	;done
-	
-;MoveReminderWhichMove:
-	;text "Which move?"
-	;done
-	
-;MoveReminderRefusedText:
-	;text "That's ok, you"
-	;line "can always come"
-	;cont "back later."
-	;done
-
-;MoveReminderEgg:
-	;text "That's an EGG."
-	;line "I cant work with"
-	;cont "it."
-	;done
-	
-;MoveReminderNoMon:
-	;text "No #MON."
-	;done
-	
-;MoveReminderNoMoves:
-	;text "I can't teach"
-	;line "it any moves."
-	;done
-	
-;JohnnyEncounterText:
-	;text "Hello there."
-	
-	;para "It's nice to see"
-	;line "a new face around"
-	;cont "here."
-	
-	;para "JOHNNY: My name is"
-	;line "JOHNNY. My spec-"
-	;cont "ialty is computers"
-	
-	;para "and #MON."
-	
-	;para "You met my girl-"
-	;line "friend SYLVIA?"
-	
-	;para "You must be quite"
-	;line "the #MON trainer."
-	
-	;para "How about youshow"
-	;line "me your skills?"
-	;done
-
-;JohnnyDefeatedText:
-	;text "I am truly amazed by"
-	;line "by your skill."
-	
-	;para "I think you deserve"
-	;line "a reward. From now"
-	;cont "on i can help you"
-	
-	;para "train your #MON with"
-	;line "my special team, all"
-	;cont "you gotta do is ask!"
-	;done
-
-;JohnnyRematchText:
-	;text "Hello <PLAYER>."
-	
-	;para "You're a pretty good"
-	;line "trainer, but your"
-	;cont "#MON can always use"
-	
-	;para "more training."
-	;line "So how about it?"
-	;done
-	
-;JohnnyRematchDefeatedText:
-	;text "Good work once again!"
-	;done
 
 GoldenrodGameCornerPrizeVendorIntroText:
 	text "Welcome!"
@@ -705,7 +535,6 @@ GoldenrodGameCorner_MapEvents:
 	bg_event 12,  1, BGEVENT_LEFT, GoldenrodGameCornerLeftTheirDrinkScript
 
 	def_object_events
-	;object_event 10, 1,	 SPRITE_SUPER_NERD, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Johnny, -1
 	object_event  3,  2, SPRITE_CLERK, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerCoinVendorScript, -1
 	object_event 16,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerTMVendorScript, -1
 	object_event 18,  2, SPRITE_RECEPTIONIST, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPrizeMonVendorScript, -1
@@ -718,4 +547,3 @@ GoldenrodGameCorner_MapEvents:
 	object_event  5, 10, SPRITE_GENTLEMAN, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerGentlemanScript, -1
 	object_event  2,  9, SPRITE_POKEFAN_M, SPRITEMOVEDATA_WANDER, 1, 1, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_SCRIPT, 0, GoldenrodGameCornerPokefanM2Script, -1
 	object_event 17, 10, SPRITE_POKEFAN_M, SPRITEMOVEDATA_STANDING_RIGHT, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, MoveTutorInsideScript, EVENT_GOLDENROD_GAME_CORNER_MOVE_TUTOR
-	;object_event 13, 1,	 SPRITE_COOLTRAINER_M, SPRITEMOVEDATA_STANDING_LEFT, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, MoveReminder, -1
