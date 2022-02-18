@@ -14,7 +14,7 @@ SilverCaveRoom1_MapScripts:
 .Mewtwo:
     checkevent EVENT_FOUGHT_MEWTWO
     iftrue .NoAppear
-	checkitem CLEAR_BELL
+	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue .Appear
 	jump .NoAppear
 

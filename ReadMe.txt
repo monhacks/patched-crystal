@@ -11,6 +11,11 @@ Changelog
 
 ~~~Retail~~~
 
+~~3.1~~
+
+Fixed a bug where NPCs would appear during the wrong parts of the game.
+
+
 ~~3.0~~
 
 Updated to the latest repo of pokecrystal (as of 14/02/2022)

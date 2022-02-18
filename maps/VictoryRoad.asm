@@ -24,7 +24,7 @@ VictoryRoad_MapScripts:
 .Moltres:
     checkevent EVENT_FOUGHT_MOLTRES
     iftrue .NoAppear
-	checkitem CLEAR_BELL
+	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue .Appear
 	sjump .NoAppear
 	

@@ -24,7 +24,7 @@ MountMoonSquare_MapScripts:
 	endcallback
 
 .Rose
-	checkevent EVENT_BEAT_ELITE_FOUR
+	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue .Appear
 	sjump .NoAppear
 	

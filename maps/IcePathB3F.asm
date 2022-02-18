@@ -12,7 +12,7 @@ IcePathB3F_MapScripts:
 .Articuno:
     checkevent EVENT_FOUGHT_ARTICUNO
     iftrue .NoAppear
-	checkitem CLEAR_BELL
+	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue .Appear
 	sjump .NoAppear
 	

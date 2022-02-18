@@ -26,7 +26,7 @@
 	const EVENT_GOT_HM04_STRENGTH
 	const EVENT_GOT_HM05_FLASH
 	const EVENT_GOT_HM06_WHIRLPOOL
-	const_skip ; unused
+	const EVENT_FOUGHT_MOLTRES ;const_skip ; unused
 ; Rods
 	const EVENT_GOT_OLD_ROD
 	const EVENT_GOT_GOOD_ROD
@@ -65,8 +65,8 @@
 	const EVENT_LAKE_OF_RAGE_EXPLAINED_WEIRD_MAGIKARP
 	const EVENT_LAKE_OF_RAGE_ASKED_FOR_MAGIKARP
 	const EVENT_LAKE_OF_RAGE_ELIXIR_ON_STANDBY
-	const_skip ; unused
-	const_skip ; unused
+	const EVENT_VICTORY_ROAD_MOLTRES ;const_skip ; unused
+	const EVENT_FOUGHT_MEWTWO ;const_skip ; unused
 	const EVENT_HEALED_MOOMOO
 	const EVENT_GOT_TM13_SNORE_FROM_MOOMOO_FARM
 	const EVENT_TALKED_TO_FARMER_ABOUT_MOOMOO
@@ -136,9 +136,9 @@
 	const EVENT_TIN_TOWER_5F_HIDDEN_FULL_RESTORE
 	const EVENT_TIN_TOWER_5F_HIDDEN_CARBOS
 	const EVENT_BURNED_TOWER_1F_HIDDEN_ETHER
-	const_skip ; unused in Crystal
-	const_skip ; unused in Crystal
-	const_skip ; unused in Crystal
+	const EVENT_SILVER_CAVE_ROOM_1_MEWTWOO ;const_skip ; unused in Crystal
+	const EVENT_FOUGHT_ARTICUNO ;const_skip ; unused in Crystal
+	const EVENT_ICE_PATH_B3F_ARTICUNO ;const_skip ; unused in Crystal
 	const EVENT_NATIONAL_PARK_HIDDEN_FULL_HEAL
 	const EVENT_OLIVINE_LIGHTHOUSE_5F_HIDDEN_HYPER_POTION
 	const EVENT_TEAM_ROCKET_BASE_B1F_HIDDEN_REVIVE
@@ -281,11 +281,11 @@
 	const EVENT_GAVE_KURT_PNK_APRICORN
 ; Phone events
 	const EVENT_JACK_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_FOUGHT_ZAPDOS ;const_skip ; unused in Crystal
 	const EVENT_BEVERLY_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_ROCK_TUNNEL_B1F_ZAPDOS ;const_skip ; unused in Crystal
 	const EVENT_HUEY_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_GOT_MEW_FROM_ROSE ;const_skip ; unused in Crystal
 	const EVENT_GOT_PROTEIN_FROM_HUEY
 	const EVENT_GOT_HP_UP_FROM_JOEY
 	const EVENT_GOT_CARBOS_FROM_VANCE
@@ -293,9 +293,9 @@
 	const EVENT_GOT_CALCIUM_FROM_ERIN
 	const EVENT_KENJI_ON_BREAK
 	const EVENT_GAVEN_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_BEAT_COOLTRAINER_ROSE ;const_skip ; unused in Crystal
 	const EVENT_BETH_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_MEW_COOLTRAINER_ROSE ;const_skip ; unused in Crystal
 	const EVENT_JOSE_ASKED_FOR_PHONE_NUMBER
 	const_skip ; unused in Crystal
 	const EVENT_REENA_ASKED_FOR_PHONE_NUMBER
@@ -1456,17 +1456,6 @@
 	const EVENT_RADIO_TOWER_5F_ULTRA_BALL
 	const EVENT_DARK_CAVE_VIOLET_ENTRANCE_DIRE_HIT
 	const EVENT_BATTLE_TOWER_OUTSIDE_SAILOR
-	const EVENT_FOUGHT_MOLTRES
-	const EVENT_VICTORY_ROAD_MOLTRES
-	const EVENT_FOUGHT_MEWTWO
-	const EVENT_SILVER_CAVE_ROOM_1_MEWTWOO
-	const EVENT_FOUGHT_ARTICUNO
-	const EVENT_ICE_PATH_B3F_ARTICUNO
-	const EVENT_FOUGHT_ZAPDOS
-	const EVENT_ROCK_TUNNEL_B1F_ZAPDOS
-	const EVENT_GOT_MEW_FROM_ROSE
-	const EVENT_BEAT_COOLTRAINER_ROSE
-	const EVENT_MEW_COOLTRAINER_ROSE
 ; Unused: next 48 events
 
 	const_next 2048
