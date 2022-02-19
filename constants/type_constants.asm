@@ -31,9 +31,7 @@ SPECIAL EQU const_value
 	const PSYCHIC_TYPE
 	const ICE
 	const DRAGON
-	;const DARK
-	
-	const GHOST
+	const GHOST;const DARK
 	
 TYPES_END EQU const_value
 
