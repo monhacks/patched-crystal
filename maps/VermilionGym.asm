@@ -48,6 +48,7 @@ VermilionGymSurgeScript:
 	loadtrainer LT_SURGE, 1
 	startbattle
 	reloadmapafterbattle
+	end
 	
 TrainerGentlemanGregory:
 	trainer GENTLEMAN, GREGORY, EVENT_BEAT_GENTLEMAN_GREGORY, GentlemanGregorySeenText, GentlemanGregoryBeatenText, 0, .Script

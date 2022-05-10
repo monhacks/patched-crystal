@@ -82,8 +82,9 @@ WhitneyRematch:
 	winlosstext Whitney_RematchDefeat, 0
 	loadtrainer WHITNEY, 1
 	startbattle
-	reloadmapafterbattle	
-
+	reloadmapafterbattle
+	end
+	
 GoldenrodGymActivateRockets:
 	ifequal 7, .RadioTowerRockets
 	ifequal 6, .GoldenrodRockets

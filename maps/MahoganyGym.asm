@@ -62,7 +62,8 @@ PryceRematch:
 	winlosstext Pryce_RematchDefeat, 0
 	loadtrainer PRYCE, 1
 	startbattle
-	reloadmapafterbattle			 
+	reloadmapafterbattle
+	end
 	
 MahoganyGymActivateRockets:
 	ifequal 7, .RadioTowerRockets

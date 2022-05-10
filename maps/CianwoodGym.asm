@@ -78,7 +78,8 @@ CianwoodGymChuckScript:
 	winlosstext Chuck_RematchDefeat, 0
 	loadtrainer CHUCK, 1
 	startbattle
-	reloadmapafterbattle			  
+	reloadmapafterbattle
+	end
 	
 CianwoodGymActivateRockets:
 	ifequal 7, .RadioTowerRockets

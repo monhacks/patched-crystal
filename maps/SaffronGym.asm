@@ -50,7 +50,7 @@ SaffronGymSabrinaScript:
 	loadtrainer SABRINA, 1
 	startbattle
 	reloadmapafterbattle
-	
+	end
 TrainerMediumRebecca:
 	trainer MEDIUM, REBECCA, EVENT_BEAT_MEDIUM_REBECCA, MediumRebeccaSeenText, MediumRebeccaBeatenText, 0, .Script
 

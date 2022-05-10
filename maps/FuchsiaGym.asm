@@ -63,7 +63,7 @@ FuchsiaGymJanineScript:
 	loadtrainer JANINE, 1
 	startbattle
 	reloadmapafterbattle
-
+	end
 
 LassAliceScript:
 	checkevent EVENT_BEAT_LASS_ALICE

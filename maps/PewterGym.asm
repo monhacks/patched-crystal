@@ -44,6 +44,7 @@ PewterGymBrockScript:
 	loadtrainer BROCK, 1
 	startbattle
 	reloadmapafterbattle
+	end
 TrainerCamperJerry:
 	trainer CAMPER, JERRY, EVENT_BEAT_CAMPER_JERRY, CamperJerrySeenText, CamperJerryBeatenText, 0, .Script
 

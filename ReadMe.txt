@@ -11,6 +11,13 @@ Changelog
 
 ~~~Retail~~~
 
+~~3.2~~
+
+Fixed a bug where after a rematch with Lt. Surge the game would crash.
+
+Fixed a bug with Up-grade not being usable to evolve Porygon into Porygon2
+
+
 ~~3.1~~
 
 Fixed a bug where NPCs would appear during the wrong parts of the game.

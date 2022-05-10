@@ -59,7 +59,7 @@ VioletGymFalknerScript:
 	loadtrainer FALKNER, 1
 	startbattle
 	reloadmapafterbattle
-	
+	end
 VioletGymActivateRockets:
 	ifequal 7, .RadioTowerRockets
 	ifequal 6, .GoldenrodRockets

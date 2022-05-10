@@ -63,6 +63,7 @@ AzaleaGymBugsyScript:
 	loadtrainer BUGSY, 1
 	startbattle
 	reloadmapafterbattle
+	end
 
 AzaleaGymActivateRockets:
 	ifequal 7, .RadioTowerRockets

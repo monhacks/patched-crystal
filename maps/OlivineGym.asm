@@ -50,8 +50,9 @@ JasmineRematch:
 	winlosstext Jasmine_RematchDefeat, 0
 	loadtrainer JASMINE, 1
 	startbattle
-	reloadmapafterbattle	
-
+	reloadmapafterbattle
+	end
+	
 OlivineGymActivateRockets:
 	ifequal 7, .RadioTowerRockets
 	ifequal 6, .GoldenrodRockets

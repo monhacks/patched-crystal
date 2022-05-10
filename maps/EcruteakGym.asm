@@ -72,8 +72,9 @@ EcruteakGymMortyScript:
 	winlosstext Morty_RematchDefeat, 0
 	loadtrainer MORTY, 1
 	startbattle
-	reloadmapafterbattle			  
-
+	reloadmapafterbattle
+	end
+	
 EcruteakGymActivateRockets:
 	ifequal 7, .RadioTowerRockets
 	ifequal 6, .GoldenrodRockets
