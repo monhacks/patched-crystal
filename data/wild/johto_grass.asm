@@ -1019,7 +1019,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; day
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -1027,7 +1027,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SEEL
+	db 26, SQUIRTLE ;SEEL
 	; nite
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -1035,7 +1035,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, GOLBAT
-	db 26, GOLBAT
+	db 26, SQUIRTLE ;GOLBAT
 	end_grass_wildmons
 
 	def_grass_wildmons WHIRL_ISLAND_LUGIA_CHAMBER
@@ -1062,8 +1062,8 @@ JohtoGrassWildMons:
 	db 25, KRABBY
 	db 27, KRABBY
 	db 28, GOLBAT
-	db 27, GOLBAT
-	db 27, GOLBAT
+	db 27, OMANYTE ;GOLBAT
+	db 27, KABUTO ;GOLBAT
 	end_grass_wildmons
 
 	def_grass_wildmons SILVER_CAVE_ROOM_1

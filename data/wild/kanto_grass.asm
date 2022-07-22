@@ -346,7 +346,7 @@ KantoGrassWildMons:
 	db 18, SNUBBULL
 	db 18, RATICATE
 	db 18, JIGGLYPUFF
-	db 16, ABRA
+	db 16, VULPIX ;ABRA
 	db 16, ABRA
 	; day
 	db 17, RATTATA
@@ -354,7 +354,7 @@ KantoGrassWildMons:
 	db 18, SNUBBULL
 	db 18, RATICATE
 	db 18, JIGGLYPUFF
-	db 16, ABRA
+	db 16, VULPIX ;ABRA
 	db 16, ABRA
 	; nite
 	db 17, MEOWTH

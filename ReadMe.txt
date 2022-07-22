@@ -4,12 +4,19 @@ This hack aims to fix the generation 2 bugs and add certain tweaks but still ret
 
 Feel free to contact me for any suggestions or bugs that you might find.
 
-Discord: UberMedic7#7182
+
+Always check out uberarchive.net for the latest release, news or submit any bug reports!
+
 
 
 Changelog
 
+
 ~~~Retail~~~
+
+~~3.3~~
+
+Restored some encounters, now you can really catch them all again.
 
 ~~3.2~~
 
