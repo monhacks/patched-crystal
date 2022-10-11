@@ -14,6 +14,25 @@ Changelog
 
 ~~~Retail~~~
 
+~~3.4~~
+
+Kurt will now immediately make balls out of apricorns.
+
+Changing the time now only requires to press DOWN + B on the main menu, no password needed.
+
+The Lucky number show is now daily instead of weekly.
+
+Poliwhirl and Slowpoke now require the Link Cord item to evolve into Politoed and Slowking respectively
+
+Trainer card now has a Kanto badges page and both pages use colored badges.
+
+Weather conditions are shown with an icon during move selection.
+
+Pokemon acquire EXP when you capture a wild pokemon like in later generations.
+
+All Gym Leaders are now available for a rematch with stronger teams once you gain access to MT. Silver
+
+
 ~~3.3~~
 
 Restored some encounters, now you can really catch them all again.
