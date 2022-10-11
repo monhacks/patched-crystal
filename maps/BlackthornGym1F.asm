@@ -85,14 +85,23 @@ BlackthornGymClairScript:
 	end
 
 .GotTM24:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .ClairRematchAsk
 	writetext BlackthornGymClairText_League
-	yesorno
-	iftrue .ClairRematch;waitbutton					 
+	waitbutton
 	closetext
 	end
+	
+.ClairRematchAsk
+	writetext ClairRematchAskText
+	yesorno
+	iftrue .ClairRematch
+	closetext
+	end
+	
 .ClairRematch:
 	winlosstext Clair_RematchDefeat, 0
-	loadtrainer CLAIR, 1
+	loadtrainer CLAIR, CLAIR2
 	startbattle
 	reloadmapafterbattle
 	end			  
@@ -287,11 +296,18 @@ BlackthornGymClairText_League:
 	line "to you!"
 
 	para "Give it every-"
-	line "thing you've got."
-	para "Or you can prove"
-	line "your worth to me"
-	cont "once again."					
+	line "thing you've got."				
 	done					
+	
+ClairRematchAskText:
+	text "Hello <PLAY_G>."
+	line "I heard you've"
+	cont "become quite"
+	line "the #MON trainer."
+	
+	para "How about you"
+	line "show me your real"
+	cont "power?"
 	done
 	
 Clair_RematchDefeat:				

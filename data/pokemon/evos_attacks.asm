@@ -806,7 +806,7 @@ PoliwagEvosAttacks:
 
 PoliwhirlEvosAttacks:
 	db EVOLVE_ITEM, WATER_STONE, POLIWRATH
-	db EVOLVE_LEVEL, 30, POLITOED
+	db EVOLVE_ITEM, LINK_CORD, POLITOED
 	db 0 ; no more evolutions
 	db 1, BUBBLE
 	db 1, HYPNOSIS
@@ -1059,7 +1059,7 @@ RapidashEvosAttacks:
 
 SlowpokeEvosAttacks:
 	db EVOLVE_LEVEL, 37, SLOWBRO
-	db EVOLVE_ITEM, WATER_STONE, SLOWKING
+	db EVOLVE_ITEM, LINK_CORD, SLOWKING
 	db 0 ; no more evolutions
 	db 1, CURSE
 	db 1, TACKLE

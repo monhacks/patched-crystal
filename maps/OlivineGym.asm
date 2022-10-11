@@ -41,14 +41,27 @@ OlivineGymJasmineScript:
 	end
 
 .GotIronTail:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .JasmineRematchAsk
 	writetext Jasmine_GoodLuck
-	yesorno
-	iftrue JasmineRematch;waitbutton
+	waitbutton
+	closetext
+	end
+	
 .NoRoomForIronTail:
 	closetext
-JasmineRematch:
+	end
+	
+.JasmineRematchAsk
+	writetext JasmineRematchAskText
+	yesorno
+	iftrue .JasmineRematch
+	closetext
+	end
+
+.JasmineRematch:
 	winlosstext Jasmine_RematchDefeat, 0
-	loadtrainer JASMINE, 1
+	loadtrainer JASMINE, JASMINE2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -166,12 +179,13 @@ Jasmine_GoodLuck:
 	text "Um… I don't know"
 	line "how to say this,"
 	cont "but good luck…"
-
-	para "But still…"
-	line "I think want to"
-
-	para "challenge you"
-	line "myself!"
+	done
+	
+JasmineRematchAskText:
+	text "Oh… Hello…"
+	
+	para "A rematch? Are"
+	line "you sure?"
 	done
 
 Jasmine_RematchDefeat:

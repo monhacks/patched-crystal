@@ -73,14 +73,24 @@ GoldenrodGymWhitneyScript:
 	end
 
 .GotAttract:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .WhitneyRematchAsk
 	writetext WhitneyGoodCryText
-	yesorno
-	iftrue WhitneyRematch ;waitbutton
+	waitbutton
 .NoRoomForAttract:
 	closetext
-WhitneyRematch:
+	end
+	
+.WhitneyRematchAsk
+	writetext WhitneyRematchAskText
+	yesorno
+	iftrue .WhitneyRematch
+	closetext
+	end
+
+.WhitneyRematch:
 	winlosstext Whitney_RematchDefeat, 0
-	loadtrainer WHITNEY, 1
+	loadtrainer WHITNEY, WHITNEY2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -272,11 +282,17 @@ WhitneyGoodCryText:
 
 	para "Come for a visit"
 	line "again! Bye-bye!"
-
-	para "What? You want a"
-	line "rematch now?"
 	done
 
+WhitneyRematchAskText:
+	text "Hello <PLAY_G>!"
+	line "What brings you"
+	cont "here?"
+	
+	para "Want a rematch"
+	line "of my cute #MON?"
+	done
+	
 Whitney_RematchDefeat:
 	text "Ah, I lost again."
 	line "…Sob…"

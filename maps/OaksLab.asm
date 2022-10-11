@@ -143,6 +143,17 @@ OakOpenMtSilverText:
 
 	para "reach MT.SILVER"
 	line "from there."
+	
+	para "Also, from now on"
+	line "all GYM LEADERS"
+	cont "want to challenge"
+	
+	para "the new CHAMPION."
+	line "With more powerful"
+	cont "#MON."
+	
+	para "You should take"
+	line "on their challenge"
 	done
 
 OakNoKantoBadgesText:

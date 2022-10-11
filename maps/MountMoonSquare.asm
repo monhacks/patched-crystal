@@ -24,7 +24,7 @@ MountMoonSquare_MapScripts:
 	endcallback
 
 .Rose
-	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
+	checkevent EVENT_OPENED_MT_SILVER
 	iftrue .Appear
 	sjump .NoAppear
 	
@@ -107,7 +107,7 @@ GotMewText:
 	
 DefeatedText:
 	text "Your skills are"
-	line "quite impressive."
+	line "remarkable."
 	
 	para "I think you"
 	line "deserve this"

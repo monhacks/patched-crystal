@@ -39,18 +39,28 @@ SaffronGymSabrinaScript:
 	end
 
 .FightDone:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .SabrinaRematchAsk
 	writetext SabrinaFightDoneText
-	yesorno
-	iftrue .SabrinaRematch;waitbutton
+	waitbutton
 	closetext
 	end
 
+.SabrinaRematchAsk
+	writetext SabrinaRematchAskText
+	yesorno
+	iftrue .SabrinaRematch
+	closetext
+	end
+	
 .SabrinaRematch:
 	winlosstext Sabrina_RematchDefeat, 0
-	loadtrainer SABRINA, 1
+	loadtrainer SABRINA, SABRINA2
 	startbattle
 	reloadmapafterbattle
 	end
+	
+
 TrainerMediumRebecca:
 	trainer MEDIUM, REBECCA, EVENT_BEAT_MEDIUM_REBECCA, MediumRebeccaSeenText, MediumRebeccaBeatenText, 0, .Script
 
@@ -198,11 +208,16 @@ SabrinaFightDoneText:
 
 	para "kind of psychic"
 	line "power…"
-	para "How about you show"
-	line "me how strong this"
-	cont "power is?"
 	done
-
+	
+SabrinaRematchAskText:
+	text "SABRINA: I forsaw"
+	line "your arrival…"
+	
+	para "You want us to"
+	line "battle again…"
+	done
+	
 Sabrina_RematchDefeat:
 	text "SABRINA: Your"
 	line "power…"

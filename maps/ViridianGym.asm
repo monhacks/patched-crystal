@@ -31,14 +31,23 @@ ViridianGymBlueScript:
 	end
 
 .FightDone:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .BlueRematchAsk
 	writetext LeaderBlueEpilogueText
-	yesorno
-	iftrue .BlueRematch;waitbutton
+	waitbutton
 	closetext
+	end
+	
+.BlueRematchAsk
+	writetext BlueRematchAskText
+	yesorno
+	iftrue .BlueRematch
+	closetext
+	end
 	
 .BlueRematch:
 	winlosstext Blue_RematchDefeat, 0
-	loadtrainer BLUE, 1
+	loadtrainer BLUE, BLUE2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -138,15 +147,20 @@ LeaderBlueAfterText:
 LeaderBlueEpilogueText:
 	text "BLUE: Listen, you."
 
-	para "You'd better not"
+	para "You better not"
 	line "lose until I beat"
 	cont "you. Got it?"
-
-	para "In fact, let's"
-	line "have a rematch"
-	cont "right now!"
 	done
 
+BlueRematchAskText:
+	text "BLUE: Hey JOHTO"
+	line "CHAMP!"
+	
+	para "I want a rematch"
+	line "to settle the"
+	cont "score!"
+	done
+	
 Blue_RematchDefeat:
 	text "BLUE: Ugh!"
 	line "I lost again?!"

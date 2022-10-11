@@ -50,9 +50,19 @@ AzaleaGymBugsyScript:
 	end
 
 .GotFuryCutter:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .BugsyRematchAsk
 	writetext BugsyText_BugMonsAreDeep
+	waitbutton
+	closetext
+	end
+	
+.BugsyRematchAsk
+	writetext BugsyRematchAskText
 	yesorno
 	iftrue .BugsyRematch
+	closetext
+	end
 	
 .NoRoomForFuryCutter:
 	closetext
@@ -60,7 +70,7 @@ AzaleaGymBugsyScript:
 	
 .BugsyRematch:
 	winlosstext BugsyText_RematchDefeat, 0
-	loadtrainer BUGSY, 1
+	loadtrainer BUGSY, BUGSY2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -236,13 +246,19 @@ BugsyText_BugMonsAreDeep:
 	line "be explored."
 
 	para "Study your favor-"
-	line "ites thoroughly."
-	para "Or we can have"
-	line "a rematch to"
-	
-	para "extend my research"
-	line "how about that?"				  			   
+	line "ites thoroughly."			  			   
 	done
+	
+BugsyRematchAskText:
+	text "Hello <PLAY_G>."
+	line "My research on"
+	cont "BUG #MON is"
+	line "going great."
+	
+	para "Want see my"
+	line "latest finds?"
+	done
+	
 BugsyText_RematchDefeat:
 	text "Whoa, amazing!"
 	line "You're an expert"

@@ -33,15 +33,23 @@ PewterGymBrockScript:
 	end
 
 .FightDone:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .BrockRematchAsk
 	writetext BrockFightDoneText
-	yesorno
-	iftrue .BrockRematch;waitbutton
+	waitbutton
 	closetext
 	end
 
+.BrockRematchAsk
+	writetext BrockRematchAskText
+	yesorno
+	iftrue .BrockRematch
+	closetext
+	end
+	
 .BrockRematch:
 	winlosstext Brock_RematchDefeat, 0
-	loadtrainer BROCK, 1
+	loadtrainer BROCK, BROCK2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -149,11 +157,23 @@ BrockFightDoneText:
 	line "I'm going to be-"
 	cont "come a lot"
 	
-	para "stronger too."
-	line "Shall i prove it"
-	cont "to you now?"   
+	para "stronger too."  
 	done
 
+BrockRematchAskText:
+	text "BROCK: Welcome"
+	line "back <PLAY_G>!"
+	
+	para "I've heard of"
+	line "your great feats"
+	
+	para "Let's have a"
+	line "rematch right now"
+	cont "and show me your"
+	
+	para "skills!"
+	done
+	
 Brock_RematchDefeat:
 	text "BROCK: You're"
 	line "stronger than I"

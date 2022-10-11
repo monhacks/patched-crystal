@@ -47,16 +47,24 @@ VioletGymFalknerScript:
 	end
 
 .SpeechAfterTM:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .FalknerRematchAsk
 	writetext FalknerFightDoneText
-	yesorno
-	iftrue .FalknerRematch;waitbutton
+	waitbutton
 .NoRoomForMudSlap:
+	closetext
+	end
+	
+.FalknerRematchAsk
+	writetext FalknerRematchAskText
+	yesorno
+	iftrue .FalknerRematch
 	closetext
 	end
 
 .FalknerRematch:
 	winlosstext Falkner_RematchDefeat, 0
-	loadtrainer FALKNER, 1
+	loadtrainer FALKNER, FALKNER2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -212,12 +220,17 @@ FalknerFightDoneText:
 
 	para "the greatest bird"
 	line "master!"
-	para "On the other hand"
-	line "we can have a test"
-
-	para "of skill right now"
 	done					 
 
+FalknerRematchAskText:
+	text "Greetings."
+	line "While you were"
+	cont "away i was doing"
+	
+	para "my best to improve"
+	line "Care to show you?"
+	done
+	
 Falkner_RematchDefeat:
 	text "Darn! im still not"
 	line "good enough…"	  

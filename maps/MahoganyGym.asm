@@ -51,16 +51,24 @@ MahoganyGymPryceScript:
 	end
 
 PryceScript_Defeat:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .PryceRematchAsk
 	writetext PryceText_CherishYourPokemon
-	yesorno
-	iftrue PryceRematch ;waitbutton
+	waitbutton
 MahoganyGym_NoRoomForIcyWind:
 	closetext
 	end
+	
+.PryceRematchAsk
+	writetext WhitneyRematchAskText
+	yesorno
+	iftrue .PryceRematch
+	closetext
+	end
 
-PryceRematch:
+.PryceRematch:
 	winlosstext Pryce_RematchDefeat, 0
-	loadtrainer PRYCE, 1
+	loadtrainer PRYCE, PRYCE2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -244,10 +252,17 @@ PryceText_CherishYourPokemon:
 
 	para "Cherish your time"
 	line "together!"
+	done
 
-	para "Shall we test"
-	line "your bond with"
-	cont "your pokemon?"
+PryceRematchAskText:
+	text "Nice of you to"
+	line "visit us."
+	
+	para "I heard you've"
+	line "grown stronger."
+	
+	para "Care to prove"
+	line "that?"
 	done
 
 Pryce_RematchDefeat:

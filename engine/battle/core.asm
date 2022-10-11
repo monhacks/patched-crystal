@@ -201,6 +201,9 @@ BattleTurn:
 	jr nz, .quit
 .skip_iteration
 	call ParsePlayerAction
+	push af
+	call ClearSprites
+	pop af
 	jr nz, .loop1
 
 	call EnemyTriesToFlee
@@ -2184,6 +2187,8 @@ UpdateBattleStateAndExperienceAfterEnemyFaint:
 	ld a, [wBattleResult]
 	and BATTLERESULT_BITMASK
 	ld [wBattleResult], a ; WIN
+	; fallthrough
+ApplyExperienceAfterEnemyCaught:
 	call IsAnyMonHoldingExpShare
 	jr z, .skip_exp
 	ld hl, wEnemyMonBaseStats
@@ -5469,6 +5474,7 @@ MoveSelectionScreen:
 
 .battle_player_moves
 	call MoveInfoBox
+	call GetWeatherImage
 	ld a, [wSwappingMove]
 	and a
 	jr z, .interpret_joypad
@@ -5555,6 +5561,9 @@ MoveSelectionScreen:
 	ld hl, BattleText_TheresNoPPLeftForThisMove
 
 .place_textbox_start_over
+	push hl
+	call ClearSprites
+	pop hl
 	call StdBattleTextbox
 	call SafeLoadTempTilemapToTilemap
 	jp MoveSelectionScreen
@@ -5666,6 +5675,55 @@ MoveSelectionScreen:
 	ld a, [wMenuCursorY]
 	ld [wSwappingMove], a
 	jp MoveSelectionScreen
+	
+
+GetWeatherImage:
+	ld a, [wBattleWeather]
+	and a
+	ret z
+	ld de, RainWeatherImage
+	lb bc, PAL_BATTLE_OB_BLUE, 4
+	cp WEATHER_RAIN
+	jr z, .done
+	ld de, SunWeatherImage
+	ld b, PAL_BATTLE_OB_YELLOW
+	cp WEATHER_SUN
+	jr z, .done
+	ld de, SandstormWeatherImage
+	ld b, PAL_BATTLE_OB_BROWN
+	cp WEATHER_SANDSTORM
+	ret nz
+	
+.done
+	push bc
+	ld b, BANK(WeatherImages) ; c = 4
+	ld hl, vTiles0
+	call Request2bpp
+	pop bc
+	ld hl, wVirtualOAMSprite00
+	ld de, .WeatherImageOAMData
+.loop
+	ld a, [de]
+	inc de
+	ld [hli], a
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec c
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	jr nz, .loop
+	ret
+
+.WeatherImageOAMData
+; positions are backwards since
+; we load them in reverse order
+	db $88, $1c ; y/x - bottom right
+	db $88, $14 ; y/x - bottom left
+	db $80, $1c ; y/x - top right
+	db $80, $14 ; y/x - top left
 
 MoveInfoBox:
 	xor a
@@ -9184,3 +9242,4 @@ BattleStartMessage:
 	farcall Mobile_PrintOpponentBattleMessage
 
 	ret
+	

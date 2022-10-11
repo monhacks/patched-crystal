@@ -52,15 +52,23 @@ FuchsiaGymJanineScript:
 	iffalse .AfterTM
 	setevent EVENT_GOT_TM06_TOXIC
 .AfterTM:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .JanineRematchAsk
 	writetext JanineText_ApplyMyself
+	waitbutton
+	closetext
+	end
+	
+.JanineRematchAsk
+	writetext JanineRematchAskText
 	yesorno
-	iftrue .JanineRematch;waitbutton
+	iftrue .JanineRematch
 	closetext
 	end
 
 .JanineRematch:
 	winlosstext Janine_RematchDefeat, 0
-	loadtrainer JANINE, 1
+	loadtrainer JANINE, JANINE2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -291,9 +299,18 @@ JanineText_ApplyMyself:
 	para "I want to become"
 	line "better than both"
 	cont "Father and you!"
-	para "How about you test"
-	line "test my abilities?"
 	done					  				  
+	
+JanineRematchAskText:
+	text "JANINE: You're"
+	line "back!"
+	
+	para "Its perfect time"
+	line "for me to test"
+	cont "my abilities what"
+	
+	para "do you say?"
+	done
 	
 Janine_RematchDefeat:
 	text "JANINE: I still"

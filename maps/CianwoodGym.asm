@@ -67,16 +67,27 @@ CianwoodGymChuckScript:
 	end
 
 .AlreadyGotTM:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .ChuckRematchAsk
 	writetext ChuckAfterText
-	yesorno
-	iftrue .ChuckRematch;waitbutton
+	waitbutton
+	closetext
+	end
+	
 .BagFull:
+	closetext
+	end
+	
+.ChuckRematchAsk
+	writetext ChuckRematchAskText
+	yesorno
+	iftrue .ChuckRematch
 	closetext
 	end
 
 .ChuckRematch:
 	winlosstext Chuck_RematchDefeat, 0
-	loadtrainer CHUCK, 1
+	loadtrainer CHUCK, CHUCK2
 	startbattle
 	reloadmapafterbattle
 	end
@@ -243,15 +254,22 @@ ChuckAfterText:
 
 	para "From now on, I'm"
 	line "going to train 24"
-	cont "hours a day!"
-	para "But how about we"
-	line "spar right now?"							   
+	cont "hours a day!"						   
+	done
+
+ChuckRematchAskText:
+	text "Welcome back!"
+	line "I hope you're"
+	cont "not getting rusty"
+
+	para "Lets spar now!"
 	done
 
 Chuck_RematchDefeat:
 	text "I still need"
 	line "to train more…"
-	done					
+	done
+	
 BlackbeltYoshiSeenText:
 	text "My #MON and I"
 	line "are bound togeth-"

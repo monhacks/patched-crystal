@@ -544,6 +544,9 @@ SECTION "mobile5C", ROMX
 
 INCLUDE "mobile/mobile_5c.asm"
 
+SECTION "Battle Weather Images", ROMX
+
+INCLUDE "gfx/weather_images.asm"
 
 SECTION "Crystal Phone Text 2", ROMX
 

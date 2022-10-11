@@ -78,18 +78,27 @@ CeruleanGymMistyScript:
 	waitsfx
 	setflag ENGINE_CASCADEBADGE
 .FightDone:
+	checkevent EVENT_OPENED_MT_SILVER
+	iftrue .MistyRematchAsk
 	writetext MistyFightDoneText
+	waitbutton
+	closetext
+	end
+	
+.MistyRematchAsk
+	writetext MistyRematchAskText
 	yesorno
-	iftrue .MistyRematch;waitbutton
+	iftrue .MistyRematch
 	closetext
 	end
 
 .MistyRematch:
 	winlosstext Misty_RematchDefeat, 0
-	loadtrainer MISTY, 1
+	loadtrainer MISTY, MISTY2
 	startbattle
 	reloadmapafterbattle
-	end			  
+	end
+	
 TrainerSwimmerfDiana:
 	trainer SWIMMERF, DIANA, EVENT_BEAT_SWIMMERF_DIANA, SwimmerfDianaSeenText, SwimmerfDianaBeatenText, 0, .Script
 
@@ -287,13 +296,17 @@ MistyFightDoneText:
 	line "travel one day, so"
 
 	para "I can battle some"
-	line "skilled trainers."
-	para "But I can always"
-	line "battle you."
-	cont "How about a"
-	
-	para "rematch?"								
+	line "skilled trainers."							
 	done
+
+MistyRematchAskText:
+	text "MISTY: Hey there "
+	line "<PLAY_G> what "
+	cont "brings you here?"
+	
+	para "No matter, i want"
+	line "a rematch!"
+	done 
 
 Misty_RematchDefeat:
 	text "MISTY: You're"
