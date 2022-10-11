@@ -55,12 +55,11 @@ PryceScript_Defeat:
 	iftrue .PryceRematchAsk
 	writetext PryceText_CherishYourPokemon
 	waitbutton
-MahoganyGym_NoRoomForIcyWind:
 	closetext
 	end
 	
 .PryceRematchAsk
-	writetext WhitneyRematchAskText
+	writetext PryceRematchAskText
 	yesorno
 	iftrue .PryceRematch
 	closetext
@@ -72,6 +71,12 @@ MahoganyGym_NoRoomForIcyWind:
 	startbattle
 	reloadmapafterbattle
 	end
+	
+MahoganyGym_NoRoomForIcyWind:
+	closetext
+	end
+	
+
 	
 MahoganyGymActivateRockets:
 	ifequal 7, .RadioTowerRockets
