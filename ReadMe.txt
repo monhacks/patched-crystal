@@ -31,6 +31,7 @@ Weather conditions are shown with an icon during move selection.
 Pokemon acquire EXP when you capture a wild pokemon like in later generations.
 
 All Gym Leaders are now available for a rematch with stronger teams once you gain access to MT. Silver
+instead of simply defeating them for the first time.
 
 
 ~~3.3~~
