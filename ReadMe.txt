@@ -15,6 +15,12 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.5 Late/Early Anniversary Edition~~
+
+Berry Trees now have a chance to drop between 1 to 5 berries, same with Apricorn Trees
+
+Gym Leader rematch teams have been tweaked to be as similar to their HG/SS teams as possible
+
 ~~3.4~~
 
 Kurt will now immediately make balls, no need to wait an entire day.

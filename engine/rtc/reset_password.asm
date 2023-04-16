@@ -15,8 +15,6 @@ _ResetClock:
 	ld a, [wMenuCursorY]
 	cp 1
 	ret z
-	;call ClockResetPassword
-	;jr c, .wrongpassword
 	ld a, BANK(sRTCStatusFlags)
 	call OpenSRAM
 	ld a, $80
@@ -26,18 +24,10 @@ _ResetClock:
 	call PrintText
 	ret
 
-;.wrongpassword
-	;ld hl, .PasswordWrongText
-	;call PrintText
-	;ret
-
 .PasswordAskResetText:
 	text_far _PasswordAskResetText
 	text_end
 
-;.PasswordWrongText:
-	;text_far _PasswordWrongText
-	;text_end
 
 .PasswordAskResetClockText:
 	text_far _PasswordAskResetClockText
