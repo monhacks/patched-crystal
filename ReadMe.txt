@@ -113,7 +113,7 @@ Fixed arbitrary code execution via TryObjectEvent
 
 Fixed a bug where ClearWRAM only clears WRAM bank 1
 
-Fixed a bug where the game would crash after defeating Cooltrainer Sylvia after a rematch
+Fixed a bug where the game would crash after defeating Cooltrainer Rose after a rematch
 
 TM09 can now be bought at the Goldenrod Department Store 5F
 
