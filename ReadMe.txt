@@ -15,6 +15,17 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.6~~
+
+Move Deleter's House is now Move Expert's House since it now also hosts the Move Reminder
+to teach your pokemon forgotten moves! (Thanks to TPP, Polished Crystal and Another PKMN Crystal Remaster open source code)
+
+Both the Battle Tower and Buena's Password are packed with new rewards (subject to change)! (Huge thanks to Pret Discord for helping out!)
+
+You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT if a shiny is caught.(Another thanks to Pret for its github tutorial)
+
+Cooltrainer Rose's overworld sprite has changed
+
 ~~3.5 Late/Early Anniversary Edition~~
 
 Berry Trees now have a chance to drop between 1 to 5 berries, same with Apricorn Trees

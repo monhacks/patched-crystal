@@ -717,13 +717,16 @@ wDexListingCursorBackup:: db
 wBackupDexListingCursor:: db
 wBackupDexListingPage:: db
 wDexCurLocation:: db
-if DEF(_CRYSTAL11)
+;if DEF(_CRYSTAL11)
 wPokedexStatus:: db
+wPokedexShinyToggle::
+; bit 0: set if displaying shiny palettes
+	db
 wPokedexDataEnd::
-else
-wPokedexDataEnd:: ds 1
-endc
-	ds 2
+;else
+;wPokedexDataEnd:: ds 1
+;endc
+	ds 1;	ds 2
 
 NEXTU
 ; pokegear
@@ -1516,12 +1519,12 @@ wCreditsLYOverride:: db
 NEXTU
 ; pokedex
 wPrevDexEntryJumptableIndex:: db
-if DEF(_CRYSTAL11)
+;if DEF(_CRYSTAL11)
 wPrevDexEntryBackup:: db
-else
-wPrevDexEntryBackup::
-wPokedexStatus:: db
-endc
+;else
+;wPrevDexEntryBackup::
+;wPokedexStatus:: db
+;endc
 wUnusedPokedexByte:: db
 
 NEXTU
@@ -2232,6 +2235,8 @@ wStringBuffer5:: ds STRING_BUFFER_LENGTH
 
 wBattleMenuCursorPosition:: db
 
+wBuffer1:: db
+
 	ds 1
 
 wCurBattleMon:: db
@@ -2341,6 +2346,7 @@ wPokemonWithdrawDepositParameter::
 
 wItemQuantityChange:: db
 wItemQuantity:: db
+wItemQuantityChangeBuffer:: db
 
 wTempMon:: party_struct wTempMon
 

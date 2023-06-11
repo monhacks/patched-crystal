@@ -2,6 +2,10 @@
 
 This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
+Below you gonna find all the info you need:
+
+[**Project FAQ**](FAQ.txt)
+
 [**Changelog**](ReadMe.txt)
 
 [**Encounters and Evolutions**](Encounters&Evolutions.txt)
@@ -16,5 +20,5 @@ To set up the repository, see [**INSTALL.md**](INSTALL.md).
 * irc: [**freenode#pret**][irc]
 
 [pokered]: https://github.com/iimarckus/pokered
-[irc]: https://kiwiirc.com/client/irc.freenode.net/?#pret
+[Pret irc]: https://kiwiirc.com/client/irc.freenode.net/?#pret
 [release]: https://github.com/UberMedic7/patched-crystal/releases

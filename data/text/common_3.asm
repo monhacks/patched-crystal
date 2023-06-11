@@ -1521,3 +1521,53 @@ _MomLostGearBookletText::
 	para "Come back again in"
 	line "a while."
 	prompt
+	
+_MoveReminderIntro::
+    text "Hi, I'm the Move"
+    line "Reminder!"
+
+    para "I can teach your"
+    line "#mon a move it"
+
+    para "has learned pre-"
+    line "viously."
+
+	para "Are you"
+    line "interested?"
+    done
+
+_MoveReminderWhichMon::
+    text "Which #mon"
+    next "would you like"
+
+    para "to make remember"
+    line "a move?"
+    done
+
+_MoveReminderWhichMove::
+    text "Which move would"
+    next "you like to"
+    cont "remember?"
+    done
+
+_MoveReminderCancel::
+    text "Come back anytime."
+    done
+
+_MoveReminderEgg::
+    text "Hey! What am I"
+    line "supposed to teach"
+    cont "an Egg?"
+    done
+
+_MoveReminderNoMon::
+    text "You don't have a"
+    line "#mon that can"
+    cont "remember a move."
+    done
+
+_MoveReminderNoMoves::
+    text "There are no moves"
+    line "for this #mon"
+    cont "to learn."
+    done

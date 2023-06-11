@@ -1,0 +1,95 @@
+A very simple FAQ to help you know the project more
+
+-What is Pokemon Patched Crystal?
+
+Pokemon Patched Crystal is a romhack of Pokemon Crystal which doesnt drastically alter the game's
+content and gameplay but instead it improves upon it with bugfixes and Quality of Life features that fit
+today's standarts and personal preference.
+
+-Personal preference?!
+
+Dont be alarmed, this isnt a romhack full of fakemon and Original Characters
+(with a single exception explained in detail below) that dont fit the game at all. This is
+still the Pokemon Crystal you love but even better, in my opinion at least.
+
+-So what's in it then?
+
+Here's the highlights:
+
+The game's original bugs and glitches have been fixed, most notable fixes are all pokeballs working
+as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more.
+
+You can obtain all 251 without the need to do trades with other people, version exclusives can now
+be found in the wild and certain evolution methods have been altered to assist with that.
+
+Time "works differently" now, meaning that the time where the sun rises and sets has been tweaked in
+logical ranges so that players can take advantage out of all 3 parts of the day in the game easier.
+
+TMs are now infinite use just like in later games.
+
+There's a Move Reminder NPC at Move Deleter's home now to teach your pokemon forgotten moves.
+
+Catching pokemon yields EXP to your pokemon that took part in the battle like in later games.
+
+Berry and apricorn trees now drop between 1 to 5 berries/apricorns.
+
+Kurt will now immediately make balls so you dont need to wait an entire day for them.
+
+The Lucky Number Show now occurs daily instead of weekly.
+
+You can challenge all Gym Leaders to a rematch as many times as you want after you gain access to MT. Silver.
+
+The trainer card now includes an extra page for Kanto badges and all 16 badges are now
+shown in full color.
+
+You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT if a shiny is caught.
+
+Easily change the time by pressing DOWN + B on the main menu.
+
+Weather conditions in battle are now shown (if active) via an appropriate icon in the move selection window.
+
+Ghost type attacks are now taking advantage of Special Attack instead of Attack and Dark type attacks take
+advantage of Attack instead of Special Attack.
+
+-Woah hold on there! You said no major changes, why change the types attacking stats?!
+
+Allow me to explain. Before the Physical and Special split of Gen 4, moves were Physical or Special depending
+on their type, for example Fire attacks are Special and Normal attacks are Physical. For whatever reason, Ghost
+type attacks are Physical, meaning that they take advantage of the Attack stat. It is simply unfit for it to work
+this way, so i took the chance to correct that, and at the same time did the same thing with the Dark type because
+it had a similar issue. I hope you understand my descision on this.
+
+-You said i can capture all 251 pokemon, what about Celebi and the Kanto legendaries?
+
+Celebi's event has been restored, meaning that it will occur normally through gameplay so you can finally have a legit Celebi.
+Kanto legendaries have been placed onto the overworld much like in later games, except Mew.
+Mew is now acquired after battling an original trainer after getting access to MT.Silver. You can have rematches with her once
+you defeat her.
+
+-What about fossil pokemon?
+
+Sadly no special event (for now) You can rarely find them in the wild.
+
+-You said altered evolutions, what about that?
+
+Certain pokemon now evolve thanks to the item "Link Cord" which acts like an evolutionary stone. More info on "Encounters and Evolutions.txt"
+
+-Can you Trade/Battle in this?
+
+Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during link battles. Needless to say, you should Trade/Battle
+between two copies of Patched Crystal, not the original game.
+
+-What else you got in store for us?
+
+Right now, i consider this romhack "complete" The initial goal of this project was to create "my dream version of Crystal" and it
+reached that status for me but new vanilla-friendly stuff or maintenance updates are not off the table.
+
+-Why updates roll in such irregular rate?
+
+Its not on purpose for sure. Life gets in the way and im not a fully fledged programmer, all my work is based on very helpful guides and individuals
+and whenever something cool comes up i take the safe approach and try it out internaly until im certain its fit for a release.
+
+-Any way i can help?
+
+For sure, you can always report back any bugs, throw your suggestions, etc. You can reach out to me through uberarchive.net via the contact form
+or the forums.

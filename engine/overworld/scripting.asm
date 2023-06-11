@@ -1745,7 +1745,7 @@ Script_takeitem:
 	call GetScriptByte
 	ld [wCurItem], a
 	call GetScriptByte
-	ld [wItemQuantityChange], a
+	ld [wItemQuantityChangeBuffer], a
 	ld a, -1
 	ld [wCurItemQuantity], a
 	ld hl, wNumItems
@@ -1760,6 +1760,8 @@ Script_checkitem:
 	ld [wScriptVar], a
 	call GetScriptByte
 	ld [wCurItem], a
+	call GetScriptByte
+	ld [wItemQuantityChangeBuffer], a
 	ld hl, wNumItems
 	call CheckItem
 	ret nc
