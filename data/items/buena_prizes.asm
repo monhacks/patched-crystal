@@ -14,10 +14,8 @@ BuenaPrizeItems:
 	db SILVER_LEAF,	 8
 	db MYSTERYBERRY, 9
 	db GOLD_BERRY,	 9
-	db BERRY_JUICE,	 10
-	db SACRED_ASH,	 15
-	db LUCKY_EGG,	 20
-	db LUCKY_PUNCH,	 25
-	db MIRAGE_MAIL,	 29
-	db MASTER_BALL,	 30
+	db BERRY_JUICE,	 9
+	db LUCKY_EGG,	 9
+	db LUCKY_PUNCH,	 9
+	db MIRAGE_MAIL,	 9
 	assert_table_length NUM_BUENA_PRIZES

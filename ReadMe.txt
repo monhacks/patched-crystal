@@ -15,6 +15,37 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.6a~~
+
+Fixed an oversight where not all new rewards were included for the Battle Tower
+said rewards are the following (subject to change):
+
+MasterBall x1
+Revive x5
+MaxPotion x5
+FullRestore x5
+HpUp x5
+Protein x5
+Iron x5
+Carbos x5
+Calcium x5
+RareCandy x5 
+FullHeal x5
+PP_Up x5
+BerserkGene x5
+NormalBox x1
+GorgeousBox x1
+
+Tweaked Buena's Password rewards both in costs and actual rewards which are the following (subject to change):
+
+2 Blue Card points: Ultra Ball, Full Restore
+3 Blue Card points: Nugget, Rare Candy
+5 Blue Card points: Protein, Iron, Carbos, Calcium, HP Up
+6 Blue Card points: PP Up
+7 Blue Card points: Gold Leaf
+8 Blue Card points: Silver Leaf
+9 Blue Card points: Mysteryberry, Gold Berry, Berry Juice, Lucky Egg, Lucky Punch, Mirage Mail
+
 ~~3.6~~
 
 Move Deleter's House is now Move Expert's House since it now also hosts the Move Reminder

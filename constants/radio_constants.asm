@@ -121,7 +121,7 @@ NUM_PASSWORD_CATEGORIES    EQU 11
 NUM_PASSWORDS_PER_CATEGORY EQU  3
 
 ; BuenaPrizeItems size (see data/items/buena_prizes.asm)
-NUM_BUENA_PRIZES EQU 20
+NUM_BUENA_PRIZES EQU 18
 
 ; GetBuenasPassword.StringFunctionJumpTable indexes (see engine/pokegear/radio.asm)
 	const_def

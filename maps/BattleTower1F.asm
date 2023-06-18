@@ -134,14 +134,26 @@ Script_WalkToBattleTowerElevator:
 Script_GivePlayerHisPrize:
     setval BATTLETOWERACTION_1C
     special BattleTowerAction
-    random 2 ; any number really
+    random 14 ; any number really
     ifequal 0, MasterBall
     ifequal 1, Revive
     ifequal 2, MaxPotion
+	ifequal 3, FullRestore
+	ifequal 4, HpUp
+	ifequal 5, Protein
+	ifequal 6, Iron
+	ifequal 7, Carbos
+	ifequal 8, Calcium
+	ifequal 9, RareCandy
+	ifequal 10, FullHeal
+	ifequal 11, PP_Up
+	ifequal 12, BerserkGene
+	ifequal 13, NormalBox
+	ifequal 14, GorgeousBox
 	end
 	
 MasterBall:
-	checkitem MASTER_BALL, 99
+	checkitem MASTER_BALL, 9
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, MASTER_BALL
     giveitem MASTER_BALL, 1
