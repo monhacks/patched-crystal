@@ -1527,7 +1527,7 @@ _MoveReminderIntro::
     line "Reminder!"
 
     para "I can teach your"
-    line "#mon a move it"
+    line "#MON a move it"
 
     para "has learned pre-"
     line "viously."
@@ -1537,7 +1537,7 @@ _MoveReminderIntro::
     done
 
 _MoveReminderWhichMon::
-    text "Which #mon"
+    text "Which #MON"
     next "would you like"
 
     para "to make remember"
@@ -1562,12 +1562,12 @@ _MoveReminderEgg::
 
 _MoveReminderNoMon::
     text "You don't have a"
-    line "#mon that can"
+    line "#MON that can"
     cont "remember a move."
     done
 
 _MoveReminderNoMoves::
     text "There are no moves"
-    line "for this #mon"
+    line "for this #MON"
     cont "to learn."
     done

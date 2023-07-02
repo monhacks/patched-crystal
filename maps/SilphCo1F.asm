@@ -49,8 +49,8 @@ SilphCoOfficerText_GotUpGrade:
 	text "It's SILPH CO.'s"
 	line "latest product."
 
-	para "It's not for sale"
-	line "anywhere yet."
+	para "Enjoy this free"
+	line "sample."
 	done
 
 SilphCo1F_MapEvents:

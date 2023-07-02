@@ -290,10 +290,10 @@ MistyFightDoneText:
 	text "MISTY: Are there"
 	line "many strong train-"
 	cont "ers in JOHTO? Like"
-	cont "you, I mean."
 
-	para "I'm going to"
-	line "travel one day, so"
+	para "you, I mean."
+	line "I'm going to"
+	cont "travel one day so"
 
 	para "I can battle some"
 	line "skilled trainers."							

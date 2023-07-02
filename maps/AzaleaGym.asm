@@ -253,10 +253,10 @@ BugsyRematchAskText:
 	text "Hello <PLAY_G>."
 	line "My research on"
 	cont "BUG #MON is"
-	line "going great."
 	
-	para "Want see my"
-	line "latest finds?"
+	para "going great."
+	line "Want see my"
+	cont "latest finds?"
 	done
 	
 BugsyText_RematchDefeat:

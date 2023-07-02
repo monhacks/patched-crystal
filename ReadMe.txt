@@ -15,6 +15,14 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.6b~~
+
+Fixed an issue where incorrect overworld sprites would be used for NPCs
+
+Fixed some text wrapping issues with some Gym Leader's dialog
+
+Adjusted ".gitignore" list so that cloning the repo and compiling works
+
 ~~3.6a~~
 
 Fixed an oversight where not all new rewards were included for the Battle Tower

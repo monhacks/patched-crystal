@@ -23,18 +23,18 @@ MountMoonSquare_MapScripts:
 	disappear MOUNTMOONSQUARE_ROCK
 	endcallback
 
-.Rose
-	checkevent EVENT_OPENED_MT_SILVER
-	iftrue .Appear
-	sjump .NoAppear
+;.Rose
+	;checkevent EVENT_OPENED_MT_SILVER
+	;iftrue .Appear
+	;sjump .NoAppear
 	
-.Appear
-	appear MOUNTMOONSQUARE_ROSE
-	endcallback
+;.Appear
+	;appear MOUNTMOONSQUARE_ROSE
+	;endcallback
 	
-.NoAppear
-	disappear MOUNTMOONSQUARE_ROSE
-	endcallback
+;.NoAppear
+	;disappear MOUNTMOONSQUARE_ROSE
+	;endcallback
 
 
 Rose:
@@ -134,21 +134,21 @@ RoseEncounterText:
 	cont "trainer."
 	
 	para "ROSE: My name is"
-	cont "ROSE."
+	line "ROSE."
 	
 	para "I come from a"
 	line "different region"
 	cont "to learn more"
 	
 	para "about the elusive"
-	line "moon #MON."
+	line "Moon #MON."
 	
-	para "Either way im"
+	para "Besides that, im"
 	line "always looking for"
 	cont "greater challenges"
 	
-	para "I hope you're"
-	line "ready."
+	para "I hope you will"
+	line "provide me one."
 	done
 	
 RoseDefeatedText:
@@ -285,7 +285,7 @@ MountMoonSquare_MapEvents:
 	bg_event 17,  7, BGEVENT_READ, DontLitterSign
 
 	def_object_events
-	object_event 22, 6, SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Rose, -1
+	object_event 22, 6,  SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Rose, -1
 	object_event  6,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  7, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MtMoonSquareRock, EVENT_MT_MOON_SQUARE_ROCK

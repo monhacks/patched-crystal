@@ -201,6 +201,7 @@ ErikaAfterBattleText:
 
 	para "trainers spurs me"
 	line "to do better…"
+	done
 	
 ErikaRematchAskText:
 	text "ERIKA: Welcome"

@@ -1,6 +1,5 @@
 # generated
 *.tx
-*.o
 
 # precompiled python
 *.pyc
@@ -39,7 +38,6 @@ pokecrystal.txt
 *.2bpp
 *.1bpp
 *.lz
-*.pal
 *.animated.tilemap
 gfx/pokemon/*/bitmask.asm
 gfx/pokemon/*/frames.asm

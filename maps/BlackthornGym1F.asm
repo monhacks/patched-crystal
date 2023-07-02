@@ -303,11 +303,10 @@ ClairRematchAskText:
 	text "Hello <PLAY_G>."
 	line "I heard you've"
 	cont "become quite"
-	line "the #MON trainer."
 	
-	para "How about you"
-	line "show me your real"
-	cont "power?"
+	para "the #MON trainer."
+	line "How about you"
+	cont "prove it to me?"
 	done
 	
 Clair_RematchDefeat:				

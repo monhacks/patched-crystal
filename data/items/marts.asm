@@ -377,7 +377,7 @@ MartSaffron:
 	db X_ATTACK
 	db X_DEFEND
 	db TWISTEDSPOON
-	db PSYCH_UP
+	db TM_PSYCH_UP
 	db UP_GRADE
 	db FLOWER_MAIL
 	db -1 ; end
