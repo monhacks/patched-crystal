@@ -20,6 +20,9 @@
 # rgbds extras
 *.map
 *.sym
+*.old
+*.zip
+*.ips
 
 # compare.sh
 baserom.txt
