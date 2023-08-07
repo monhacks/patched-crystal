@@ -15,6 +15,17 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.7~~
+
+You can now choose one of many unique colors for your Pokedex UI in its SELECT menu
+
+All 251 pokemon now have uniquely colored sprites in menus/FLYing and the day care, shiny
+variants and shiny egg included.
+
+Cooltrainer Rose's dialog has been tweaked
+
+Removed Lucky Egg from Buena's Password rewards
+
 ~~3.6b~~
 
 Fixed an issue where incorrect overworld sprites would be used for NPCs

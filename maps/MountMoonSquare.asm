@@ -94,15 +94,15 @@ RematchDefeat:
 	done
 	
 GotMewText:
-	text "Oh, Hello <PLAYER>"
+	text "Hello <PLAYER>"
 	
-	para "I hope you take"
-	line "care of your"
-	cont "#MON."
+	para "I hope you are"
+	line "still a worthy"
+	cont "opponent."
 	
 	para "We can have"
 	line "another battle and"
-	cont "see if that's true"
+	cont "see about it."
 	done
 	
 DefeatedText:
@@ -117,8 +117,8 @@ DefeatedText:
 	line "rare #MON."
 	cont "I think it"
 	
-	para "will help you"
-	line "on your journey."
+	para "will be better"
+	line "in your care."
 	done
 	
 FullPartyText:
@@ -141,7 +141,7 @@ RoseEncounterText:
 	cont "to learn more"
 	
 	para "about the elusive"
-	line "Moon #MON."
+	line "MOON #MON."
 	
 	para "Besides that, im"
 	line "always looking for"

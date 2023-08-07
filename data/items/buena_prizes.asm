@@ -15,7 +15,6 @@ BuenaPrizeItems:
 	db MYSTERYBERRY, 9
 	db GOLD_BERRY,	 9
 	db BERRY_JUICE,	 9
-	db LUCKY_EGG,	 9
 	db LUCKY_PUNCH,	 9
 	db MIRAGE_MAIL,	 9
 	assert_table_length NUM_BUENA_PRIZES
