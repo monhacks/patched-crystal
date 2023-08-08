@@ -23,6 +23,7 @@
 *.old
 *.zip
 *.ips
+*.o
 
 # compare.sh
 baserom.txt
@@ -42,6 +43,3 @@ pokecrystal.txt
 *.1bpp
 *.lz
 *.animated.tilemap
-gfx/pokemon/*/bitmask.asm
-gfx/pokemon/*/frames.asm
-!gfx/pokemon/*/shiny.pal
