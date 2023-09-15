@@ -1062,8 +1062,8 @@ JohtoGrassWildMons:
 	db 25, KRABBY
 	db 27, KRABBY
 	db 28, GOLBAT
-	db 27, OMANYTE ;GOLBAT
-	db 27, KABUTO ;GOLBAT
+	db 27, GOLBAT
+	db 27, GOLBAT
 	end_grass_wildmons
 
 	def_grass_wildmons SILVER_CAVE_ROOM_1

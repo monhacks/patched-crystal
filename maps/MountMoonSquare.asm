@@ -62,7 +62,7 @@ Defeated:
 	writetext RewardText
 	playsound SFX_CAUGHT_MON
 	waitsfx
-	givepoke MEW, 5
+	givepoke MEW, 5, STARDUST
 	setevent EVENT_GOT_MEW_FROM_ROSE
 GotMew:
 	writetext GotMewText

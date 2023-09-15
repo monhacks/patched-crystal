@@ -43,7 +43,6 @@ Scyther can now be found during the day at:
 Ilex Forest, National Park
 
 
-
 ~~Missing Encounters~~
 
 Vulpix can be found during the morning and day at:
@@ -67,7 +66,7 @@ Cyndaquil can be found only during the night at:
 Dark cave (Violet city entrance) 
 
 Totodile can be found only during the day at:
-Cherrygrove city (Water)
+Cherrygrove city (Surf)
 
 Bulbasaur can be found only during morning and night at:
 Ilex Forest
@@ -78,13 +77,11 @@ Burned Tower B1F
 Squirtle can be found at all times at:
 Whirl Islands B2F
 
-Omanyte and Kabuto can be found only during the night at:
-Whirl Islands in Lugia's Chamber (not in the water)
+Omanyte, Kabuto and Aerodactyl's fossils can be found by smashing rocks and revived
+at the Ruins of Alph Research Center.
 
 
 ~~Kanto Legendaries~~
-
-In order to encounter all the legendaries, except Mew, you need to have the key item Clear Bell in your inventory.
 
 Zapdos can be found at:
 Rock Tunnel

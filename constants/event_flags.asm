@@ -297,11 +297,11 @@
 	const EVENT_BETH_ASKED_FOR_PHONE_NUMBER
 	const EVENT_MEW_COOLTRAINER_ROSE ;const_skip ; unused in Crystal
 	const EVENT_JOSE_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_GAVE_SCIENTIST_OLD_AMBER ;const_skip ; unused in Crystal
 	const EVENT_REENA_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_GAVE_SCIENTIST_DOME_FOSSIL;const_skip ; unused in Crystal
 	const EVENT_JOEY_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_GAVE_SCIENTIST_HELIX_FOSSIL ;const_skip ; unused in Crystal
 	const EVENT_WADE_ASKED_FOR_PHONE_NUMBER
 	const_skip ; unused in Crystal
 	const EVENT_RALPH_ASKED_FOR_PHONE_NUMBER

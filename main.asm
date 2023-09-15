@@ -549,6 +549,10 @@ SECTION "Battle Weather Images", ROMX
 
 INCLUDE "gfx/weather_images.asm"
 
+SECTION "Time Of Day Images", ROMX
+
+INCLUDE "gfx/timeofday_images.asm"
+
 SECTION "Crystal Phone Text 2", ROMX
 
 INCLUDE "data/phone/text/bike_shop.asm"

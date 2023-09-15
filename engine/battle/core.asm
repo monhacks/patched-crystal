@@ -91,6 +91,7 @@ DoBattle:
 	call BreakAttraction
 	call SendOutPlayerMon
 	call EmptyBattleTextbox
+	call GetTimeOfDayImage
 	call LoadTilemapToTempTilemap
 	call SetPlayerTurn
 	call SpikesDamage
@@ -4914,6 +4915,7 @@ BattleMenu:
 	xor a
 	ldh [hBGMapMode], a
 	call LoadTempTilemapToTilemap
+	call GetTimeOfDayImage
 
 	ld a, [wBattleType]
 	cp BATTLETYPE_DEBUG
@@ -4958,6 +4960,7 @@ BattleMenu:
 	jr .loop
 
 BattleMenu_Fight:
+	call ClearSprites
 	xor a
 	ld [wNumFleeAttempts], a
 	call SafeLoadTempTilemapToTilemap
@@ -5038,6 +5041,7 @@ BattleMenu_Pack:
 	call WaitBGMap
 	call FinishBattleAnim
 	call LoadTilemapToTempTilemap
+	call GetTimeOfDayImage
 	jp BattleMenu
 
 .ItemsCantBeUsed:
@@ -5136,6 +5140,7 @@ BattleMenuPKMN_Loop:
 	call LoadTilemapToTempTilemap
 	call GetMemSGBLayout
 	call SetPalettes
+	call GetTimeOfDayImage
 	jp BattleMenu
 
 .GetMenu:
@@ -5336,6 +5341,7 @@ PassedBattleMonEntrance:
 	jp SpikesDamage
 
 BattleMenu_Run:
+	call ClearSprites
 	call SafeLoadTempTilemapToTilemap
 	ld a, $3
 	ld [wMenuCursorY], a
@@ -9242,4 +9248,52 @@ BattleStartMessage:
 	farcall Mobile_PrintOpponentBattleMessage
 
 	ret
+	
+GetTimeOfDayImage:
+	ld a, [wTimeOfDay]
+	cp MORN_F
+	jr z, .DayImage
+	cp DAY_F
+	jr z, .DayImage
+	cp NITE_F
+	jr z, .NightImage
+.DayImage
+ ld de, DayTimeImage
+ lb bc, PAL_BATTLE_OB_YELLOW, 4
+ jr .done	
+	
+ .NightImage
+ ld de, NightTimeImage
+ lb bc, PAL_BATTLE_OB_BLUE, 4
+
+.done
+	push bc
+	ld b, BANK(TimeOfDayImages) ; c = 4
+	ld hl, vTiles0
+	call Request2bpp
+	pop bc
+	ld hl, wVirtualOAMSprite00
+	ld de, .TimeOfDayImageOAMData
+.loop
+	ld a, [de]
+	inc de
+	ld [hli], a
+	ld a, [de]
+	inc de
+	ld [hli], a
+	dec c
+	ld a, c
+	ld [hli], a
+	ld a, b
+	ld [hli], a
+	jr nz, .loop
+	ret
+
+.TimeOfDayImageOAMData
+; positions are backwards since
+; we load them in reverse order
+	db $88, $1c ; y/x - bottom right
+	db $88, $14 ; y/x - bottom left
+	db $80, $1c ; y/x - top right
+	db $80, $14 ; y/x - top left
 	

@@ -15,6 +15,33 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+~~3.8~~
+
+Smashing rocks now has a chance to give the player one of the following items:
+
+-Nugget
+-Star Piece
+-Big Pearl
+-Pearl
+-Brick Piece
+-Metal Coat
+-Hard Stone
+-Soft Sand
+-Thick Club
+-Dome Fossil
+-Helix Fossil
+-Old Amber
+
+With the existance of fossils from the above addition, you can no longer find Kabuto and Omanyte in the wild.
+
+You can revive your fossils with the help of the new Scientist NPC inside the Ruins of Alph Research Center.
+
+The time of day (Day or Night) can now be seen with an icon on the main battle menu.
+
+When picking up or receiving TMs as gifts the name of the move will also be shown.
+
+The Mew you are given after defeating Cooltrainer Rose now holds Stardust.
+
 ~~3.7~~
 
 You can now choose one of many unique colors for your Pokedex UI in its SELECT menu
@@ -39,21 +66,21 @@ Adjusted ".gitignore" list so that cloning the repo and compiling works
 Fixed an oversight where not all new rewards were included for the Battle Tower
 said rewards are the following (subject to change):
 
-MasterBall x1
-Revive x5
-MaxPotion x5
-FullRestore x5
-HpUp x5
-Protein x5
-Iron x5
-Carbos x5
-Calcium x5
-RareCandy x5 
-FullHeal x5
-PP_Up x5
-BerserkGene x5
-NormalBox x1
-GorgeousBox x1
+-MasterBall x1
+-Revive x5
+-Max Potion x5
+-Full Restore x5
+-Hp Up x5
+-Protein x5
+-Iron x5
+-Carbos x5
+-Calcium x5
+-Rare Candy x5 
+-Full Heal x5
+-PP Up x5
+-Berserk Gene x5
+-Normal Box x1
+-Gorgeous Box x1
 
 Tweaked Buena's Password rewards both in costs and actual rewards which are the following (subject to change):
 

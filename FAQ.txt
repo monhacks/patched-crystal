@@ -29,7 +29,7 @@ TMs are now infinite use just like in later games.
 
 There's a Move Reminder NPC at Move Deleter's home now to teach your pokemon forgotten moves.
 
-Catching pokemon yields EXP to your pokemon that took part in the battle like in later games.
+Catching pokemon yields EXP to pokemon that took part in the battle like in later games.
 
 Berry and apricorn trees now drop between 1 to 5 berries/apricorns.
 
@@ -42,16 +42,18 @@ You can challenge all Gym Leaders to a rematch as many times as you want after y
 The trainer card now includes an extra page for Kanto badges and all 16 badges are now
 shown in full color.
 
-You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT if a shiny is caught.
+You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.
 
 Easily change the time by pressing DOWN + B on the main menu.
 
 Weather conditions in battle are now shown (if active) via an appropriate icon in the move selection window.
 
+Daytime/Nighttime status is also shown in the main battle menu.
+
 Ghost type attacks are now taking advantage of Special Attack instead of Attack and Dark type attacks take
 advantage of Attack instead of Special Attack.
 
--Woah hold on there! You said no major changes, why change the types attacking stats?!
+-Woah hold on there! You said no major changes, why change what the types scale with?!
 
 Allow me to explain. Before the Physical and Special split of Gen 4, moves were Physical or Special depending
 on their type, for example Fire attacks are Special and Normal attacks are Physical. For whatever reason, Ghost
@@ -68,16 +70,19 @@ you defeat her.
 
 -What about fossil pokemon?
 
-Sadly no special event (for now) You can rarely find them in the wild.
+By smashing rocks there's a chance you'll get one of three (3) Kanto fossils. You can revive them the same way you did
+in Gen 1 except the corresponding NPC is in Ruins of Alph Research Center instead.
 
 -You said altered evolutions, what about that?
 
-Certain pokemon now evolve thanks to the item "Link Cord" which acts like an evolutionary stone. More info on "Encounters and Evolutions.txt"
+Certain pokemon now evolve thanks to the item "Link Cord" which acts like an evolutionary stone much like in Pokemon Arceus.
+More info on "Encounters and Evolutions.txt"
 
 -Can you Trade/Battle in this?
 
-Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during link battles. Needless to say, you should Trade/Battle
-between two copies of Patched Crystal, not the original game.
+Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during link battles however Link Battles
+should be between two (2) Patched Crystal games not one (1) Patched Crystal game and any Gen 2 vanilla game as there will
+be desynchronization due to these changes.
 
 -What else you got in store for us?
 
