@@ -1,11 +1,11 @@
 Pokemon Patched Crystal
 
-This hack aims to fix the generation 2 bugs and add certain tweaks but still retain the original gameplay and features.
+This hack fixes the generation 2 bugs and adds certain tweaks but still retain the original gameplay and features.
 
 !!NOTICE!!
 
 It is highly recommended to make backups of your saves when trying out a new release
-also go to the 2nd floor of a pokemon center and save your game there for the best results
+saving to the 2nd floor of a pokemon center is advised for the best results
 
 Check out uberarchive.net for the latest release, news or submit any bug reports!
 
@@ -14,6 +14,24 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 
 ~~~Retail~~~
+
+~~3.9~~
+
+-Dire Hit, Guard Spec, Gold and Silver Leaf are now included in the random rewards pool of Battle Tower.
+
+-Fixed an incorrect check on the Master Ball Battle Tower reward
+
+-Evolutionary stones and Link Cord now cost 4000 pokedollars
+
+-Hard Stone and Soft Sand are now slightly more common to be found by smashing rocks
+
+-Twineedle can no longer inflict PSN on STEEL types
+
+-Tri-Attack can no longer inflict BRN on FIRE types and FRZ on ICE types
+
+-When a repel item runs out, you will be asked to use another of the same type like in later games
+
+-The starter sprites that are being shown before picking one are now in color
 
 ~~3.8~~
 

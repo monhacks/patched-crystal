@@ -134,7 +134,7 @@ Script_WalkToBattleTowerElevator:
 Script_GivePlayerHisPrize:
     setval BATTLETOWERACTION_1C
     special BattleTowerAction
-    random 14 ; any number really
+    random 18 ; any number really
     ifequal 0, MasterBall
     ifequal 1, Revive
     ifequal 2, MaxPotion
@@ -147,13 +147,17 @@ Script_GivePlayerHisPrize:
 	ifequal 9, RareCandy
 	ifequal 10, FullHeal
 	ifequal 11, PP_Up
-	ifequal 12, BerserkGene
-	ifequal 13, NormalBox
-	ifequal 14, GorgeousBox
+	ifequal 12, DireHit
+	ifequal 13, GuardSpec
+	ifequal 14, BerserkGene
+	ifequal 15, NormalBox
+	ifequal 16, GorgeousBox
+	ifequal 17, GoldLeaf
+	ifequal 18, SilverLeaf
 	end
 	
 MasterBall:
-	checkitem MASTER_BALL, 9
+	checkitem MASTER_BALL, 99
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, MASTER_BALL
     giveitem MASTER_BALL, 1
@@ -283,12 +287,34 @@ PP_Up:
     special BattleTowerAction
     closetext
     end
+	
+DireHit:
+	checkitem DIRE_HIT, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, DIRE_HIT
+    giveitem DIRE_HIT, 5
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+GuardSpec:
+	checkitem GUARD_SPEC, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, GUARD_SPEC
+    giveitem GUARD_SPEC, 5
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
 
 BerserkGene:
     checkitem BERSERK_GENE, 99
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, BERSERK_GENE
-    giveitem BERSERK_GENE, 5
+    giveitem BERSERK_GENE, 1
     writetext Text_PlayerGotFive
     setval BATTLETOWERACTION_1D
     special BattleTowerAction
@@ -311,6 +337,28 @@ GorgeousBox:
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, GORGEOUS_BOX
     giveitem GORGEOUS_BOX, 1
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+GoldLeaf:
+	checkitem GOLD_LEAF, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, GOLD_LEAF
+    giveitem GOLD_LEAF, 5
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+SilverLeaf:
+	checkitem SILVER_LEAF, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, SILVER_LEAF
+    giveitem SILVER_LEAF, 5
     writetext Text_PlayerGotOne
     setval BATTLETOWERACTION_1D
     special BattleTowerAction

@@ -109,8 +109,8 @@ RockItemEncounter:
 	db 4, BIG_PEARL
 	db 10, BRICK_PIECE
 	db 10, PEARL
-	db 24, HARD_STONE
-	db 24, SOFT_SAND
+	db 25, HARD_STONE
+	db 25, SOFT_SAND
 	db 30, DOME_FOSSIL
 	db 30, HELIX_FOSSIL
 	db 30, OLD_AMBER
