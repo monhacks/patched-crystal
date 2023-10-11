@@ -4,7 +4,7 @@ This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
 
 Below you gonna find all the info you need:
 
-[**Project FAQ**](FAQ.txt)
+[**FAQ**](FAQ.txt)
 
 [**Changelog**](ReadMe.txt)
 
