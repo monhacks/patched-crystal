@@ -4,8 +4,8 @@ This hack fixes the generation 2 bugs and adds certain tweaks but still retain t
 
 !!NOTICE!!
 
-It is highly recommended to make backups of your saves when trying out a new release
-saving to the 2nd floor of a pokemon center is advised for the best results
+It is highly recommended to make backups of your saves when trying out a new release.
+Saving to the 2nd floor of a pokemon center is advised for the best results.
 
 Check out uberarchive.net for the latest release, news or submit any bug reports!
 
