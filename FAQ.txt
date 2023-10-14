@@ -1,4 +1,6 @@
-A very simple FAQ to help you know the project more
+-What is this?
+
+A very simple FAQ to help you know the project more.
 
 -What is Pokemon Patched Crystal?
 
@@ -20,9 +22,9 @@ The game's original bugs and glitches have been fixed, most notable fixes are al
 as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more.
 
 You can obtain all 251 without the need to do trades with other people, version exclusives can now
-be found in the wild and certain evolution methods have been altered to assist with that.
+be found in the wild and certain evolution methods have been altered.
 
-Time "works differently" now, meaning that the time where the sun rises and sets has been tweaked in
+Time "works differently" now, meaning that the time where the sun rises and sets has been tweaked to
 logical ranges so that players can take advantage out of all 3 parts of the day in the game easier.
 
 TMs are now infinite use just like in later games.
@@ -40,7 +42,7 @@ The Lucky Number Show now occurs daily instead of weekly.
 You can challenge all Gym Leaders to a rematch as many times as you want after you gain access to MT. Silver.
 
 The trainer card now includes an extra page for Kanto badges and all 16 badges are now
-shown in full color.
+shown in color.
 
 You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.
 
@@ -48,30 +50,30 @@ Easily change the time by pressing DOWN + B on the main menu.
 
 Weather conditions in battle are now shown (if active) via an appropriate icon in the move selection window.
 
-Daytime/Nighttime status is also shown in the main battle menu.
+Daytime/Nightime status is also shown in the main battle menu.
 
 Ghost type attacks are now taking advantage of Special Attack instead of Attack and Dark type attacks take
 advantage of Attack instead of Special Attack.
 
--Woah hold on there! You said no major changes, why change what the types scale with?!
+-Woah hold on there! You said no major changes, why change how types scale?!
 
 Allow me to explain. Before the Physical and Special split of Gen 4, moves were Physical or Special depending
 on their type, for example Fire attacks are Special and Normal attacks are Physical. For whatever reason, Ghost
-type attacks are Physical, meaning that they take advantage of the Attack stat. It is simply unfit for it to work
-this way, so i took the chance to correct that, and at the same time did the same thing with the Dark type because
-it had a similar issue. I hope you understand my descision on this.
+type attacks are Physical, meaning that they take advantage of the Attack stat. This is clearly a disadvantage
+for all Ghost types so i took the chance to correct that, and at the same time did the same thing with the Dark
+type because it had a similar issue. I hope you understand my reasoning on this change.
 
 -You said i can capture all 251 pokemon, what about Celebi and the Kanto legendaries?
 
 Celebi's event has been restored, meaning that it will occur normally through gameplay so you can finally have a legit Celebi.
 Kanto legendaries have been placed onto the overworld much like in later games, except Mew.
-Mew is now acquired after battling an original trainer after getting access to MT.Silver. You can have rematches with her once
-you defeat her.
+Mew is now acquired after battling an original trainer after getting access to MT.Silver.
+You can also have rematches with her once you defeat her.
 
 -What about fossil pokemon?
 
 By smashing rocks there's a chance you'll get one of three (3) Kanto fossils. You can revive them the same way you did
-in Gen 1 except the corresponding NPC is in Ruins of Alph Research Center instead.
+in Gen 1 except the corresponding NPC is in the Ruins of Alph Research Center instead.
 
 -You said altered evolutions, what about that?
 
@@ -91,10 +93,10 @@ reached that status for me but new vanilla-friendly stuff or maintenance updates
 
 -Why updates roll in such irregular rate?
 
-Its not on purpose for sure. Life gets in the way and im not a fully fledged programmer, all my work is based on very helpful guides and individuals
+Its not on purpose. Life gets in the way and im not a fully fledged programmer, all my work is based on very helpful guides and individuals
 and whenever something cool comes up i take the safe approach and try it out internaly until im certain its fit for a release.
 
 -Any way i can help?
 
-For sure, you can always report back any bugs, throw your suggestions, etc. You can reach out to me through uberarchive.net via the contact form
+You can always report back any bugs, throw your suggestions, etc. You can reach out to me through uberarchive.net via the contact form
 or the forums.

@@ -15,6 +15,14 @@ Check out uberarchive.net for the latest release, news or submit any bug reports
 
 ~~~Retail~~~
 
+
+~~3.9a~~
+
+The title screen is finally altered! It now shows "Patched Crystal" as the subtitle and also a version number
+
+Due to an oversight Buena's Password used to air the moment it was night time instead of 18:00 like the original
+game, this has been fixed and the original schedule is in effect
+
 ~~3.9~~
 
 -Dire Hit, Guard Spec, Gold and Silver Leaf are now included in the random rewards pool of Battle Tower.
