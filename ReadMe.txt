@@ -7,13 +7,22 @@ This hack fixes the generation 2 bugs and adds certain tweaks but still retain t
 It is highly recommended to make backups of your saves when trying out a new release.
 Saving to the 2nd floor of a pokemon center is advised for the best results.
 
-Check out uberarchive.net for the latest release, news or submit any bug reports!
+You can now join The Uber Archive Discord server for the latest release, news or submit any bug reports!
+
+https://discord.com/invite/5Xu54kDeJS
 
 
 !Changelog!
 
 
 ~~~Retail~~~
+
+
+~~3.9b~~
+
+You can now register all 32 available phone numbers into your pokegear. Due to this change however older saves
+are not compatible, i do suggest you to still keep a backup of those in the possible future that this will be
+addressed, apologies for the inconvenience.
 
 
 ~~3.9a~~
