@@ -17,19 +17,24 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.9c~~
+
+-Fixed an issue with incorrect overworld sprites (For real this time)
+
+-Fixed an issue where a caught pokemon's pokeball would be shown over the stats window after a level up
 
 ~~3.9b~~
 
-You can now register all 32 available phone numbers into your pokegear. Due to this change however older saves
+-You can now register all 32 available phone numbers into your pokegear. Due to this change however older saves
 are not compatible, i do suggest you to still keep a backup of those in the possible future that this will be
 addressed, apologies for the inconvenience.
 
 
 ~~3.9a~~
 
-The title screen is finally altered! It now shows "Patched Crystal" as the subtitle and also a version number
+-The title screen is finally altered! It now shows "Patched Crystal" as the subtitle and also a version number
 
-Due to an oversight Buena's Password used to air the moment it was night time instead of 18:00 like the original
+-Due to an oversight Buena's Password used to air the moment it was night time instead of 18:00 like the original
 game, this has been fixed and the original schedule is in effect
 
 ~~3.9~~
