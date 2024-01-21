@@ -5023,6 +5023,7 @@ BattleMenu_Pack:
 	jr .got_item
 
 .contest
+	call ClearSprites
 	ld a, PARK_BALL
 	ld [wCurItem], a
 	call DoItemEffect

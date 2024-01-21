@@ -460,6 +460,19 @@ TinTower1FEusineHoOhText:
 
 	para "to become a famous"
 	line "#MANIAC!"
+	
+	para "Speaking of which"
+	line "i heard rumors"
+	
+	para "that Ho-oH has a"
+	line "special connection"
+	
+	para "with the Ruins of"
+	line "Alph."
+	
+	para "I think you should"
+	line "investigate this"
+	cont "<PLAYER>!"
 	done
 
 TinTower1FSage4Text2:

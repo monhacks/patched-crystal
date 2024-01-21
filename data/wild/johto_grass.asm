@@ -1307,7 +1307,7 @@ JohtoGrassWildMons:
 	db 5, PIDGEY
 	db 4, WEEDLE
 	db 5, HOPPIP
-	db 5, HOPPIP
+	db 5, TOTODILE ;HOPPIP
 	; nite
 	db 4, SPINARAK
 	db 4, POLIWAG

@@ -216,7 +216,7 @@ JohtoWaterWildMons:
 	db 6 percent ; encounter rate
 	db 20, REMORAID ;TENTACOOL
 	db 15, OCTILLERY ;TENTACOOL
-	db 20, TOTODILE ;TENTACRUEL
+	db 20, OCTILLERY ;TENTACRUEL
 	end_water_wildmons
 
 	def_water_wildmons VIOLET_CITY

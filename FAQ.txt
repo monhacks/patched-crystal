@@ -6,25 +6,26 @@ A very simple FAQ to help you know the project more.
 
 Pokemon Patched Crystal is a romhack of Pokemon Crystal which doesnt drastically alter the game's
 content and gameplay but instead it improves upon it with bugfixes and Quality of Life features that fit
-today's standarts and personal preference.
+today's standarts, the series setting and theming and personal preference.
 
 -Personal preference?!
 
 Dont be alarmed, this isnt a romhack full of fakemon and Original Characters
-(with a single exception explained in detail below) that dont fit the game at all. This is
-still the Pokemon Crystal you love but even better, in my opinion at least.
+that dont fit the game at all nor anything is removed. This is still the Pokemon Crystal you love
+but with neat additions and adjustments.
 
 -So what's in it then?
 
 Here's the highlights:
 
 The game's original bugs and glitches have been fixed, most notable fixes are all pokeballs working
-as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more.
+as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more issues
+have been sorted.
 
 You can obtain all 251 without the need to do trades with other people, version exclusives can now
 be found in the wild and certain evolution methods have been altered.
 
-Time "works differently" now, meaning that the time where the sun rises and sets has been tweaked to
+Time "works differently" now, meaning that the time when the sun rises and sets has been tweaked to
 logical ranges so that players can take advantage out of all 3 parts of the day in the game easier.
 
 TMs are now infinite use just like in later games.
@@ -39,18 +40,20 @@ Kurt will now immediately make balls so you dont need to wait an entire day for 
 
 The Lucky Number Show now occurs daily instead of weekly.
 
-You can challenge all Gym Leaders to a rematch as many times as you want after you gain access to MT. Silver.
+You can challenge all Gym Leaders to a rematch as many times as you want after unlocking MT. Silver.
+Both Gym Leaders and the Elite Four now have stronger teams for rematches much like the remakes after
+unlocking MT. Silver.
 
 The trainer card now includes an extra page for Kanto badges and all 16 badges are now
 shown in color.
 
 You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.
 
-Easily change the time by pressing DOWN + B on the main menu.
+Easily change the time by pressing DOWN + B on the title screen.
 
-Weather conditions in battle are now shown (if active) via an appropriate icon in the move selection window.
+Weather conditions in battle are now shown if active via an appropriate icon in the move selection window.
 
-Daytime/Nightime status is also shown in the main battle menu.
+Daytime/Nightime status is also shown in the main battle window.
 
 Ghost type attacks are now taking advantage of Special Attack instead of Attack and Dark type attacks take
 advantage of Attack instead of Special Attack.
@@ -61,24 +64,23 @@ Allow me to explain. Before the Physical and Special split of Gen 4, moves were 
 on their type, for example Fire attacks are Special and Normal attacks are Physical. For whatever reason, Ghost
 type attacks are Physical, meaning that they take advantage of the Attack stat. This is clearly a disadvantage
 for all Ghost types so i took the chance to correct that, and at the same time did the same thing with the Dark
-type because it had a similar issue. I hope you understand my reasoning on this change.
+type for the same reason as most Dark Type attacks are physical past Gen 2.
+I hope you understand my reasoning on this change.
 
 -You said i can capture all 251 pokemon, what about Celebi and the Kanto legendaries?
 
 Celebi's event has been restored, meaning that it will occur normally through gameplay so you can finally have a legit Celebi.
-Kanto legendaries have been placed onto the overworld much like in later games, except Mew.
-Mew is now acquired after battling an original trainer after getting access to MT.Silver.
-You can also have rematches with her once you defeat her.
+Kanto legendaries have been placed onto the overworld much like in later games, Mew included.
 
 -What about fossil pokemon?
 
 By smashing rocks there's a chance you'll get one of three (3) Kanto fossils. You can revive them the same way you did
-in Gen 1 except the corresponding NPC is in the Ruins of Alph Research Center instead.
+in Gen 1 except the corresponding NPC is in the Ruins of Alph Research Center.
 
 -You said altered evolutions, what about that?
 
 Certain pokemon now evolve thanks to the item "Link Cord" which acts like an evolutionary stone much like in Pokemon Arceus.
-More info on "Encounters and Evolutions.txt"
+More info on the new encounters and ways to evolve pokemon can be found in the "Encounters and Evolutions.txt" file.
 
 -Can you Trade/Battle in this?
 

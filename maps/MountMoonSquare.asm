@@ -1,5 +1,5 @@
 	object_const_def
-	const MOUNTMOONSQUARE_ROSE
+	;const MOUNTMOONSQUARE_ROSE
 	const MOUNTMOONSQUARE_FAIRY1
 	const MOUNTMOONSQUARE_FAIRY2
 	const MOUNTMOONSQUARE_ROCK
@@ -37,129 +37,129 @@ MountMoonSquare_MapScripts:
 	;endcallback
 
 
-Rose:
-	faceplayer
-	opentext
-	checkevent EVENT_GOT_MEW_FROM_ROSE
-	iftrue GotMew
-	checkevent EVENT_BEAT_COOLTRAINER_ROSE
-	iftrue Defeated
-	writetext RoseEncounterText
-	waitbutton
-	closetext
-	winlosstext RoseDefeatedText, 0
-	loadtrainer COOLTRAINERF, ROSE
-	startbattle
-	reloadmapafterbattle
-	setevent EVENT_BEAT_COOLTRAINER_ROSE
-	opentext
-Defeated:
-	writetext DefeatedText
-	buttonsound
-	waitsfx
-	checkcode VAR_PARTYCOUNT
-	if_equal PARTY_LENGTH, FullParty
-	writetext RewardText
-	playsound SFX_CAUGHT_MON
-	waitsfx
-	givepoke MEW, 5, STARDUST
-	setevent EVENT_GOT_MEW_FROM_ROSE
-GotMew:
-	writetext GotMewText
-	yesorno
-	iftrue RoseRematch
-	closetext
-	end
+;Rose:
+	;faceplayer
+	;opentext
+	;checkevent EVENT_GOT_MEW_FROM_ROSE
+	;iftrue GotMew
+	;checkevent EVENT_BEAT_COOLTRAINER_ROSE
+	;iftrue Defeated
+	;writetext RoseEncounterText
+	;waitbutton
+	;closetext
+	;winlosstext RoseDefeatedText, 0
+	;loadtrainer COOLTRAINERF, ROSE
+	;startbattle
+	;reloadmapafterbattle
+	;setevent EVENT_BEAT_COOLTRAINER_ROSE
+	;opentext
+;Defeated:
+	;writetext DefeatedText
+	;buttonsound
+	;waitsfx
+	;checkcode VAR_PARTYCOUNT
+	;if_equal PARTY_LENGTH, FullParty
+	;writetext RewardText
+	;playsound SFX_CAUGHT_MON
+	;waitsfx
+	;givepoke MEW, 5, STARDUST
+	;setevent EVENT_GOT_MEW_FROM_ROSE
+;GotMew:
+	;writetext GotMewText
+	;yesorno
+	;iftrue RoseRematch
+	;closetext
+	;end
 	
-FullParty:
-	writetext FullPartyText
-	waitbutton
-	closetext
-	end
+;FullParty:
+	;writetext FullPartyText
+	;waitbutton
+	;closetext
+	;end
 	
-RoseRematch:
-	winlosstext RoseDefeatedText, 0
-	loadtrainer COOLTRAINERF, ROSE2
-	startbattle
-	reloadmapafterbattle
-	opentext
-	writetext RematchDefeat
-	closetext
-	end
+;RoseRematch:
+	;winlosstext RoseDefeatedText, 0
+	;loadtrainer COOLTRAINERF, ROSE2
+	;startbattle
+	;reloadmapafterbattle
+	;opentext
+	;writetext RematchDefeat
+	;closetext
+	;end
 	
-RematchDefeat:
-	text "Your bond between"
-	line "your #MON"
-	cont "holds strong."
-	done
+;RematchDefeat:
+	;text "Your bond between"
+	;line "your #MON"
+	;cont "holds strong."
+	;done
 	
-GotMewText:
-	text "Hello <PLAYER>"
+;GotMewText:
+	;text "Hello <PLAYER>"
 	
-	para "I hope you are"
-	line "still a worthy"
-	cont "opponent."
+	;para "I hope you are"
+	;line "still a worthy"
+	;cont "opponent."
 	
-	para "We can have"
-	line "another battle and"
-	cont "see about it."
-	done
+	;para "We can have"
+	;line "another battle and"
+	;cont "see about it."
+	;done
 	
-DefeatedText:
-	text "Your skills are"
-	line "remarkable."
+;DefeatedText:
+	;text "Your skills are"
+	;line "remarkable."
 	
-	para "I think you"
-	line "deserve this"
-	cont "reward."
+	;para "I think you"
+	;line "deserve this"
+	;cont "reward."
 	
-	para "It's a very"
-	line "rare #MON."
-	cont "I think it"
+	;para "It's a very"
+	;line "rare #MON."
+	;cont "I think it"
 	
-	para "will be better"
-	line "in your care."
-	done
+	;para "will be better"
+	;line "in your care."
+	;done
 	
-FullPartyText:
-	text "Your party is"
-	cont "full."
-	done
+;FullPartyText:
+	;text "Your party is"
+	;cont "full."
+	;done
 	
-RoseEncounterText:
-	text "Hello there."
+;RoseEncounterText:
+	;text "Hello there."
 	
-	para "You seem like"
-	line "quite the #MON"
-	cont "trainer."
+	;para "You seem like"
+	;line "quite the #MON"
+	;cont "trainer."
 	
-	para "ROSE: My name is"
-	line "ROSE."
+	;para "ROSE: My name is"
+	;line "ROSE."
 	
-	para "I come from a"
-	line "different region"
-	cont "to learn more"
+	;para "I come from a"
+	;line "different region"
+	;cont "to learn more"
 	
-	para "about the elusive"
-	line "MOON #MON."
+	;para "about the elusive"
+	;line "MOON #MON."
 	
-	para "Besides that, im"
-	line "always looking for"
-	cont "greater challenges"
+	;para "Besides that, im"
+	;line "always looking for"
+	;cont "greater challenges"
 	
-	para "I hope you will"
-	line "provide me one."
-	done
+	;para "I hope you will"
+	;line "provide me one."
+	;done
 	
-RoseDefeatedText:
-	text "That's quite"
-	line "impressive."
-	done
+;RoseDefeatedText:
+	;text "That's quite"
+	;line "impressive."
+	;done
 	
-RewardText:
-	text "<PLAYER> received"
-	line "MEW."
-	done
+;RewardText:
+	;text "<PLAYER> received"
+	;line "MEW."
+	;done
 	
 ClefairyDance:
 	checkflag ENGINE_MT_MOON_SQUARE_CLEFAIRY
@@ -285,7 +285,7 @@ MountMoonSquare_MapEvents:
 	bg_event 17,  7, BGEVENT_READ, DontLitterSign
 
 	def_object_events
-	object_event 22, 6,  SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Rose, -1
+	;object_event 22, 6,  SPRITE_LASS, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_BLUE, OBJECTTYPE_SCRIPT, 0, Rose, -1
 	object_event  6,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  6, SPRITE_FAIRY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, ObjectEvent, EVENT_MT_MOON_SQUARE_CLEFAIRY
 	object_event  7,  7, SPRITE_ROCK, SPRITEMOVEDATA_SMASHABLE_ROCK, 0, 0, -1, -1, 0, OBJECTTYPE_SCRIPT, 0, MtMoonSquareRock, EVENT_MT_MOON_SQUARE_ROCK

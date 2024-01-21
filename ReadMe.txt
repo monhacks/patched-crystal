@@ -17,6 +17,29 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.10~~
+
+-Fixed an issue with the Day/Nite icon on the Bug-Catching Contest battle menu
+
+-Fixed an issue with Tackle's impact image not displaying fully
+
+-Totodile is now found during the day on Route 31 instead of Cherrygrove City
+
+-Along with Gym Leaders, the Elite Four also use different parties of pokemon for rematches
+once MT. Silver is unlocked. The parties are as close to the remakes as much as possible
+
+-Both Gym Leader and Elite Four rematch parties use the exact same levels as the remake ones
+
+-Cooltrainer Rose has been removed
+
+-Mew is now found in the 4th secret Unown inscription chamber at the Ruins of Alph. To access this chamber
+you need to have Ho-Oh in your party. Eusine will also hint towards it too
+
+-Prof. Oak's dialog was tweaked to also mention the Elite Four being available for rematch with
+stronger teams
+
+-A custom Crystal SGB border (unknown author) is now bundled
+
 ~~3.9c~~
 
 -Fixed an issue with incorrect overworld sprites (For real this time)
@@ -139,7 +162,7 @@ to teach your pokemon forgotten moves! (Thanks to TPP, Polished Crystal and Anot
 
 Both the Battle Tower and Buena's Password are packed with new rewards (subject to change)! (Huge thanks to Pret Discord for helping out!)
 
-You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT if a shiny is caught.(Another thanks to Pret for its github tutorial)
+You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.(Another thanks to Pret for its github tutorial)
 
 Cooltrainer Rose's overworld sprite has changed
 
@@ -153,11 +176,11 @@ Gym Leader rematch teams have been tweaked to be as similar to their HG/SS teams
 
 Kurt will now immediately make balls, no need to wait an entire day.
 
-Changing the time now only requires to press DOWN + B on the main menu, no password needed.
+Changing the time now only requires to press DOWN + B on the title screen, no password needed.
 
 The Lucky number show is now daily instead of weekly.
 
-Poliwhirl and Slowpoke now require the Link Cord item to evolve into Politoed and Slowking respectively.
+Poliwhirl and Slowpoke now need to use the Link Cord item to evolve into Politoed and Slowking respectively.
 
 Trainer card now has a Kanto badges page and both pages use colored badges.
 
@@ -210,7 +233,7 @@ Pichu, Cleffa, Igglypuff and Togepi, Golbat and Chansey now evolve via happiness
 
 ~~2.1~~
 
-Removed the experience farming trainer until further notice
+Removed the experience farming trainer
 
 Re-included all of the evolutionary stones in the Goldenrod Department Store
 
@@ -225,7 +248,7 @@ TM09 (Psych Up) and Twisted Spoon removed from the Mahogany mart and instead pla
 
 ~~2.0~~
 
-Ported all the changes/fixes to the latest code
+Ported all the changes/fixes to the latest code (as of 24/07/2021)
 
 A new trainer is unlocked at the Goldenrod Game Corner once you get Mew. When you beat him, he will provide experience farming battles.
 
@@ -249,7 +272,7 @@ PP UP can now be bought at the Goldenrod Department Store 4F
 
 The held item Twisted Spoon can now be bought at the Mahogany town mart after Team Rocket is defeated
 
-Corrected the Squirtle encounter in Whirl Islands B2F
+Fixed the Squirtle encounter in Whirl Islands B2F
 
 Setting the time during a new game now properly shows the part of day of the chosen hour
 
@@ -280,7 +303,7 @@ Adjusted some dialog of Morty and Falkner
 
 ~~1.0~~
 
-Patched Crystal now uses the latest pokecrystal repo as base
+Patched Crystal now uses the latest pokecrystal repo as base (as of 21/02/2018)
 
 [For developers]: if you run the command make patched-crystal it will build patched-crystal.gbc
 
@@ -398,9 +421,9 @@ Mew is now available via in-game trade in Pewter City
 
 TMs are now infinite use
 
-Golbat evolves into Crobat at level 35 Done for the sake of consistency
+Golbat evolves into Crobat at level 35
 
-Chansey evolves into Blissey at level 40 Done for the sake of consistency
+Chansey evolves into Blissey at level 40
 
 Houndour can now be found on Johto rarely during the day and mostly during the night at:
 Route 36, 37

@@ -66,7 +66,7 @@ Cyndaquil can be found only during the night at:
 Dark cave (Violet city entrance) 
 
 Totodile can be found only during the day at:
-Cherrygrove city (Surf)
+Route 31
 
 Bulbasaur can be found only during morning and night at:
 Ilex Forest
@@ -95,7 +95,8 @@ Ice Path
 Mewtwo can be found at:
 Silver Cave
 
-Mew is now given as a reward by defeating a trainer at Mt. Moon Square that appears once you gain access to MT. Silver
+Mew is now found in the 4th secret Unown inscription chamber at the Ruins of Alph. To access this chamber
+you need to have Ho-Oh in your party. Eusine will also hint towards all this now.
 
 
 ~~Evolutions~~
