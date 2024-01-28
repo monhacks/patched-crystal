@@ -206,11 +206,11 @@ ErikaAfterBattleText:
 ErikaRematchAskText:
 	text "ERIKA: Welcome"
 	line "back. Still doing"
-	cont "well i hope."
+	cont "well I hope."
 	
 	para "A rematch?"
-	line "it wont be too"
-	cont "bad i guess…"					  		
+	line "It wont be too"
+	cont "bad I guess…"					  		
 	done
 	
 Erika_RematchDefeat:

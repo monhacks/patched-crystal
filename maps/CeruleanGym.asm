@@ -304,7 +304,7 @@ MistyRematchAskText:
 	line "<PLAY_G> what "
 	cont "brings you here?"
 	
-	para "No matter, i want"
+	para "No matter, I want"
 	line "a rematch!"
 	done 
 

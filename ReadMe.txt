@@ -17,6 +17,23 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.10a~~
+
+-Fixed a bug where PRZ and BRN stat reductions dont apply to swithed pokemon (Singleplayer battles only)
+
+-Fixed a bug where pokemon deposited to the Day Care might lose experience points
+
+-Fixed a bug where the AI would use its base reward value as an item
+
+-Fixed a bug where you could fish on top of NPCs
+
+-Fixed a bug where the RUN SFX does not play correctly when a wild Pokémon flees from battle
+
+-Fixed a few typos and inaccuracies in text
+
+-Fixed a bug where sometimes the shiny version of a caught pokemon would be shown instead of the default one
+in the pokedex registration
+
 ~~3.10~~
 
 -Fixed an issue with the Day/Nite icon on the Bug-Catching Contest battle menu

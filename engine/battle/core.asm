@@ -149,7 +149,7 @@ WildFled_EnemyFled_LinkBattleCanceled:
 	jr c, .skip_sfx
 
 	ld de, SFX_RUN
-	call PlaySFX
+	call WaitPlaySFX
 
 .skip_sfx
 	call SetPlayerTurn
@@ -6505,6 +6505,7 @@ LoadEnemyMon:
 	ld bc, NUM_EXP_STATS * 2
 	call CopyBytes
 
+	call ApplyStatusEffectOnEnemyStats
 	ret
 
 CheckSleepingTreeMon:

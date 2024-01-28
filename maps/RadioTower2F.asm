@@ -606,7 +606,7 @@ RadioTower2FBuenaTuneInAfterSixText:
 	text "BUENA: Tune in to"
 	line "PASSWORD every"
 
-	para "night from eight"
+	para "night from six"
 	line "to midnight!"
 
 	para "Tune in, then drop"

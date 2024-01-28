@@ -304,8 +304,8 @@ ClairRematchAskText:
 	line "I heard you've"
 	cont "become quite"
 	
-	para "the #MON trainer."
-	line "How about you"
+	para "the #MON trai-"
+	line "er. How about you"
 	cont "prove it to me?"
 	done
 	

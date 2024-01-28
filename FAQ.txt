@@ -22,7 +22,7 @@ The game's original bugs and glitches have been fixed, most notable fixes are al
 as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more issues
 have been sorted.
 
-You can obtain all 251 without the need to do trades with other people, version exclusives can now
+You can obtain all 251 pokemon without the need to do trades with other people, version exclusives can now
 be found in the wild and certain evolution methods have been altered.
 
 Time "works differently" now, meaning that the time when the sun rises and sets has been tweaked to
@@ -84,7 +84,7 @@ More info on the new encounters and ways to evolve pokemon can be found in the "
 
 -Can you Trade/Battle in this?
 
-Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during link battles however Link Battles
+Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during Link Battles however Link Battles
 should be between two (2) Patched Crystal games not one (1) Patched Crystal game and any Gen 2 vanilla game as there will
 be desynchronization due to these changes.
 
