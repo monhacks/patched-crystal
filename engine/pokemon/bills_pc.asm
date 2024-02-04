@@ -183,8 +183,8 @@ BillsPCDepositFuncStats:
 BillsPCDepositFuncRelease:
 	call BillsPC_CheckMail_PreventBlackout
 	jr c, BillsPCDepositFuncCancel
-	call BillsPC_IsMonAnEgg
-	jr c, BillsPCDepositFuncCancel
+	;call BillsPC_IsMonAnEgg
+	;jr c, BillsPCDepositFuncCancel
 	ld a, [wMenuCursorY]
 	push af
 	ld de, PCString_ReleasePKMN
@@ -439,8 +439,8 @@ BillsPC_Withdraw:
 .release
 	ld a, [wMenuCursorY]
 	push af
-	call BillsPC_IsMonAnEgg
-	jr c, .FailedRelease
+	;call BillsPC_IsMonAnEgg
+	;jr c, .FailedRelease
 	ld de, PCString_ReleasePKMN
 	call BillsPC_PlaceString
 	call LoadStandardMenuHeader
@@ -450,7 +450,7 @@ BillsPC_Withdraw:
 	dec a
 	call ExitMenu
 	and a
-	jr nz, .FailedRelease
+	;jr nz, .FailedRelease
 	ld a, [wBillsPC_CursorPosition]
 	ld hl, wBillsPC_ScrollPosition
 	add [hl]
@@ -466,12 +466,12 @@ BillsPC_Withdraw:
 	ld [wBillsPC_ScrollPosition], a
 	pop af
 	ret
-.FailedRelease:
-	ld de, PCString_WhatsUp
-	call BillsPC_PlaceString
-	pop af
-	ld [wMenuCursorY], a
-	ret
+;.FailedRelease:
+	;ld de, PCString_WhatsUp
+	;call BillsPC_PlaceString
+	;pop af
+	;ld [wMenuCursorY], a
+	;ret
 
 .cancel
 	ld a, $0

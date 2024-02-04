@@ -16,19 +16,25 @@ but with neat additions and adjustments.
 
 -So what's in it then?
 
-Here's the highlights:
+Here's a full feature list:
 
 The game's original bugs and glitches have been fixed, most notable fixes are all pokeballs working
 as intented, item fixes, no Arbitrary Code Execution, no battle glitches/bugs and many more issues
 have been sorted.
 
 You can obtain all 251 pokemon without the need to do trades with other people, version exclusives can now
-be found in the wild and certain evolution methods have been altered.
+be found in the wild and certain evolution methods have been altered. (More info below)
 
 Time "works differently" now, meaning that the time when the sun rises and sets has been tweaked to
 logical ranges so that players can take advantage out of all 3 parts of the day in the game easier.
 
 TMs are now infinite use just like in later games.
+
+When picking up or receiving TMs as gifts the name of the move will also be shown.
+
+Pokemon acquire EXP when you capture a wild pokemon like in later games.
+
+The starter sprites that are being shown before picking one are now in color.
 
 There's a Move Reminder NPC at Move Deleter's home now to teach your pokemon forgotten moves.
 
@@ -48,6 +54,17 @@ The trainer card now includes an extra page for Kanto badges and all 16 badges a
 shown in color.
 
 You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.
+
+You can now choose one of many unique colors for your Pokedex UI in its SELECT menu.
+
+All 251 pokemon now have uniquely colored sprites in menus, while using FLY and the day care, shiny
+variants and shiny egg included.
+
+You are allowed to release EGGs via the PC.
+
+Both the Battle Tower and Buena's Password feature additional new rewards.
+
+Smashing rocks now has a chance to give you certain items, including fossils. (More info below)
 
 Easily change the time by pressing DOWN + B on the title screen.
 
@@ -69,8 +86,10 @@ I hope you understand my reasoning on this change.
 
 -You said i can capture all 251 pokemon, what about Celebi and the Kanto legendaries?
 
-Celebi's event has been restored, meaning that it will occur normally through gameplay so you can finally have a legit Celebi.
-Kanto legendaries have been placed onto the overworld much like in later games, Mew included.
+Celebi's event has been restored, meaning that it will occur normally once you beat the Elite Four
+so you can finally have a legit Celebi.
+
+The Kanto legendaries have been placed onto the overworld much like in later games, Mew included.
 
 -What about fossil pokemon?
 
@@ -91,7 +110,7 @@ be desynchronization due to these changes.
 -What else you got in store for us?
 
 Right now, i consider this romhack "complete" The initial goal of this project was to create "my dream version of Crystal" and it
-reached that status for me but new vanilla-friendly stuff or maintenance updates are not off the table.
+reached that status but new vanilla-friendly features, tweaks or maintenance updates are not off the table.
 
 -Why updates roll in such irregular rate?
 

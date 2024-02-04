@@ -17,6 +17,15 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.10b~~
+
+-Actually fixed a bug where sometimes the shiny version of a caught pokemon would be shown instead of the default one
+in the pokedex registration
+
+-Reverted changes to "Makefile" to restore Mystery gift compatibility
+
+-You are now allowed to release EGGs via the PC
+
 ~~3.10a~~
 
 -Fixed a bug where PRZ and BRN stat reductions dont apply to swithed pokemon (Singleplayer battles only)
@@ -97,7 +106,7 @@ game, this has been fixed and the original schedule is in effect
 
 ~~3.8~~
 
-Smashing rocks now has a chance to give the player one of the following items:
+-Smashing rocks now has a chance to give the player one of the following items:
 
 -Nugget
 -Star Piece
@@ -112,38 +121,38 @@ Smashing rocks now has a chance to give the player one of the following items:
 -Helix Fossil
 -Old Amber
 
-With the existance of fossils from the above addition, you can no longer find Kabuto and Omanyte in the wild.
+-With the existance of fossils from the above addition, you can no longer find Kabuto and Omanyte in the wild.
 
-You can revive your fossils with the help of the new Scientist NPC inside the Ruins of Alph Research Center.
+-You can revive your fossils with the help of the new Scientist NPC inside the Ruins of Alph Research Center.
 
-The time of day (Day or Night) can now be seen with an icon on the main battle menu.
+-The time of day (Day or Night) can now be seen with an icon on the main battle menu.
 
-When picking up or receiving TMs as gifts the name of the move will also be shown.
+-When picking up or receiving TMs as gifts the name of the move will also be shown.
 
-The Mew you are given after defeating Cooltrainer Rose now holds Stardust.
+-The Mew you are given after defeating Cooltrainer Rose now holds Stardust.
 
 ~~3.7~~
 
-You can now choose one of many unique colors for your Pokedex UI in its SELECT menu
+-You can now choose one of many unique colors for your Pokedex UI in its SELECT menu
 
-All 251 pokemon now have uniquely colored sprites in menus/FLYing and the day care, shiny
+-All 251 pokemon now have uniquely colored sprites in menus while using FLY and the day care, shiny
 variants and shiny egg included.
 
-Cooltrainer Rose's dialog has been tweaked
+-Cooltrainer Rose's dialog has been tweaked
 
-Removed Lucky Egg from Buena's Password rewards
+-Removed Lucky Egg from Buena's Password rewards
 
 ~~3.6b~~
 
-Fixed an issue where incorrect overworld sprites would be used for NPCs
+-Fixed an issue where incorrect overworld sprites would be used for NPCs
 
-Fixed some text wrapping issues with some Gym Leader's dialog
+-Fixed some text wrapping issues with some Gym Leader's dialog
 
-Adjusted ".gitignore" list so that cloning the repo and compiling works
+-Adjusted ".gitignore" list so that cloning the repo and compiling works
 
 ~~3.6a~~
 
-Fixed an oversight where not all new rewards were included for the Battle Tower
+-Fixed an oversight where not all new rewards were included for the Battle Tower
 said rewards are the following (subject to change):
 
 -MasterBall x1
@@ -162,7 +171,7 @@ said rewards are the following (subject to change):
 -Normal Box x1
 -Gorgeous Box x1
 
-Tweaked Buena's Password rewards both in costs and actual rewards which are the following (subject to change):
+-Tweaked Buena's Password rewards both in costs and actual rewards which are the following (subject to change):
 
 2 Blue Card points: Ultra Ball, Full Restore
 3 Blue Card points: Nugget, Rare Candy
@@ -174,324 +183,324 @@ Tweaked Buena's Password rewards both in costs and actual rewards which are the 
 
 ~~3.6~~
 
-Move Deleter's House is now Move Expert's House since it now also hosts the Move Reminder
+-Move Deleter's House is now Move Expert's House since it now also hosts the Move Reminder
 to teach your pokemon forgotten moves! (Thanks to TPP, Polished Crystal and Another PKMN Crystal Remaster open source code)
 
-Both the Battle Tower and Buena's Password are packed with new rewards (subject to change)! (Huge thanks to Pret Discord for helping out!)
+-Both the Battle Tower and Buena's Password are packed with additional new rewards (subject to change)! (Huge thanks to Pret Discord for helping out!)
 
-You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.(Another thanks to Pret for its github tutorial)
+-You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT.(Another thanks to Pret for its github tutorial)
 
-Cooltrainer Rose's overworld sprite has changed
+-Cooltrainer Rose's overworld sprite has changed
 
 ~~3.5 Late/Early Anniversary Edition~~
 
-Berry Trees now have a chance to drop between 1 to 5 berries, same with Apricorn Trees
+-Berry Trees now have a chance to drop between 1 to 5 berries, same with Apricorn Trees
 
-Gym Leader rematch teams have been tweaked to be as similar to their HG/SS teams as possible
+-Gym Leader rematch teams have been tweaked to be as similar to the gen 2 remake teams as possible
 
 ~~3.4~~
 
-Kurt will now immediately make balls, no need to wait an entire day.
+-Kurt will now immediately make balls, no need to wait an entire day.
 
-Changing the time now only requires to press DOWN + B on the title screen, no password needed.
+-Changing the time now only requires to press DOWN + B on the title screen, no password needed.
 
-The Lucky number show is now daily instead of weekly.
+-The Lucky number show is now daily instead of weekly.
 
-Poliwhirl and Slowpoke now need to use the Link Cord item to evolve into Politoed and Slowking respectively.
+-Poliwhirl and Slowpoke now need to use the Link Cord item to evolve into Politoed and Slowking respectively.
 
-Trainer card now has a Kanto badges page and both pages use colored badges.
+-Trainer card now has a Kanto badges page and both pages use colored badges.
 
-Weather conditions are shown with an icon during move selection while active.
+-Weather conditions are shown with an icon during move selection while active.
 
-Pokemon acquire EXP when you capture a wild pokemon like in later generations.
+-Pokemon acquire EXP when you capture a wild pokemon like in later games.
 
-All Gym Leaders are now available for a rematch with stronger teams once you gain access to MT. Silver
+-All Gym Leaders are now available for a rematch with stronger teams once you gain access to MT. Silver
 
-Cooltrainer Rose now appears once you gain access to MT. Silver
+-Cooltrainer Rose now appears once you gain access to MT. Silver
 
 ~~3.3~~
 
-Restored some encounters, now you can really catch them all again.
+-Restored some random encounters.
 
 ~~3.2~~
 
-Fixed a bug where after a rematch with Lt. Surge the game would crash.
+-Fixed a bug where after a rematch with Lt. Surge the game would crash.
 
-Fixed a bug with Up-grade not being usable to evolve Porygon into Porygon2
+-Fixed a bug with Up-grade not being usable to evolve Porygon into Porygon2
 
 
 ~~3.1~~
 
-Fixed a bug where NPCs would appear during the wrong parts of the game.
+-Fixed a bug where NPCs would appear during the wrong parts of the game.
 
 
 ~~3.0~~
 
-Updated to the latest repo of pokecrystal (as of 14/02/2022)
+-Updated to the latest repo of pokecrystal (as of 14/02/2022)
 
-Fixed a bug where using Surf to travel through water would crash the game
+-Fixed a bug where using Surf to travel through water would crash the game
 
-Times of day changed back again to the values bellow:
+-Times of day changed back again to the values bellow:
 Morning: 06:00 - 12:59
 Day: 13:00 - 19:59
 Night: 20:00 - 05:59
 
-Evolutionary stones along with a new item the "Link Cord" can now be bought at
+-Evolutionary stones along with a new item the "Link Cord" can now be bought at
 the Goldenrod Department Store 4F
 
-Link Cord acts as an evolutionary stone to evolve the following pokemon:
+-Link Cord acts as an evolutionary stone to evolve the following pokemon:
 Haunter, Machoke, Graveler, Kadabra, Seadra, Onix, Scyther
 
-Up-grade now acts as an evolutionary stone too to evolve Porygon into Porygon2
+-Up-grade now acts as an evolutionary stone too to evolve Porygon into Porygon2
 and it can now be bought at Saffron Mart
 
-Pichu, Cleffa, Igglypuff and Togepi, Golbat and Chansey now evolve via happiness again
+-Pichu, Cleffa, Igglypuff and Togepi, Golbat and Chansey now evolve via happiness again
 
 
 ~~2.1~~
 
-Removed the experience farming trainer
+-Removed the experience farming trainer
 
-Re-included all of the evolutionary stones in the Goldenrod Department Store
+-Re-included all of the evolutionary stones in the Goldenrod Department Store
 
-The trainer which gives you Mew now has a different name and dialog
+-The trainer which gives you Mew now has a different name and dialog
 
-You can no longer acquire TMs you already own
+-You can no longer acquire TMs you already own
 
-Morning/Day/Nite times are reverted back to the originals
+-Morning/Day/Nite times are reverted back to the originals
 
-TM09 (Psych Up) and Twisted Spoon removed from the Mahogany mart and instead placed in the Saffron one
+-TM09 (Psych Up) and Twisted Spoon removed from the Mahogany mart and instead placed in the Saffron one
 
 
 ~~2.0~~
 
-Ported all the changes/fixes to the latest code (as of 24/07/2021)
+-Ported all the changes/fixes to the latest code (as of 24/07/2021)
 
-A new trainer is unlocked at the Goldenrod Game Corner once you get Mew. When you beat him, he will provide experience farming battles.
+-A new trainer is unlocked at the Goldenrod Game Corner once you get Mew. When you beat him, he will provide experience farming battles.
 
 ~~1.0~~
 
-Fixed a bug where ScriptCall can overflow wScriptStack and crash
+-Fixed a bug where ScriptCall can overflow wScriptStack and crash
 
-Fixed a bug where LoadSpriteGFX does not limit the capacity of UsedSprites
+-Fixed a bug where LoadSpriteGFX does not limit the capacity of UsedSprites
 
-Fixed a bug where ChooseWildEncounter doesn't really validate the wild Pokémon species
+-Fixed a bug where ChooseWildEncounter doesn't really validate the wild Pokémon species
 
-Fixed arbitrary code execution via TryObjectEvent
+-Fixed arbitrary code execution via TryObjectEvent
 
-Fixed a bug where ClearWRAM only clears WRAM bank 1
+-Fixed a bug where ClearWRAM only clears WRAM bank 1
 
-Fixed a bug where the game would crash after defeating Cooltrainer Rose after a rematch
+-Fixed a bug where the game would crash after defeating Cooltrainer Rose after a rematch
 
-TM09 can now be bought at the Goldenrod Department Store 5F
+-TM09 can now be bought at the Goldenrod Department Store 5F
 
-PP UP can now be bought at the Goldenrod Department Store 4F
+-PP UP can now be bought at the Goldenrod Department Store 4F
 
-The held item Twisted Spoon can now be bought at the Mahogany town mart after Team Rocket is defeated
+-The held item Twisted Spoon can now be bought at the Mahogany town mart after Team Rocket is defeated
 
-Fixed the Squirtle encounter in Whirl Islands B2F
+-Fixed the Squirtle encounter in Whirl Islands B2F
 
-Setting the time during a new game now properly shows the part of day of the chosen hour
+-Setting the time during a new game now properly shows the part of day of the chosen hour
 
 
 ~~~Beta~~~
 
 ~~1.1a - 1.1b ~~
 
-Fixed a bug which caused the game to crash while entering Victory Road
+-Fixed a bug which caused the game to crash while entering Victory Road
 
-Fixed a few glitches of the trainer that rewards you with Mew at Mt. Moon Square
+-Fixed a few glitches of the trainer that rewards you with Mew at Mt. Moon Square
 
-Removed the Legendary Birds from the "Often flees" group
+-Removed the Legendary Birds from the "Often flees" group
 
-Tweaked the text of all gym leaders
+-Tweaked the text of all gym leaders
 
 ~~1.1~~
 
-Dark Type is now treated as "Physical" instead of "Special"
+-Dark Type is now treated as "Physical" instead of "Special"
 
-Kanto Legendaries can now be encountered in the overworld, more info on "Encounters&Evolutions.txt"
+-Kanto Legendaries can now be encountered in the overworld, more info on "Encounters&Evolutions.txt"
 
-Mew is now given as a reward by defeating a trainer at Mt. Moon Square
+-Mew is now given as a reward by defeating a trainer at Mt. Moon Square
 
-NPC trades are reverted back to the originals
+-NPC trades are reverted back to the originals
 
-Adjusted some dialog of Morty and Falkner
+-Adjusted some dialog of Morty and Falkner
 
 ~~1.0~~
 
-Patched Crystal now uses the latest pokecrystal repo as base (as of 21/02/2018)
+-Patched Crystal now uses the latest pokecrystal repo as base (as of 21/02/2018)
 
-[For developers]: if you run the command make patched-crystal it will build patched-crystal.gbc
+[For developers]: If you run the command make patched-crystal it will build patched-crystal.gbc
 
-Fixed the bugs of the followind items: Thick Club, Light Ball, Metal Powder
+-Fixed the bugs of the followind items: Thick Club, Light Ball, Metal Powder
 
-Fixed a bug with moves that lower Defense can do so after breaking a Substitute
+-Fixed a bug with moves that lower Defense can do so after breaking a Substitute
 
-Fixed a bug where a Disabled but PP Up–enhanced move may not trigger Struggle
+-Fixed a bug where a Disabled but PP Up–enhanced move may not trigger Struggle
 
-Fixed a bug where Beat Up could desynchronize link battles
+-Fixed a bug where Beat Up could desynchronize link battles
 
-Fixed a bug where Present damage is incorrect in link battles
+-Fixed a bug where Present damage is incorrect in link battles
 
-Fixed a bug where the AI encourages Mean Look if its own Pokémon is badly poisoned
+-Fixed a bug where the AI encourages Mean Look if its own Pokémon is badly poisoned
 
-Fixed a bug where the NPC use of Full Heal or Full Restore does not cure Nightmare status
+-Fixed a bug where the NPC use of Full Heal or Full Restore does not cure Nightmare status
 
-Fixed a bug where the HP bar animation is slow for high HP
+-Fixed a bug where the HP bar animation is slow for high HP
 
-Fixed the HP bar animation off-by-one error for low HP
+-Fixed the HP bar animation off-by-one error for low HP
 
-Fixed a bug where Five-digit experience gain is printed incorrectly
+-Fixed a bug where Five-digit experience gain is printed incorrectly
 
-Fixed a bug where Daisy's grooming doesn't always increase happiness
+-Fixed a bug where Daisy's grooming doesn't always increase happiness
 
-Fixed a bug where Magikarp in Lake of Rage are shorter, not longer
+-Fixed a bug where Magikarp in Lake of Rage are shorter, not longer
 
-Fixed a bug where Magikarp lengths can be miscalculated
+-Fixed a bug where Magikarp lengths can be miscalculated
 
-Fixed a bug where Slot machine payout sound effects would cut each other off
+-Fixed a bug where Slot machine payout sound effects would cut each other off
 
-Fixed a bug where Team Rocket battle music was not used for Executives or Scientists
+-Fixed a bug where Team Rocket battle music was not used for Executives or Scientists
 
-Fixed a bug where No bump noise would trigger if standing on tile $3E
+-Fixed a bug where No bump noise would trigger if standing on tile $3E
 
-Fixed a bug where Playing Entei's Pokédex cry can distort Raikou's and Suicune's
+-Fixed a bug where Playing Entei's Pokédex cry can distort Raikou's and Suicune's
 
 ~~0.9~~
 
-Belly Drum no longer provides a stat boost when the move fails
+-Belly Drum no longer provides a stat boost when the move fails
 
-Pichu, Cleffa and Igglypuff now evolve at level 15
+-Pichu, Cleffa and Igglypuff now evolve at level 15
 
-Togepi now evolves at level 30
+-Togepi now evolves at level 30
 
-Skarmory can now be found during the day at:
+-Skarmory can now be found during the day at:
 Route 38
 
-Phanpy can now be found during the day at:
+-Phanpy can now be found during the day at:
 Dark Cave (Violet City entrance)
 
-Smeargle can now be found during the day at:
+-Smeargle can now be found during the day at:
 Sprout Tower 2F, 3F
 
-Scyther can now be found during the day at:
+-Scyther can now be found during the day at:
 National Park
 
-Remoraid can now be found at:
+-Remoraid can now be found at:
 Cianwood, Olivine City (Surf)
 
-Octillery can now be found at:
+-Octillery can now be found at:
 Cianwood City (Surf)
 
-Mantine can now be found at:
+-Mantine can now be found at:
 Cianwood, Olivine City (Surf)
 
-Corsola can now be found at:
+-Corsola can now be found at:
 Route 34, Olivine City (Surf)
 
 ~~0.8~~
 
-Lugia and Ho-Oh now possess their signature moves when you encounter them instead of Gust.
+-Lugia and Ho-Oh now possess their signature moves when you encounter them instead of Gust.
 
-Larvitar can now be found rarely during the day at:
+-Larvitar can now be found rarely during the day at:
 Route 42
 
-Misdreavus can now be found on Johto rarely during the night at:
+-Misdreavus can now be found on Johto rarely during the night at:
 Sprout/Tin Tower, Route 31, 32
 
 ~~0.7a~~
 
-GS Ball / Celebi Event now work
+-GS Ball / Celebi Event now work
 
 ~~0.7~~
 
-Every Gym Leader is now available for a rematch,
+-Every Gym Leader is now available for a rematch,
 simply talk to them again and a simple "yes or no" option will appear.
 
 ~~0.6~~
 
-Evolutionary stones can now be purchased from the Goldenrod Department Store 2F
+-Evolutionary stones can now be purchased from the Goldenrod Department Store 2F
 
-Natu can now be found during the day at:
+-Natu can now be found during the day at:
 Tin Tower 2F
 
-Xatu can now be found rarely during the day or night at:
+-Xatu can now be found rarely during the day or night at:
 Tin Tower 2F
 
-Scyther can now be found during the day at:
+-Scyther can now be found during the day at:
 Ilex Forest
 
-Kanto Legendaries can now be obtained via in-game trades, subject to change.
+-Kanto Legendaries can now be obtained via in-game trades, subject to change.
 
-Zapdos is now available via in-game trade in Goldenrod City
+-Zapdos is now available via in-game trade in Goldenrod City
 
-Moltres is now available via in-game trade in Violet City
+-Moltres is now available via in-game trade in Violet City
 
-Articuno is now available via in-game trade in Olivine City
+-Articuno is now available via in-game trade in Olivine City
 
-Mewtwo is now available via in-game trade in the Power Plant
+-Mewtwo is now available via in-game trade in the Power Plant
 
-Mew is now available via in-game trade in Pewter City
+-Mew is now available via in-game trade in Pewter City
 
 ~~0.5~~
 
-TMs are now infinite use
+-TMs are now infinite use
 
-Golbat evolves into Crobat at level 35
+-Golbat evolves into Crobat at level 35
 
-Chansey evolves into Blissey at level 40
+-Chansey evolves into Blissey at level 40
 
-Houndour can now be found on Johto rarely during the day and mostly during the night at:
+-Houndour can now be found on Johto rarely during the day and mostly during the night at:
 Route 36, 37
 
-Murkrow can now be found on Johto during the night at:
+-Murkrow can now be found on Johto during the night at:
 Route 38
 
-Slugma can now be found on Johto during the day at:
+-Slugma can now be found on Johto during the day at:
 Burned Tower B1F
 
-Vulpix can be found during the morning and day at:
+-Vulpix can be found during the morning and day at:
 Route 36, 37, 7, 8
 
-Mankey can be found rarely during the morning and mostly during the day at:
+-Mankey can be found rarely during the morning and mostly during the day at:
 Route 42, 9
 
-Mareep can be found mostly during the morning and day at:
+-Mareep can be found mostly during the morning and day at:
 Route 32, 42, 43
 
-Girafarig can be found rarely during the morning and day at:
+-Girafarig can be found rarely during the morning and day at:
 Route 43
 
-Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms semi done
+-Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms semi done
 
-Chikorita can be found only during morning at:
+-Chikorita can be found only during morning at:
 Route 31
 
-Cyndaquil can be found only during the night at:
+-Cyndaquil can be found only during the night at:
 Dark cave (Violet city entrance)
 
-Totodile can be found only during the day at:
+-Totodile can be found only during the day at:
 Cherrygrove city (Water)
 
-Bulbasaur can be found only during morning and night at:
+-Bulbasaur can be found only during morning and night at:
 Ilex Forest
 
-Charmander can be found only during the night at:
+-Charmander can be found only during the night at:
 Burned Tower B1F
 
-Squirtle can be found at all times at:
+-Squirtle can be found at all times at:
 Whirl Islands B2F
 
-Omanyte and Kabuto can be found only during the night at:
+-Omanyte and Kabuto can be found only during the night at:
 Whirl Islands in Lugia's Chamber (not in the water)
 
 
 ~~0.4~~
 
-Dragon Fang increases the power of Dragon-type attacks as intented
+-Dragon Fang increases the power of Dragon-type attacks as intented
 
-Some Evolutions were tweaked, you can also find this list in the "Encounters and Evolutions" text file.
+-Some Evolutions were tweaked, you can also find this list in the "Encounters and Evolutions" text file.
 
 ***These methods are subject to change***
 
@@ -521,7 +530,7 @@ Porygon evolves into Porygon2 at level 30
 
 ~~0.3~~
 
-Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the
+-Slight time system adjustment. This was done for the sake of a more broad use of all phases of a day from the
 players and to reflect better on the real world. Subject to change.
 
 Previous:
@@ -538,16 +547,14 @@ Night: 20:00 - 05:59
 
 ~~0.2~~
 
-Love ball works as intended
+-Love ball works as intended
 
 ~~0.1~~
 
-Ghost type attacks take advantage of Special Attack stat instead of Attack stat.
-(Im not sure if this counts as a bug but for me it seems weird that Ghost type attacks were physical instead of special,
-so i changed it.)
+-Ghost type attacks take advantage of Special Attack stat instead of Attack stat.
 
-Haunter now evolves into Gengar at level 40. (This was done for testing purposes and kept as is)
+-Haunter now evolves into Gengar at level 40. (This was done for testing purposes and kept as is)
 
-Moon ball and Fast ball work as intended now.
+-Moon ball and Fast ball work as intended now.
 
-Status ailments increase a pokemon's catch rate as they should.
+-Status ailments increase a pokemon's catch rate as they should.
