@@ -102,17 +102,15 @@ RockItemEncounter:
 	ret
 	
 .RockItems:
-	db 1, METAL_COAT
-	db 2, THICK_CLUB
-	db 4, NUGGET
-	db 4, STAR_PIECE
-	db 4, BIG_PEARL
+	db 5, NUGGET
+	db 5, STAR_PIECE
+	db 5, BIG_PEARL
 	db 10, BRICK_PIECE
 	db 10, PEARL
+	db 20, DOME_FOSSIL
+	db 20, HELIX_FOSSIL
+	db 20, OLD_AMBER
 	db 25, HARD_STONE
 	db 25, SOFT_SAND
-	db 30, DOME_FOSSIL
-	db 30, HELIX_FOSSIL
-	db 30, OLD_AMBER
 	db -1
 	

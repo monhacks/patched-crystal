@@ -17,6 +17,25 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.10c~~
+
+-Removed Scope Lens and Twisted Spoon as Pokemart goods
+
+-Removed Metal Coat and Thick Club as possible treasure from smashing rocks
+
+-Adjusted the chances of treasure you might get from smashing rocks
+
+-Scope Lens, Twisted Spoon, Lucky Punch and Light Ball are now available
+as possible rewards after clearing the Battle Tower (Full list of rewards included in FAQ.txt)
+
+-Fixed some incorrect text regarding Battle Tower rewards
+
+-Blue Sky, Mirage, Eon, Morph and Music mail are now available
+to purchase with Blue Card points
+
+-The top of the Gym Leader's heads is now longer cut out on the trainer card
+
+
 ~~3.10b~~
 
 -Actually fixed a bug where sometimes the shiny version of a caught pokemon would be shown instead of the default one

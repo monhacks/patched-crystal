@@ -134,7 +134,7 @@ Script_WalkToBattleTowerElevator:
 Script_GivePlayerHisPrize:
     setval BATTLETOWERACTION_1C
     special BattleTowerAction
-    random 18 ; any number really
+    random 20 ; any number really
     ifequal 0, MasterBall
     ifequal 1, Revive
     ifequal 2, MaxPotion
@@ -150,10 +150,12 @@ Script_GivePlayerHisPrize:
 	ifequal 12, DireHit
 	ifequal 13, GuardSpec
 	ifequal 14, BerserkGene
-	ifequal 15, NormalBox
-	ifequal 16, GorgeousBox
-	ifequal 17, GoldLeaf
-	ifequal 18, SilverLeaf
+	ifequal 15, ScopeLens
+	ifequal 16, LuckyPunch
+	ifequal 17, LightBall
+	ifequal 18, TwistedSpoon
+	ifequal 19, NormalBox
+	ifequal 20, GorgeousBox
 	end
 	
 MasterBall:
@@ -293,7 +295,7 @@ DireHit:
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, DIRE_HIT
     giveitem DIRE_HIT, 5
-    writetext Text_PlayerGotOne
+    writetext Text_PlayerGotFive
     setval BATTLETOWERACTION_1D
     special BattleTowerAction
     closetext
@@ -304,7 +306,7 @@ GuardSpec:
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, GUARD_SPEC
     giveitem GUARD_SPEC, 5
-    writetext Text_PlayerGotOne
+    writetext Text_PlayerGotFive
     setval BATTLETOWERACTION_1D
     special BattleTowerAction
     closetext
@@ -315,11 +317,55 @@ BerserkGene:
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, BERSERK_GENE
     giveitem BERSERK_GENE, 1
-    writetext Text_PlayerGotFive
+    writetext Text_PlayerGotOne
     setval BATTLETOWERACTION_1D
     special BattleTowerAction
     closetext
     end
+	
+ScopeLens:
+	checkitem SCOPE_LENS, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, SCOPE_LENS
+    giveitem SCOPE_LENS, 1
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+LuckyPunch:
+	checkitem LUCKY_PUNCH, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, LUCKY_PUNCH
+    giveitem LUCKY_PUNCH, 1
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+LightBall:
+	checkitem LIGHT_BALL, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, LIGHT_BALL
+    giveitem LIGHT_BALL, 1
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end
+	
+TwistedSpoon:
+	checkitem TWISTEDSPOON, 99
+	iftrue Script_YourPackIsStuffedFull
+    getitemname STRING_BUFFER_3, TWISTEDSPOON
+    giveitem TWISTEDSPOON, 1
+    writetext Text_PlayerGotOne
+    setval BATTLETOWERACTION_1D
+    special BattleTowerAction
+    closetext
+    end	
 	
 NormalBox:
     checkitem NORMAL_BOX, 99
@@ -337,28 +383,6 @@ GorgeousBox:
 	iftrue Script_YourPackIsStuffedFull
     getitemname STRING_BUFFER_3, GORGEOUS_BOX
     giveitem GORGEOUS_BOX, 1
-    writetext Text_PlayerGotOne
-    setval BATTLETOWERACTION_1D
-    special BattleTowerAction
-    closetext
-    end
-	
-GoldLeaf:
-	checkitem GOLD_LEAF, 99
-	iftrue Script_YourPackIsStuffedFull
-    getitemname STRING_BUFFER_3, GOLD_LEAF
-    giveitem GOLD_LEAF, 5
-    writetext Text_PlayerGotOne
-    setval BATTLETOWERACTION_1D
-    special BattleTowerAction
-    closetext
-    end
-	
-SilverLeaf:
-	checkitem SILVER_LEAF, 99
-	iftrue Script_YourPackIsStuffedFull
-    getitemname STRING_BUFFER_3, SILVER_LEAF
-    giveitem SILVER_LEAF, 5
     writetext Text_PlayerGotOne
     setval BATTLETOWERACTION_1D
     special BattleTowerAction

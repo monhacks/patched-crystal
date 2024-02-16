@@ -107,6 +107,30 @@ Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during Li
 should be between two (2) Patched Crystal games not one (1) Patched Crystal game and any Gen 2 vanilla game as there will
 be desynchronization due to these changes.
 
+-Got the full list of Battle Tower rewards?
+
+MasterBall x1
+Revive x5
+Max Potion x5
+Full Restore x5
+Hp Up x5
+Protein x5
+Iron x5
+Carbos x5
+Calcium x5
+Rare Candy x5 
+Full Heal x5
+PP Up x5
+Dire Hit x5
+Guard Spec. x5
+Berserk Gene x1
+Scope Lens x1
+Lucky Punch x1
+Light Ball x1
+Twisted Spoon x1
+Normal Box x1
+Gorgeous Box x1
+
 -What else you got in store for us?
 
 Right now, i consider this romhack "complete" The initial goal of this project was to create "my dream version of Crystal" and it
