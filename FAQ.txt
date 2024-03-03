@@ -46,6 +46,8 @@ Kurt will now immediately make balls so you dont need to wait an entire day for 
 
 The Lucky Number Show now occurs daily instead of weekly.
 
+The Trainer House battle no longer has a daily limit
+
 You can challenge all Gym Leaders to a rematch as many times as you want after unlocking MT. Silver.
 Both Gym Leaders and the Elite Four now have stronger teams for rematches much like the remakes after
 unlocking MT. Silver.

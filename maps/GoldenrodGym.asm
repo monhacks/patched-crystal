@@ -289,8 +289,8 @@ WhitneyRematchAskText:
 	line "What brings you"
 	cont "here?"
 	
-	para "Want a rematch"
-	line "of my cute #MON?"
+	para "Want a rematch of"
+	line "my cute #MON?"
 	done
 	
 Whitney_RematchDefeat:

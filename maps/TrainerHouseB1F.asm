@@ -14,8 +14,8 @@ TrainerHouseB1F_MapScripts:
 TrainerHouseReceptionistScript:
 	turnobject PLAYER, UP
 	opentext
-	checkflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
-	iftrue .FoughtTooManyTimes
+	;checkflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
+	;iftrue .FoughtTooManyTimes
 	writetext TrainerHouseB1FIntroText
 	promptbutton
 	special TrainerHouse
@@ -31,7 +31,7 @@ TrainerHouseReceptionistScript:
 	writetext TrainerHouseB1FAskWantToBattleText
 	yesorno
 	iffalse .Declined
-	setflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
+	;setflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	writetext TrainerHouseB1FGoRightInText
 	waitbutton
 	closetext
@@ -114,8 +114,8 @@ TrainerHouseB1FIntroText:
 	line "TRAINING HALL."
 
 	para "You may battle a"
-	line "trainer once per"
-	cont "day."
+	line "trainer to hone"
+	cont "your skills."
 	done
 
 TrainerHouseB1FYourOpponentIsText:

@@ -17,6 +17,20 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.10d~~
+
+-Reverted the change that allowed for more phone contacts saved on the Pokegear
+to restore general compatibility (E.G. Stadium 2)
+This change makes current saves incompatible, however, saves from version 3.9a
+will work so use these if you got them backed up. Apologies for the inconvinience
+
+-Fixed a bug with scrolling through the Saffron City Mart item list would crash the game
+
+-Fixed a text wrap issue in Whitney's Rematch dialog
+
+-The Trainer House battle no longer has a daily limit
+
+
 ~~3.10c~~
 
 -Removed Scope Lens and Twisted Spoon as Pokemart goods
