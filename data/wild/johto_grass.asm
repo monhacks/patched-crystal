@@ -72,18 +72,18 @@ JohtoGrassWildMons:
 	db 20, RATTATA
 	db 21, RATTATA
 	db 22, RATTATA
-	db 22, NATU ;RATTATA
-	db 23, NATU ;RATTATA
-	db 24, NATU ;RATTATA
-	db 24, XATU ;RATTATA
+	db 22, RATTATA
+	db 23, RATTATA
+	db 24, RATTATA
+	db 24, RATTATA
 	; nite
 	db 20, GASTLY
 	db 21, GASTLY
 	db 22, MISDREAVUS ;GASTLY
-	db 22, RATTATA
+	db 22, MISDREAVUS ;RATTATA
 	db 23, RATTATA
 	db 24, RATTATA
-	db 24, XATU ;RATTATA
+	db 24, RATTATA
 	end_grass_wildmons
 
 	def_grass_wildmons TIN_TOWER_3F
@@ -352,9 +352,9 @@ JohtoGrassWildMons:
 	db 12, NIDORAN_F
 	db 12, NIDORAN_M
 	db 14, SUNKERN
-	db 13, SCYTHER ;PIDGEY
+	db 13, PIDGEY
 	db 10, CATERPIE
-	db 10, SCYTHER ;WEEDLE
+	db 10, WEEDLE
 	db 10, WEEDLE
 	; nite
 	db 12, PSYDUCK
@@ -577,7 +577,7 @@ JohtoGrassWildMons:
 	db 5, WEEDLE
 	db 7, METAPOD
 	db 7, KAKUNA
-	db 7, SCYTHER ;PIDGEY
+	db 7, PIDGEY
 	db 6, PARAS
 	db 6, PARAS
 	; nite
@@ -1019,7 +1019,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SQUIRTLE ;SEEL
+	db 26, SEEL
 	; day
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -1027,7 +1027,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, SEEL
-	db 26, SQUIRTLE ;SEEL
+	db 26, SEEL
 	; nite
 	db 24, KRABBY
 	db 25, ZUBAT
@@ -1035,7 +1035,7 @@ JohtoGrassWildMons:
 	db 26, KRABBY
 	db 27, GOLBAT
 	db 26, GOLBAT
-	db 26, SQUIRTLE ;GOLBAT
+	db 26, GOLBAT
 	end_grass_wildmons
 
 	def_grass_wildmons WHIRL_ISLAND_LUGIA_CHAMBER
@@ -1191,10 +1191,10 @@ JohtoGrassWildMons:
 	; day
 	db 3, GEODUDE
 	db 2, ZUBAT
-	db 2, TEDDIURSA ;GEODUDE
-	db 4, PHANPY ;GEODUDE
+	db 2, GEODUDE
+	db 4, GEODUDE
 	db 2, ZUBAT
-	db 4, PHANPY ;ZUBAT
+	db 4, ZUBAT
 	db 4, DUNSPARCE
 	; nite
 	db 3, GEODUDE

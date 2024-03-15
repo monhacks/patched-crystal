@@ -6,11 +6,8 @@ This is list of encounters that are added and/or adjusted and how certain pokemo
 Skarmory can now be found during the day at:
 Route 38
 
-Phanpy can now be found during the day at:
-Dark Cave (Violet City entrance)
-
 Smeargle can now be found during the day at:
-Sprout Tower 2F, 3F
+Sprout Tower 3F
 
 Mantine can now be found at:
 Cianwood, Olivine City (Surf)
@@ -32,15 +29,6 @@ Route 38
 
 Slugma can now be found on Johto during the day at:
 Burned Tower B1F 
-
-Natu can now be found during the day at:
-Tin Tower 2F
-
-Xatu can now be found rarely during the day or night at:
-Tin Tower 2F 
-
-Scyther can now be found during the day at:
-Ilex Forest, National Park
 
 
 ~~Missing Encounters~~
@@ -75,7 +63,7 @@ Charmander can be found only during the night at:
 Burned Tower B1F
 
 Squirtle can be found at all times at:
-Whirl Islands B2F
+Route 34 (Surf)
 
 Omanyte, Kabuto and Aerodactyl's fossils can be found by smashing rocks and revived
 at the Ruins of Alph Research Center.

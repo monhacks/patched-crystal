@@ -17,6 +17,21 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.11~~
+
+-Reverted the additional encounters of the following pokemon:
+(you can still find said pokemon, only the extra encounters included by me were removed)
+Scyther, Natu, Xatu, Teddiursa, Phanpy
+
+-Squirtle is now found only on Route 34 (Surf)
+
+-Link Cord now costs 8000 pokedollars
+
+-Fixed an incorrect NPC sprite outside the Battle Tower
+
+-Fixed an issue where the list of moves in the Move Reminder would
+incorrectly display Ghost type moves as Dark types and vice versa
+
 ~~3.10d~~
 
 -Reverted the change that allowed for more phone contacts saved on the Pokegear

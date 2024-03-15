@@ -344,7 +344,7 @@ ENDC
 	db "RCK@"
 	db "BRD@"
 	db "BUG@"
-	db "GHT@"
+	db "DRK@"
 	db "STL@"
 	db "NRM@"
 	db "NRM@"
@@ -363,7 +363,7 @@ ENDC
 	db "PSY@"
 	db "ICE@"
 	db "DRG@"
-	db "DRK@"
+	db "GHT@"
 	db "FAR@"
 
 .PrintMoveDesc
@@ -406,3 +406,4 @@ Text_MoveReminderNoMon:
 Text_MoveReminderNoMoves:
 	text_far _MoveReminderNoMoves
 	text_end
+	

@@ -153,7 +153,7 @@ JohtoWaterWildMons:
 	db 6 percent ; encounter rate
 	db 20, TENTACOOL
 	db 15, CORSOLA ;TENTACOOL
-	db 20, TENTACRUEL
+	db 10, SQUIRTLE ;TENTACRUEL
 	end_water_wildmons
 
 	def_water_wildmons ROUTE_35
@@ -180,7 +180,7 @@ JohtoWaterWildMons:
 	def_water_wildmons ROUTE_42
 	db 4 percent ; encounter rate
 	db 20, GOLDEEN
-	db 15, GOLDEEN
+	db 15, REMORAID ;GOLDEEN
 	db 20, SEAKING
 	end_water_wildmons
 
