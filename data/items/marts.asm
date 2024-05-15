@@ -320,12 +320,13 @@ MartCeladon2F2:
 	db -1 ; end
 
 MartCeladon3F:
-	db 5 ; # items
+	db 6 ; # items
 	db TM_HIDDEN_POWER
 	db TM_SUNNY_DAY
 	db TM_PROTECT
 	db TM_RAIN_DANCE
 	db TM_SANDSTORM
+	db TM_PSYCH_UP
 	db -1 ; end
 
 MartCeladon4F:
@@ -367,7 +368,7 @@ MartFuchsia:
 	db -1 ; end
 
 MartSaffron:
-	db 10 ; # items
+	db 9 ; # items
 	db GREAT_BALL
 	db ULTRA_BALL
 	db HYPER_POTION
@@ -376,7 +377,6 @@ MartSaffron:
 	db X_ATTACK
 	db X_DEFEND
 	db UP_GRADE
-	db TM_PSYCH_UP
 	db FLOWER_MAIL
 	db -1 ; end
 

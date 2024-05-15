@@ -10,9 +10,8 @@ today's standarts, the series setting and theming and personal preference.
 
 -Personal preference?!
 
-Dont be alarmed, this isnt a romhack full of fakemon and Original Characters
-that dont fit the game at all nor anything is removed. This is still the Pokemon Crystal you love
-but with neat additions and adjustments.
+Dont be alarmed, this isnt a romhack full of fakemon and Original Characters nor anything is removed.
+This is still the Pokemon Crystal you love but with some additions and adjustments.
 
 -So what's in it then?
 
@@ -26,13 +25,11 @@ You can obtain all 251 pokemon without the need to do trades with other people, 
 be found in the wild and certain evolution methods have been altered. (More info below)
 
 Time "works differently" now, meaning that the time when the sun rises and sets has been tweaked to
-logical ranges so that players can take advantage out of all 3 parts of the day in the game easier.
+logical ranges so that players can take advantage out of all three parts of the day in the game easier.
 
 TMs are now infinite use just like in later games.
 
 When picking up or receiving TMs as gifts the name of the move will also be shown.
-
-Pokemon acquire EXP when you capture a wild pokemon like in later games.
 
 The starter sprites that are being shown before picking one are now in color.
 
@@ -59,12 +56,16 @@ You can now see the shiny variant of a pokemon in the pokedex by pressing SELECT
 
 You can now choose one of many unique colors for your Pokedex UI in its SELECT menu.
 
-All 251 pokemon now have uniquely colored sprites in menus, while using FLY and the day care, shiny
-variants and shiny egg included.
+All 251 pokemon now have uniquely colored sprites in menus and the overworld.
+Shiny variants and shiny egg included.
 
-You are allowed to release EGGs via the PC.
+You are able to release EGGs via the PC.
 
-Both the Battle Tower and Buena's Password feature additional new rewards.
+Both the Battle Tower and Buena's Password feature additional, new rewards.
+
+Carrie, the girl that enables Mystery Gift at the Goldenrod Department Store will offer
+to Mystery Gift with you once per day. The item range is exactly the same as the real
+Mystery Gift along with the ever rare Mirage and Bluesky mail (decorations are excluded at the moment)
 
 Smashing rocks now has a chance to give you certain items, including fossils. (More info below)
 
@@ -72,7 +73,7 @@ Easily change the time by pressing DOWN + B on the title screen.
 
 Weather conditions in battle are now shown if active via an appropriate icon in the move selection window.
 
-Daytime/Nightime status is also shown in the main battle window.
+Daytime/Nightime status is also shown with an icon in the main battle window.
 
 Ghost type attacks are now taking advantage of Special Attack instead of Attack and Dark type attacks take
 advantage of Attack instead of Special Attack.
@@ -96,7 +97,7 @@ The Kanto legendaries have been placed onto the overworld much like in later gam
 -What about fossil pokemon?
 
 By smashing rocks there's a chance you'll get one of three (3) Kanto fossils. You can revive them the same way you did
-in Gen 1 except the corresponding NPC is in the Ruins of Alph Research Center.
+in Gen 1 at the corresponding NPC which is in the Ruins of Alph Research Center.
 
 -You said altered evolutions, what about that?
 
@@ -105,7 +106,7 @@ More info on the new encounters and ways to evolve pokemon can be found in the "
 
 -Can you Trade/Battle in this?
 
-Absolutely, in fact i've implemented fixes for bugs/mishaps that occur during Link Battles however Link Battles
+Yes but also no. Trading works 100% and i've implemented fixes for bugs/mishaps that occur during Link Battles however Link Battles
 should be between two (2) Patched Crystal games not one (1) Patched Crystal game and any Gen 2 vanilla game as there will
 be desynchronization due to these changes.
 

@@ -56,6 +56,7 @@ StdScripts::
 	add_stdscript PCScript
 	add_stdscript GameCornerCoinVendorScript
 	add_stdscript HappinessCheckScript
+	add_stdscript MysteryGiftGirl
 
 PokecenterNurseScript:
 ; EVENT_WELCOMED_TO_POKECOM_CENTER is never set
@@ -1888,6 +1889,11 @@ HappinessCheckScript:
 	farwritetext HappinessText1
 	waitbutton
 	closetext
+	end
+	
+MysteryGiftGirl:
+	callasm MysteryGiftNPC
+	verbosegiveitem ITEM_FROM_MEM
 	end
 
 Movement_ContestResults_WalkAfterWarp:

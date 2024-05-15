@@ -106,16 +106,62 @@ Carrie:
 	opentext
 	special GameboyCheck
 	ifnotequal GBCHECK_CGB, .NotGBC ; This is a dummy check from Gold/Silver
+	special UnlockMysteryGift
+	checkflag ENGINE_DAILY_MYSTERY_GIFT
+	iftrue .NoGift
 	writetext GoldenrodDeptStore5FCarrieMysteryGiftExplanationText
+	yesorno
+	iftrue .AskSave
+	jump .Decline
 	waitbutton
 	closetext
-	special UnlockMysteryGift
 	end
 
 .NotGBC:
 	writetext GoldenrodDeptStore5FCarrieMysteryGiftRequiresGBCText
 	waitbutton
 	closetext
+	end
+	
+.NoGift
+	writetext NoMysteryGiftText
+	waitbutton
+	closetext
+	end
+	
+.AskSave
+	checkflag ENGINE_DAILY_MYSTERY_GIFT
+	writetext MysteryGift_SaveGame
+	yesorno
+	iffalse .Decline
+	special TryQuickSave
+	iffalse .Decline
+	writetext MysteryGiftLinkUp
+	playsound SFX_MOVE_DELETED
+	waitsfx
+	scall FindMysteryGiftItem
+	iffalse .NoRoom
+	setflag ENGINE_DAILY_MYSTERY_GIFT
+	writetext MysteryGiftReceivedText
+	waitbutton
+	closetext
+	end
+	
+.NoRoom
+	writetext MysterGiftNoRoom
+	waitbutton
+	closetext
+	end
+	
+.Decline
+	clearflag ENGINE_DAILY_MYSTERY_GIFT
+	writetext DeclineMysteryGiftText
+	waitbutton
+	closetext
+	end
+
+FindMysteryGiftItem:
+	jumpstd MysteryGiftGirl
 	end
 
 GoldenrodDeptStore5FLassScript:
@@ -179,6 +225,9 @@ GoldenrodDeptStore5FCarrieMysteryGiftExplanationText:
 	para "With just a"
 	line "little beep, you"
 	cont "get a gift."
+	
+	para "Would you like to"
+	line "exchange gifts?"
 	done
 
 GoldenrodDeptStore5FCarrieMysteryGiftRequiresGBCText:
@@ -213,6 +262,41 @@ GoldenrodDeptStore5FDirectoryText:
 	line "#MON"
 
 	para "5F TM CORNER"
+	done
+	
+NoMysteryGiftText:
+	text "I'm sorry. I can't"
+	line "exchange gifts"
+	cont "with you today."
+	done
+	
+DeclineMysteryGiftText:
+	text "Come back if you"
+	line "ever change your"
+	cont "mind."
+	done
+	
+MysteryGift_SaveGame:
+	text "You need to save"
+	line "your game before"
+	cont "we begin."
+	done
+	
+MysteryGiftLinkUp:
+	text "Okay! Let's link"
+	line "up!"
+	done
+	
+MysterGiftNoRoom:
+	text "You have no room"
+	line "to receive a gift."
+	done
+
+MysteryGiftReceivedText:
+	text "Oh, we got"
+	line "some cool items!"
+	cont "Thank you."
+	
 	done
 
 GoldenrodDeptStore5F_MapEvents:

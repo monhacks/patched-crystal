@@ -17,6 +17,21 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.12~~
+
+Mystery Gift via NPC implementation. Carrie, the girl that enables Mystery Gift at the
+Goldenrod Department Store will also offer to Mystery Gift with you once per day.
+The item range is exactly the same as the real Mystery Gift along with
+the ever rare Mirage and Bluesky mail (decorations are excluded at the moment)
+
+Considering the above change, Buena's Password rewards have changed
+with the removal of the mail rewards. In addition, the MysteryBerry has been swappped
+with the MiracleBerry in the rewards list
+
+Wild encounter rates have been adjusted due to certain pokemon not appearing
+
+TM09 - Psych Up is now sold on the Celadon Deptartment Store (3F) instead of Saffron Mart
+
 ~~3.11~~
 
 -Reverted the additional encounters of the following pokemon:
