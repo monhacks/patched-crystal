@@ -1,6 +1,6 @@
 # Pokémon Patched Crystal
 
-This is a disassembly of Pokémon Patched crystal using pokecrystal as a base
+This is a disassembly of Pokémon Patched crystal using [**the pokecrystal repo**][pokecrystal] as a base
 
 Below you gonna find all the info you need:
 
@@ -10,15 +10,29 @@ Below you gonna find all the info you need:
 
 [**Encounters and Evolutions**](Encounters&Evolutions.txt)
 
-[**Want to try this out? You can get the rom, click here!**][release]
+[**Latest version**][release]
+
+[**Discord server of the project**][archive]
 
 To set up the repository, see [**INSTALL.md**](INSTALL.md).
 
-## Other cool things not by me
+Special thanks to:
 
-* Disassembly of [**Pokémon Red/Blue**][pokered]
-* irc: [**freenode#pret**][irc]
+Pret for the [**pokecrystal disassembly**][pokecrystal]
 
-[pokered]: https://github.com/iimarckus/pokered
-[Pret irc]: https://kiwiirc.com/client/irc.freenode.net/?#pret
+[**The Pret Discord**][pret] and its people for being very helpful
+
+[**Rangi**][Rangi] for providing useful tips during the humble begginings of this project
+
+[**ChickasaurusGL**][Chick] for getting back to me after throwing questions their way
+
+Βinary for playtesting the early builds
+
+and You, for playing, bug reporting, providing feedback and generally engaging with this project.
+
 [release]: https://github.com/UberMedic7/patched-crystal/releases
+[pokecrystal]: https://github.com/pret/pokecrystal
+[archive]: https://discord.com/invite/5Xu54kDeJS
+[pret]: https://discord.gg/d5dubZ3
+[Rangi]: https://github.com/Rangi42
+[Chick]: https://www.youtube.com/@ChickasaurusGL
