@@ -18,16 +18,16 @@ Route 34, Olivine City (Surf)
 Larvitar can now be found rarely during the day at:
 Route 42
 
-Misdreavus can now be found on Johto rarely during the night at:
+Misdreavus can now be found rarely during the night at:
 Sprout/Tin Tower, Route 31, 32
 
-Houndour can now be found on Johto rarely during the day and mostly during the night at:
+Houndour can now be found rarely during the day and mostly during the night at:
 Route 36, 37
 
-Murkrow can now be found on Johto during the night at:
+Murkrow can now be found during the night at:
 Route 38 
 
-Slugma can now be found on Johto during the day at:
+Slugma can now be found during the day at:
 Burned Tower B1F 
 
 
@@ -45,7 +45,8 @@ Route 32, 42, 43
 Girafarig can be found rarely during the morning and day at:
 Route 43 
 
-Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF besides swarms
+Remoraid and Octillery can mostly be found at bodies of water using both rods and SURF.
+Swarms still occur.
 
 Chikorita can be found only during morning at:
 Route 31 
@@ -86,7 +87,7 @@ Mewtwo can be found at:
 Silver Cave
 
 Mew is now found in the 4th secret Unown inscription chamber at the Ruins of Alph. To access this chamber
-you need to have Ho-Oh in your party. Eusine will also hint towards all this now.
+you need to have Ho-Oh in your party.
 
 
 ~~Evolutions~~

@@ -1,6 +1,6 @@
 Pokemon Patched Crystal
 
-This hack fixes the generation 2 bugs and adds certain tweaks but still retain the original gameplay and features.
+This romhack fixes the generation 2 bugs and adds certain tweaks and features but still retain the original gameplay and features.
 
 !!NOTICE!!
 
@@ -16,6 +16,19 @@ https://discord.com/invite/5Xu54kDeJS
 
 
 ~~~Retail~~~
+
+~~3.12a~~
+
+Pokedex entries and other references now use Meters and Kilograms replacing Feet and Pounds for measuring Height and Weight respectively
+(Thanks to: https://github.com/gthb-nax/naxcrystal/commit/1fd4e5decaa52b9aac9b966cdd699fd98f88509f )
+
+Battle Tower rewards have been slightly altered (List of rewards updated in FAQ.txt)
+
+Speak to the Programmer at Celadon Mansion after completing the Pokedex for a special reward
+
+Both Ghost and Dark type attacks are reverted to their original scaling behavior. The swapped scaling is now included in a seperate optional patch file
+
+The .cia package is ommited from this and any future release until a proper Link patch is created
 
 ~~3.12~~
 

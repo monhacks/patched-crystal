@@ -198,7 +198,7 @@ ClearWRAM::
 	pop af
 	inc a
 	cp 8
-	jr c, .bank_loop 
+	jr c, .bank_loop
 	ret
 
 ClearsScratch::

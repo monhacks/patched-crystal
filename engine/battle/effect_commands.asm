@@ -3795,7 +3795,7 @@ BattleCommand_Poison:
 	and $7f
 	jp z, .failed
 
-	;all CheckIfTargetIsPoisonType
+	;call CheckIfTargetIsPoisonType
 	ld a, POISON
 	call CheckIfTargetIsGivenType
 	jp z, .failed

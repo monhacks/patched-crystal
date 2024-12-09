@@ -62,6 +62,7 @@ SilverCaveRoom1HiddenUltraBall:
 MewtwoText:
 	text "Mew!"
 	done
+	
 SilverCaveRoom1_MapEvents:
 	db 0, 0 ; filler
 
@@ -76,7 +77,7 @@ SilverCaveRoom1_MapEvents:
 	bg_event 17, 12, BGEVENT_ITEM, SilverCaveRoom1HiddenUltraBall
 
 	def_object_events
-		object_event 8, 3, SPRITE_RHYDON, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Mewtwo, EVENT_SILVER_CAVE_ROOM_1_MEWTWOO
+	object_event 8, 3, SPRITE_RHYDON, SPRITEMOVEDATA_POKEMON, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, Mewtwo, EVENT_SILVER_CAVE_ROOM_1_MEWTWOO
 	object_event  4,  9, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, SilverCaveRoom1MaxElixer, EVENT_SILVER_CAVE_ROOM_1_MAX_ELIXER
 	object_event 15, 29, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, SilverCaveRoom1Protein, EVENT_SILVER_CAVE_ROOM_1_PROTEIN
 	object_event  5, 30, SPRITE_POKE_BALL, SPRITEMOVEDATA_STILL, 0, 0, -1, -1, 0, OBJECTTYPE_ITEMBALL, 0, SilverCaveRoom1EscapeRope, EVENT_SILVER_CAVE_ROOM_1_ESCAPE_ROPE

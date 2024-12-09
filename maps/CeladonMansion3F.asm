@@ -64,8 +64,29 @@ GameFreakGraphicArtistScript:
 	end
 
 GameFreakProgrammerScript:
+	checkevent EVENT_ENABLE_DIPLOMA_PRINTING
+	iftrue .PocketPC
 	jumptextfaceplayer GameFreakProgrammerText
-
+	end
+	
+.PocketPC:
+	checkevent EVENT_GOT_POCKET_PC
+	iftrue .GotPocketPC
+	faceplayer
+	opentext
+	writetext PortablePCText
+	promptbutton
+	verbosegiveitem POCKET_PC
+	writetext PortablePCText2
+	waitbutton
+	closetext
+	setevent EVENT_GOT_POCKET_PC
+	end
+	
+.GotPocketPC:
+	jumptextfaceplayer GameFreakProgrammerText
+	end
+	
 GameFreakCharacterDesignerScript:
 	jumptextfaceplayer GameFreakCharacterDesignerText
 
@@ -149,6 +170,30 @@ GameFreakProgrammerText:
 
 	para "Play the slot"
 	line "machines!"
+	done
+
+PortablePCText:
+	text "You completed the"
+	line "#DEX? I also"
+	
+	para "have a reward for"
+	line "you."
+	done
+	
+PortablePCText2:
+	text "This is my latest"
+	line "creation."
+	
+	para "With this device,"
+	line "you can access the"
+	cont "PC STORAGE SYSTEM"
+	
+	para "from anywhere!"
+	line "It's gonna come"
+	cont "in handy for a"
+	
+	para "#MON expert"
+	line "such as yourself."
 	done
 
 GameFreakCharacterDesignerText:

@@ -136,7 +136,7 @@ Script_GivePlayerHisPrize:
     special BattleTowerAction
     random 20 ; any number really
     ifequal 0, MasterBall
-    ifequal 1, Revive
+    ifequal 1, MaxRevive
     ifequal 2, MaxPotion
 	ifequal 3, FullRestore
 	ifequal 4, HpUp
@@ -145,7 +145,7 @@ Script_GivePlayerHisPrize:
 	ifequal 7, Carbos
 	ifequal 8, Calcium
 	ifequal 9, RareCandy
-	ifequal 10, FullHeal
+	ifequal 10, Nugget
 	ifequal 11, PP_Up
 	ifequal 12, DireHit
 	ifequal 13, GuardSpec
@@ -169,11 +169,11 @@ MasterBall:
     closetext
     end
 	
-Revive:
-	checkitem REVIVE, 99
+MaxRevive:
+	checkitem MAX_REVIVE, 99
 	iftrue Script_YourPackIsStuffedFull
-    getitemname STRING_BUFFER_3, REVIVE
-    giveitem REVIVE, 5
+    getitemname STRING_BUFFER_3, MAX_REVIVE
+    giveitem MAX_REVIVE, 5
     writetext Text_PlayerGotFive
     setval BATTLETOWERACTION_1D
     special BattleTowerAction
@@ -268,11 +268,11 @@ RareCandy:
     closetext
     end
 	
-FullHeal:
-    checkitem FULL_HEAL, 99
+Nugget:
+    checkitem NUGGET, 99
 	iftrue Script_YourPackIsStuffedFull
-    getitemname STRING_BUFFER_3, FULL_HEAL
-    giveitem FULL_HEAL, 5
+    getitemname STRING_BUFFER_3, NUGGET
+    giveitem NUGGET, 5
     writetext Text_PlayerGotFive
     setval BATTLETOWERACTION_1D
     special BattleTowerAction

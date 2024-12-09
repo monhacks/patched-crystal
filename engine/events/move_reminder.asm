@@ -344,7 +344,7 @@ ENDC
 	db "RCK@"
 	db "BRD@"
 	db "BUG@"
-	db "DRK@"
+	db "GHT@"
 	db "STL@"
 	db "NRM@"
 	db "NRM@"
@@ -363,7 +363,7 @@ ENDC
 	db "PSY@"
 	db "ICE@"
 	db "DRG@"
-	db "GHT@"
+	db "DRK@"
 	db "FAR@"
 
 .PrintMoveDesc

@@ -254,7 +254,7 @@ ChuckAfterText:
 
 	para "From now on, I'm"
 	line "going to train 24"
-	cont "hours a day!"						   
+	cont "hours a day!"
 	done
 
 ChuckRematchAskText:

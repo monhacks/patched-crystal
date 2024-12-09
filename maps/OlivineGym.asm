@@ -189,8 +189,9 @@ JasmineRematchAskText:
 	done
 
 Jasmine_RematchDefeat:
-	text "Im still not"
-	line "good enough…"
+	text "Your skills are"
+	line "still impressive"
+	cont "as ever…"
 	done
 	
 OlivineGymGuideText:

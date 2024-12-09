@@ -246,7 +246,7 @@ BugsyText_BugMonsAreDeep:
 	line "be explored."
 
 	para "Study your favor-"
-	line "ites thoroughly."			  			   
+	line "ites thoroughly."
 	done
 	
 BugsyRematchAskText:

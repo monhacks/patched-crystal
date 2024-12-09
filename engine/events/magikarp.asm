@@ -33,15 +33,15 @@ CheckMagikarpLength:
 	call PrintText
 
 	; Did we beat the record?
-	ld hl, wMagikarpLength
-	ld de, wBestMagikarpLengthFeet
+	ld hl, wMagikarpLengthMm
+	ld de, wBestMagikarpLengthMm
 	ld c, 2
 	call CompareBytes
 	jr nc, .not_long_enough
 
 	; NEW RECORD!!! Let's save that.
-	ld hl, wMagikarpLength
-	ld de, wBestMagikarpLengthFeet
+	ld hl, wMagikarpLengthMm
+	ld de, wBestMagikarpLengthMm
 	ld a, [hli]
 	ld [de], a
 	inc de
@@ -75,34 +75,25 @@ CheckMagikarpLength:
 	text_far _MagikarpGuruMeasureText
 	text_end
 
-Magikarp_LoadFeetInchesChars:
-	ld hl, vTiles2 tile "′" ; $6e
-	ld de, .feetinchchars
-	lb bc, BANK(.feetinchchars), 2
-	call Request2bpp
-	ret
-
-.feetinchchars
-INCBIN "gfx/font/feet_inches.2bpp"
-
 PrintMagikarpLength:
-	call Magikarp_LoadFeetInchesChars
 	ld hl, wStringBuffer1
-	ld de, wMagikarpLength
-	lb bc, PRINTNUM_LEFTALIGN | 1, 2
+	ld de, wMagikarpLengthMm
+	lb bc, PRINTNUM_LEFTALIGN | 2, 4
 	call PrintNum
-	ld [hl], "′"
+	dec hl
+	ld a, [hl]
+	ld [hl], "."
 	inc hl
-	ld de, wMagikarpLength + 1
-	lb bc, PRINTNUM_LEFTALIGN | 1, 2
-	call PrintNum
-	ld [hl], "″"
-	inc hl
+	ld [hli], a
+	ld a, "c"
+	ld [hli], a
+	ld a, "m"
+	ld [hli], a
 	ld [hl], "@"
 	ret
 
 CalcMagikarpLength:
-; Return Magikarp's length (in feet and inches) at wMagikarpLength (big endian).
+; Return Magikarp's length (in mm) at wMagikarpLength (big endian).
 ;
 ; input:
 ;   de: wEnemyMonDVs
@@ -240,38 +231,8 @@ CalcMagikarpLength:
 	ld e, l
 
 .done
-	; convert from mm to feet and inches
-	; in = mm / 25.4
-	; ft = in / 12
 
-	; hl = de × 10
-	ld h, d
-	ld l, e
-	add hl, hl
-	add hl, hl
-	add hl, de
-	add hl, hl
-
-	; hl = hl / 254
-	ld de, -254
-	ld a, -1
-.div_254
-	inc a
-	add hl, de
-	jr c, .div_254
-
-	; d, e = hl / 12, hl % 12
-	ld d, 0
-.mod_12
-	cp 12
-	jr c, .ok
-	sub 12
-	inc d
-	jr .mod_12
-.ok
-	ld e, a
-
-	ld hl, wMagikarpLength
+	ld hl, wMagikarpLengthMm
 	ld [hl], d ; ft
 	inc hl
 	ld [hl], e ; in
@@ -298,10 +259,10 @@ CalcMagikarpLength:
 INCLUDE "data/events/magikarp_lengths.asm"
 
 MagikarpHouseSign:
-	ld a, [wBestMagikarpLengthFeet]
-	ld [wMagikarpLength], a
-	ld a, [wBestMagikarpLengthInches]
-	ld [wMagikarpLength + 1], a
+	ld a, [wBestMagikarpLengthMmHi]
+	ld [wMagikarpLengthMmHi], a
+	ld a, [wBestMagikarpLengthMmLo]
+	ld [wMagikarpLengthMmLo], a
 	call PrintMagikarpLength
 	ld hl, .KarpGuruRecordText
 	call PrintText

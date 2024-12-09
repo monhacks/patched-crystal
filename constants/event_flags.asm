@@ -303,7 +303,7 @@
 	const EVENT_JOEY_ASKED_FOR_PHONE_NUMBER
 	const EVENT_GAVE_SCIENTIST_HELIX_FOSSIL ;const_skip ; unused in Crystal
 	const EVENT_WADE_ASKED_FOR_PHONE_NUMBER
-	const_skip ; unused in Crystal
+	const EVENT_GOT_POCKET_PC ; unused in Crystal
 	const EVENT_RALPH_ASKED_FOR_PHONE_NUMBER
 	const_skip ; unused in Crystal
 	const EVENT_LIZ_ASKED_FOR_PHONE_NUMBER
