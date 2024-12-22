@@ -25,6 +25,8 @@ Fixed a bug where options menu failed to clear joypad state on initialization
 
 You can now see the romhack version number in the new CREDITS option on the Main Menu
 
+If you somehow lose the Pocket PC item, speak with the Programmer at Celadon Mansion to get the item again
+
 ~~3.12a~~
 
 Pokedex entries and other references now use Meters and Kilograms replacing Feet and Pounds for measuring Height and Weight respectively

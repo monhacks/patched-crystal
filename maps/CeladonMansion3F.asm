@@ -71,7 +71,7 @@ GameFreakProgrammerScript:
 	
 .PocketPC:
 	checkevent EVENT_GOT_POCKET_PC
-	iftrue .GotPocketPC
+	iftrue .CheckPocketPC
 	faceplayer
 	opentext
 	writetext PortablePCText
@@ -83,7 +83,20 @@ GameFreakProgrammerScript:
 	setevent EVENT_GOT_POCKET_PC
 	end
 	
-.GotPocketPC:
+.CheckPocketPC:
+	checkitem POCKET_PC
+	iftrue .GotPocketPC
+	faceplayer
+	opentext
+	writetext PortablePCLostText
+	promptbutton
+	verbosegiveitem POCKET_PC
+	writetext PortablePCLostText2
+	waitbutton
+	closetext
+	end
+	
+.GotPocketPC
 	jumptextfaceplayer GameFreakProgrammerText
 	end
 	
@@ -194,6 +207,20 @@ PortablePCText2:
 	
 	para "#MON expert"
 	line "such as yourself."
+	done
+
+PortablePCLostText:
+	text "You say your"
+	line "POCKET PC is gone?"
+	
+	para "Alright, here's an"
+	line "extra."
+	done
+	
+PortablePCLostText2:
+	text "If something goes"
+	line "wrong again, let"
+	cont "me know."
 	done
 
 GameFreakCharacterDesignerText:
