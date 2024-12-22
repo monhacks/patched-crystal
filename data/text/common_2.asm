@@ -1573,3 +1573,29 @@ _OakText5::
 	para "That's why I study"
 	line "#MON every day."
 	prompt
+
+_AboutText1::
+	text "Pokemon Patched"
+	line "Crystal 3.12b"
+
+	para "For more detailed"
+	line "info about this"
+	cont "romhack, refer to"
+
+	para "the provided text"
+	line "files."
+	
+	para "All this was"
+	line "possible thanks"
+	cont "to: Pret, Rangi,"
+	
+	para "ChickasaurusGL,"
+	line "Pret Discord."
+	
+	para "Playtesting:"
+	line "Binary."
+	
+	para "Special Thanks:"
+	line "You!"
+	prompt
+	

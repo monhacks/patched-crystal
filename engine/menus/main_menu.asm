@@ -15,10 +15,11 @@
 	const MAINMENUITEM_CONTINUE       ; 0
 	const MAINMENUITEM_NEW_GAME       ; 1
 	const MAINMENUITEM_OPTION         ; 2
-	const MAINMENUITEM_MYSTERY_GIFT   ; 3
-	const MAINMENUITEM_MOBILE         ; 4
-	const MAINMENUITEM_MOBILE_STUDIUM ; 5
-	const MAINMENUITEM_DEBUG_ROOM     ; 6
+	const MAINMENUITEM_ABOUT          ; 3
+	const MAINMENUITEM_MYSTERY_GIFT   ; 4
+	const MAINMENUITEM_MOBILE         ; 5
+	const MAINMENUITEM_MOBILE_STUDIUM ; 6
+	const MAINMENUITEM_DEBUG_ROOM     ; 7
 
 MobileMenuGFX:
 INCBIN "gfx/mobile/mobile_menu.2bpp"
@@ -68,6 +69,7 @@ MainMenu:
 	db "CONTINUE@"
 	db "NEW GAME@"
 	db "OPTION@"
+	db "CREDITS@"
 	db "MYSTERY GIFT@"
 	db "MOBILE@"
 	db "MOBILE STUDIUM@"
@@ -80,6 +82,7 @@ endc
 	dw MainMenu_Continue
 	dw MainMenu_NewGame
 	dw MainMenu_Option
+	dw MainMenu_About
 	dw MainMenu_MysteryGift
 	dw MainMenu_Mobile
 	dw MainMenu_MobileStudium
@@ -91,16 +94,18 @@ MainMenuItems:
 ; entries correspond to MAINMENU_* constants
 
 	; MAINMENU_NEW_GAME
-	db 2
+	db 3
 	db MAINMENUITEM_NEW_GAME
 	db MAINMENUITEM_OPTION
+	db MAINMENUITEM_ABOUT
 	db -1
 
 	; MAINMENU_CONTINUE
-	db 3 + DEF(_DEBUG)
+	db 4 + DEF(_DEBUG)
 	db MAINMENUITEM_CONTINUE
 	db MAINMENUITEM_NEW_GAME
 	db MAINMENUITEM_OPTION
+	db MAINMENUITEM_ABOUT
 if DEF(_DEBUG)
 	db MAINMENUITEM_DEBUG_ROOM
 endc
@@ -155,11 +160,12 @@ endc
 	db -1
 
 	; MAINMENU_MYSTERY
-	db 4 + DEF(_DEBUG)
+	db 5 + DEF(_DEBUG)
 	db MAINMENUITEM_CONTINUE
 	db MAINMENUITEM_NEW_GAME
 	db MAINMENUITEM_OPTION
 	db MAINMENUITEM_MYSTERY_GIFT
+	db MAINMENUITEM_ABOUT
 if DEF(_DEBUG)
 	db MAINMENUITEM_DEBUG_ROOM
 endc
@@ -373,6 +379,10 @@ MainMenu_NewGame:
 
 MainMenu_Option:
 	farcall Option
+	ret
+	
+MainMenu_About:
+	farcall AboutSpeech
 	ret
 
 MainMenu_Continue:

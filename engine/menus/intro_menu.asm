@@ -1353,3 +1353,28 @@ GameInit::
 	ldh [hWY], a
 	call WaitBGMap
 	jp IntroSequence
+
+AboutSpeech:
+	call ClearTilemap ; prepare for sprite display
+    call RotateThreePalettesRight
+	ld a, GENGAR ; change this to show a different pokemon
+	ld [wCurSpecies], a
+	ld [wCurPartySpecies], a
+	call GetBaseData
+	hlcoord 6, 4
+	call PrepMonFrontpic
+	xor a
+	ld [wTempMonDVs], a
+	ld [wTempMonDVs + 1], a
+	ld b, SCGB_TRAINER_OR_MON_FRONTPIC_PALS
+	call GetSGBLayout
+	call Intro_WipeInFrontpic ; actually display the sprite
+
+    ; Display text
+	ld hl, AboutText1
+	call PrintText
+	ret
+
+AboutText1:
+	text_far _AboutText1
+	text_end

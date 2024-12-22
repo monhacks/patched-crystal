@@ -55,6 +55,8 @@ Shiny variants and shiny egg included.
 
 You are able to release EGGs via the PC.
 
+An extra text speed option "Instant" is added
+
 Both the Battle Tower and Buena's Password feature additional rewards.
 
 Carrie, the girl that enables Mystery Gift at the Goldenrod Department Store will offer
@@ -68,6 +70,8 @@ Easily change the Real Time Clock by pressing DOWN + B on the title screen.
 Weather conditions in battle are now shown if active via an appropriate icon in the move selection window.
 
 Daytime/Nightime status is also shown with an icon in the main battle window.
+
+A pocket PC is given to you as a reward from the programmer in the Celadon Mansion after completing the Pokedex.
 
 -You said i can capture all 251 pokemon, what about Celebi and the Kanto legendaries?
 

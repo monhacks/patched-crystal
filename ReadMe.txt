@@ -17,10 +17,20 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.12b~~
+
+Fixed a bug where if you refuse to get an EGG from the Day Care, no new EGG would generate
+
+Fixed a bug where options menu failed to clear joypad state on initialization
+
+You can now see the romhack version number in the new CREDITS option on the Main Menu
+
 ~~3.12a~~
 
 Pokedex entries and other references now use Meters and Kilograms replacing Feet and Pounds for measuring Height and Weight respectively
 (Thanks to: https://github.com/gthb-nax/naxcrystal/commit/1fd4e5decaa52b9aac9b966cdd699fd98f88509f )
+
+An extra text speed option "Instant" was added
 
 Battle Tower rewards have been slightly altered (List of rewards updated in FAQ.txt)
 
