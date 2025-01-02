@@ -17,11 +17,17 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.12c~~
+
+Fixed a bug where Belly Drum would cause the user to faint instead of halving their HP
+
+Changed the pokemon that appears on the CREDITS page
+
 ~~3.12b~~
 
 Fixed a bug where if you refuse to get an EGG from the Day Care, no new EGG would generate
 
-Fixed a bug where options menu failed to clear joypad state on initialization
+Fixed a bug where the options menu failed to clear joypad state on initialization
 
 You can now see the romhack version number in the new CREDITS option on the Main Menu
 

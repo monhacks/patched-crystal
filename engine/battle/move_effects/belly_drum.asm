@@ -5,7 +5,9 @@ BattleCommand_BellyDrum:
 	callfar CheckUserHasEnoughHP
 	jr nc, .failed
 
-call BattleCommand_AttackUp2
+	push bc
+	call BattleCommand_AttackUp2
+	pop bc
 	ld a, [wAttackMissed]
 	and a
 	jr nz, .failed

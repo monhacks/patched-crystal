@@ -1331,7 +1331,7 @@ CopyrightString:
 	next $80, $81, $82, $83, $84, $85, $86
 	db   $93, $94, $95, $96, $97, $98, $99, $9a, $9b, $9c
 	
-	; ©2017-2024 UberMedic7
+	; ©2017-2025 UberMedic7
 	next $80, $9d, $9e, $9f, $a0, $a1, $a2
 	db   $a3, $a4, $a5, $a6, $a7, $a8, $a9, $aa, $ab
 
@@ -1357,7 +1357,7 @@ GameInit::
 AboutSpeech:
 	call ClearTilemap ; prepare for sprite display
     call RotateThreePalettesRight
-	ld a, GENGAR ; change this to show a different pokemon
+	ld a, CELEBI ; change this to show a different pokemon
 	ld [wCurSpecies], a
 	ld [wCurPartySpecies], a
 	call GetBaseData
