@@ -303,7 +303,6 @@ CELEBIEVENT_FOREST_IS_RESTLESS_F EQU 2
 	const DAILYFLAGS2_INDIGO_PLATEAU_RIVAL_FIGHT_F        ; 5
 	const DAILYFLAGS2_MOVE_TUTOR_F                        ; 6
 	const DAILYFLAGS2_BUENAS_PASSWORD_F                   ; 7
-	const DAILYFLAGS2_DAILY_MYSTERY_GIFT_F		  ; 8
 
 ; wSwarmFlags::
 	const_def

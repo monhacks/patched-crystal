@@ -1,5 +1,8 @@
 TimeOfDayImages::
 
+MornTimeImage:
+INCBIN "gfx/battle/timeofday/morn_icon.2bpp"
+
 DayTimeImage:
 INCBIN "gfx/battle/timeofday/day_icon.2bpp"
 

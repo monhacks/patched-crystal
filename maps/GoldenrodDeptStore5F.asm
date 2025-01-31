@@ -107,7 +107,7 @@ Carrie:
 	special GameboyCheck
 	ifnotequal GBCHECK_CGB, .NotGBC ; This is a dummy check from Gold/Silver
 	special UnlockMysteryGift
-	checkflag ENGINE_DAILY_MYSTERY_GIFT
+	checkflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	iftrue .NoGift
 	writetext GoldenrodDeptStore5FCarrieMysteryGiftExplanationText
 	yesorno
@@ -130,7 +130,7 @@ Carrie:
 	end
 	
 .AskSave
-	checkflag ENGINE_DAILY_MYSTERY_GIFT
+	checkflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	writetext MysteryGift_SaveGame
 	yesorno
 	iffalse .Decline
@@ -141,7 +141,7 @@ Carrie:
 	waitsfx
 	scall FindMysteryGiftItem
 	iffalse .NoRoom
-	setflag ENGINE_DAILY_MYSTERY_GIFT
+	setflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	writetext MysteryGiftReceivedText
 	waitbutton
 	closetext
@@ -154,7 +154,7 @@ Carrie:
 	end
 	
 .Decline
-	clearflag ENGINE_DAILY_MYSTERY_GIFT
+	clearflag ENGINE_FOUGHT_IN_TRAINER_HALL_TODAY
 	writetext DeclineMysteryGiftText
 	waitbutton
 	closetext

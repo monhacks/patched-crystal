@@ -9254,11 +9254,16 @@ BattleStartMessage:
 GetTimeOfDayImage:
 	ld a, [wTimeOfDay]
 	cp MORN_F
-	jr z, .DayImage
+	jr z, .MornImage
 	cp DAY_F
 	jr z, .DayImage
 	cp NITE_F
 	jr z, .NightImage
+.MornImage
+ ld de, MornTimeImage
+ lb bc, PAL_BATTLE_OB_YELLOW, 4
+ jr .done	
+ 
 .DayImage
  ld de, DayTimeImage
  lb bc, PAL_BATTLE_OB_YELLOW, 4

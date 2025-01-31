@@ -17,6 +17,20 @@ https://discord.com/invite/5Xu54kDeJS
 
 ~~~Retail~~~
 
+~~3.13~~
+
+The move tutor in Goldenrod City now also appears every Monday
+
+After encountering the legendary beasts at the Burnt Tower, Entei and Raikou are registered as SEEN on the Pokedex
+
+Fixed a bug where getting a Mystery Gift from Carrie would lock you out of your daily entry in Buena's Password and vice versa
+
+The morning time of day uses its own icon for being indicated on the battle menu
+
+The levels of teams regular trainers use in rematches after you complete the Power Plant quest now match the highest possible based on the remakes
+
+The Ghost/Dark type scaling swap patch has been ommited from this release
+
 ~~3.12c~~
 
 Fixed a bug where Belly Drum would cause the user to faint instead of halving their HP
